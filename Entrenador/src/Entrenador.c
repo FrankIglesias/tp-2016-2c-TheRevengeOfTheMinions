@@ -14,8 +14,6 @@ struct config_t {
 	t_list * hojaDeViaje;
 	int vidas;
 	int reintentos;
-	int posicionMaximaX;
-	int posicionMaximaY;
 } config;
 t_config* configuracion;
 typedef struct nodoMapa_t {
@@ -29,7 +27,6 @@ typedef struct hojaDeViaje_t {
 	int puerto;
 	bool finalizado;
 } t_hojaDeViaje;
-t_list * hojaDeViaje;
 pthread_mutex_t mutex_hojaDeViaje;
 pthread_mutex_t vidasSem;
 posicionMapa posicionDeLaPokeNest;
@@ -37,24 +34,20 @@ posicionMapa posicionActual;
 t_log * log;
 
 bool movimientoVertical = true; /*
-Mari :para que esto
-Fran: para que altere movimientos verticales y horizontales mi vida*/
+ Mari :para que esto
+ Fran: para que altere movimientos verticales y horizontales mi vida*/
 instruccion_t moverPosicion(void) {
 	if (posicionActual.posicionx == posicionDeLaPokeNest.posicionx
 			&& posicionActual.posiciony == posicionDeLaPokeNest.posiciony) {
 		return ATRAPAR;
-	} else if (posicionActual.posicionx == config.posicionMaximaX
-			|| posicionActual.posicionx == 0
-			|| posicionDeLaPokeNest.posicionx == posicionActual.posicionx) {
+	} else if (posicionDeLaPokeNest.posicionx == posicionActual.posicionx) {
 		if (posicionDeLaPokeNest.posiciony > posicionActual.posiciony)
 			//posicionActual.posiciony++;
 			return MOVE_UP;
 		else
 			//posicionActual.posiciony--;
 			return MOVE_DOWN;
-	} else if (posicionActual.posiciony == config.posicionMaximaY
-			|| posicionActual.posiciony == 0
-			|| posicionDeLaPokeNest.posiciony == posicionActual.posiciony) {
+	} else if (posicionDeLaPokeNest.posiciony == posicionActual.posiciony) {
 		if (posicionDeLaPokeNest.posicionx > posicionActual.posicionx)
 			//posicionActual.posicionx++;
 			return MOVE_RIGHT;
@@ -84,15 +77,11 @@ instruccion_t moverPosicion(void) {
 }
 
 void subirVida(void) {
-	pthread_mutex_lock(&vidasSem);
 	config.vidas++;
-	pthread_mutex_unlock(&vidasSem);
 }
 void restarVida(void) {
-	pthread_mutex_lock(&vidasSem);
 	config.vidas--;
 	// TODO QUE PASA CUANDO PIERDE UNA VIDA
-	pthread_mutex_unlock(&vidasSem);
 
 }
 int verificarConfiguracion(t_config *configuracion) {
@@ -215,59 +204,75 @@ void jugar(void) {
 	int cantidadDeObjetivos = list_size(config.hojaDeViaje);
 	int i, j;
 	for (i = 0; i < cantidadDeObjetivos; i++) {
-		objetivo * primerMapa = (objetivo *) list_get(config.hojaDeViaje, i);
-		for (i = 0; i < cantidadDeObjetivos; i++) {
-			objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
-			char * rutaDelMetadataDelMapa = string_from_format(
-					"/home/utnso/TP/Mapas/%s/metadata.txt",
-					unObjetivo->nombreDelMapa);
-			t_config * configAux = config_create(rutaDelMetadataDelMapa);
-			char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
-			char * puertoMapa = strdup(
-					config_get_string_value(configAux, "puerto"));
-			config_destroy(configAux);
-			int socketCliente = crearSocketCliente(ipMapa, puertoMapa);
-			free(ipMapa);
-			free(puertoMapa);
-			mensajeAEnviar.protocolo = HANDSHAKE;
-			mensajeAEnviar.id = config.simbolo[0];
+		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
+		char * rutaDelMetadataDelMapa = string_from_format(
+				"/home/utnso/TP/Mapas/%s/metadata.txt",
+				unObjetivo->nombreDelMapa);
+		t_config * configAux = config_create(rutaDelMetadataDelMapa);
+		char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
+		char * puertoMapa = strdup(
+				config_get_string_value(configAux, "puerto"));
+		config_destroy(configAux);
+		int socketCliente = crearSocketCliente(ipMapa, puertoMapa);
+		free(ipMapa);
+		free(puertoMapa);
+		mensajeAEnviar.protocolo = HANDSHAKE;
+		mensajeAEnviar.id = config.simbolo[0];
+		posicionActual.posicionx = 1;
+		posicionActual.posiciony = 1;
+		// ENVIAR MENSAJE TODO
+		mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
+				socketCliente);
+		free(mensajeARecibir);
+		int cantidadDePokemones = contarPokemones(unObjetivo->pokemones);
+		for (j = 0; j < cantidadDePokemones; j++) {
+			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
+			mensajeAEnviar.id = unObjetivo->pokemones[j][0];
 			// ENVIAR MENSAJE TODO
 			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 					socketCliente);
-			config.posicionMaximaX = mensajeARecibir->posicion.posicionx;
-			config.posicionMaximaY = mensajeARecibir->posicion.posiciony;
+			posicionDeLaPokeNest.posicionx =
+					mensajeARecibir->posicion.posicionx;
+			posicionDeLaPokeNest.posiciony =
+					mensajeARecibir->posicion.posiciony;
 			free(mensajeARecibir);
-			int cantidadDePokemones = contarPokemones(primerMapa->pokemones);
-			for (j = 0; j < cantidadDePokemones; j++) {
-				mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-				mensajeAEnviar.id = primerMapa->pokemones[j];
+			bool pokemonNoAtrapado = true;
+			while (pokemonNoAtrapado) {
+				mensajeAEnviar.protocolo = moverPosicion();
 				// ENVIAR MENSAJE TODO
+
 				mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 						socketCliente);
-				posicionDeLaPokeNest.posicionx =
-						mensajeARecibir->posicion.posicionx;
-				posicionDeLaPokeNest.posiciony =
-						mensajeARecibir->posicion.posiciony;
-				free(mensajeARecibir);
-				bool pokemonNoAtrapado = true;
-				while (pokemonNoAtrapado) {
-					mensajeAEnviar.protocolo = moverPosicion();
-					// ENVIAR MENSAJE TODO
-					mensajeARecibir =
-							(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
-									socketCliente);
-					if (mensajeAEnviar.protocolo == ATRAPAR) {
-						pokemonNoAtrapado = false;
+				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
+									pokemonNoAtrapado = false;
+								}
+				if (mensajeARecibir->protocolo == OK) {
+					switch (mensajeAEnviar.protocolo) {
+					case MOVE_DOWN:
+						posicionActual.posiciony--;
+						break;
+					case MOVE_UP:
+						posicionActual.posiciony++;
+						break;
+					case MOVE_LEFT:
+						posicionActual.posicionx--;
+						break;
+					case MOVE_RIGHT:
+						posicionActual.posicionx++;
+						break;
+					default:
+						log_trace(log, "La estamos pifiando");
+						break;
 					}
-					free(mensajeARecibir);
 				}
+				free(mensajeARecibir);
 			}
-
 		}
 
 	}
 
 }
+
 int main(int argc, char * argv[]) {
 	iniciarDatos();
 	cargarConfiguracion(configuracion);
