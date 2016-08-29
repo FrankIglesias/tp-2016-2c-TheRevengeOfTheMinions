@@ -36,7 +36,9 @@ posicionMapa posicionDeLaPokeNest;
 posicionMapa posicionActual;
 t_log * log;
 
-bool movimientoVertical = true; // para que esto?
+bool movimientoVertical = true; /*
+Mari :para que esto
+Fran: para que altere movimientos verticales y horizontales mi vida*/
 instruccion_t moverPosicion(void) {
 	if (posicionActual.posicionx == posicionDeLaPokeNest.posicionx
 			&& posicionActual.posiciony == posicionDeLaPokeNest.posiciony) {
