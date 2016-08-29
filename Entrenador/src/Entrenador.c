@@ -3,10 +3,11 @@
 #include <signal.h>
 #include <log.h>
 #include <sw_sockets.c>
+#include <collections/list.h>
 
 typedef struct objetivo_t {
 	char * nombreDelMapa;
-	char ** pokemones;
+	t_list* pokemones;
 } objetivo;
 struct config_t {
 	char * nombreDelEntrenador;
@@ -20,6 +21,10 @@ typedef struct nodoMapa_t {
 	objetivo* objetivo;
 
 } nodoMapa;
+typedef struct nodoPokemon_t
+{
+	char* nombreDelPokemon;
+}nodoPokemon;
 typedef struct hojaDeViaje_t {
 	char * nombre;
 	t_list * listaDePokemones;
@@ -127,27 +132,36 @@ void cargarConfiguracion(t_config* configuracion) {
 				config_get_string_value(configuracion, "simbolo"));
 		config.vidas = config_get_int_value(configuracion, "vidas");
 		config.reintentos = config_get_int_value(configuracion, "reintentos");
+
 		int i = 0;
 		while (&(*config_get_array_value(configuracion, "hojaDeViaje")[i])
 				!= NULL) {
-			objetivo* mapa = malloc(sizeof(objetivo));
-			mapa->nombreDelMapa = config_get_array_value(configuracion,
+			nodoMapa* unMapa = malloc(sizeof(nodoMapa));
+			objetivo* objetivoMapa = malloc(sizeof(objetivo));
+			unMapa->objetivo = objetivoMapa;
+			objetivoMapa->pokemones = list_create();
+			objetivoMapa->nombreDelMapa = config_get_array_value(configuracion,
 					"hojaDeViaje")[i];
-			char* nombre = malloc(sizeof(mapa->nombreDelMapa));
-			nombre = mapa->nombreDelMapa;
+			char* nombre = malloc(sizeof(objetivoMapa->nombreDelMapa));
+			nombre = objetivoMapa->nombreDelMapa;
 			char* pokemones = string_from_format("obj[%s]", nombre);
-			if (&(*config_get_array_value(configuracion, pokemones)) != NULL) {
-				mapa->pokemones = malloc(sizeof(mapa->pokemones));
-				mapa->pokemones = config_get_array_value(configuracion,
-						pokemones);
-				nodoMapa * nuevoNodo = malloc(sizeof(nodoMapa));
-				nuevoNodo->objetivo = malloc(sizeof(objetivo));
-				nuevoNodo->objetivo = mapa;
+			int j=0;
+			//while(&(*config_get_array_value(configuracion, pokemones))[j] != NULL) {
+
+				nodoPokemon* unPokemon = malloc(sizeof(nodoPokemon));
+				unPokemon->nombreDelPokemon = config_get_array_value(configuracion,
+						pokemones)[j];
 				pthread_mutex_lock(&mutex_hojaDeViaje);
-				list_add(config.hojaDeViaje, (void*) nuevoNodo);
+				list_add(objetivoMapa->pokemones, (void*) unPokemon);
 				pthread_mutex_unlock(&mutex_hojaDeViaje);
 
-			}
+
+				j++;
+
+			//}
+			int tamanio = list_size(objetivoMapa->pokemones);
+			printf("%d\n", tamanio);
+			list_add(config.hojaDeViaje, (void*) unMapa);
 			i++;
 		}
 
@@ -161,10 +175,10 @@ void cargarConfiguracion(t_config* configuracion) {
 			for (i = 0; i < list_size(lista); i++) {
 				nodoMapa* mapa = (objetivo*) list_get(lista, i);
 				printf("Mapa: %s\n", mapa->objetivo->nombreDelMapa);
-				int j = 0;
-				while (mapa->objetivo->pokemones[j] != NULL) {
-					printf("Pokemon: %s\n", mapa->objetivo->pokemones[j]);
-					j++;
+				int j;
+				for(j=0;j<list_size(mapa->objetivo->pokemones); j++) {
+				nodoPokemon* pokemones = (nodoPokemon*) list_get(mapa->objetivo->pokemones, j);
+				printf("Pokemon: %s\n", pokemones->nombreDelPokemon);
 				}
 
 			}
@@ -189,15 +203,15 @@ void iniciarDatos() {
 	pthread_mutex_init(&mutex_hojaDeViaje, NULL);
 	log = log_create("Log", "Nucleo", 1, 0);
 	configuracion = config_create(
-			"/home/utnso/git/TP/Entrenadores/Ash/metadata.txt");
+			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/Ash/metadata.txt");
 }
-int contarPokemones(char ** pokemones) {
+/*int contarPokemones(char ** pokemones) {
 	int i = 0;
 	while (pokemones != NULL) {
 		i++;
 	}
 	return i;
-}
+}*/
 void jugar(void) {
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
 	mensaje_MAPA_ENTRENADOR * mensajeARecibir;
@@ -224,10 +238,10 @@ void jugar(void) {
 		mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 				socketCliente);
 		free(mensajeARecibir);
-		int cantidadDePokemones = contarPokemones(unObjetivo->pokemones);
-		for (j = 0; j < cantidadDePokemones; j++) {
+		//int cantidadDePokemones = contarPokemones(unObjetivo->pokemones);
+		for (j = 0; j < list_size(unObjetivo->pokemones); j++) {
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-			mensajeAEnviar.id = unObjetivo->pokemones[j][0];
+			//mensajeAEnviar.id = unObjetivo->pokemones[j][0];
 			// ENVIAR MENSAJE TODO
 			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 					socketCliente);
@@ -276,9 +290,9 @@ void jugar(void) {
 int main(int argc, char * argv[]) {
 	iniciarDatos();
 	cargarConfiguracion(configuracion);
-	signal(SIGUSR1, subirVida);
-	signal(SIGTERM, restarVida);
-	jugar();
+	//signal(SIGUSR1, subirVida);
+	//signal(SIGTERM, restarVida);
+	//jugar();
 	return 0;
 }
 
