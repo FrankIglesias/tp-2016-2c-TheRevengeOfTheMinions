@@ -220,11 +220,13 @@ void jugar(void) {
 					"/home/utnso/TP/Mapas/%s/metadata.txt",
 					unObjetivo->nombreDelMapa);
 			t_config * configAux = config_create(rutaDelMetadataDelMapa);
-			char * ipMapa = strdup(config_get_string_value(configAux, "ip"));
+			char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
 			char * puertoMapa = strdup(
 					config_get_string_value(configAux, "puerto"));
 			config_destroy(configAux);
 			int socketCliente = crearSocketCliente(ipMapa, puertoMapa);
+			free(ipMapa);
+			free(puertoMapa);
 			mensajeAEnviar.protocolo = HANDSHAKE;
 			mensajeAEnviar.id = config.simbolo[0];
 			// ENVIAR MENSAJE TODO
@@ -234,17 +236,29 @@ void jugar(void) {
 			config.posicionMaximaY = mensajeARecibir->posicion.posiciony;
 			free(mensajeARecibir);
 			int cantidadDePokemones = contarPokemones(primerMapa->pokemones);
-			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-			// ENVIAR MENSAJE TODO
-			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
-					socketCliente);
-			posicionDeLaPokeNest.posicionx = mensajeARecibir.posicion.posicionx;
-			posicionDeLaPokeNest.posiciony = mensajeARecibir.posicion.posiciony;
 			for (j = 0; j < cantidadDePokemones; j++) {
-				mensajeAEnviar.protocolo = moverPosicion();
+				mensajeAEnviar.protocolo = PROXIMAPOKENEST;
+				mensajeAEnviar.id = primerMapa->pokemones[j];
 				// ENVIAR MENSAJE TODO
 				mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 						socketCliente);
+				posicionDeLaPokeNest.posicionx =
+						mensajeARecibir->posicion.posicionx;
+				posicionDeLaPokeNest.posiciony =
+						mensajeARecibir->posicion.posiciony;
+				free(mensajeARecibir);
+				bool pokemonNoAtrapado = true;
+				while (pokemonNoAtrapado) {
+					mensajeAEnviar.protocolo = moverPosicion();
+					// ENVIAR MENSAJE TODO
+					mensajeARecibir =
+							(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
+									socketCliente);
+					if (mensajeAEnviar.protocolo == ATRAPAR) {
+						pokemonNoAtrapado = false;
+					}
+					free(mensajeARecibir);
+				}
 			}
 
 		}
@@ -257,8 +271,7 @@ int main(int argc, char * argv[]) {
 	cargarConfiguracion(configuracion);
 	signal(SIGUSR1, subirVida);
 	signal(SIGTERM, restarVida);
-	int cantidadDeMapas = list_size(config.hojaDeViaje), i;
-
+	jugar();
 	return 0;
 }
 
