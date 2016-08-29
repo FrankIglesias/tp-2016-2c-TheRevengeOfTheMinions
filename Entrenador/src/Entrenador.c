@@ -5,10 +5,6 @@
 #include <sw_sockets.c>
 #include <collections/list.h>
 
-typedef struct objetivo_t {
-	char * nombreDelMapa;
-	t_list* pokemones;
-} objetivo;
 struct config_t {
 	char * nombreDelEntrenador;
 	char * simbolo;
@@ -17,21 +13,14 @@ struct config_t {
 	int reintentos;
 } config;
 t_config* configuracion;
-typedef struct nodoMapa_t {
-	objetivo* objetivo;
 
-} nodoMapa;
-typedef struct nodoPokemon_t
-{
-	char* nombreDelPokemon;
-}nodoPokemon;
-typedef struct hojaDeViaje_t {
-	char * nombre;
-	t_list * listaDePokemones;
-	char * ip;
-	int puerto;
-	bool finalizado;
-} t_hojaDeViaje;
+typedef struct objetivo_t {
+	char * nombreDelMapa;
+	t_list* pokemones;
+} objetivo;
+typedef struct nodoPokemon_t {
+	char nombreDelPokemon;
+} nodoPokemon;
 pthread_mutex_t mutex_hojaDeViaje;
 pthread_mutex_t vidasSem;
 posicionMapa posicionDeLaPokeNest;
@@ -136,82 +125,56 @@ void cargarConfiguracion(t_config* configuracion) {
 		int i = 0;
 		while (&(*config_get_array_value(configuracion, "hojaDeViaje")[i])
 				!= NULL) {
-			nodoMapa* unMapa = malloc(sizeof(nodoMapa));
-			objetivo* objetivoMapa = malloc(sizeof(objetivo));
-			unMapa->objetivo = objetivoMapa;
-			objetivoMapa->pokemones = list_create();
-			objetivoMapa->nombreDelMapa = config_get_array_value(configuracion,
-					"hojaDeViaje")[i];
-			char* nombre = malloc(sizeof(objetivoMapa->nombreDelMapa));
-			nombre = objetivoMapa->nombreDelMapa;
-			char* pokemones = string_from_format("obj[%s]", nombre);
-			int j=0;
-			//while(&(*config_get_array_value(configuracion, pokemones))[j] != NULL) {
 
+			objetivo* unMapa = malloc(sizeof(objetivo));
+			unMapa->pokemones = list_create();
+			unMapa->nombreDelMapa = strdup(
+					config_get_array_value(configuracion, "hojaDeViaje")[i]);
+
+			char* pokemones = string_from_format("obj[%s]",
+					unMapa->nombreDelMapa);
+
+			int j = 0;
+			while (&(*config_get_array_value(configuracion, pokemones)[j])
+					!= NULL) {
 				nodoPokemon* unPokemon = malloc(sizeof(nodoPokemon));
-				unPokemon->nombreDelPokemon = config_get_array_value(configuracion,
-						pokemones)[j];
-				pthread_mutex_lock(&mutex_hojaDeViaje);
-				list_add(objetivoMapa->pokemones, (void*) unPokemon);
-				pthread_mutex_unlock(&mutex_hojaDeViaje);
-
-
+				unPokemon->nombreDelPokemon = strdup(
+						config_get_array_value(configuracion, pokemones)[j])[0];
+				list_add(unMapa->pokemones, (void*) unPokemon);
 				j++;
 
-			//}
-			int tamanio = list_size(objetivoMapa->pokemones);
-			printf("%d\n", tamanio);
+			}
+			log_trace(log, "hola");
 			list_add(config.hojaDeViaje, (void*) unMapa);
 			i++;
 		}
 
 		log_trace(log, "Nombre Entrenador: %s", config.nombreDelEntrenador);
-		log_trace(log, "Simbolo: %s", config.simbolo);
+		log_trace(log, "Simbolo: %c", config.simbolo);
 		log_trace(log, "Vidas : %d", config.vidas);
 		log_trace(log, "Reintentos: %d", config.reintentos);
 
-		void imprimirNombreYPokemonesLista(t_list* lista) {
-			int i;
-			for (i = 0; i < list_size(lista); i++) {
-				nodoMapa* mapa = (objetivo*) list_get(lista, i);
-				printf("Mapa: %s\n", mapa->objetivo->nombreDelMapa);
-				int j;
-				for(j=0;j<list_size(mapa->objetivo->pokemones); j++) {
-				nodoPokemon* pokemones = (nodoPokemon*) list_get(mapa->objetivo->pokemones, j);
-				printf("Pokemon: %s\n", pokemones->nombreDelPokemon);
-				}
-
+		void imprimirNombreYPokemonesLista(void * data) {
+			objetivo * unMapa = (objetivo *) data;
+			printf("Nombre del mapa %s\n", unMapa->nombreDelMapa);
+			void imprimirPokemones(void *data) {
+				printf("\t%c", (char) data);
 			}
-
+			printf("\n");
+			list_iterate(unMapa->pokemones, imprimirPokemones);
 		}
-		imprimirNombreYPokemonesLista(config.hojaDeViaje);
-		printf("\n");
+		list_iterate(config.hojaDeViaje, imprimirNombreYPokemonesLista);
 		log_trace(log, "Se cargaron todas las propiedades");
 	}
 
 }
-/*void crearHojaDeViaje(void) {
- hojaDeViaje = list_create();
- int cantMapas = list_size(config.listaDeMapas);
- void ingresarALaHojaDeViaje(char * buffer) {
- // TO BE CONTINUE... tengo dudas como pensaron las config.
- }
 
- list_iterate(config.listaDeMapas, ingresarALaHojaDeViaje);
- }*/
 void iniciarDatos() {
-	pthread_mutex_init(&mutex_hojaDeViaje, NULL);
 	log = log_create("Log", "Nucleo", 1, 0);
-	configuracion = config_create(
-			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/Ash/metadata.txt");
+	configuracion =
+			config_create(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/Ash/metadata.txt");
 }
-/*int contarPokemones(char ** pokemones) {
-	int i = 0;
-	while (pokemones != NULL) {
-		i++;
-	}
-	return i;
-}*/
 void jugar(void) {
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
 	mensaje_MAPA_ENTRENADOR * mensajeARecibir;
@@ -219,9 +182,10 @@ void jugar(void) {
 	int i, j;
 	for (i = 0; i < cantidadDeObjetivos; i++) {
 		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
-		char * rutaDelMetadataDelMapa = string_from_format(
-				"/home/utnso/TP/Mapas/%s/metadata.txt",
-				unObjetivo->nombreDelMapa);
+		char * rutaDelMetadataDelMapa =
+				string_from_format(
+						"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+						unObjetivo->nombreDelMapa);
 		t_config * configAux = config_create(rutaDelMetadataDelMapa);
 		char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
 		char * puertoMapa = strdup(
@@ -238,10 +202,10 @@ void jugar(void) {
 		mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 				socketCliente);
 		free(mensajeARecibir);
-		//int cantidadDePokemones = contarPokemones(unObjetivo->pokemones);
-		for (j = 0; j < list_size(unObjetivo->pokemones); j++) {
+		int cantidadDePokemones = list_size(unObjetivo->pokemones);
+		for (j = 0; j < cantidadDePokemones; j++) {
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-			//mensajeAEnviar.id = unObjetivo->pokemones[j][0];
+
 			// ENVIAR MENSAJE TODO
 			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 					socketCliente);
@@ -258,8 +222,8 @@ void jugar(void) {
 				mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 						socketCliente);
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
-									pokemonNoAtrapado = false;
-								}
+					pokemonNoAtrapado = false;
+				}
 				if (mensajeARecibir->protocolo == OK) {
 					switch (mensajeAEnviar.protocolo) {
 					case MOVE_DOWN:
@@ -290,9 +254,9 @@ void jugar(void) {
 int main(int argc, char * argv[]) {
 	iniciarDatos();
 	cargarConfiguracion(configuracion);
-	//signal(SIGUSR1, subirVida);
-	//signal(SIGTERM, restarVida);
-	//jugar();
+	signal(SIGUSR1, subirVida);
+	signal(SIGTERM, restarVida);
+	jugar();
 	return 0;
 }
 

@@ -117,11 +117,6 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		CrearPersonaje(items, mensaje->id, 1, 1);
 		actualizarMapa();
 		pthread_mutex_unlock(&sem_mapas);
-		mensajeAEnviar.protocolo = POSICION;
-		mensajeAEnviar.posicion.posicionx =
-				configuracion.posicionMaxima.posicionx;
-		mensajeAEnviar.posicion.posiciony =
-				configuracion.posicionMaxima.posiciony;
 		break;
 	case PROXIMAPOKENEST:
 		unEntrendador->estado = ESPERA;
@@ -220,6 +215,20 @@ void iniciarDatos() {
 			&configuracion.posicionMaxima.posiciony);
 
 }
+void liberarDatos() {
+	/*	BorrarItem(items, '#');
+	 BorrarItem(items, '@');
+
+	 BorrarItem(items, '1');
+	 BorrarItem(items, '2');
+
+	 BorrarItem(items, 'H');
+	 BorrarItem(items, 'M');
+	 BorrarItem(items, 'F');
+	 */
+
+	nivel_gui_terminar();
+}
 int main(int arc, char * argv[]) {
 	configuracion.nombreDelMapa = string_duplicate(argv[1]);
 	cargarConfiguracion();
@@ -233,41 +242,24 @@ int main(int arc, char * argv[]) {
 	pthread_create(hiloPlanificador, NULL, planificador, NULL);
 	pthread_t hiloDeDeteccionDeDeadLock;
 	pthread_create(hiloDeDeteccionDeDeadLock, NULL, atenderDeadLock, NULL);
-
-	int x = 1;
-	int y = 1;
-
-	int p = configuracion.posicionMaxima.posiciony;
-	int q = configuracion.posicionMaxima.posicionx;
-
-	CrearPersonaje(items, '@', p, q);
-	CrearPersonaje(items, '#', x, y);
-	CrearCaja(items, 'H', 26, 10, 5);
-	CrearCaja(items, 'M', 8, 15, 3);
-	CrearCaja(items, 'F', 19, 9, 2);
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
-	MoverPersonaje(items, '@', p, q);
-	MoverPersonaje(items, '#', x, y);
+	/*
+	 CrearPersonaje(items, '@', p, q);
+	 CrearPersonaje(items, '#', x, y);
+	 CrearCaja(items, 'H', 26, 10, 5);
+	 CrearCaja(items, 'M', 8, 15, 3);
+	 CrearCaja(items, 'F', 19, 9, 2);
+	 MoverPersonaje(items, '@', p, q);
+	 MoverPersonaje(items, '#', x, y);
 
-	if (((p == 19) && (q == 9)) || ((x == 19) && (y == 9))) {
-		restarRecurso(items, 'F');
-	}
+	 if (((p == 19) && (q == 9)) || ((x == 19) && (y == 9))) {
+	 restarRecurso(items, 'F');
+	 }
 
-	if (((p == 8) && (q == 15)) || ((x == 8) && (y == 15))) {
-		restarRecurso(items, 'M');
-	}
-
-	BorrarItem(items, '#');
-	BorrarItem(items, '@');
-
-	BorrarItem(items, '1');
-	BorrarItem(items, '2');
-
-	BorrarItem(items, 'H');
-	BorrarItem(items, 'M');
-	BorrarItem(items, 'F');
-
-	nivel_gui_terminar();
-
+	 if (((p == 8) && (q == 15)) || ((x == 8) && (y == 15))) {
+	 restarRecurso(items, 'M');
+	 }
+	 */
+	liberarDatos();
 	return 0;
 }
