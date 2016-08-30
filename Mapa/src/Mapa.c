@@ -69,12 +69,14 @@ pthread_mutex_t sem_mapas;
 t_list * listaDeEntrenadores;
 t_list * items;
 t_configuracion configuracion;
-void cargarPokeNests(t_dictionary * diccionario) {
+void cargarPokeNests(t_dictionary * diccionario, char nombre[]) {
 	diccionario = dictionary_create();
 	t_config * config;
 	config =
 			config_create(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/PuebloPaleta/PokeNests/Charmandercitos/metadata.txt");
+					string_from_format(
+							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/metadata.txt",
+							configuracion.nombreDelMapa, nombre));
 	pokenest * nuevaPokenest = malloc(sizeof(pokenest));
 	nuevaPokenest->cantidad = 1;
 	char * string = config_get_string_value(config, "Posicion");
@@ -83,8 +85,8 @@ void cargarPokeNests(t_dictionary * diccionario) {
 	nuevaPokenest->posicion.posiciony = atoi(posiciones[1]);
 	char * letra = strdup(config_get_string_value(config, "Identificador"));
 	dictionary_put(diccionario, letra, (void *) nuevaPokenest);
-
-	CrearCaja(items, 'A', 5, 5, nuevaPokenest->cantidad);
+	CrearCaja(items, letra[0], nuevaPokenest->posicion.posicionx,
+			nuevaPokenest->posicion.posiciony, nuevaPokenest->cantidad);
 	//config_destroy(config);
 }
 void cargarConfiguracion(void) {
@@ -101,7 +103,8 @@ void cargarConfiguracion(void) {
 			config_get_string_value(config, "algoritmo"));
 	configuracion.quantum = config_get_int_value(config, "quantum");
 	configuracion.retardo = config_get_int_value(config, "retardo");
-	cargarPokeNests(configuracion.diccionarioDePokeparadas);
+	cargarPokeNests(configuracion.diccionarioDePokeparadas, "Charmandercitos");
+	cargarPokeNests(configuracion.diccionarioDePokeparadas, "Pikachu");
 	configuracion.puerto = strdup(config_get_string_value(config, "Puerto"));
 	/*
 	 IP=127.0.0.1*/
