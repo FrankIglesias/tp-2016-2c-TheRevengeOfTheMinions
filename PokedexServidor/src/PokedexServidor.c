@@ -33,9 +33,9 @@ typedef struct osadaFile {
 } osadaFile;
 
 osadaHeader header;
-osadaFile tablaDeArchivos[2048];
+osadaFile tablaDeArchivos[1024];
 char* bitmap;
-int* tablaDeAsignaciones;
+int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
 
@@ -102,16 +102,73 @@ void atenderClientes(void) {
 					}
 				} else {
 					/*if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(i))) {
-						printf("Se cayo socket\n");
-						close(i);
-						FD_CLR(i, &master);
-					} else {
-						atenderClienteEntrenadores(i, mensaje);
-					}*/
+					 printf("Se cayo socket\n");
+					 close(i);
+					 FD_CLR(i, &master);
+					 } else {
+					 atenderClienteEntrenadores(i, mensaje);
+					 }*/
 				}
 			}
 		}
 	}
+}
+
+int string_contains(char *path, char letra) {
+	int i;
+	for (i = 0; path[i] != '\0'; i++) {
+		if (path[i] == letra)
+			return 1;
+	}
+	return 0;
+}
+int buscarEstructura(char ** path) {
+	int i;
+	int padre = -1;
+	int contador = 0;
+	while (!string_contains(path[contador], '.')) {
+		for (i = 0; i < 1024; i++) {
+			if ((tablaDeArchivos[i].estado == 2)
+					&& (padre == tablaDeArchivos[i].bloquePadre)) {
+				padre = tablaDeArchivos[i].bloquePadre;
+				contador++;
+				break;
+			}
+		}
+	}
+	printf("llegue al directorio felicitenme :D");
+	for (i = 0; i < 1024; i++) {
+		if ((tablaDeArchivos[i].estado == 1)
+				&& (padre == tablaDeArchivos[i].bloquePadre)
+				&& (string_equals_ignore_case(tablaDeArchivos[i].nombreArchivo,
+						path[contador]))) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+int obtenerBloqueInicial(char * path) {
+	char ** ruta = string_split(path, "/");
+	osadaFile archivo;
+	int numeroDeArchivo = buscarEstructura(ruta, archivo);
+	return tablaDeArchivos[numeroDeArchivo].bloqueInicial;
+}
+
+char * contenidoDelArchivo(char * path) {
+	osadaFile bloque = tablaDeArchivos[obtenerBloqueInicial(path)];
+	char * archivo = malloc(bloque.tamanioArchivo);
+	int bloqueSiguiente = bloque.bloqueInicial;
+	int contador = 0;
+	while (tablaDeAsignaciones[bloqueSiguiente] != -1) {
+		memcpy(archivo + (contador * header.tamanioDatosBloque),
+				bloquesDeDatos + bloque.bloqueInicial
+						+ contador * header.tamanioDatosBloque,
+				header.tamanioDatosBloque);
+		contador += header.tamanioDatosBloque;
+		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+	}
+	return archivo;
 }
 
 int main(void) {
