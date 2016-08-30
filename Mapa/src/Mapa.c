@@ -33,7 +33,7 @@
 typedef enum {
 	READY, BLOQUEADO, MUERTO, ESPERA
 } estado_t;
-
+t_log * log;
 typedef struct config_t {
 	char * nombreDelMapa;
 	char * rutaDelMetadata;
@@ -56,7 +56,12 @@ typedef struct entrenadorPokemon_t {
 	int intentos;
 	estado_t estado;
 } entrenadorPokemon;
-typedef int pokenest;
+typedef struct pokenest_t {
+	char * nombreDelPokemon;
+	char * tipo;
+	posicionMapa posicion;
+	int cantidad;
+} pokenest;
 
 pthread_mutex_t sem_tiempoDeChequeo;
 pthread_mutex_t sem_listaDeEntrenadores;
@@ -64,12 +69,31 @@ pthread_mutex_t sem_mapas;
 t_list * listaDeEntrenadores;
 t_list * items;
 t_configuracion configuracion;
-void cargarPokeNests() {
+void cargarPokeNests(t_dictionary * diccionario) {
+	diccionario = dictionary_create();
+	t_config * config;
+	config =
+			config_create(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/PuebloPaleta/PokeNests/Charmandercitos/metadata.txt");
+	pokenest * nuevaPokenest = malloc(sizeof(pokenest));
+	nuevaPokenest->cantidad = 1;
+	char * string = config_get_string_value(config, "Posicion");
+	char ** posiciones = string_split(string, ";");
+	nuevaPokenest->posicion.posicionx = atoi(posiciones[0]);
+	nuevaPokenest->posicion.posiciony = atoi(posiciones[1]);
+	char * letra = strdup(config_get_string_value(config, "Identificador"));
+	dictionary_put(diccionario, letra, (void *) nuevaPokenest);
 
+	CrearCaja(items, 'A', 5, 5, nuevaPokenest->cantidad);
+	//config_destroy(config);
 }
 void cargarConfiguracion(void) {
 	t_config * config;
-	config = config_create("/home/utnso/TP/Mapas/Ciudad Paleta/metadata.txt");
+	char * rutaDeConfigs =
+			string_from_format(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+					configuracion.nombreDelMapa);
+	config = config_create(rutaDeConfigs);
 	configuracion.tiempoDeChequeoDeDeadLock = config_get_int_value(config,
 			"TiempoChequeoDeadlock");
 	configuracion.batalla = config_get_int_value(config, "Batalla");
@@ -77,11 +101,10 @@ void cargarConfiguracion(void) {
 			config_get_string_value(config, "algoritmo"));
 	configuracion.quantum = config_get_int_value(config, "quantum");
 	configuracion.retardo = config_get_int_value(config, "retardo");
-	cargarPokeNests();
-
+	cargarPokeNests(configuracion.diccionarioDePokeparadas);
+	configuracion.puerto = strdup(config_get_string_value(config, "Puerto"));
 	/*
-	 IP=127.0.0.1
-	 Puerto=5001*/
+	 IP=127.0.0.1*/
 }
 
 void atenderDeadLock(void) {
@@ -178,15 +201,19 @@ void atenderEntrenadores(void) {
 void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
 	entrenador->socket = socket;
-	entrenador->posicion.posicionx = 0;
-	entrenador->posicion.posiciony = 0;
+	entrenador->posicion.posicionx = 1;
+	entrenador->posicion.posiciony = 1;
 	entrenador->pokemonesAtrapados = dictionary_create();
 	entrenador->intentos = 0;
 	entrenador->estado = ESPERA;
 	entrenador->simbolo = mensajeRecibido->id;
+	pthread_mutex_lock(&sem_mapas);
+	CrearPersonaje(items, mensajeRecibido->id, 1, 1);
+	actualizarMapa();
+	pthread_mutex_unlock(&sem_mapas);
 	pthread_mutex_lock(&sem_listaDeEntrenadores);
 	list_add(listaDeEntrenadores, (void *) entrenador);
-//sem_post() TODO
+	//sem_post() TODO
 	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 }
 
@@ -197,14 +224,14 @@ void planificador(void) {
 	}
 }
 int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) {
-	/*int x = abs(posicion1.posicionx - posicion2.posicionx);
-	 int y = abs(posicion1.posiciony - posicion2.posiciony);
-	 return sqrt(pow(x, 2) + pow(y, 2)); TODO*/
+	return abs(posicion1.posicionx - posicion2.posicionx)
+			+ abs(posicion1.posiciony - posicion2.posiciony);
 }
 void actualizarMapa() {
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarDatos() {
+	log = log_create("Log", "Mapa", 0, 0);
 	listaDeEntrenadores = list_create();
 	pthread_mutex_init(&sem_listaDeEntrenadores, NULL);
 	pthread_mutex_init(&sem_mapas, NULL);
@@ -213,7 +240,7 @@ void iniciarDatos() {
 	nivel_gui_inicializar();
 	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
 			&configuracion.posicionMaxima.posiciony);
-
+	//sem_init(&finalizarUmc, 0, 0);
 }
 void liberarDatos() {
 	/*	BorrarItem(items, '#');
@@ -229,20 +256,31 @@ void liberarDatos() {
 
 	nivel_gui_terminar();
 }
-int main(int arc, char * argv[]) {
-	configuracion.nombreDelMapa = string_duplicate(argv[1]);
-	cargarConfiguracion();
-	signal(SIGUSR2, cargarConfiguracion);
-	iniciarDatos();
+void crearHiloParaPlanificador() {
+	pthread_t hiloPlanificador;
+	pthread_create(hiloPlanificador, NULL, planificador, NULL);
+}
+void crearHiloParaDeadlock() {
+	pthread_t hiloDeDeteccionDeDeadLock;
+	pthread_create(hiloDeDeteccionDeDeadLock, NULL, atenderDeadLock,
+	NULL);
+}
+void crearHiloAtenderEntrenadores() {
 	pthread_t hiloAtencionDeEntrenadores;
 	pthread_create(hiloAtencionDeEntrenadores, NULL, atenderEntrenadores,
 	NULL);
-//sem_init(&finalizarUmc, 0, 0);
-	pthread_t hiloPlanificador;
-	pthread_create(hiloPlanificador, NULL, planificador, NULL);
-	pthread_t hiloDeDeteccionDeDeadLock;
-	pthread_create(hiloDeDeteccionDeDeadLock, NULL, atenderDeadLock, NULL);
+}
+int main(int arc, char * argv[]) {
+	configuracion.nombreDelMapa = string_duplicate(argv[1]);
+	iniciarDatos();
+	cargarConfiguracion();
+	signal(SIGUSR2, cargarConfiguracion);
+	crearHiloAtenderEntrenadores();
+
+	crearHiloParaPlanificador();
+	crearHiloParaDeadlock();
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	sleep(60000000);
 	/*
 	 CrearPersonaje(items, '@', p, q);
 	 CrearPersonaje(items, '#', x, y);
@@ -260,6 +298,6 @@ int main(int arc, char * argv[]) {
 	 restarRecurso(items, 'M');
 	 }
 	 */
-	liberarDatos();
+	//liberarDatos();
 	return 0;
 }
