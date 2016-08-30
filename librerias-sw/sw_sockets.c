@@ -51,13 +51,14 @@ int crearSocketCliente(char ip[], int puerto) {
  printf("El mensaje se envio correctamente\n");
  return socketCliente;
  }*/
+
 void recibirEImprimirMensaje(int socketCliente, int tamanioMensaje) {
 	char mensajeRecibido[tamanioMensaje];
 	recv(socketCliente, (void*) mensajeRecibido, tamanioMensaje, 0);
 	printf("%s\n", mensajeRecibido);
 }
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
-	mensaje_ENTRENADOR_MAPA * mensaje = malloc(header.payload);
+	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
 	if (header.payload > sizeof(char) + sizeof(instruccion_t)) {
 		mensaje->nombrePokemon = malloc(
@@ -119,9 +120,52 @@ void * recibirMensaje(int socket) {
 	return mensaje;
 }
 
-// MAPA
-int recibirMensaje_MAPA_ENTRENADOR(mensaje_ENTRENADOR_MAPA * mensaje) {
-	int resultado;
+void enviarMensaje(mensaje_t mensaje, int socket, void *data) {
+	header nuevoHeader;
+	char * buffer;
+	nuevoHeader.mensaje = mensaje;
+	if (mensaje == ENTRENADOR_MAPA) {
+		mensaje_ENTRENADOR_MAPA * mensajeAEnviar =
+				(mensaje_ENTRENADOR_MAPA *) data;
+		int tamanioString = 0;
+		if (mensajeAEnviar->protocolo == POKEMON) {
+			tamanioString = strlen(mensajeAEnviar->nombrePokemon);
+		}
+		buffer = malloc(
+				sizeof(header) + sizeof(instruccion_t) + 1 + tamanioString);
+		nuevoHeader.payload = sizeof(instruccion_t) + 1 + tamanioString;
+		memcpy(buffer, &nuevoHeader, sizeof(header));
+		memcpy(buffer + sizeof(header), mensajeAEnviar,
+				sizeof(instruccion_t) + sizeof(char));
+		if (tamanioString > 0) {
+			memcpy(
+					buffer + sizeof(header) + sizeof(instruccion_t)
+							+ sizeof(char), mensajeAEnviar->nombrePokemon,
+					tamanioString);
+		}
 
-	return resultado;
+	} else if (mensaje == MAPA_ENTRENADOR) {
+		mensaje_MAPA_ENTRENADOR * mensajeAEnviar =
+				(mensaje_MAPA_ENTRENADOR *) data;
+		int tamanioString = 0;
+		if (mensajeAEnviar->protocolo == POKEMON) {
+			tamanioString = strlen(mensajeAEnviar->nombrePokemon);
+		}
+		buffer = malloc(
+				sizeof(instruccion_t) + sizeof(posicionMapa) + sizeof(header)
+						+ tamanioString);
+		nuevoHeader.payload = sizeof(instruccion_t) + sizeof(posicionMapa)
+				+ tamanioString;
+		memcpy(buffer, &nuevoHeader, sizeof(header));
+		memcpy(buffer + sizeof(header), mensajeAEnviar,
+				sizeof(instruccion_t) + sizeof(posicionMapa));
+		if (tamanioString > 0) {
+			memcpy(
+					buffer + sizeof(header) + sizeof(instruccion_t)
+							+ sizeof(posicionMapa), mensajeAEnviar,
+					tamanioString);
+		}
+	}
+	send(socket, buffer, sizeof(header) + nuevoHeader.payload, 0);
+	free(buffer);
 }

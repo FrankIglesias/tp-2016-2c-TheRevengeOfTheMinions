@@ -13,5 +13,4 @@
 
 //int crearSocketEscucha(int puerto);
 int crearSocketServidor(char PUERTO[]);
-int enviarMensaje(int socketCliente, char* mensaje);
 #endif /* LIBRERIAS_SF_SOCKETS_H_ */
