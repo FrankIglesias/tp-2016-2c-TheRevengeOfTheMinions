@@ -18,9 +18,6 @@ typedef struct objetivo_t {
 	char * nombreDelMapa;
 	t_list* pokemones;
 } objetivo;
-typedef struct nodoPokemon_t {
-	char nombreDelPokemon;
-} nodoPokemon;
 pthread_mutex_t mutex_hojaDeViaje;
 pthread_mutex_t vidasSem;
 posicionMapa posicionDeLaPokeNest;
@@ -137,14 +134,13 @@ void cargarConfiguracion(t_config* configuracion) {
 			int j = 0;
 			while (&(*config_get_array_value(configuracion, pokemones)[j])
 					!= NULL) {
-				nodoPokemon* unPokemon = malloc(sizeof(nodoPokemon));
-				unPokemon->nombreDelPokemon = strdup(
+				char * nombre = malloc(sizeof(char));
+				nombre = strdup(
 						config_get_array_value(configuracion, pokemones)[j])[0];
-				list_add(unMapa->pokemones, (void*) unPokemon);
+				list_add(unMapa->pokemones, (void *) nombre);
 				j++;
 
 			}
-			log_trace(log, "hola");
 			list_add(config.hojaDeViaje, (void*) unMapa);
 			i++;
 		}
@@ -156,14 +152,15 @@ void cargarConfiguracion(t_config* configuracion) {
 
 		void imprimirNombreYPokemonesLista(void * data) {
 			objetivo * unMapa = (objetivo *) data;
-			printf("Nombre del mapa %s\n", unMapa->nombreDelMapa);
+			printf("\nNombre del mapa %s\n", unMapa->nombreDelMapa);
 			void imprimirPokemones(void *data) {
-				printf("\t%c", (char) data);
+				char * caracter = (char) data;
+				printf("\t%c", caracter);
 			}
-			printf("\n");
 			list_iterate(unMapa->pokemones, imprimirPokemones);
 		}
 		list_iterate(config.hojaDeViaje, imprimirNombreYPokemonesLista);
+		printf("\n");
 		log_trace(log, "Se cargaron todas las propiedades");
 	}
 
@@ -187,10 +184,13 @@ void jugar(void) {
 						"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
 						unObjetivo->nombreDelMapa);
 		t_config * configAux = config_create(rutaDelMetadataDelMapa);
+
 		char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
+
 		char * puertoMapa = strdup(
-				config_get_string_value(configAux, "puerto"));
+				config_get_string_value(configAux, "Puerto"));
 		config_destroy(configAux);
+
 		int socketCliente = crearSocketCliente(ipMapa, puertoMapa);
 		free(ipMapa);
 		free(puertoMapa);
