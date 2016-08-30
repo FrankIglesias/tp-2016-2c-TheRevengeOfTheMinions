@@ -12,7 +12,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <commons/bitarray.h>
-
+#include <tiposDato.h>
+#include <sw_sockets.h>
 typedef struct OSADA_HEADER {
 	char identificador[7];
 	char version;
@@ -66,6 +67,9 @@ void inicializarTablaAsignaciones(void) {
 	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
 	tablaDeAsignaciones[0] = header.inicioTablaAsignaciones;
 }
+void atenderPeticiones(int socket,header unHeader,char * ruta) {
+
+}
 void atenderClientes(void) {
 	fd_set master;
 	fd_set read_fds;
@@ -101,13 +105,15 @@ void atenderClientes(void) {
 						}
 					}
 				} else {
-					/*if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(i))) {
-					 printf("Se cayo socket\n");
-					 close(i);
-					 FD_CLR(i, &master);
-					 } else {
-					 atenderClienteEntrenadores(i, mensaje);
-					 }*/
+					header nuevoHeader;
+					if (recv(i, &nuevoHeader, sizeof(header), 0)) {
+						printf("Se cayo socket\n");
+						close(i);
+						FD_CLR(i, &master);
+					} else {
+						atenderPeticiones(i, nuevoHeader);
+					}
+
 				}
 			}
 		}
