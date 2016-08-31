@@ -21,8 +21,8 @@ typedef struct OSADA_HEADER {
 	uint8_t version;
 	uint32_t cantBloquesFS; //en bloques
 	uint32_t cantBloquesBitmap; //en bloques
-	uint32_t inicioTablaAsignaciones; //bloque de inicio
-	uint32_t tamanioDatosBloque;
+	uint32_t inicioTablaAsignaciones; //bloque de inicio tabla de asignaciones
+	uint32_t cantidadDeBloquesDeDatos; // cantidad de bloques asignadas para datos
 	char relleno[40];
 } osadaHeader;
 
@@ -35,7 +35,7 @@ typedef struct osadaFile {
 	uint32_t bloqueInicial;
 } osadaFile;
 
-osadaHeader header;
+osadaHeader fileHeader;
 osadaFile tablaDeArchivos[1024];
 char* bitmap;
 int * tablaDeAsignaciones;
@@ -50,24 +50,25 @@ int puerto = 10000;
  }*/
 
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
-	int f = header.cantBloquesFS;
-	int n = header.cantBloquesBitmap;
+	int f = fileHeader.cantBloquesFS;
+	int n = fileHeader.cantBloquesBitmap;
 	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
 }
 
 void inicializarBitArray(void) {
-	bitmap = malloc(header.cantBloquesFS); //tantos bits como bloques tenga el FS
-	int tablaAsignacion = tamanioTablaAsignacion(header);
-	int calculo = (header.cantBloquesBitmap + 1025 + tamanioTablaAsignacion());
+	bitmap = malloc(fileHeader.cantBloquesFS); //tantos bits como bloques tenga el FS
+	int tablaAsignacion = tamanioTablaAsignacion();
+	int calculo = (fileHeader.cantBloquesBitmap + 1025
+			+ tamanioTablaAsignacion());
 	memset(bitmap, 1, calculo);
-	memset(bitmap + calculo, 0, header.cantBloquesFS - calculo);
+	memset(bitmap + calculo, 0, fileHeader.cantBloquesFS - calculo);
 //	ocuparBitMap(1 + header.cantBloquesBitmap + 104 + tablaAsignacion);
 }
 
 void inicializarTablaAsignaciones(void) {
-	int bloquesTablaAsignacion = tamanioTablaAsignacion(header);
+	int bloquesTablaAsignacion = tamanioTablaAsignacion();
 	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
-	tablaDeAsignaciones[0] = header.inicioTablaAsignaciones;
+	tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
 }
 void atenderPeticiones(int socket, header unHeader, char * ruta) {
 
@@ -109,11 +110,11 @@ void atenderClientes(void) {
 				} else {
 					header nuevoHeader;
 					if (recv(i, &nuevoHeader, sizeof(header), 0)) {
-						printf("Se cayo socket\n");
 						close(i);
 						FD_CLR(i, &master);
 					} else {
-						atenderPeticiones(i, nuevoHeader);
+						char * ruta; // RUTA RECIBIDA POR EL POKEDEX CLIENTE
+						atenderPeticiones(i, nuevoHeader, ruta);
 					}
 
 				}
@@ -158,8 +159,7 @@ int buscarEstructura(char ** path) {
 
 int obtenerBloqueInicial(char * path) {
 	char ** ruta = string_split(path, "/");
-	osadaFile archivo;
-	int numeroDeArchivo = buscarEstructura(ruta, archivo);
+	int numeroDeArchivo = buscarEstructura(ruta);
 	return tablaDeArchivos[numeroDeArchivo].bloqueInicial;
 }
 
@@ -168,14 +168,19 @@ char * contenidoDelArchivo(char * path) {
 	char * archivo = malloc(bloque.tamanioArchivo);
 	int bloqueSiguiente = bloque.bloqueInicial;
 	int contador = 0;
-	while (tablaDeAsignaciones[bloqueSiguiente] != -1) {
-		memcpy(archivo + (contador * header.tamanioDatosBloque),
-				bloquesDeDatos + bloque.bloqueInicial
-						+ contador * header.tamanioDatosBloque,
-				header.tamanioDatosBloque);
-		contador += header.tamanioDatosBloque;
+	do {
+		if (tablaDeAsignaciones[bloqueSiguiente] == -1) {
+			memcpy(archivo + (contador * BLOCK_SIZE),
+					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
+					bloque.tamanioArchivo - (contador * BLOCK_SIZE));
+		} else {
+			memcpy(archivo + (contador * BLOCK_SIZE),
+					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
+					BLOCK_SIZE);
+		}
+		contador++;
 		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
-	}
+	} while (bloqueSiguiente != -1);
 	return archivo;
 }
 
