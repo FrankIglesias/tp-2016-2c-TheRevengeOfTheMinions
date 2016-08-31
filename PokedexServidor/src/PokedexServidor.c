@@ -14,9 +14,11 @@
 #include <commons/bitarray.h>
 #include <tiposDato.h>
 #include <sw_sockets.h>
+#define BLOCK_SIZE 64
+
 typedef struct OSADA_HEADER {
 	char identificador[7];
-	char version;
+	uint8_t version;
 	uint32_t cantBloquesFS; //en bloques
 	uint32_t cantBloquesBitmap; //en bloques
 	uint32_t inicioTablaAsignaciones; //bloque de inicio
@@ -25,9 +27,9 @@ typedef struct OSADA_HEADER {
 } osadaHeader;
 
 typedef struct osadaFile {
-	char estado; //0 borrado, 1 ocupado, 2 directorio
+	uint8_t estado; //0 borrado, 1 ocupado, 2 directorio
 	char nombreArchivo[17];
-	short bloquePadre;
+	uint16_t bloquePadre;
 	uint32_t tamanioArchivo;
 	uint32_t fechaUltimaModif; //como hago fechas?
 	uint32_t bloqueInicial;
@@ -50,7 +52,7 @@ int puerto = 10000;
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
 	int f = header.cantBloquesFS;
 	int n = header.cantBloquesBitmap;
-	return ((f - 1 - n - 1024) * 4) / 64;
+	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
 }
 
 void inicializarBitArray(void) {
@@ -67,7 +69,7 @@ void inicializarTablaAsignaciones(void) {
 	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
 	tablaDeAsignaciones[0] = header.inicioTablaAsignaciones;
 }
-void atenderPeticiones(int socket,header unHeader,char * ruta) {
+void atenderPeticiones(int socket, header unHeader, char * ruta) {
 
 }
 void atenderClientes(void) {

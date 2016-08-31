@@ -2,6 +2,51 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void theMinionsRevengeSelect(char puerto[], void (*funcionAceptar(int n)),
+		int (*funcionRecibir(int n))) {
+	fd_set master;
+	fd_set read_fds;
+	struct sockaddr_in remoteaddr;
+	int tamanioMaximoDelFd;
+	int socketListen;
+	int nuevoSocketAceptado;
+	int addrlen;
+	int i;
+	FD_ZERO(&master);
+	FD_ZERO(&read_fds);
+	socketListen = crearSocketServidor(puerto);
+	FD_SET(socketListen, &master);
+	tamanioMaximoDelFd = socketListen;
+	while (1) {
+		read_fds = master;
+		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
+			perror("select");
+			exit(1);
+		}
+		for (i = 0; i <= tamanioMaximoDelFd; i++) {
+			if (FD_ISSET(i, &read_fds)) {
+				if (i == socketListen) {
+					addrlen = sizeof(remoteaddr);
+					if ((nuevoSocketAceptado = accept(socketListen,
+							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
+						perror("accept");
+					} else {
+						FD_SET(nuevoSocketAceptado, &master);
+						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
+							tamanioMaximoDelFd = nuevoSocketAceptado;
+						}
+						funcionAceptar(i);
+					}
+				} else {
+					if (funcionRecibir(i)) {
+						close(i);
+						FD_CLR(i, &master);
+					}
+				}
+			}
+		}
+	}
+}
 int crearSocketServidor(char *puerto) {
 	int BACKLOG = 5;
 	struct addrinfo hints;
@@ -43,6 +88,11 @@ int crearSocketCliente(char ip[], int puerto) {
 	}
 	return socketCliente;
 }
+
+void * (*funcionesDesserializadoras[CLIENTE_SERVIDOR + 1])(char * buffer,
+		header header) = {
+			deserializarMensaje_ENTRENADOR_MAPA,deserializarMensaje_MAPA_ENTRENADOR
+};
 
 //FUNCIONES PARA PASE DE CHARS
 /*int enviarMensaje(int socketCliente, char* mensaje) {
@@ -92,13 +142,10 @@ void * recibirMensaje(int socket) {
 	if (recv(socket, &buffer, header.payload, 0) <= 0) {
 		return NULL;
 	}
+	if (header.mensaje == MAPA_ENTRENADOR || header.mensaje == ENTRENADOR_MAPA)
+		mensaje = funcionesDesserializadoras[header.mensaje](buffer, header);
+
 	switch (header.mensaje) {
-	case ENTRENADOR_MAPA:
-		mensaje = deserializarMensaje_ENTRENADOR_MAPA(buffer, header);
-		break;
-	case MAPA_ENTRENADOR:
-		mensaje = deserializarMensaje_MAPA_ENTRENADOR(buffer, header);
-		break;
 	case POKEDEX_MAPA:
 		break;
 	case MAPA_POKEDEX:
