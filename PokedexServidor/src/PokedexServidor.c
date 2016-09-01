@@ -171,7 +171,7 @@ char * leerArchivo(char * path) {
 	return archivo;
 }
 
-void levantarHeader(char * buffer) {
+void setHeader(char * buffer) {
 	char * contenido = malloc(BLOCK_SIZE);
 	memcpy(contenido, buffer, BLOCK_SIZE);
 	memcpy(fileHeader.identificador, contenido, 7);
@@ -183,7 +183,7 @@ void levantarHeader(char * buffer) {
 	memcpy(fileHeader.relleno, contenido + 24, 40);
 	free(contenido);
 }
-void levantarTablaDeArchivos(char * buffer) {
+void setTablaDeArchivos(char * buffer) {
 	char * contenido = malloc(1024 * BLOCK_SIZE);
 	memcpy(contenido, buffer + BLOCK_SIZE + fileHeader.cantBloquesBitmap,
 				1024 * BLOCK_SIZE);
@@ -200,7 +200,7 @@ void levantarTablaDeArchivos(char * buffer) {
 	}
 	free(contenido);
 }
-void levantarTablaDeAsignaciones(char * buffer) {
+void setTablaDeAsignaciones(char * buffer) {
 	int bloquesTablaAsignacion = tamanioTablaAsignacion();
 	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
 	//tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
@@ -209,11 +209,11 @@ void levantarTablaDeAsignaciones(char * buffer) {
 			sizeof(int) * bloquesTablaAsignacion);
 }
 void levantarOsada(char * buffer) {
-	levantarHeader(buffer);
+	setHeader(buffer);
 	inicializarBitArray();
 	memcpy(bitmap, buffer + BLOCK_SIZE, fileHeader.cantBloquesBitmap);
-	levantarTablaDeArchivos(buffer);
-	levantarTablaDeAsignaciones(buffer);
+	setTablaDeArchivos(buffer);
+	setTablaDeAsignaciones(buffer);
 	bloquesDeDatos = malloc(fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
 	memcpy(bloquesDeDatos,
 			buffer + BLOCK_SIZE * 1025 + tamanioTablaAsignacion()
