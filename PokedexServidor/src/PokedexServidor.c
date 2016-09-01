@@ -42,13 +42,6 @@ int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
 
-/*void ocuparBitMap(int bloquesAOcupar){
- int x;
- for(x=0;x<=bloquesAOcupar;x++){
- bitmap[x]="1";
- }
- }*/
-
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
 	int f = fileHeader.cantBloquesFS;
 	int n = fileHeader.cantBloquesBitmap;
@@ -62,14 +55,8 @@ void inicializarBitArray(void) {
 			+ tamanioTablaAsignacion());
 	memset(bitmap, 1, calculo);
 	memset(bitmap + calculo, 0, fileHeader.cantBloquesFS - calculo);
-//	ocuparBitMap(1 + header.cantBloquesBitmap + 104 + tablaAsignacion);
 }
 
-void inicializarTablaAsignaciones(void) {
-	int bloquesTablaAsignacion = tamanioTablaAsignacion();
-	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
-	tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
-}
 void atenderPeticiones(int socket, header unHeader, char * ruta) {
 
 }
@@ -163,7 +150,7 @@ int obtenerBloqueInicial(char * path) {
 	return tablaDeArchivos[numeroDeArchivo].bloqueInicial;
 }
 
-char * contenidoDelArchivo(char * path) {
+char * leerArchivo(char * path) {
 	osadaFile bloque = tablaDeArchivos[obtenerBloqueInicial(path)];
 	char * archivo = malloc(bloque.tamanioArchivo);
 	int bloqueSiguiente = bloque.bloqueInicial;
@@ -184,7 +171,55 @@ char * contenidoDelArchivo(char * path) {
 	return archivo;
 }
 
+void levantarHeader(char * buffer) {
+	char * contenido = malloc(BLOCK_SIZE);
+	memcpy(contenido, buffer, BLOCK_SIZE);
+	memcpy(fileHeader.identificador, contenido, 7);
+	memcpy(fileHeader.version, contenido + 7, 1);
+	memcpy(fileHeader.cantBloquesFS, contenido + 8, 4);
+	memcpy(fileHeader.cantBloquesBitmap, contenido + 12, 4);
+	memcpy(fileHeader.inicioTablaAsignaciones, contenido + 16, 4);
+	memcpy(fileHeader.cantidadDeBloquesDeDatos, contenido + 20, 4);
+	memcpy(fileHeader.relleno, contenido + 24, 40);
+	free(contenido);
+}
+void levantarTablaDeArchivos(char * buffer) {
+	char * contenido = malloc(1024 * BLOCK_SIZE);
+	memcpy(contenido, buffer + BLOCK_SIZE + fileHeader.cantBloquesBitmap,
+				1024 * BLOCK_SIZE);
+	int i;
+	int filaTabla = 0;
+	for (i = 0; i < 1024; ++i) {
+		filaTabla = i * sizeof(osadaHeader);
+		memcpy(tablaDeArchivos[i].estado, contenido + filaTabla, 1);
+		memcpy(tablaDeArchivos[i].nombreArchivo, contenido + filaTabla + 1, 17);
+		memcpy(tablaDeArchivos[i].bloquePadre, contenido + filaTabla + 18, 2);
+		memcpy(tablaDeArchivos[i].tamanioArchivo, contenido + filaTabla + 20, 4);
+		memcpy(tablaDeArchivos[i].fechaUltimaModif, contenido + filaTabla + 24, 4);
+		memcpy(tablaDeArchivos[i].bloqueInicial, contenido + filaTabla + 24, 4);
+	}
+	free(contenido);
+}
+void levantarTablaDeAsignaciones(char * buffer) {
+	int bloquesTablaAsignacion = tamanioTablaAsignacion();
+	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
+	//tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
+	memcpy(tablaDeAsignaciones,
+			buffer + BLOCK_SIZE + fileHeader.cantBloquesFS + 1024,
+			sizeof(int) * bloquesTablaAsignacion);
+}
+void levantarOsada(char * buffer) {
+	levantarHeader(buffer);
+	inicializarBitArray();
+	memcpy(bitmap, buffer + BLOCK_SIZE, fileHeader.cantBloquesBitmap);
+	levantarTablaDeArchivos(buffer);
+	levantarTablaDeAsignaciones(buffer);
+	bloquesDeDatos = malloc(fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
+	memcpy(bloquesDeDatos,
+			buffer + BLOCK_SIZE * 1025 + tamanioTablaAsignacion()
+					+ fileHeader.cantBloquesBitmap,
+			fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
+}
 int main(void) {
-
 	return EXIT_SUCCESS;
 }
