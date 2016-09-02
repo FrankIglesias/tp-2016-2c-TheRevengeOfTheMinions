@@ -118,7 +118,7 @@ int string_contains(char *path, char letra) {
 	}
 	return 0;
 }
-int buscarEstructura(char ** path) {
+int buscarNroTArchivos(char ** path) {
 	int i;
 	int padre = -1;
 	int contador = 0;
@@ -146,7 +146,7 @@ int buscarEstructura(char ** path) {
 
 int obtenerBloqueInicial(char * path) {
 	char ** ruta = string_split(path, "/");
-	int numeroDeArchivo = buscarEstructura(ruta);
+	int numeroDeArchivo = buscarNroTArchivos(ruta);
 	return tablaDeArchivos[numeroDeArchivo].bloqueInicial;
 }
 
@@ -170,7 +170,58 @@ char * leerArchivo(char * path) {
 	} while (bloqueSiguiente != -1);
 	return archivo;
 }
+int buscarBloqueLibre() {
+	int i;
+	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
+		if (bitmap[i] == 0)
+			return i;
+	}
+	return 0;
+}
 
+void guardarArchivo(char * path, char * buffer) {
+	int tam = strlen(buffer);
+	int contador = 0;
+	int bloqueLibre;
+	int bloqueActual = tablaDeArchivos[obtenerBloqueInicial(path)].bloqueInicial;
+	int bloqueSiguiente;
+	while (1) {
+		memcpy(bloquesDeDatos * bloqueActual, buffer + (contador * BLOCK_SIZE),
+		BLOCK_SIZE);
+		tam -= BLOCK_SIZE;
+		contador++;
+		if (tam > 0) {
+			bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
+			if (bloqueSiguiente == -1) {
+				bloqueLibre = buscarBloqueLibre();
+				bitmap[bloqueLibre] = 1;
+				tablaDeAsignaciones[bloqueActual] = bloqueLibre;
+				bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
+			}
+		} else {
+			break;
+		}
+	}
+}
+void crearArchivo(char * path, char * nombre) {
+	int bloqueLibre = buscarBloqueLibre();
+	osadaFile nuevoArchivo;
+	char ** ruta = string_split(path, "/");
+/*	int i;
+	int padre = -1;
+	int contador = 0;
+	while (1) {
+		for (i = 0; i < 1024; i++) {
+			if ((tablaDeArchivos[i].estado == 2)
+					&& (padre == tablaDeArchivos[i].bloquePadre)) {
+				padre = tablaDeArchivos[i].bloquePadre;
+				contador++;
+				break;
+			}
+		}
+	} recorre el directorio */
+	nuevoArchivo.bloqueInicial = bloqueLibre;
+}
 void levantarHeader(char * buffer) {
 	char * contenido = malloc(BLOCK_SIZE);
 	memcpy(contenido, buffer, BLOCK_SIZE);
@@ -186,7 +237,7 @@ void levantarHeader(char * buffer) {
 void levantarTablaDeArchivos(char * buffer) {
 	char * contenido = malloc(1024 * BLOCK_SIZE);
 	memcpy(contenido, buffer + BLOCK_SIZE + fileHeader.cantBloquesBitmap,
-				1024 * BLOCK_SIZE);
+			1024 * BLOCK_SIZE);
 	int i;
 	int filaTabla = 0;
 	for (i = 0; i < 1024; ++i) {
@@ -194,8 +245,10 @@ void levantarTablaDeArchivos(char * buffer) {
 		memcpy(tablaDeArchivos[i].estado, contenido + filaTabla, 1);
 		memcpy(tablaDeArchivos[i].nombreArchivo, contenido + filaTabla + 1, 17);
 		memcpy(tablaDeArchivos[i].bloquePadre, contenido + filaTabla + 18, 2);
-		memcpy(tablaDeArchivos[i].tamanioArchivo, contenido + filaTabla + 20, 4);
-		memcpy(tablaDeArchivos[i].fechaUltimaModif, contenido + filaTabla + 24, 4);
+		memcpy(tablaDeArchivos[i].tamanioArchivo, contenido + filaTabla + 20,
+				4);
+		memcpy(tablaDeArchivos[i].fechaUltimaModif, contenido + filaTabla + 24,
+				4);
 		memcpy(tablaDeArchivos[i].bloqueInicial, contenido + filaTabla + 24, 4);
 	}
 	free(contenido);
@@ -203,7 +256,7 @@ void levantarTablaDeArchivos(char * buffer) {
 void levantarTablaDeAsignaciones(char * buffer) {
 	int bloquesTablaAsignacion = tamanioTablaAsignacion();
 	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
-	//tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
+//tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
 	memcpy(tablaDeAsignaciones,
 			buffer + BLOCK_SIZE + fileHeader.cantBloquesFS + 1024,
 			sizeof(int) * bloquesTablaAsignacion);
