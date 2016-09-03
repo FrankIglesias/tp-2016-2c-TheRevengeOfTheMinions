@@ -38,7 +38,7 @@ void theMinionsRevengeSelect(char puerto[], void (*funcionAceptar(int n)),
 						funcionAceptar(i);
 					}
 				} else {
-					if (funcionRecibir(i)) {
+					if (funcionRecibir(i) == -1) {
 						close(i);
 						FD_CLR(i, &master);
 					}
@@ -47,25 +47,34 @@ void theMinionsRevengeSelect(char puerto[], void (*funcionAceptar(int n)),
 		}
 	}
 }
-int crearSocketServidor(char *puerto) {
-	int BACKLOG = 5;
+int crearSocketServidor(char * puerto) {
 	struct addrinfo hints;
-	struct addrinfo* serverInfo;
+	struct addrinfo *serverInfo;
 	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_flags = AI_PASSIVE;
-	hints.ai_socktype = SOCK_STREAM;
-	getaddrinfo(NULL, puerto, &hints, &serverInfo);
+	hints.ai_family = AF_UNSPEC;		// No importa si uso IPv4 o IPv6
+	hints.ai_flags = AI_PASSIVE;// Asigna el address del localhost: 127.0.0.1
+	hints.ai_socktype = SOCK_STREAM;	// Indica que usaremos el protocolo TCP
+
+	getaddrinfo(NULL, puerto, &hints, &serverInfo); // Notar que le pasamos NULL como IP, ya que le indicamos que use localhost en AI_PASSIVE
+
 	int listenningSocket;
 	listenningSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype,
 			serverInfo->ai_protocol);
 	int yes = 1;
 	setsockopt(listenningSocket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 	bind(listenningSocket, serverInfo->ai_addr, serverInfo->ai_addrlen);
-	freeaddrinfo(serverInfo);
+	freeaddrinfo(serverInfo); // Ya no lo vamos a necesitar
 
-	listen(listenningSocket, BACKLOG);
+	listen(listenningSocket, 5); // IMPORTANTE: listen() es una syscall BLOQUEANTE.
 	return listenningSocket;
+}
+int crearSocketServidorMonoCliente(char *puerto) {
+	int socketEscucha = crearSocketServidor(puerto);
+	struct sockaddr_in addr;
+	socklen_t addrlen = sizeof(addr);
+	int socketCliente = accept(socketEscucha, (struct sockaddr *) &addr,
+			&addrlen);
+	return socketCliente;
 }
 int crearSocketCliente(char ip[], int puerto) {
 	int socketCliente;
@@ -88,131 +97,109 @@ int crearSocketCliente(char ip[], int puerto) {
 	}
 	return socketCliente;
 }
-
-void * (*funcionesDesserializadoras[CLIENTE_SERVIDOR + 1])(char * buffer,
-		header header) = {
-			deserializarMensaje_ENTRENADOR_MAPA,deserializarMensaje_MAPA_ENTRENADOR
-};
-
-//FUNCIONES PARA PASE DE CHARS
-/*int enviarMensaje(int socketCliente, char* mensaje) {
- int estadoDeEnvio = send(socketCliente, mensaje, strlen(mensaje) + 1, 0);
- if (estadoDeEnvio > 0)
- printf("El mensaje se envio correctamente\n");
- return socketCliente;
- }*/
-
-void recibirEImprimirMensaje(int socketCliente, int tamanioMensaje) {
-	char mensajeRecibido[tamanioMensaje];
-	recv(socketCliente, (void*) mensajeRecibido, tamanioMensaje, 0);
-	printf("%s\n", mensajeRecibido);
-}
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
 	if (header.payload > sizeof(char) + sizeof(instruccion_t)) {
 		mensaje->nombrePokemon = malloc(
-				header.payload - sizeof(char) - sizeof(instruccion_t));
+				header.payload - sizeof(char) - sizeof(instruccion_t) + 1);
 		memcpy(mensaje->nombrePokemon,
 				buffer + sizeof(char) + sizeof(instruccion_t),
 				header.payload - sizeof(char) - sizeof(instruccion_t));
+		mensaje->nombrePokemon[header.payload - sizeof(char)
+				- sizeof(instruccion_t)] = '\0';
 	}
 	return mensaje;
 }
 void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
-	mensaje_MAPA_ENTRENADOR * mensaje = malloc(sizeof(mensaje_MAPA_ENTRENADOR));
+	mensaje_MAPA_ENTRENADOR * mensaje = malloc(
+			sizeof(posicionMapa) + sizeof(instruccion_t) + sizeof(char));
 	memcpy(mensaje, buffer, sizeof(posicionMapa) + sizeof(instruccion_t));
 	if (header.payload > sizeof(posicionMapa) + sizeof(instruccion_t)) {
 		mensaje->nombrePokemon = malloc(
-				header.payload - sizeof(posicionMapa) - sizeof(instruccion_t));
+				header.payload - sizeof(posicionMapa) - sizeof(instruccion_t)
+						+ 1);
 		memcpy(mensaje->nombrePokemon,
 				buffer + sizeof(posicionMapa) + sizeof(instruccion_t),
 				header.payload - sizeof(posicionMapa) - sizeof(instruccion_t));
+		mensaje->nombrePokemon[header.payload - sizeof(posicionMapa)
+				- sizeof(instruccion_t)] = '\0';
 	}
 	return mensaje;
 }
 
-void * recibirMensaje(int socket) {
-	header header;
-	void * mensaje;
-	if (recv(socket, &header, sizeof(header), 0) <= 0) {
-		return NULL;
-	}
-	char * buffer = malloc(header.payload);
-	if (recv(socket, &buffer, header.payload, 0) <= 0) {
-		return NULL;
-	}
-	if (header.mensaje == MAPA_ENTRENADOR || header.mensaje == ENTRENADOR_MAPA)
-		mensaje = funcionesDesserializadoras[header.mensaje](buffer, header);
 
-	switch (header.mensaje) {
-	case POKEDEX_MAPA:
-		break;
-	case MAPA_POKEDEX:
-		break;
-	case POKEDEX_ENTRENADOR:
-		break;
-	case ENTRENADOR_POKEDEX:
-		break;
-	case SERVIDOR_CLIENTE:
-		break;
-	case CLIENTE_SERVIDOR:
-		break;
-	default:
-		printf("\nLA ESTAMOS PIFIANDO MUCHACHOS\n");
-		mensaje = NULL;
-		break;
+
+char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
+	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;
+	int tamanioString = 0;
+	if (mensajeAEnviar->protocolo == POKEMON) {
+		tamanioString = strlen(mensajeAEnviar->nombrePokemon);
 	}
-	free(buffer);
-	return mensaje;
+	char *buffer = malloc(
+			sizeof(header) + sizeof(instruccion_t) + 1 + tamanioString);
+	nuevoHeader->payload = sizeof(instruccion_t) + 1 + tamanioString;
+	memcpy(buffer, nuevoHeader, sizeof(header));
+	memcpy(buffer + sizeof(header), mensajeAEnviar,
+			sizeof(instruccion_t) + sizeof(char));
+	if (tamanioString > 0) {
+		memcpy(buffer + sizeof(header) + sizeof(instruccion_t) + sizeof(char),
+				mensajeAEnviar->nombrePokemon, tamanioString);
+	}
+	return buffer;
+
 }
-
+char * serializar_MAPA_ENTRENADOR(void * data, header * nuevoHeader) {
+	mensaje_MAPA_ENTRENADOR * mensajeAEnviar = (mensaje_MAPA_ENTRENADOR *) data;
+	int tamanioString = 0;
+	if (mensajeAEnviar->protocolo == POKEMON) {
+		tamanioString = strlen(mensajeAEnviar->nombrePokemon);
+	}
+	char * buffer = malloc(
+			sizeof(instruccion_t) + sizeof(posicionMapa) + sizeof(header)
+					+ tamanioString);
+	nuevoHeader->payload = sizeof(instruccion_t) + sizeof(posicionMapa)
+			+ tamanioString;
+	memcpy(buffer, nuevoHeader, sizeof(header));
+	memcpy(buffer + sizeof(header), mensajeAEnviar,
+			sizeof(instruccion_t) + sizeof(posicionMapa));
+	if (tamanioString > 0) {
+		memcpy(
+				buffer + sizeof(header) + sizeof(instruccion_t)
+						+ sizeof(posicionMapa), mensajeAEnviar->nombrePokemon,
+				tamanioString);
+	}
+	return buffer;
+}
+void * (*funcionesDesserializadoras[CLIENTE_SERVIDOR + 1])(char * buffer,
+		header header) = {
+			deserializarMensaje_ENTRENADOR_MAPA,deserializarMensaje_MAPA_ENTRENADOR
+};
+void * (*fucionesSerializadoras[CLIENTE_SERVIDOR + 1])(void * data,
+		header * nuevoHeader) = {
+			serializar_ENTRENADOR_MAPA,serializar_MAPA_ENTRENADOR
+};
 void enviarMensaje(mensaje_t mensaje, int socket, void *data) {
 	header nuevoHeader;
-	char * buffer;
 	nuevoHeader.mensaje = mensaje;
-	if (mensaje == ENTRENADOR_MAPA) {
-		mensaje_ENTRENADOR_MAPA * mensajeAEnviar =
-				(mensaje_ENTRENADOR_MAPA *) data;
-		int tamanioString = 0;
-		if (mensajeAEnviar->protocolo == POKEMON) {
-			tamanioString = strlen(mensajeAEnviar->nombrePokemon);
-		}
-		buffer = malloc(
-				sizeof(header) + sizeof(instruccion_t) + 1 + tamanioString);
-		nuevoHeader.payload = sizeof(instruccion_t) + 1 + tamanioString;
-		memcpy(buffer, &nuevoHeader, sizeof(header));
-		memcpy(buffer + sizeof(header), mensajeAEnviar,
-				sizeof(instruccion_t) + sizeof(char));
-		if (tamanioString > 0) {
-			memcpy(
-					buffer + sizeof(header) + sizeof(instruccion_t)
-							+ sizeof(char), mensajeAEnviar->nombrePokemon,
-					tamanioString);
-		}
-
-	} else if (mensaje == MAPA_ENTRENADOR) {
-		mensaje_MAPA_ENTRENADOR * mensajeAEnviar =
-				(mensaje_MAPA_ENTRENADOR *) data;
-		int tamanioString = 0;
-		if (mensajeAEnviar->protocolo == POKEMON) {
-			tamanioString = strlen(mensajeAEnviar->nombrePokemon);
-		}
-		buffer = malloc(
-				sizeof(instruccion_t) + sizeof(posicionMapa) + sizeof(header)
-						+ tamanioString);
-		nuevoHeader.payload = sizeof(instruccion_t) + sizeof(posicionMapa)
-				+ tamanioString;
-		memcpy(buffer, &nuevoHeader, sizeof(header));
-		memcpy(buffer + sizeof(header), mensajeAEnviar,
-				sizeof(instruccion_t) + sizeof(posicionMapa));
-		if (tamanioString > 0) {
-			memcpy(
-					buffer + sizeof(header) + sizeof(instruccion_t)
-							+ sizeof(posicionMapa), mensajeAEnviar,
-					tamanioString);
-		}
-	}
+	char * buffer = fucionesSerializadoras[mensaje](data, &nuevoHeader);
 	send(socket, buffer, sizeof(header) + nuevoHeader.payload, 0);
 	free(buffer);
+}
+void * recibirMensaje(int socket) {
+	header unheader;
+	void * mensaje;
+	if (recv(socket, &unheader, sizeof(header), 0) <= 0) {
+		return NULL;
+	}
+	char * buffer = malloc(unheader.payload);
+	if (recv(socket, buffer, unheader.payload, 0) <= 0) {
+		return NULL;
+	}
+	if (unheader.mensaje == MAPA_ENTRENADOR
+			|| unheader.mensaje == ENTRENADOR_MAPA)
+		mensaje = funcionesDesserializadoras[unheader.mensaje](buffer,
+				unheader);
+	free(buffer);
+	return mensaje;
 }

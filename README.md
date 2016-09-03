@@ -11,4 +11,8 @@ apt-file update
 
 EN PATH AND SYMBOLS, EN LA PESTAÑA DE LIBRARIES AGREGAR ncurses (arregla cosas es magicoou)
 
+Para que no tire error fuse: van al path /usr/include/fuse y ponen sudo chmod 777 fuse.h (para darle permisos para modificar el archivo). Despues, adentro de fuse.h le ponen en donde dice FUSE_USE_VERSION un 26.
+
+Compilar PokedexCliente: en donde agregas las librerias agregarle "fuse" y "pthreads"
+
 VAMOS EQUIPO!

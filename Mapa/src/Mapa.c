@@ -47,25 +47,29 @@ typedef struct config_t {
 	t_dictionary * diccionarioDePokeparadas;
 	posicionMapa posicionMaxima;
 } t_configuracion;
-typedef struct entrenadorPokemon_t {
-	char simbolo;
-	int socket;
-	instruccion_t accionARealizar;
-	posicionMapa posicion;
-	t_dictionary * pokemonesAtrapados;
-	int intentos;
-	estado_t estado;
-} entrenadorPokemon;
 typedef struct pokenest_t {
 	char * nombreDelPokemon;
 	char * tipo;
 	posicionMapa posicion;
 	int cantidad;
 } pokenest;
+typedef struct entrenadorPokemon_t {
+	char simbolo;
+	int socket;
+	instruccion_t accionARealizar;
+	posicionMapa posicion;
+	char* proximoPokemon;
+	t_dictionary * pokemonesAtrapados;
+	int intentos;
+	estado_t estado;
+} entrenadorPokemon;
 
+int quantum;
 pthread_mutex_t sem_tiempoDeChequeo;
 pthread_mutex_t sem_listaDeEntrenadores;
+pthread_mutex_t sem_listaDeEntrenadoresBloqueados;
 pthread_mutex_t sem_mapas;
+pthread_mutex_t sem_config;
 t_list * listaDeEntrenadores;
 t_list * items;
 t_configuracion configuracion;
@@ -143,6 +147,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		CrearPersonaje(items, mensaje->id, 1, 1);
 		actualizarMapa();
 		pthread_mutex_unlock(&sem_mapas);
+
 		break;
 	case PROXIMAPOKENEST:
 		unEntrendador->estado = ESPERA;
@@ -210,6 +215,7 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	entrenador->intentos = 0;
 	entrenador->estado = ESPERA;
 	entrenador->simbolo = mensajeRecibido->id;
+	entrenador->proximoPokemon = mensajeRecibido->nombrePokemon;
 	pthread_mutex_lock(&sem_mapas);
 	CrearPersonaje(items, mensajeRecibido->id, 1, 1);
 	actualizarMapa();
@@ -220,15 +226,59 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 }
 
-void planificador(void) {
-	while (1) {
-		//	sem_wait();
-
+entrenadorPokemon* planificador(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
+	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
+	pthread_mutex_lock(&sem_config);
+	quantum = configuracion.quantum;
+	int algoritmo = strcmp(configuracion.algoritmo, "RR");
+	pthread_mutex_unlock(&sem_config);
+	if(algoritmo == 0)
+	{
+		while(quantum != 0)
+		{
+		entrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, 0);
+		quantum--;
+		}
 	}
+	else
+	{
+		pthread_mutex_lock(&sem_config);
+		algoritmo = strcmp(configuracion.algoritmo, "SRDF");
+		pthread_mutex_unlock(&sem_config);
+		if(algoritmo == 0)
+		{
+			bool ordenarPorCercaniaAUnaPokenest(void* data, void* data2)
+			{
+				entrenadorPokemon* entrenador1 = (entrenadorPokemon*) data;
+				entrenadorPokemon* entrenador2 = (entrenadorPokemon*) data2;
+				int posicionPokemon1 = posicionDeUnaPokeNestSegunNombre(entrenador1->proximoPokemon);
+				int distanciaEntrenador1 = distanciaEntreDosPosiciones(entrenador1->posicion, posicionPokemon1);
+				int posicionPokemon2 = posicionDeUnaPokeNestSegunNombre(entrenador2->proximoPokemon);
+				int distanciaEntrenador2 = distanciaEntreDosPosiciones(entrenador2->posicion, posicionPokemon2);
+				if(distanciaEntrenador1 > distanciaEntrenador2)
+					return true;
+				return false;
+
+			}
+			t_list* listaOrdenada = list_create();
+			while(quantum!=0)
+			{
+			 listaOrdenada = list_sort(listaDeEntrenadores, ordenarPorCercaniaAUnaPokenest);
+			entrenador = (entrenadorPokemon*) list_get(listaOrdenada, 0);
+			quantum--;
+			}
+
+		}
+		}
+	return entrenador;
 }
 int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) {
 	return abs(posicion1.posicionx - posicion2.posicionx)
 			+ abs(posicion1.posiciony - posicion2.posiciony);
+}
+int posicionDeUnaPokeNestSegunNombre(char* pokeNest){
+	pokenest* pokenestBuscada = (pokenest*) dictionary_get(configuracion.diccionarioDePokeparadas, pokeNest);
+	return pokenestBuscada->posicion;
 }
 void actualizarMapa() {
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
@@ -239,6 +289,7 @@ void iniciarDatos() {
 	pthread_mutex_init(&sem_listaDeEntrenadores, NULL);
 	pthread_mutex_init(&sem_mapas, NULL);
 	pthread_mutex_init(&sem_tiempoDeChequeo, NULL);
+	pthread_mutex_init(&sem_config, NULL);
 	items = list_create();
 	nivel_gui_inicializar();
 	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,

@@ -1,10 +1,6 @@
 /*
  ============================================================================
- Name        : PokedexServidor.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Averiguar el formato de fechas
  ============================================================================
  */
 
@@ -173,8 +169,10 @@ char * leerArchivo(char * path) {
 int buscarBloqueLibre() {
 	int i;
 	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
-		if (bitmap[i] == 0)
+		if (bitmap[i] == 0){
+			bitmap[i] = 1;
 			return i;
+		}
 	}
 	return 0;
 }
@@ -186,15 +184,15 @@ void guardarArchivo(char * path, char * buffer) {
 	int bloqueActual = tablaDeArchivos[obtenerBloqueInicial(path)].bloqueInicial;
 	int bloqueSiguiente;
 	while (1) {
-		memcpy(bloquesDeDatos * bloqueActual, buffer + (contador * BLOCK_SIZE),
-		BLOCK_SIZE);
+		memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual),
+				buffer + (contador * BLOCK_SIZE),
+				BLOCK_SIZE);
 		tam -= BLOCK_SIZE;
 		contador++;
 		if (tam > 0) {
 			bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
 			if (bloqueSiguiente == -1) {
 				bloqueLibre = buscarBloqueLibre();
-				bitmap[bloqueLibre] = 1;
 				tablaDeAsignaciones[bloqueActual] = bloqueLibre;
 				bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
 			}
@@ -204,23 +202,29 @@ void guardarArchivo(char * path, char * buffer) {
 	}
 }
 void crearArchivo(char * path, char * nombre) {
-	int bloqueLibre = buscarBloqueLibre();
 	osadaFile nuevoArchivo;
 	char ** ruta = string_split(path, "/");
-/*	int i;
+	int i = 0;
+	int j = 0;
 	int padre = -1;
-	int contador = 0;
-	while (1) {
-		for (i = 0; i < 1024; i++) {
-			if ((tablaDeArchivos[i].estado == 2)
-					&& (padre == tablaDeArchivos[i].bloquePadre)) {
-				padre = tablaDeArchivos[i].bloquePadre;
-				contador++;
-				break;
-			}
+	while (!tablaDeArchivos[i]) { //busco el nodo Padre
+		if (tablaDeArchivos[j].bloquePadre == padre
+				&& tablaDeArchivos[j].nombreArchivo
+						== tablaDeArchivos[i].nombreArchivo) {
+			padre = tablaDeArchivos[j].bloqueInicial;
+			i++;
+			j = 0;
+		}else{
+			j++;
 		}
-	} recorre el directorio */
-	nuevoArchivo.bloqueInicial = bloqueLibre;
+	}
+	nuevoArchivo.bloqueInicial = buscarBloqueLibre();
+	nuevoArchivo.bloquePadre = padre;
+	nuevoArchivo.estado = 2;
+	nuevoArchivo.fechaUltimaModif = 0; // Emmm fechas ?
+	nuevoArchivo.nombreArchivo = nombre;
+	nuevoArchivo.tamanioArchivo = BLOCK_SIZE;
+
 }
 void levantarHeader(char * buffer) {
 	char * contenido = malloc(BLOCK_SIZE);
