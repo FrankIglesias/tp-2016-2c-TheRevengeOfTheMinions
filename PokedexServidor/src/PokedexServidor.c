@@ -10,6 +10,7 @@
 #include <commons/bitarray.h>
 #include <tiposDato.h>
 #include <sw_sockets.h>
+#include <log.h>
 #define BLOCK_SIZE 64
 
 typedef struct OSADA_HEADER {
@@ -37,13 +38,13 @@ char* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
+t_log log;
 
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
 	int f = fileHeader.cantBloquesFS;
 	int n = fileHeader.cantBloquesBitmap;
 	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
 }
-
 void inicializarBitArray(void) {
 	bitmap = malloc(fileHeader.cantBloquesFS); //tantos bits como bloques tenga el FS
 	int tablaAsignacion = tamanioTablaAsignacion();
@@ -139,11 +140,20 @@ int buscarNroTArchivos(char ** path) {
 	}
 	return -1;
 }
-
 int obtenerBloqueInicial(char * path) {
 	char ** ruta = string_split(path, "/");
 	int numeroDeArchivo = buscarNroTArchivos(ruta);
 	return tablaDeArchivos[numeroDeArchivo].bloqueInicial;
+}
+int buscarBloqueLibre() {
+	int i;
+	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
+		if (bitmap[i] == 0) {
+			bitmap[i] = 1;
+			return i;
+		}
+	}
+	return 0;
 }
 
 char * leerArchivo(char * path) {
@@ -166,17 +176,6 @@ char * leerArchivo(char * path) {
 	} while (bloqueSiguiente != -1);
 	return archivo;
 }
-int buscarBloqueLibre() {
-	int i;
-	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
-		if (bitmap[i] == 0){
-			bitmap[i] = 1;
-			return i;
-		}
-	}
-	return 0;
-}
-
 void guardarArchivo(char * path, char * buffer) {
 	int tam = strlen(buffer);
 	int contador = 0;
@@ -214,7 +213,7 @@ void crearArchivo(char * path, char * nombre) {
 			padre = tablaDeArchivos[j].bloqueInicial;
 			i++;
 			j = 0;
-		}else{
+		} else {
 			j++;
 		}
 	}
@@ -226,6 +225,7 @@ void crearArchivo(char * path, char * nombre) {
 	nuevoArchivo.tamanioArchivo = BLOCK_SIZE;
 
 }
+
 void levantarHeader(char * buffer) {
 	char * contenido = malloc(BLOCK_SIZE);
 	memcpy(contenido, buffer, BLOCK_SIZE);
@@ -277,6 +277,21 @@ void levantarOsada(char * buffer) {
 					+ fileHeader.cantBloquesBitmap,
 			fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
 }
+
+void dump() {
+	log_trace(log, "Identificador: %s     B-BitMap:%d    B-CantBLoquesFS:%d     B-CantDatos:%d", fileHeader.identificador,
+			fileHeader.cantBloquesBitmap, fileHeader.cantBloquesFS,
+			fileHeader.cantidadDeBloquesDeDatos);
+	int ocupados = 0;
+	int i;
+	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
+		if(bitmap[i]==1)
+			ocupados++;
+	}
+	log_trace(log,"Bitmap: Libres: &d    Ocupados:&d",fileHeader.cantBloquesBitmap - ocupados,ocupados);
+}
+
 int main(void) {
-	return EXIT_SUCCESS;
+log = log_create("log", "Osada", 1, 0);
+return EXIT_SUCCESS;
 }

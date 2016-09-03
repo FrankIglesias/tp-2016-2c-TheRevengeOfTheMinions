@@ -21,7 +21,10 @@ typedef enum {
 	MOVE_LEFT,
 	MOVE_RIGHT,
 	HANDSHAKE,
-	POSICION
+	POSICION,
+	LEER,
+	GUARDAR,
+	CREARDIR
 } instruccion_t;
 typedef enum {
 	ENTRENADOR_MAPA,
