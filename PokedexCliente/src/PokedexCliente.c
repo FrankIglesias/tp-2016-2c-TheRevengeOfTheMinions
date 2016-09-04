@@ -56,7 +56,7 @@ struct t_runtime_options {
  * 	@RETURN
  * 		O archivo/directorio fue encontrado. -ENOENT archivo/directorio no encontrado
  */
-static int hello_getattr(const char *path, struct stat *stbuf) {
+static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	int res = 0;
 
 	memset(stbuf, 0, sizeof(struct stat));
@@ -92,7 +92,7 @@ static int hello_getattr(const char *path, struct stat *stbuf) {
  * 	@RETURN
  * 		O directorio fue encontrado. -ENOENT directorio no encontrado
  */
-static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 		off_t offset, struct fuse_file_info *fi) {
 	(void) offset;
 	(void) fi;
@@ -122,7 +122,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
  * 	@RETURN
  * 		O archivo fue encontrado. -EACCES archivo no es accesible
  */
-static int hello_open(const char *path, struct fuse_file_info *fi) {
+static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
@@ -150,28 +150,43 @@ static int hello_open(const char *path, struct fuse_file_info *fi) {
  * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
  * 		para la funcion write )
  */
-static int read(const char *path, char *lectura, size_t size, off_t offset,
+static int leerArchivo(const char *path, char *lectura, size_t size, off_t offset,
 		struct fuse_file_info *fi) {
 	size_t len;
-	//(void) fi;
+	(void) fi;
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
-	/*len = strlen(DEFAULT_FILE_CONTENT);
+	len = strlen(DEFAULT_FILE_CONTENT);
 	if (offset < len) {
 		if (offset + size > len)
 			size = len - offset;
 		memcpy(lectura, DEFAULT_FILE_CONTENT + offset, size);
 	} else
 		size = 0;
-*/
+
 	return size;
 }
 
-static int borrar(const char * path) {
+static int borrarArchivo(const char * path) {
 	return 0;
 }
-static int mkdir(const char *path, mode_t permisosYTipoArchivo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+static int crearArchivo(const char *path, mode_t permisosYTipoArchivo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+	return 0;
+}
+static int crearDirectorio (const char *, mode_t){
+	return 0;
+}
+
+static int escribirArchivo (const char *, const char *, size_t, off_t, struct fuse_file_info *){
+	return 0;
+}
+
+static int borrarDirectorio (const char *){
+	return 0;
+}
+
+static int renombrarArchivo (const char *, const char *){
 	return 0;
 }
 
@@ -181,9 +196,28 @@ static int mkdir(const char *path, mode_t permisosYTipoArchivo, dev_t unNumero) 
  * Como se observa la estructura contiene punteros a funciones.
  */
 
-static struct fuse_operations hello_oper = { .getattr = hello_getattr,
-		.readdir = hello_readdir, .open = hello_open, .read = read, .unlink =
-				borrar, .mknod = mkdir,
+static struct fuse_operations operacionesFuse = {
+		.getattr = obtenerAtributo,
+		.readdir = leerDirectorio,
+		.open = abrirArchivo,
+		.read = leerArchivo,
+		.unlink = borrarArchivo,
+		.mknod = crearArchivo,
+		.mkdir = crearDirectorio,
+		.write = escribirArchivo,
+		.rmdir = borrarDirectorio,
+		.rename = renombrarArchivo,
+
+
+		/*
+	    read-Leer archivos
+	    mknod-Crear archivos
+	    write-Escribir y modificar archivos			DEBE ESTAR SINCRONIZADA
+	    unlink-Borrar archivos						DEBE ESTAR SINCRONIZADA
+	    mkdir-Crear directorios y subdirectorios.
+	    rmdir-Borrar directorios vacíos				DEBE ESTAR SINCRONIZADA
+	    rename-Renombrar archivos 					DEBE ESTAR SINCRONIZADA
+	    */
 
 };
 
@@ -232,5 +266,5 @@ int main(int argc, char *argv[]) {
 	// Esta es la funcion principal de FUSE, es la que se encarga
 	// de realizar el montaje, comuniscarse con el kernel, delegar todo
 	// en varios threads
-	return fuse_main(args.argc, args.argv, &hello_oper, NULL);
+	return fuse_main(args.argc, args.argv, &operacionesFuse, NULL);
 }
