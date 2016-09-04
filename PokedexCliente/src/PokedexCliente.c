@@ -5,6 +5,12 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <tiposDato.h>
+
+char ipPokedexCliente;
+int puertoPokedexCliente;
 
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
@@ -42,6 +48,65 @@ struct t_runtime_options {
  */
 #define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
 
+///////////////////////////////////////////CONEXIONES/////////////////////////////////////////////////////
+//Trate de implementar esto, lo saque de mapa
+	//Si podemos hacer que entrenador y mapa usen el mismo mensaje (y lo hacemos polimorfico),mejor. Viendo
+	//el protocolo nos fijamos quien pidio que cosa y lo parseamos aca.
+	//Podemos usar como mensaje la estructura mensaje_USUARIO_PKDXCLIENTE
+
+//CUANDO PUEDAS ARREGLAME ESTO FRAN PLOX GRAX
+void atenderUsuarios(void) {
+	fd_set master;
+	fd_set read_fds;
+	struct sockaddr_in remoteaddr;
+	int tamanioMaximoDelFd;
+	int socketListen;
+	int nuevoSocketAceptado;
+	int addrlen;
+	int i;
+	FD_ZERO(&master);
+	FD_ZERO(&read_fds);
+	socketListen = crearSocketServidor(puertoPokedexCliente);
+	FD_SET(socketListen, &master);
+	tamanioMaximoDelFd = socketListen;
+	mensaje_USUARIO_PKDXCLIENTE * mensaje;
+	while (1) {
+		read_fds = master;
+		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
+			perror("select");
+			exit(1);
+		}
+		for (i = 0; i <= tamanioMaximoDelFd; i++) {
+			if (FD_ISSET(i, &read_fds)) {
+				if (i == socketListen) {
+					addrlen = sizeof(remoteaddr);
+					if ((nuevoSocketAceptado = accept(socketListen,
+							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
+						perror("accept");
+					} else {
+						FD_SET(nuevoSocketAceptado, &master);
+						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
+							tamanioMaximoDelFd = nuevoSocketAceptado;
+						}
+					}
+				} else {
+					if (recv(i, mensaje, sizeof(mensaje_USUARIO_PKDXCLIENTE), 0)) {
+						close(i);
+						FD_CLR(i, &master);
+					} else {
+						atenderPeticion(i, mensaje);
+					}
+
+				}
+			}
+		}
+	}
+}
+
+void atenderPeticion(int socket, mensaje_USUARIO_PKDXCLIENTE* mensaje) {
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * @DESC
  *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
@@ -150,43 +215,43 @@ static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
  * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
  * 		para la funcion write )
  */
-static int leerArchivo(const char *path, char *lectura, size_t size, off_t offset,
+static int leerArchivo(const char * descriptor, char *buffer, size_t size, off_t offset,
 		struct fuse_file_info *fi) {
 	size_t len;
 	(void) fi;
-	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
+	if (strcmp(descriptor, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
 	len = strlen(DEFAULT_FILE_CONTENT);
 	if (offset < len) {
 		if (offset + size > len)
 			size = len - offset;
-		memcpy(lectura, DEFAULT_FILE_CONTENT + offset, size);
+		memcpy(buffer, DEFAULT_FILE_CONTENT + offset, size);
 	} else
 		size = 0;
 
 	return size;
 }
 
-static int borrarArchivo(const char * path) {
+static int borrarArchivo(const char * nombreArchivo) {
 	return 0;
 }
-static int crearArchivo(const char *path, mode_t permisosYTipoArchivo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+static int crearArchivo(const char * nombreArchivo, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
 	return 0;
 }
-static int crearDirectorio (const char *, mode_t){
-	return 0;
-}
-
-static int escribirArchivo (const char *, const char *, size_t, off_t, struct fuse_file_info *){
+static int crearDirectorio (const char * nombreDirectorio, mode_t modo){
 	return 0;
 }
 
-static int borrarDirectorio (const char *){
+static int escribirArchivo (const char * descriptor, const char * buffer, size_t tamano, off_t offset, struct fuse_file_info * otracosa){
 	return 0;
 }
 
-static int renombrarArchivo (const char *, const char *){
+static int borrarDirectorio (const char * nombreDirectorio){ //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
+	return 0;
+}
+
+static int renombrarArchivo (const char * nombreViejo, const char * nombreNuevo){
 	return 0;
 }
 
