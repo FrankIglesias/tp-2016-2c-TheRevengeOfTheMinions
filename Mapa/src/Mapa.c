@@ -123,7 +123,7 @@ void atenderDeadLock(void) {
 		sleep(aux);
 		pthread_mutex_unlock(&sem_tiempoDeChequeo);
 		if (configuracion.batalla) {
-			// TODO pedir pokemones y hacerlos pelear
+			//  TODO pedir pokemones y hacerlos pelear
 		}
 	}
 
