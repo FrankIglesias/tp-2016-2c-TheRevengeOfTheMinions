@@ -54,8 +54,32 @@ void inicializarBitArray(void) {
 	memset(bitmap + calculo, 0, fileHeader.cantBloquesFS - calculo);
 }
 
-void atenderPeticiones(int socket, header unHeader, char * ruta) {
-
+void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
+	recv(socket, &unHeader, sizeof(header), 0);
+	switch (unHeader) {
+	case LEER:
+		/*SOlicitar path, tamaño e inicio?
+		 * char * contenido = leerArchivo(ruta);
+		 * Deberia leer una cantidad de bytes
+		 *Deberia indicar desde donde leer?
+		 */
+		break;
+	case CREARDIR:
+		/* solicitar path y nombre
+		 * crearArchivo(path,nombre)
+		 * ok u error;
+		 */
+		break;
+	case GUARDAR:
+		/*Solicitar path, contenido e inicio?
+		 * guardarArchivo(path,contenido,inicio?)
+		 * return ok o error por falta de espacio
+		 */
+		break;
+	default:
+		log_trace(log,
+				"Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
+	}
 }
 void atenderClientes(void) {
 	fd_set master;
@@ -156,12 +180,47 @@ int buscarBloqueLibre() {
 	return 0;
 }
 
-char * leerArchivo(char * path) {
+char * leerArchivo(char * path, int tamano, int offset) {
 	osadaFile bloque = tablaDeArchivos[obtenerBloqueInicial(path)];
-	char * archivo = malloc(bloque.tamanioArchivo);
+	char * archivo = malloc(tamano);
 	int bloqueSiguiente = bloque.bloqueInicial;
 	int contador = 0;
-	do {
+
+	while (offset > BLOCK_SIZE) { // Muevo al nodo que tenga algo para leer
+		if (bloqueSiguiente != -1) {
+			log_trace(log, "ERROR");
+		}
+		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+		offset -= BLOCK_SIZE;
+	}
+	if (tamano > BLOCK_SIZE - offset) { // Leo el contenido del primer nodo a partir offset
+		memcpy(archivo,
+				bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE) + offset,
+				BLOCK_SIZE - offset);
+		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+	} else {
+		memcpy(
+				archivo, // Si es menor de lo que le queda al nodo
+				bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE) + offset,
+				tamano);
+		return archivo;
+	}
+	while (tamano > 0) { // prosigo con la lectura si hay que leer mas
+		if (tamano > BLOCK_SIZE) {
+			memcpy(archivo + offset + (contador * BLOCK_SIZE),
+					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
+					BLOCK_SIZE);
+			tamano -= BLOCK_SIZE;
+			contador++;
+			bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+		} else {
+			memcpy(archivo + offset + (contador * BLOCK_SIZE),
+					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE), tamano);
+			tamano = 0;
+		}
+	}
+
+	/*do {
 		if (tablaDeAsignaciones[bloqueSiguiente] == -1) {
 			memcpy(archivo + (contador * BLOCK_SIZE),
 					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
@@ -173,7 +232,7 @@ char * leerArchivo(char * path) {
 		}
 		contador++;
 		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
-	} while (bloqueSiguiente != -1);
+	} while (bloqueSiguiente != -1); */
 	return archivo;
 }
 void guardarArchivo(char * path, char * buffer) {
@@ -206,10 +265,9 @@ void crearArchivo(char * path, char * nombre) {
 	int i = 0;
 	int j = 0;
 	int padre = -1;
-	while (!ruta[i]){ //busco el nodo Padre
+	while (!ruta[i]) { //busco el nodo Padre
 		if (tablaDeArchivos[j].bloquePadre == padre
-				&& tablaDeArchivos[j].nombreArchivo
-						== ruta[i]) {
+				&& tablaDeArchivos[j].nombreArchivo == ruta[i]) {
 			padre = tablaDeArchivos[j].bloqueInicial;
 			i++;
 			j = 0;

@@ -26,8 +26,6 @@
  */
 #define DEFAULT_FILE_PATH "/" DEFAULT_FILE_NAME
 
-
-
 /*
  * Esta es una estructura auxiliar utilizada para almacenar parametros
  * que nosotros le pasemos por linea de comando a la funcion principal
@@ -43,7 +41,6 @@ struct t_runtime_options {
  * welcome_msg de la variable runtime_options
  */
 #define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
-
 
 /*
  * @DESC
@@ -79,7 +76,6 @@ static int hello_getattr(const char *path, struct stat *stbuf) {
 	return res;
 }
 
-
 /*
  * @DESC
  *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
@@ -96,7 +92,8 @@ static int hello_getattr(const char *path, struct stat *stbuf) {
  * 	@RETURN
  * 		O directorio fue encontrado. -ENOENT directorio no encontrado
  */
-static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
+static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
+		off_t offset, struct fuse_file_info *fi) {
 	(void) offset;
 	(void) fi;
 
@@ -153,23 +150,30 @@ static int hello_open(const char *path, struct fuse_file_info *fi) {
  * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
  * 		para la funcion write )
  */
-static int hello_read(const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi) {
+static int read(const char *path, char *lectura, size_t size, off_t offset,
+		struct fuse_file_info *fi) {
 	size_t len;
-	(void) fi;
+	//(void) fi;
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
-	len = strlen(DEFAULT_FILE_CONTENT);
+	/*len = strlen(DEFAULT_FILE_CONTENT);
 	if (offset < len) {
 		if (offset + size > len)
 			size = len - offset;
-		memcpy(buf, DEFAULT_FILE_CONTENT + offset, size);
+		memcpy(lectura, DEFAULT_FILE_CONTENT + offset, size);
 	} else
 		size = 0;
-
+*/
 	return size;
 }
 
+static int borrar(const char * path) {
+	return 0;
+}
+static int mkdir(const char *path, mode_t permisosYTipoArchivo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+	return 0;
+}
 
 /*
  * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
@@ -177,28 +181,23 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset, st
  * Como se observa la estructura contiene punteros a funciones.
  */
 
-static struct fuse_operations hello_oper = {
-		.getattr = hello_getattr,
-		.readdir = hello_readdir,
-		.open = hello_open,
-		.read = hello_read,
+static struct fuse_operations hello_oper = { .getattr = hello_getattr,
+		.readdir = hello_readdir, .open = hello_open, .read = read, .unlink =
+				borrar, .mknod = mkdir,
 
 };
-
 
 /** keys for FUSE_OPT_ options */
 enum {
-	KEY_VERSION,
-	KEY_HELP,
+	KEY_VERSION, KEY_HELP,
 };
-
 
 /*
  * Esta estructura es utilizada para decirle a la biblioteca de FUSE que
  * parametro puede recibir y donde tiene que guardar el valor de estos
  */
 static struct fuse_opt fuse_options[] = {
-		// Este es un parametro definido por nosotros
+// Este es un parametro definido por nosotros
 		CUSTOM_FUSE_OPT_KEY("--welcome-msg %s", welcome_msg, 0),
 
 		// Estos son parametros por defecto que ya tiene FUSE
@@ -206,8 +205,7 @@ static struct fuse_opt fuse_options[] = {
 		FUSE_OPT_KEY("--version", KEY_VERSION),
 		FUSE_OPT_KEY("-h", KEY_HELP),
 		FUSE_OPT_KEY("--help", KEY_HELP),
-		FUSE_OPT_END,
-};
+		FUSE_OPT_END, };
 
 // Dentro de los argumentos que recibe nuestro programa obligatoriamente
 // debe estar el path al directorio donde vamos a montar nuestro FS
@@ -218,7 +216,7 @@ int main(int argc, char *argv[]) {
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
 
 	// Esta funcion de FUSE lee los parametros recibidos y los intepreta
-	if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1){
+	if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1) {
 		/** error parsing options */
 		perror("Invalid arguments!");
 		return EXIT_FAILURE;
@@ -227,7 +225,7 @@ int main(int argc, char *argv[]) {
 	// Si se paso el parametro --welcome-msg
 	// el campo welcome_msg deberia tener el
 	// valor pasado
-	if( runtime_options.welcome_msg != NULL ){
+	if (runtime_options.welcome_msg != NULL) {
 		printf("%s\n", runtime_options.welcome_msg);
 	}
 
