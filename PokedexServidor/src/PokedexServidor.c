@@ -38,7 +38,7 @@ char* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
-t_log log;
+t_log * log;
 
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
 	int f = fileHeader.cantBloquesFS;
@@ -206,10 +206,10 @@ void crearArchivo(char * path, char * nombre) {
 	int i = 0;
 	int j = 0;
 	int padre = -1;
-	while (!tablaDeArchivos[i]) { //busco el nodo Padre
+	while (!ruta[i]){ //busco el nodo Padre
 		if (tablaDeArchivos[j].bloquePadre == padre
 				&& tablaDeArchivos[j].nombreArchivo
-						== tablaDeArchivos[i].nombreArchivo) {
+						== ruta[i]) {
 			padre = tablaDeArchivos[j].bloqueInicial;
 			i++;
 			j = 0;
@@ -221,7 +221,7 @@ void crearArchivo(char * path, char * nombre) {
 	nuevoArchivo.bloquePadre = padre;
 	nuevoArchivo.estado = 2;
 	nuevoArchivo.fechaUltimaModif = 0; // Emmm fechas ?
-	nuevoArchivo.nombreArchivo = nombre;
+	strcpy(nuevoArchivo.nombreArchivo, nombre);
 	nuevoArchivo.tamanioArchivo = BLOCK_SIZE;
 
 }
@@ -279,19 +279,21 @@ void levantarOsada(char * buffer) {
 }
 
 void dump() {
-	log_trace(log, "Identificador: %s     B-BitMap:%d    B-CantBLoquesFS:%d     B-CantDatos:%d", fileHeader.identificador,
-			fileHeader.cantBloquesBitmap, fileHeader.cantBloquesFS,
-			fileHeader.cantidadDeBloquesDeDatos);
+	log_trace(log,
+			"Identificador: %s     B-BitMap:%d    B-CantBLoquesFS:%d     B-CantDatos:%d",
+			fileHeader.identificador, fileHeader.cantBloquesBitmap,
+			fileHeader.cantBloquesFS, fileHeader.cantidadDeBloquesDeDatos);
 	int ocupados = 0;
 	int i;
 	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
-		if(bitmap[i]==1)
+		if (bitmap[i] == 1)
 			ocupados++;
 	}
-	log_trace(log,"Bitmap: Libres: &d    Ocupados:&d",fileHeader.cantBloquesBitmap - ocupados,ocupados);
+	log_trace(log, "Bitmap: Libres: &d    Ocupados:&d",
+			fileHeader.cantBloquesBitmap - ocupados, ocupados);
 }
 
 int main(void) {
-log = log_create("log", "Osada", 1, 0);
-return EXIT_SUCCESS;
+	log = log_create("log", "Osada", 1, 0);
+	return EXIT_SUCCESS;
 }
