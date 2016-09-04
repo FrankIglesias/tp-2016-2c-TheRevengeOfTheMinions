@@ -141,7 +141,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 	case MOVE_RIGHT:
 		unEntrendador->estado = READY;
 		unEntrendador->accionARealizar = mensaje->protocolo;
-		// sem_post(); TODO
+		//  sem_post(); TODO
 		break;
 	case HANDSHAKE:
 		nuevoEntrenador(socket, mensaje);
