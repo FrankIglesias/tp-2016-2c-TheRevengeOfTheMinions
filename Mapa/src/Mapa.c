@@ -34,6 +34,7 @@ typedef enum {
 	READY, BLOQUEADO, MUERTO, ESPERA
 } estado_t;
 t_log * log;
+int pid = 0;
 typedef struct config_t {
 	char * nombreDelMapa;
 	char * rutaDelMetadata;
@@ -56,6 +57,7 @@ typedef struct pokenest_t {
 typedef struct entrenadorPokemon_t {
 	char simbolo;
 	int socket;
+	int pid;
 	instruccion_t accionARealizar;
 	posicionMapa posicion;
 	char* proximoPokemon;
@@ -209,6 +211,7 @@ void atenderEntrenadores(void) {
 void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
 	entrenador->socket = socket;
+	entrenador->pid += pid;
 	entrenador->posicion.posicionx = 1;
 	entrenador->posicion.posiciony = 1;
 	entrenador->pokemonesAtrapados = dictionary_create();
@@ -225,7 +228,14 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	//sem_post() TODO
 	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 }
-
+posicionMapa posicionDeUnaPokeNestSegunNombre(char* pokeNest){
+	pokenest* pokenestBuscada = (pokenest*) dictionary_get(configuracion.diccionarioDePokeparadas, pokeNest);
+	return pokenestBuscada->posicion;
+}
+int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) {
+	return abs(posicion1.posicionx - posicion2.posicionx)
+			+ abs(posicion1.posiciony - posicion2.posiciony);
+}
 entrenadorPokemon* planificador(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
 	pthread_mutex_lock(&sem_config);
@@ -234,6 +244,16 @@ entrenadorPokemon* planificador(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 	pthread_mutex_unlock(&sem_config);
 	if(algoritmo == 0)
 	{
+		bool ordenarPorTiempoDeLlegada(void* data, void* data2)
+		{
+			entrenadorPokemon* entrenador1 = (entrenadorPokemon*) data;
+			entrenadorPokemon* entrenador2 = (entrenadorPokemon*) data2;
+
+			if(entrenador1->pid < entrenador2->pid)
+				return true;
+			return false;
+		}
+		list_sort(listaDeEntrenadores, ordenarPorTiempoDeLlegada);
 		while(quantum != 0)
 		{
 		entrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, 0);
@@ -251,20 +271,19 @@ entrenadorPokemon* planificador(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 			{
 				entrenadorPokemon* entrenador1 = (entrenadorPokemon*) data;
 				entrenadorPokemon* entrenador2 = (entrenadorPokemon*) data2;
-				int posicionPokemon1 = posicionDeUnaPokeNestSegunNombre(entrenador1->proximoPokemon);
+				posicionMapa posicionPokemon1 = posicionDeUnaPokeNestSegunNombre(entrenador1->proximoPokemon);
 				int distanciaEntrenador1 = distanciaEntreDosPosiciones(entrenador1->posicion, posicionPokemon1);
-				int posicionPokemon2 = posicionDeUnaPokeNestSegunNombre(entrenador2->proximoPokemon);
+				posicionMapa posicionPokemon2 = posicionDeUnaPokeNestSegunNombre(entrenador2->proximoPokemon);
 				int distanciaEntrenador2 = distanciaEntreDosPosiciones(entrenador2->posicion, posicionPokemon2);
 				if(distanciaEntrenador1 > distanciaEntrenador2)
 					return true;
 				return false;
 
 			}
-			t_list* listaOrdenada = list_create();
 			while(quantum!=0)
 			{
-			 listaOrdenada = list_sort(listaDeEntrenadores, ordenarPorCercaniaAUnaPokenest);
-			entrenador = (entrenadorPokemon*) list_get(listaOrdenada, 0);
+			list_sort(listaDeEntrenadores, ordenarPorCercaniaAUnaPokenest);
+			entrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, 0);
 			quantum--;
 			}
 
@@ -272,14 +291,8 @@ entrenadorPokemon* planificador(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		}
 	return entrenador;
 }
-int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) {
-	return abs(posicion1.posicionx - posicion2.posicionx)
-			+ abs(posicion1.posiciony - posicion2.posiciony);
-}
-int posicionDeUnaPokeNestSegunNombre(char* pokeNest){
-	pokenest* pokenestBuscada = (pokenest*) dictionary_get(configuracion.diccionarioDePokeparadas, pokeNest);
-	return pokenestBuscada->posicion;
-}
+
+
 void actualizarMapa() {
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
