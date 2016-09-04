@@ -54,4 +54,9 @@ typedef struct mensaje_MAPA_ENTRENADOR_t {
 	posicionMapa posicion;
 	char * nombrePokemon;
 } mensaje_MAPA_ENTRENADOR;
+
+//Tentativo, se va a cambiar seguramente. Faltan definir protocolos
+typedef struct mensaje_USUARIO_PKDXCLIENTE_t {
+	instruccion_t protocolo;
+} mensaje_USUARIO_PKDXCLIENTE;
 #endif /* LIBRERIAS_SF_TIPOSDATO_H_ */
