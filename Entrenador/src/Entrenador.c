@@ -100,8 +100,8 @@ void restarVida(char* motivo) {
 				close(socketCliente);
 		}
 		else if (config.vidas >= 1){
-			//close(socketCliente);
-			//TODO jugarEnEsteMapa();
+			close(socketCliente);
+			jugar();
 			}
 
 }
@@ -127,6 +127,7 @@ void reintentar() {
 	sprintf(rutaDeLasMedallas, "/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas", config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
+	levantarHojaDeViaje();
 	jugar();
 
 }
@@ -191,31 +192,7 @@ void cargarConfiguracion(t_config* configuracion) {
 		config.vidas = config_get_int_value(configuracion, "vidas");
 		config.reintentos = config_get_int_value(configuracion, "reintentos");
 
-		int i = 0;
-		while (&(*config_get_array_value(configuracion, "hojaDeViaje")[i])
-				!= NULL) {
-
-			objetivo* unMapa = malloc(sizeof(objetivo));
-			unMapa->pokemones = list_create();
-			unMapa->nombreDelMapa = strdup(
-					config_get_array_value(configuracion, "hojaDeViaje")[i]);
-
-			char* pokemones = string_from_format("obj[%s]",
-					unMapa->nombreDelMapa);
-
-			int j = 0;
-			while (&(*config_get_array_value(configuracion, pokemones)[j])
-					!= NULL) {
-				char * nombre = malloc(sizeof(char));
-				nombre = strdup(
-						config_get_array_value(configuracion, pokemones)[j])[0];
-				list_add(unMapa->pokemones, (void *) nombre);
-				j++;
-
-			}
-			list_add(config.hojaDeViaje, (void*) unMapa);
-			i++;
-		}
+		levantarHojaDeViaje();
 
 		log_trace(log, "Nombre Entrenador: %s", config.nombreDelEntrenador);
 		log_trace(log, "Simbolo: %c", config.simbolo);
@@ -236,6 +213,36 @@ void cargarConfiguracion(t_config* configuracion) {
 		log_trace(log, "Se cargaron todas las propiedades");
 	}
 
+}
+
+void levantarHojaDeViaje() {
+
+	int i = 0;
+
+	while (&(*config_get_array_value(configuracion, "hojaDeViaje")[i])
+					!= NULL) {
+
+				objetivo* unMapa = malloc(sizeof(objetivo));
+				unMapa->pokemones = list_create();
+				unMapa->nombreDelMapa = strdup(
+						config_get_array_value(configuracion, "hojaDeViaje")[i]);
+
+				char* pokemones = string_from_format("obj[%s]",
+						unMapa->nombreDelMapa);
+
+				int j = 0;
+				while (&(*config_get_array_value(configuracion, pokemones)[j])
+						!= NULL) {
+					char * nombre = malloc(sizeof(char));
+					nombre = strdup(
+							config_get_array_value(configuracion, pokemones)[j])[0];
+					list_add(unMapa->pokemones, (void *) nombre);
+					j++;
+
+				}
+				list_add(config.hojaDeViaje, (void*) unMapa);
+				i++;
+			}
 }
 
 void iniciarDatos() {
