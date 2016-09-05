@@ -4,6 +4,8 @@
 #include <log.h>
 #include <sw_sockets.c>
 #include <collections/list.h>
+#include <dirent.h>
+#include <stdio.h>
 
 struct config_t {
 	char * nombreDelEntrenador;
@@ -18,11 +20,15 @@ typedef struct objetivo_t {
 	char * nombreDelMapa;
 	t_list* pokemones;
 } objetivo;
+
 pthread_mutex_t mutex_hojaDeViaje;
 pthread_mutex_t vidasSem;
 posicionMapa posicionDeLaPokeNest;
 posicionMapa posicionActual;
 t_log * log;
+
+int socketCliente;
+int pokemonesAtrapados;
 
 bool movimientoVertical = true; /*
  Mari :para que esto
@@ -70,11 +76,76 @@ instruccion_t moverPosicion(void) {
 void subirVida(void) {
 	config.vidas++;
 }
-void restarVida(void) {
+void restarVida(char* motivo) {
 	config.vidas--;
-	// TODO QUE PASA CUANDO PIERDE UNA VIDA
+
+	log_trace(log, "Motivo de muerte: %s ", motivo);
+
+		char* rutaDeLosPokemones = malloc(256);
+		sprintf(rutaDeLosPokemones, "/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/DirDeBill", config.nombreDelEntrenador);
+		borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
+
+		if (config.vidas < 1) {
+			log_trace(log, "Desea reintentar?\n");
+			log_trace(log, "Cantidad de intentos:  %d \n", config.reintentos);
+			log_trace(log, "0-No \n 1-Si \n");
+
+			int opc;
+			scanf("%d", &opc);
+
+			if(opc){
+				close(socketCliente);
+				reintentar();
+			} else
+				close(socketCliente);
+		}
+		else if (config.vidas >= 1){
+			//close(socketCliente);
+			//TODO jugarEnEsteMapa();
+			}
 
 }
+
+
+
+void restarVidaPorSignal(void) {
+	restarVida("Muerte por Signal");
+}
+
+void restarVidaPorDeadlock(void) {
+	restarVida("Muerte por Deadlock");
+}
+
+void restarVidaPorComando(void) {
+	restarVida("Muerte por comando kill");
+}
+
+void reintentar() {
+
+	config.reintentos++;
+	char* rutaDeLasMedallas = malloc(256);
+	sprintf(rutaDeLasMedallas, "/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas", config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
+	free(rutaDeLasMedallas);
+	jugar();
+
+}
+void borrarArchivosDeUnDirectorio(char* ruta){
+
+	    DIR *pathCarpeta = opendir(ruta);
+	    struct dirent *archSig;
+	    char path[256];
+
+	    while ( (archSig = readdir(pathCarpeta)) != NULL )
+	    {
+	        // contruye el path para cada archivo a eliminar
+	        sprintf(path, "%s/%s", ruta , archSig->d_name);
+	        remove(path);
+	    }
+	    closedir(pathCarpeta);
+
+}
+
 int verificarConfiguracion(t_config *configuracion) {
 	/*nombre=Red
 	 simbolo=@
@@ -90,7 +161,8 @@ int verificarConfiguracion(t_config *configuracion) {
 	if (!config_has_property(configuracion, "simbolo"))
 		log_error(log, "No existe SIMBOLO en la configuracion");
 	if (!config_has_property(configuracion, "hojaDeViaje"))
-		log_error(log, "No existe HOJA_DE_VIAJE en la configuracion");
+		log_error(log, "No ex"
+				"iste HOJA_DE_VIAJE en la configuracion");
 	if (!config_has_property(configuracion, "vidas"))
 		log_error(log, "No existe VIDAS en la configuracion");
 	if (!config_has_property(configuracion, "reintentos"))
@@ -167,16 +239,17 @@ void cargarConfiguracion(t_config* configuracion) {
 }
 
 void iniciarDatos() {
-	log = log_create("Log", "Nucleo", 1, 0);
+	log = log_create("Log", "Entrenador", 1, 0);
 	configuracion =
 			config_create(
 					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/Ash/metadata.txt");
 }
 void jugar(void) {
+	pokemonesAtrapados = 0;
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
 	mensaje_MAPA_ENTRENADOR * mensajeARecibir;
 	int cantidadDeObjetivos = list_size(config.hojaDeViaje);
-	int i, j;
+	int i;
 	for (i = 0; i < cantidadDeObjetivos; i++) {
 		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
 		char * rutaDelMetadataDelMapa =
@@ -191,7 +264,7 @@ void jugar(void) {
 				config_get_string_value(configAux, "Puerto"));
 		config_destroy(configAux);
 
-		int socketCliente = crearSocketCliente(ipMapa, puertoMapa);
+		socketCliente = crearSocketCliente(ipMapa, puertoMapa);
 		free(ipMapa);
 		free(puertoMapa);
 		mensajeAEnviar.protocolo = HANDSHAKE;
@@ -203,7 +276,7 @@ void jugar(void) {
 				socketCliente);
 		free(mensajeARecibir);
 		int cantidadDePokemones = list_size(unObjetivo->pokemones);
-		for (j = 0; j < cantidadDePokemones; j++) {
+		for (pokemonesAtrapados = 0; pokemonesAtrapados < cantidadDePokemones; pokemonesAtrapados++) {
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
 
 			// ENVIAR MENSAJE TODO
@@ -239,8 +312,8 @@ void jugar(void) {
 						posicionActual.posicionx++;
 						break;
 					default:
-						log_trace(log, "La estamos pifiando");
-						break;
+					log_trace(log, "La estamos pifiando");
+					break;
 					}
 				}
 				free(mensajeARecibir);
@@ -255,7 +328,7 @@ int main(int argc, char * argv[]) {
 	iniciarDatos();
 	cargarConfiguracion(configuracion);
 	signal(SIGUSR1, subirVida);
-	signal(SIGTERM, restarVida);
+	signal(SIGTERM, restarVidaPorSignal);
 	jugar();
 	return 0;
 }
