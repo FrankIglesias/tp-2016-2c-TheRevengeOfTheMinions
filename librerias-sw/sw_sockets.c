@@ -76,7 +76,7 @@ int crearSocketServidorMonoCliente(char *puerto) {
 			&addrlen);
 	return socketCliente;
 }
-int crearSocketCliente(char ip[], int puerto) {
+			int crearSocketCliente(char ip[], int puerto) {
 	int socketCliente;
 	struct sockaddr_in servaddr;
 
