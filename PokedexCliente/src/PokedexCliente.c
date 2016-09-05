@@ -20,7 +20,7 @@ int puertoPokedexCliente;
  * Si se modifica la cadena se podra ver reflejado cuando
  * se lea el contenido del archivo
  */
-#define DEFAULT_FILE_CONTENT "Hello World!\n"
+#define DEFAULT_FILE_CONTENT "KEKEKEK"
 
 /*
  * Este es el nombre del archivo que se va a encontrar dentro de nuestro FS
@@ -215,28 +215,30 @@ static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
  * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
  * 		para la funcion write )
  */
-static int leerArchivo(const char * descriptor, char *buffer, size_t size, off_t offset,
+static int leerArchivo(const char * path, char *buffer, size_t size, off_t offset,
 		struct fuse_file_info *fi) {
 	size_t len;
 	(void) fi;
-	if (strcmp(descriptor, DEFAULT_FILE_PATH) != 0)
+	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
 	len = strlen(DEFAULT_FILE_CONTENT);
+	char * hola=malloc(7);
+	hola="jejox";
 	if (offset < len) {
 		if (offset + size > len)
 			size = len - offset;
-		memcpy(buffer, DEFAULT_FILE_CONTENT + offset, size);
+		memcpy(buffer, hola, size);
 	} else
 		size = 0;
 
 	return size;
 }
 
-static int borrarArchivo(const char * nombreArchivo) {
+static int borrarArchivo(const char * path) {
 	return 0;
 }
-static int crearArchivo(const char * nombreArchivo, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
 	return 0;
 }
 static int crearDirectorio (const char * nombreDirectorio, mode_t modo){
@@ -252,6 +254,14 @@ static int borrarDirectorio (const char * nombreDirectorio){ //EL DIRECTORIO DEB
 }
 
 static int renombrarArchivo (const char * nombreViejo, const char * nombreNuevo){
+	return 0;
+}
+
+static int crearArchivoSiNoExiste (const char * path, mode_t modo, struct fuse_file_info * info){
+	return 0;
+}
+
+static int obtenerAtributosArchivos (const char * path, struct stat * stat, struct fuse_file_info * info){
 	return 0;
 }
 
@@ -272,7 +282,16 @@ static struct fuse_operations operacionesFuse = {
 		.write = escribirArchivo,
 		.rmdir = borrarDirectorio,
 		.rename = renombrarArchivo,
+		.create = crearArchivoSiNoExiste,   //*1
+		.fgetattr = obtenerAtributosArchivos, //*1
 
+		//*1 Si el archivo no existía, se llama a tu función create() en lugar de open() - si existía,
+		//entonces se llama a open(). Luego de llamar a tu función create(), llaman a tu fgetattr(),
+		//aunque todavía no entendí muy bien por qué. Un posible uso es que podrías usarla para modificar
+		//la semántica de crear un archivo al que no tenés acceso (la semántica estándar aplica unícamente
+		//al modo de acceso de archivo de los open()s subsiguientes). Si el archivo no existía y el flag no
+		//estaba seteado, FUSE sólo llama a tu función getattr() (en este caso no llama ni a tu create() ni
+		//a tu open()). SACADO DE LA DOCUMENTACION
 
 		/*
 	    read-Leer archivos
