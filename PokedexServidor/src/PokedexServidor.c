@@ -13,27 +13,42 @@
 #include <log.h>
 #define BLOCK_SIZE 64
 
+#pragma pack(push, 1) // wtf?
+
+typedef enum atributo {
+	BORRADO = '\0', ARCHIVO = '\1', DIRECTORIO = '\2',
+} osada_state;
+
+typedef enum
+	__attribute__((packed)) { // wtf ???
+		DELETED = '\0',
+	REGULAR = '\1',
+	DIRECTORY = '\2',
+} osada_file_state;
+
 typedef struct OSADA_HEADER {
-	char identificador[7];
+	unsigned char identificador[7];
 	uint8_t version;
-	uint32_t cantBloquesFS; //en bloques
-	uint32_t cantBloquesBitmap; //en bloques
+	uint32_t fs_blocks; //en bloques
+	uint32_t bitmap_blocks; //en bloques
 	uint32_t inicioTablaAsignaciones; //bloque de inicio tabla de asignaciones
-	uint32_t cantidadDeBloquesDeDatos; // cantidad de bloques asignadas para datos
+	uint32_t data_blocks; // cantidad de bloques asignadas para datos
 	char relleno[40];
 } osadaHeader;
+#pragma pack(pop) // :(
 
 typedef struct osadaFile {
-	uint8_t estado; //0 borrado, 1 ocupado, 2 directorio
-	char nombreArchivo[17];
+	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
+	unsigned char nombreArchivo[17];
 	uint16_t bloquePadre;
 	uint32_t tamanioArchivo;
 	uint32_t fechaUltimaModif; //como hago fechas?
 	uint32_t bloqueInicial;
-} osadaFile;
+} archivos_t;
 
 osadaHeader fileHeader;
-osadaFile tablaDeArchivos[1024];
+archivos_t * tablaDeArchivos;
+FILE * osadaFile;
 char* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
@@ -41,22 +56,21 @@ int puerto = 10000;
 t_log * log;
 
 int tamanioTablaAsignacion(void) { //devuelve el tamaño en bloques
-	int f = fileHeader.cantBloquesFS;
-	int n = fileHeader.cantBloquesBitmap;
+	int f = fileHeader.fs_blocks;
+	int n = fileHeader.bitmap_blocks;
 	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
 }
 void inicializarBitArray(void) {
-	bitmap = malloc(fileHeader.cantBloquesFS); //tantos bits como bloques tenga el FS
+	bitmap = malloc(fileHeader.fs_blocks); //tantos bits como bloques tenga el FS
 	int tablaAsignacion = tamanioTablaAsignacion();
-	int calculo = (fileHeader.cantBloquesBitmap + 1025
-			+ tamanioTablaAsignacion());
+	int calculo = (fileHeader.bitmap_blocks + 1025 + tamanioTablaAsignacion());
 	memset(bitmap, 1, calculo);
-	memset(bitmap + calculo, 0, fileHeader.cantBloquesFS - calculo);
+	memset(bitmap + calculo, 0, fileHeader.fs_blocks - calculo);
 }
 
 void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
 	recv(socket, &unHeader, sizeof(header), 0);
-	switch (unHeader) {
+	switch (unHeader.mensaje) {
 	case LEER:
 		/*SOlicitar path, tamaño e inicio?
 		 * char * contenido = leerArchivo(ruta);
@@ -171,7 +185,7 @@ int obtenerBloqueInicial(char * path) {
 }
 int buscarBloqueLibre() {
 	int i;
-	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
+	for (i = 0; i < fileHeader.fs_blocks; ++i) {
 		if (bitmap[i] == 0) {
 			bitmap[i] = 1;
 			return i;
@@ -181,7 +195,7 @@ int buscarBloqueLibre() {
 }
 
 char * leerArchivo(char * path, int tamano, int offset) {
-	osadaFile bloque = tablaDeArchivos[obtenerBloqueInicial(path)];
+	archivos_t bloque = tablaDeArchivos[obtenerBloqueInicial(path)];
 	char * archivo = malloc(tamano);
 	int bloqueSiguiente = bloque.bloqueInicial;
 	int contador = 0;
@@ -221,18 +235,18 @@ char * leerArchivo(char * path, int tamano, int offset) {
 	}
 
 	/*do {
-		if (tablaDeAsignaciones[bloqueSiguiente] == -1) {
-			memcpy(archivo + (contador * BLOCK_SIZE),
-					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
-					bloque.tamanioArchivo - (contador * BLOCK_SIZE));
-		} else {
-			memcpy(archivo + (contador * BLOCK_SIZE),
-					bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
-					BLOCK_SIZE);
-		}
-		contador++;
-		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
-	} while (bloqueSiguiente != -1); */
+	 if (tablaDeAsignaciones[bloqueSiguiente] == -1) {
+	 memcpy(archivo + (contador * BLOCK_SIZE),
+	 bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
+	 bloque.tamanioArchivo - (contador * BLOCK_SIZE));
+	 } else {
+	 memcpy(archivo + (contador * BLOCK_SIZE),
+	 bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE),
+	 BLOCK_SIZE);
+	 }
+	 contador++;
+	 bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+	 } while (bloqueSiguiente != -1); */
 	return archivo;
 }
 void guardarArchivo(char * path, char * buffer) {
@@ -260,7 +274,7 @@ void guardarArchivo(char * path, char * buffer) {
 	}
 }
 void crearArchivo(char * path, char * nombre) {
-	osadaFile nuevoArchivo;
+	archivos_t nuevoArchivo;
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -284,74 +298,76 @@ void crearArchivo(char * path, char * nombre) {
 
 }
 
-void levantarHeader(char * buffer) {
+void levantarHeader() {
+	log_trace(log, "Levantando Header");
 	char * contenido = malloc(BLOCK_SIZE);
-	memcpy(contenido, buffer, BLOCK_SIZE);
-	memcpy(fileHeader.identificador, contenido, 7);
-	memcpy(fileHeader.version, contenido + 7, 1);
-	memcpy(fileHeader.cantBloquesFS, contenido + 8, 4);
-	memcpy(fileHeader.cantBloquesBitmap, contenido + 12, 4);
-	memcpy(fileHeader.inicioTablaAsignaciones, contenido + 16, 4);
-	memcpy(fileHeader.cantidadDeBloquesDeDatos, contenido + 20, 4);
-	memcpy(fileHeader.relleno, contenido + 24, 40);
-	free(contenido);
+	fread(&fileHeader, sizeof(osadaHeader), 1, osadaFile);
+	fileHeader.identificador[7] = '\0';
+	log_trace(log, "Identificador: %s", fileHeader.identificador);
+	log_trace(log, "Version:%d", fileHeader.version);
+	log_trace(log, "Fs_blocks:%u", fileHeader.fs_blocks);
+	log_trace(log, "Bitmap_blocks:%u", fileHeader.bitmap_blocks);
+	log_trace(log, "InicioTablaAsignaciones:%u",
+			fileHeader.inicioTablaAsignaciones);
+	log_trace(log, "Data_blocks:%u", fileHeader.data_blocks);
 }
-void levantarTablaDeArchivos(char * buffer) {
-	char * contenido = malloc(1024 * BLOCK_SIZE);
-	memcpy(contenido, buffer + BLOCK_SIZE + fileHeader.cantBloquesBitmap,
-			1024 * BLOCK_SIZE);
+void levantarTablaDeArchivos() {
+	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
+	fread(tablaDeArchivos, sizeof(archivos_t),
+			(1024 * BLOCK_SIZE) / sizeof(archivos_t), osadaFile);
 	int i;
-	int filaTabla = 0;
-	for (i = 0; i < 1024; ++i) {
-		filaTabla = i * sizeof(osadaHeader);
-		memcpy(tablaDeArchivos[i].estado, contenido + filaTabla, 1);
-		memcpy(tablaDeArchivos[i].nombreArchivo, contenido + filaTabla + 1, 17);
-		memcpy(tablaDeArchivos[i].bloquePadre, contenido + filaTabla + 18, 2);
-		memcpy(tablaDeArchivos[i].tamanioArchivo, contenido + filaTabla + 20,
-				4);
-		memcpy(tablaDeArchivos[i].fechaUltimaModif, contenido + filaTabla + 24,
-				4);
-		memcpy(tablaDeArchivos[i].bloqueInicial, contenido + filaTabla + 24, 4);
+	for (i = 0; i < (1024 * BLOCK_SIZE) / sizeof(archivos_t); ++i) {
+		if(tablaDeArchivos[i].estado == 2){
+			log_trace(log,"Nombre de carpeta: %s",tablaDeArchivos[i].nombreArchivo);
+		}
 	}
-	free(contenido);
 }
-void levantarTablaDeAsignaciones(char * buffer) {
-	int bloquesTablaAsignacion = tamanioTablaAsignacion();
-	tablaDeAsignaciones = malloc(sizeof(int) * bloquesTablaAsignacion);
-//tablaDeAsignaciones[0] = fileHeader.inicioTablaAsignaciones;
-	memcpy(tablaDeAsignaciones,
-			buffer + BLOCK_SIZE + fileHeader.cantBloquesFS + 1024,
-			sizeof(int) * bloquesTablaAsignacion);
+void levantarTablaDeAsignaciones() {
+	tablaDeAsignaciones = malloc(sizeof(int) * tamanioTablaAsignacion());
+	fread(tablaDeAsignaciones,tamanioTablaAsignacion(),1,osadaFile);
 }
-void levantarOsada(char * buffer) {
-	levantarHeader(buffer);
+void levantarOsada() {
+	log_trace(log, "Levantando osada");
+	levantarHeader();
 	inicializarBitArray();
-	memcpy(bitmap, buffer + BLOCK_SIZE, fileHeader.cantBloquesBitmap);
-	levantarTablaDeArchivos(buffer);
-	levantarTablaDeAsignaciones(buffer);
-	bloquesDeDatos = malloc(fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
-	memcpy(bloquesDeDatos,
-			buffer + BLOCK_SIZE * 1025 + tamanioTablaAsignacion()
-					+ fileHeader.cantBloquesBitmap,
-			fileHeader.cantidadDeBloquesDeDatos * BLOCK_SIZE);
+	fread(bitmap, fileHeader.bitmap_blocks, 1, osadaFile);
+	uint32_t ocupados = 0;
+	int i;
+	for (i = 0; i < fileHeader.fs_blocks; ++i) {
+		if (bitmap[i] == 1)
+			ocupados++;
+	}
+	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
+			fileHeader.fs_blocks - ocupados, ocupados);
+	levantarTablaDeArchivos();
+	 levantarTablaDeAsignaciones();
+	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
+	fread(bloquesDeDatos,fileHeader.data_blocks * BLOCK_SIZE,1,osadaFile);
 }
 
 void dump() {
 	log_trace(log,
 			"Identificador: %s     B-BitMap:%d    B-CantBLoquesFS:%d     B-CantDatos:%d",
-			fileHeader.identificador, fileHeader.cantBloquesBitmap,
-			fileHeader.cantBloquesFS, fileHeader.cantidadDeBloquesDeDatos);
+			fileHeader.identificador, fileHeader.bitmap_blocks,
+			fileHeader.fs_blocks, fileHeader.data_blocks);
 	int ocupados = 0;
 	int i;
-	for (i = 0; i < fileHeader.cantBloquesFS; ++i) {
+	for (i = 0; i < fileHeader.fs_blocks; ++i) {
 		if (bitmap[i] == 1)
 			ocupados++;
 	}
 	log_trace(log, "Bitmap: Libres: &d    Ocupados:&d",
-			fileHeader.cantBloquesBitmap - ocupados, ocupados);
+			fileHeader.bitmap_blocks - ocupados, ocupados);
 }
 
-int main(void) {
+int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
+	osadaFile =
+			fopen(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/disco.bin",
+					"rb");
+	levantarOsada();
+	log_trace(log,"Estoy solito y vacio en el mundo");
+	//dump();
 	return EXIT_SUCCESS;
 }

@@ -1,0 +1,70 @@
+[TRACE] 13:21:58:849 Osada/(4715:4715): Levantando osada
+[TRACE] 13:21:58:849 Osada/(4715:4715): Levantando Header
+[TRACE] 13:22:59:94 Osada/(4804:4804): Levantando osada
+[TRACE] 13:23:01:500 Osada/(4804:4804): Levantando Header
+[TRACE] 13:24:08:227 Osada/(4804:4804): ELF
+[TRACE] 13:24:09:540 Osada/(4804:4804): 1
+[TRACE] 13:24:54:594 Osada/(4804:4804): 1
+[TRACE] 13:25:20:7 Osada/(4874:4874): Levantando osada
+[TRACE] 13:25:20:9 Osada/(4874:4874): Levantando Header
+[TRACE] 13:25:20:10 Osada/(4874:4874): ELF
+[TRACE] 13:25:20:11 Osada/(4874:4874): 1
+[TRACE] 13:25:20:11 Osada/(4874:4874): 1
+[TRACE] 13:25:41:612 Osada/(4940:4940): Levantando osada
+[TRACE] 13:25:47:962 Osada/(4940:4940): Levantando Header
+[TRACE] 13:25:49:465 Osada/(4940:4940): ELF
+[TRACE] 13:25:50:547 Osada/(4940:4940): 1
+[TRACE] 13:26:12:833 Osada/(4940:4940): 1
+[TRACE] 13:38:33:654 Osada/(5207:5207): Levantando osada
+[TRACE] 13:38:33:655 Osada/(5207:5207): Levantando Header
+[TRACE] 13:38:40:409 Osada/(5207:5207): ELF
+[TRACE] 13:39:06:852 Osada/(5207:5207): 1
+[TRACE] 13:39:29:428 Osada/(5207:5207): 1
+[TRACE] 13:39:57:307 Osada/(5267:5267): Levantando osada
+[TRACE] 13:39:57:308 Osada/(5267:5267): Levantando Header
+[TRACE] 13:39:57:309 Osada/(5267:5267): ELF
+[TRACE] 13:39:57:309 Osada/(5267:5267): 1
+[TRACE] 13:39:57:310 Osada/(5267:5267): 1
+[TRACE] 13:40:08:323 Osada/(5302:5302): Levantando osada
+[TRACE] 13:40:10:765 Osada/(5302:5302): Levantando Header
+[TRACE] 14:29:46:281 Osada/(5302:5302): ELF
+[TRACE] 14:29:47:197 Osada/(5302:5302): 1
+[TRACE] 14:29:58:758 Osada/(6042:6042): Levantando osada
+[TRACE] 14:29:58:759 Osada/(6042:6042): Levantando Header
+[TRACE] 14:29:58:759 Osada/(6042:6042): OsadaFS
+[TRACE] 14:30:18:533 Osada/(6090:6090): Levantando osada
+[TRACE] 14:30:21:8 Osada/(6090:6090): Levantando Header
+[TRACE] 14:31:37:109 Osada/(6090:6090): OsadaFS
+[TRACE] 14:34:37:756 Osada/(6193:6193): Levantando osada
+[TRACE] 14:34:39:654 Osada/(6193:6193): Levantando Header
+[TRACE] 14:34:41:648 Osada/(6193:6193): OsadaFS
+[TRACE] 14:55:47:653 Osada/(6375:6375): Levantando osada
+[TRACE] 14:55:49:273 Osada/(6375:6375): Levantando Header
+[TRACE] 14:57:57:215 Osada/(6375:6375): OsadaFS
+[TRACE] 15:23:31:344 Osada/(6936:6936): Levantando osada
+[TRACE] 15:23:31:344 Osada/(6936:6936): Levantando Header
+[TRACE] 15:23:31:345 Osada/(6936:6936): OsadaFS
+[TRACE] 15:23:50:178 Osada/(6976:6976): Levantando osada
+[TRACE] 15:24:03:238 Osada/(6976:6976): Levantando Header
+[TRACE] 15:24:30:286 Osada/(6976:6976): OsadaFS
+[TRACE] 15:26:13:298 Osada/(7071:7071): Levantando osada
+[TRACE] 15:26:13:299 Osada/(7071:7071): Levantando Header
+[TRACE] 15:26:13:299 Osada/(7071:7071): OsadaFS
+[TRACE] 15:26:41:336 Osada/(7123:7123): Levantando osada
+[TRACE] 15:26:44:389 Osada/(7123:7123): Levantando Header
+[TRACE] 15:26:46:949 Osada/(7123:7123): OsadaFS
+[TRACE] 15:30:28:282 Osada/(7282:7282): Levantando osada
+[TRACE] 15:30:31:985 Osada/(7282:7282): Levantando Header
+[TRACE] 15:33:32:214 Osada/(7383:7383): Levantando osada
+[TRACE] 15:33:34:403 Osada/(7383:7383): Levantando Header
+[TRACE] 15:37:14:85 Osada/(7493:7493): Levantando osada
+[TRACE] 15:37:16:550 Osada/(7493:7493): Levantando Header
+[TRACE] 15:37:20:168 Osada/(7493:7493): Identificador: OsadaFS
+[TRACE] 15:37:21:926 Osada/(7493:7493): Version:0
+[TRACE] 15:37:23:752 Osada/(7493:7493): Fs_blocks:0
+[TRACE] 15:37:24:344 Osada/(7493:7493): Bitmap_blocks:0
+[TRACE] 15:37:24:691 Osada/(7493:7493): InicioTablaAsignaciones:0
+[TRACE] 15:38:19:728 Osada/(7608:7608): Levantando osada
+[TRACE] 15:38:22:301 Osada/(7608:7608): Levantando Header
+[TRACE] 15:44:24:96 Osada/(7883:7883): Levantando osada
+[TRACE] 15:44:42:361 Osada/(7883:7883): Levantando Header
