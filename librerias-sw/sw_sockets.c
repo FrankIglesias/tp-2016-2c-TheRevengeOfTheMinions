@@ -76,7 +76,7 @@ int crearSocketServidorMonoCliente(char *puerto) {
 			&addrlen);
 	return socketCliente;
 }
-			int crearSocketCliente(char ip[], int puerto) {
+int crearSocketCliente(char ip[], int puerto) {
 	int socketCliente;
 	struct sockaddr_in servaddr;
 
@@ -127,8 +127,6 @@ void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
 	}
 	return mensaje;
 }
-
-
 
 char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
 	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;

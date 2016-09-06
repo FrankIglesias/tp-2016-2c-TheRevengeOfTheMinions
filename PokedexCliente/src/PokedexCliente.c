@@ -8,28 +8,17 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <tiposDato.h>
-
+#include <sw_sockets.c>
 char ipPokedexCliente;
 int puertoPokedexCliente;
+char * ip = "127.0.0.1";
+int puerto = 9000;
 
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
 
-/* Este es el contenido por defecto que va a contener
- * el unico archivo que se encuentre presente en el FS.
- * Si se modifica la cadena se podra ver reflejado cuando
- * se lea el contenido del archivo
- */
 #define DEFAULT_FILE_CONTENT "KEKEKEK"
-
-/*
- * Este es el nombre del archivo que se va a encontrar dentro de nuestro FS
- */
 #define DEFAULT_FILE_NAME "hello"
-
-/*
- * Este es el path de nuestro, relativo al punto de montaje, archivo dentro del FS
- */
 #define DEFAULT_FILE_PATH "/" DEFAULT_FILE_NAME
 
 /*
@@ -49,63 +38,8 @@ struct t_runtime_options {
 #define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
 
 ///////////////////////////////////////////CONEXIONES/////////////////////////////////////////////////////
-//Trate de implementar esto, lo saque de mapa
-	//Si podemos hacer que entrenador y mapa usen el mismo mensaje (y lo hacemos polimorfico),mejor. Viendo
-	//el protocolo nos fijamos quien pidio que cosa y lo parseamos aca.
-	//Podemos usar como mensaje la estructura mensaje_USUARIO_PKDXCLIENTE
+// No tenemos juanma hermoso
 
-//CUANDO PUEDAS ARREGLAME ESTO FRAN PLOX GRAX
-void atenderUsuarios(void) {
-	fd_set master;
-	fd_set read_fds;
-	struct sockaddr_in remoteaddr;
-	int tamanioMaximoDelFd;
-	int socketListen;
-	int nuevoSocketAceptado;
-	int addrlen;
-	int i;
-	FD_ZERO(&master);
-	FD_ZERO(&read_fds);
-	socketListen = crearSocketServidor(puertoPokedexCliente);
-	FD_SET(socketListen, &master);
-	tamanioMaximoDelFd = socketListen;
-	mensaje_USUARIO_PKDXCLIENTE * mensaje;
-	while (1) {
-		read_fds = master;
-		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
-			perror("select");
-			exit(1);
-		}
-		for (i = 0; i <= tamanioMaximoDelFd; i++) {
-			if (FD_ISSET(i, &read_fds)) {
-				if (i == socketListen) {
-					addrlen = sizeof(remoteaddr);
-					if ((nuevoSocketAceptado = accept(socketListen,
-							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
-						perror("accept");
-					} else {
-						FD_SET(nuevoSocketAceptado, &master);
-						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
-							tamanioMaximoDelFd = nuevoSocketAceptado;
-						}
-					}
-				} else {
-					if (recv(i, mensaje, sizeof(mensaje_USUARIO_PKDXCLIENTE), 0)) {
-						close(i);
-						FD_CLR(i, &master);
-					} else {
-						atenderPeticion(i, mensaje);
-					}
-
-				}
-			}
-		}
-	}
-}
-
-void atenderPeticion(int socket, mensaje_USUARIO_PKDXCLIENTE* mensaje) {
-
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * @DESC
@@ -142,7 +76,7 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 }
 
 /*
- * @DESC
+ b * @DESC
  *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
  * para obtener la lista de archivos o directorios que se encuentra dentro de un directorio
  *
@@ -159,19 +93,18 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
  */
 static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 		off_t offset, struct fuse_file_info *fi) {
-	(void) offset;
-	(void) fi;
-
 	if (strcmp(path, "/") != 0)
 		return -ENOENT;
-
-	// "." y ".." son entradas validas, la primera es una referencia al directorio donde estamos parados
-	// y la segunda indica el directorio padre
-	filler(buf, ".", NULL, 0);
-	filler(buf, "..", NULL, 0);
-	filler(buf, DEFAULT_FILE_NAME, NULL, 0);
-
+	int sockets = crearSocketCliente(ip, puerto);
+	protocoloPokedex_t protocolo;
+	//enviarMensaje(sockets,path);
+	// Recibe, protocolo, tamaño del buffer, y contenido
+	if (!recv(sockets, &protocolo, sizeof(protocoloPokedex_t), 0))
+		return -ENOENT; // Esto es para error?
+	//if(protocolo == ERROR)
+	//return -ENOENT;
 	return 0;
+
 }
 
 /*
@@ -215,24 +148,29 @@ static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
  * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
  * 		para la funcion write )
  */
-static int leerArchivo(const char * path, char *buffer, size_t size, off_t offset,
-		struct fuse_file_info *fi) {
-	size_t len;
-	(void) fi;
+static int leerArchivo(const char * path, char *buffer, size_t size,
+		off_t offset, struct fuse_file_info *fi) {
+	int sockets = crearSocketCliente(ip, puerto);
+	protocoloPokedex_t protocolo;
+	//EnviarMensaje(sockets,path,tamano,offset)
+	recv(sockets,&protocolo,size,0);
+	recv(sockets,buffer,size,0);
+
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 		return -ENOENT;
 
-	len = strlen(DEFAULT_FILE_CONTENT);
-	char * hola=malloc(7);
-	hola="jejox";
+	/*size_t len;
+	len = strlen(buffer);
+	char * hola = malloc(7);
+	hola = "jejox";
 	if (offset < len) {
 		if (offset + size > len)
 			size = len - offset;
 		memcpy(buffer, hola, size);
 	} else
 		size = 0;
-
-	return size;
+		*/
+	return size; // ???
 }
 
 static int borrarArchivo(const char * path) {
@@ -241,48 +179,47 @@ static int borrarArchivo(const char * path) {
 static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
 	return 0;
 }
-static int crearDirectorio (const char * nombreDirectorio, mode_t modo){
+static int crearDirectorio(const char * nombreDirectorio, mode_t modo) {
+	int sockets = crearSocketCliente(ip, puerto);
+	protocoloPokedex_t protocolo;
+	//enviarMensaje(sockets,nombreDirectorio);
+	if (!recv(sockets, &protocolo, sizeof(protocoloPokedex_t), 0))
+		return -ENOENT; // Esto es para error?
+	//if(protocolo == ERROR)
+	//return -ENOENT;
 	return 0;
 }
 
-static int escribirArchivo (const char * descriptor, const char * buffer, size_t tamano, off_t offset, struct fuse_file_info * otracosa){
+static int escribirArchivo(const char * descriptor, const char * buffer,
+		size_t tamano, off_t offset, struct fuse_file_info * otracosa) {
 	return 0;
 }
 
-static int borrarDirectorio (const char * nombreDirectorio){ //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
+static int borrarDirectorio(const char * nombreDirectorio) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
 	return 0;
 }
 
-static int renombrarArchivo (const char * nombreViejo, const char * nombreNuevo){
+static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) {
 	return 0;
 }
 
-static int crearArchivoSiNoExiste (const char * path, mode_t modo, struct fuse_file_info * info){
+static int crearArchivoSiNoExiste(const char * path, mode_t modo,
+		struct fuse_file_info * info) {
 	return 0;
 }
 
-static int obtenerAtributosArchivos (const char * path, struct stat * stat, struct fuse_file_info * info){
+static int obtenerAtributosArchivos(const char * path, struct stat * stat,
+		struct fuse_file_info * info) {
 	return 0;
 }
 
-/*
- * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
- * biblioteca que funciones tiene que invocar segun que se le pida a FUSE.
- * Como se observa la estructura contiene punteros a funciones.
- */
 
-static struct fuse_operations operacionesFuse = {
-		.getattr = obtenerAtributo,
-		.readdir = leerDirectorio,
-		.open = abrirArchivo,
-		.read = leerArchivo,
-		.unlink = borrarArchivo,
-		.mknod = crearArchivo,
-		.mkdir = crearDirectorio,
-		.write = escribirArchivo,
-		.rmdir = borrarDirectorio,
-		.rename = renombrarArchivo,
-		.create = crearArchivoSiNoExiste,   //*1
+static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
+		.readdir = leerDirectorio, .open = abrirArchivo, .read = leerArchivo,
+		.unlink = borrarArchivo, .mknod = crearArchivo,
+		.mkdir = crearDirectorio, .write = escribirArchivo, .rmdir =
+				borrarDirectorio, .rename = renombrarArchivo, .create =
+				crearArchivoSiNoExiste,   //*1
 		.fgetattr = obtenerAtributosArchivos, //*1
 
 		//*1 Si el archivo no existía, se llama a tu función create() en lugar de open() - si existía,
@@ -294,16 +231,16 @@ static struct fuse_operations operacionesFuse = {
 		//a tu open()). SACADO DE LA DOCUMENTACION
 
 		/*
-	    read-Leer archivos
-	    mknod-Crear archivos
-	    write-Escribir y modificar archivos			DEBE ESTAR SINCRONIZADA
-	    unlink-Borrar archivos						DEBE ESTAR SINCRONIZADA
-	    mkdir-Crear directorios y subdirectorios.
-	    rmdir-Borrar directorios vacíos				DEBE ESTAR SINCRONIZADA
-	    rename-Renombrar archivos 					DEBE ESTAR SINCRONIZADA
-	    */
+		 read-Leer archivos
+		 mknod-Crear archivos
+		 write-Escribir y modificar archivos			DEBE ESTAR SINCRONIZADA
+		 unlink-Borrar archivos						DEBE ESTAR SINCRONIZADA
+		 mkdir-Crear directorios y subdirectorios.
+		 rmdir-Borrar directorios vacíos				DEBE ESTAR SINCRONIZADA
+		 rename-Renombrar archivos 					DEBE ESTAR SINCRONIZADA
+		 */
 
-};
+		};
 
 /** keys for FUSE_OPT_ options */
 enum {
@@ -328,6 +265,8 @@ static struct fuse_opt fuse_options[] = {
 // Dentro de los argumentos que recibe nuestro programa obligatoriamente
 // debe estar el path al directorio donde vamos a montar nuestro FS
 int main(int argc, char *argv[]) {
+	/*ip = argv[1];
+	 puerto = argv[2];*/
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
 	// Limpio la estructura que va a contener los parametros
