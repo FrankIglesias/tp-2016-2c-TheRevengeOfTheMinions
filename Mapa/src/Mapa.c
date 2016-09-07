@@ -73,6 +73,7 @@ pthread_mutex_t sem_listaDeEntrenadoresBloqueados;
 pthread_mutex_t sem_mapas;
 pthread_mutex_t sem_config;
 t_list * listaDeEntrenadores;
+t_list * listaDeEntrenadoresBloqueados;
 t_list * items;
 t_configuracion configuracion;
 void cargarPokeNests(t_dictionary * diccionario, char nombre[]) {
@@ -138,7 +139,7 @@ int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) 
 			+ abs(posicion1.posiciony - posicion2.posiciony);
 }
 entrenadorPokemon* planificador() {
-	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
+	entrenadorPokemon * entrenador;
 	pthread_mutex_lock(&sem_config);
 	int algoritmo = strcmp(configuracion.algoritmo, "RR");
 	pthread_mutex_unlock(&sem_config);
@@ -147,24 +148,27 @@ entrenadorPokemon* planificador() {
 			entrenadorPokemon* entrenador1 = (entrenadorPokemon*) data;
 			entrenadorPokemon* entrenador2 = (entrenadorPokemon*) data2;
 
-			if (entrenador1->pid < entrenador2->pid)
-				return true;
-			return false;
+			return(entrenador1->pid < entrenador2->pid);
+
 		}
 		list_sort(listaDeEntrenadores, ordenarPorTiempoDeLlegada);
 		entrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, 0);
 		if (quantum != 0)
 			quantum--;
 		else {
+
 			log_trace(log, "QUANTUM FINALIZADO PARA EL ENTRENADOR %c",
 					entrenador->simbolo);
 			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			list_add(listaDeEntrenadores, (void *) entrenador);
 			list_remove(listaDeEntrenadores, 0);
-			list_get(listaDeEntrenadores, 0);
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			entrenador = list_get(listaDeEntrenadores, 0);
+
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
 			pthread_mutex_lock(&sem_config);
 			quantum = configuracion.quantum;
 			pthread_mutex_unlock(&sem_config);
+			quantum--;
 		}
 	} else {
 		pthread_mutex_lock(&sem_config);
@@ -184,31 +188,15 @@ entrenadorPokemon* planificador() {
 								entrenador2->proximoPokemon);
 				int distanciaEntrenador2 = distanciaEntreDosPosiciones(
 						entrenador2->posicion, posicionPokemon2);
-				if (distanciaEntrenador1 > distanciaEntrenador2)
-					return true;
-				return false;
-
+				return (distanciaEntrenador1 < distanciaEntrenador2);
 			}
+			pthread_mutex_lock(&sem_listaDeEntrenadores);
 			list_sort(listaDeEntrenadores, ordenarPorCercaniaAUnaPokenest);
 			entrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, 0);
-			if (quantum != 0) {
-
-				log_trace(log,
-						"SE OBTUVO DE LA LISTA DE ENTRENADORES AL ENTRENADOR %c",
-						entrenador->simbolo);
-				quantum--;
-
-			} else {
-				log_trace(log, "QUANTUM FINALIZADO PARA EL ENTRENADOR %c",
-						entrenador->simbolo);
-				pthread_mutex_lock(&sem_listaDeEntrenadores);
-				list_remove(listaDeEntrenadores, 0);
-				list_get(listaDeEntrenadores, 0);
-				pthread_mutex_lock(&sem_listaDeEntrenadores);
-				pthread_mutex_lock(&sem_config);
-				quantum = configuracion.quantum;
-				pthread_mutex_unlock(&sem_config);
-			}
+			log_trace(log,"SE OBTUVO DE LA LISTA DE ENTRENADORES AL ENTRENADOR %c",entrenador->simbolo);
+			list_add(listaDeEntrenadores, (void*) entrenador);
+			list_remove(listaDeEntrenadores,0);
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		}
 	}
 	return entrenador;
@@ -216,18 +204,24 @@ entrenadorPokemon* planificador() {
 
 void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 
-	entrenadorPokemon * unEntrendador;
+	entrenadorPokemon * unEntrenador;
 	mensaje_MAPA_ENTRENADOR mensajeAEnviar;
 	if (!mensaje->protocolo == HANDSHAKE) {
-		unEntrendador = planificador();
+		unEntrenador = planificador();
 	}
 	switch (mensaje->protocolo) {
 	case MOVE_DOWN:
+		mensajeAEnviar->protocolo = OK;
+		break;
 	case MOVE_LEFT:
+		mensajeAEnviar->protocolo = OK;
+		break;
 	case MOVE_UP:
+		mensajeAEnviar->protocolo = OK;
+		break;
 	case MOVE_RIGHT:
-		unEntrendador->estado = READY;
-		unEntrendador->accionARealizar = mensaje->protocolo;
+		unEntrenador->estado = READY;
+		unEntrenador->accionARealizar = mensaje->protocolo;
 		//  sem_post(); TODO
 		break;
 	case HANDSHAKE:
@@ -239,12 +233,27 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 
 		break;
 	case PROXIMAPOKENEST:
-		unEntrendador->estado = ESPERA;
+
 		// RESPONDER POSICION DE LA POKENEST TODO
 		break;
 	case ATRAPAR:
-		unEntrendador->estado = BLOQUEADO;
-		// sem_post() TODO
+		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+		list_add(listaDeEntrenadoresBloqueados, (void*) entrenadorPokemon);
+		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+		pthread_mutex_lock(&sem_config);
+		int planificador = strcmp(configuracion.algoritmo, "RR");
+		pthread_mutex_unlock(&sem_config);
+		if(planificador == 0)
+		{
+			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			list_remove(listaDeEntrenadores, 0);
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+			pthread_mutex_lock(&sem_config);
+			quantum = configuracion.quantum;
+			pthread_mutex_unlock(&sem_config);
+		}
+
+
 		break;
 	}
 }
@@ -322,7 +331,9 @@ void actualizarMapa() {
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
 	listaDeEntrenadores = list_create();
+	listaDeEntrenadoresBloqueados = list_create();
 	pthread_mutex_init(&sem_listaDeEntrenadores, NULL);
+	pthread_mutex_init(&sem_listaDeEntrenadoresBloqueados,NULL);
 	pthread_mutex_init(&sem_mapas, NULL);
 	pthread_mutex_init(&sem_tiempoDeChequeo, NULL);
 	pthread_mutex_init(&sem_config, NULL);
@@ -330,6 +341,8 @@ void iniciarDatos() {
 	nivel_gui_inicializar();
 	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
 			&configuracion.posicionMaxima.posiciony);
+		quantum = configuracion.quantum;
+
 	//sem_init(&finalizarUmc, 0, 0);
 }
 void liberarDatos() {
@@ -366,9 +379,6 @@ int main(int arc, char * argv[]) {
 	iniciarDatos();
 	cargarConfiguracion();
 	signal(SIGUSR2, cargarConfiguracion);
-	pthread_mutex_lock(&sem_config);
-	quantum = configuracion.quantum;
-	pthread_mutex_unlock(&sem_config);
 	crearHiloAtenderEntrenadores();
 
 	crearHiloParaPlanificador();
