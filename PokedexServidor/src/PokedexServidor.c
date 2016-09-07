@@ -25,13 +25,6 @@ typedef enum
 	REGULAR = '\1',
 	DIRECTORY = '\2',
 } osada_file_state;
-
-typedef struct tamaniosOsada {
-	int bitmap;
-	int tablaDeArchivos;
-	int tablaDeAsignaciones;
-} tamanios_t;
-
 typedef struct OSADA_HEADER {
 	unsigned char identificador[7];
 	uint8_t version;
@@ -59,7 +52,6 @@ char* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
-tamanios_t tam;
 t_log * log;
 
 int tamanioTablaAsignacion() { //devuelve el tamaño en bloques
@@ -198,10 +190,15 @@ int buscarBloqueLibre() {
 			return i;
 		}
 	}
-	return 0;
+	return -1;
 }
-void asignarBloqueLibre(int bloqueAnterior) {
-
+int asignarBloqueLibre(int bloqueAnterior) {
+	int bloqueLibre = buscarBloqueLibre();
+	if (bloqueLibre == -1) {
+		return -1;
+	}
+	tablaDeAsignaciones[bloqueAnterior] = bloqueLibre;
+	return 0;
 }
 int verificarBloqueSiguiente(int actual, int siguiente) {
 	if (tablaDeAsignaciones[siguiente] == -1) {
@@ -292,28 +289,35 @@ int guardarArchivo(char * path, char * buffer, int offset) {
 	return 0;
 }
 void crearArchivo(char * path, char * nombre) {
-	archivos_t nuevoArchivo;
-	char ** ruta = string_split(path, "/");
+	log_trace(log, "creando archivo  %s", nombre);
 	int i = 0;
 	int j = 0;
 	int padre = -1;
-	while (!ruta[i]) { //busco el nodo Padre
-		if (tablaDeArchivos[j].bloquePadre == padre
-				&& tablaDeArchivos[j].nombreArchivo == ruta[i]) {
-			padre = tablaDeArchivos[j].bloqueInicial;
-			i++;
-			j = 0;
-		} else {
-			j++;
+	if (path != "/") {
+		char ** ruta = string_split(path, "/");
+		while (!ruta[i]) { //busco el nodo Padre
+			if (tablaDeArchivos[j].bloquePadre == padre
+					&& tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == DIRECTORIO) {
+				padre = tablaDeArchivos[j].bloqueInicial;
+				i++;
+				j = 0;
+			} else {
+				j++;
+			}
 		}
 	}
-	nuevoArchivo.bloqueInicial = buscarBloqueLibre();
-	nuevoArchivo.bloquePadre = padre;
-	nuevoArchivo.estado = 2;
-	nuevoArchivo.fechaUltimaModif = 0; // Emmm fechas ?
-	strcpy(nuevoArchivo.nombreArchivo, nombre);
-	nuevoArchivo.tamanioArchivo = BLOCK_SIZE;
-
+	for (i = 0; i < 1024; ++i) {
+		if(tablaDeArchivos[i].estado == BORRADO){
+			tablaDeArchivos[i].bloqueInicial = buscarBloqueLibre();
+			tablaDeArchivos[i].bloquePadre = padre;
+			tablaDeArchivos[i].estado = ARCHIVO;
+			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
+			strcpy(tablaDeArchivos[i].nombreArchivo, nombre);
+			tablaDeArchivos[i].tamanioArchivo = 1;
+			break;
+		}
+	}
+	log_trace(log,"se ha creado un archivo en el bloque: %d",tablaDeArchivos[i].bloqueInicial);
 }
 void borrar(void) {
 }
@@ -348,8 +352,8 @@ void levantarTablaDeArchivos() {
 	int i;
 	for (i = 0; i < (1024 * BLOCK_SIZE) / sizeof(archivos_t); ++i) {
 		if (tablaDeArchivos[i].estado == 2) {
-			log_trace(log, "Nombre de carpeta: %s",
-					tablaDeArchivos[i].nombreArchivo);
+			//log_trace(log, "Nombre de carpeta: %s",
+			//		tablaDeArchivos[i].nombreArchivo);
 		}
 	}
 }
@@ -370,6 +374,7 @@ void levantarOsada() {
 	}
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
 			fileHeader.fs_blocks - ocupados, ocupados);
+	log_trace(log,"tamaño estructuras administrativas: %d en bloques",(64 + fileHeader.fs_blocks + 1024* 64 + 4 * tamanioTablaAsignacion()) / 64);
 	levantarTablaDeArchivos();
 	levantarTablaDeAsignaciones();
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
@@ -390,17 +395,28 @@ void dump() {
 	log_trace(log, "Bitmap: Libres: &d    Ocupados:&d",
 			fileHeader.bitmap_blocks - ocupados, ocupados);
 }
+void imprimirDirectoriosDe(char* path) { // no funca
+	int i;
+	for (i = 0; i < (1024 * BLOCK_SIZE) / sizeof(archivos_t); ++i) {
+		if (tablaDeArchivos[i].nombreArchivo != 0) {
+		//	log_trace(log, "Nombre de carpeta: %s",
+		//			tablaDeArchivos[i].nombreArchivo);
+		}
+	}
+}
 
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
-	tam.bitmap = fileHeader.fs_blocks;
-	tam.tablaDeArchivos = 1024 * BLOCK_SIZE;
-	tam.tablaDeAsignaciones = sizeof(int) * tamanioTablaAsignacion();
+//	tam.bitmap = fileHeader.fs_blocks;
+//	tam.tablaDeArchivos = 1024 * BLOCK_SIZE;
+//	tam.tablaDeAsignaciones = sizeof(int) * tamanioTablaAsignacion();
 	osadaFile =
 			fopen(
 					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/disco.bin",
 					"rb");
 	levantarOsada();
+	//crearArchivo("/", "solito");
+	//imprimirDirectoriosDe("/");
 	log_trace(log, "Estoy solito y vacio en el mundo");
 	//dump();
 	return EXIT_SUCCESS;
