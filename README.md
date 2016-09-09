@@ -21,7 +21,9 @@ Para hacer correr el cliente pokedex:
 
 
 <strong> Para crear un archivo y formatearlo osada </strong>
+
 truncate --size 100M disco.bin
+
 ./osada-format disco.bin
 
 <font size = 8><strong>VAMOS EQUIPO!</strong></font>
