@@ -55,9 +55,11 @@ typedef struct mensaje_MAPA_ENTRENADOR_t {
 	posicionMapa posicion;
 	char * nombrePokemon;
 } mensaje_MAPA_ENTRENADOR;
-
-//Tentativo, se va a cambiar seguramente. Faltan definir protocolos
-typedef struct mensaje_USUARIO_PKDXCLIENTE_t {
-	instruccion_t protocolo;
-} mensaje_USUARIO_PKDXCLIENTE;
+typedef struct mensaje_CLIENTE_SERVIDOR_t{
+	protocoloPokedex_t protocolo;
+	char * path;
+	uint32_t start;
+	uint32_t offset;
+	char * nuevoNombre; //Usado en Rename. El nombre viejo se saca del path
+}mensaje_CLIENTE_SERVIDOR;
 #endif /* LIBRERIAS_SF_TIPOSDATO_H_ */

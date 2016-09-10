@@ -9,8 +9,11 @@
 #include <sys/socket.h>
 #include <tiposDato.h>
 #include <sw_sockets.c>
+
 char ipPokedexCliente;
 int puertoPokedexCliente;
+int socket; //Lo creo aca asi lo tengo global
+
 char * ip = "127.0.0.1";
 int puerto = 9000;
 
@@ -37,174 +40,156 @@ struct t_runtime_options {
  */
 #define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
 
-///////////////////////////////////////////CONEXIONES/////////////////////////////////////////////////////
-// No tenemos juanma hermoso
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
- * @DESC
- *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
- * para obtener la metadata de un archivo/directorio. Esto puede ser tamaño, tipo,
- * permisos, dueño, etc ...
- *
- * @PARAMETROS
- * 		path - El path es relativo al punto de montaje y es la forma mediante la cual debemos
- * 		       encontrar el archivo o directorio que nos solicitan
- * 		stbuf - Esta esta estructura es la que debemos completar
- *
- * 	@RETURN
- * 		O archivo/directorio fue encontrado. -ENOENT archivo/directorio no encontrado
- */
 static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	int res = 0;
 
-	memset(stbuf, 0, sizeof(struct stat));
+		memset(stbuf, 0, sizeof(struct stat));
 
-	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
+		//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
 
-	if (strcmp(path, "/") == 0) {
-		stbuf->st_mode = S_IFDIR | 0755;
-		stbuf->st_nlink = 2;
-	} else if (strcmp(path, DEFAULT_FILE_PATH) == 0) {
-		stbuf->st_mode = S_IFREG | 0444;
-		stbuf->st_nlink = 1;
-		stbuf->st_size = strlen(DEFAULT_FILE_CONTENT);
-	} else {
-		res = -ENOENT;
-	}
+		if (strcmp(path, "/") == 0) {
+			stbuf->st_mode = S_IFDIR | 0755;
+			stbuf->st_nlink = 2;
+		} else if (strcmp(path, DEFAULT_FILE_PATH) == 0) {
+			stbuf->st_mode = S_IFREG | 0444;
+			stbuf->st_nlink = 1;
+			stbuf->st_size = strlen(DEFAULT_FILE_CONTENT);
+		} else {
+			res = -ENOENT;
+		}
 	return res;
 }
 
-/*
- b * @DESC
- *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
- * para obtener la lista de archivos o directorios que se encuentra dentro de un directorio
- *
- * @PARAMETROS
- * 		path - El path es relativo al punto de montaje y es la forma mediante la cual debemos
- * 		       encontrar el archivo o directorio que nos solicitan
- * 		buf - Este es un buffer donde se colocaran los nombres de los archivos y directorios
- * 		      que esten dentro del directorio indicado por el path
- * 		filler - Este es un puntero a una función, la cual sabe como guardar una cadena dentro
- * 		         del campo buf
- *
- * 	@RETURN
- * 		O directorio fue encontrado. -ENOENT directorio no encontrado
- */
 static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 		off_t offset, struct fuse_file_info *fi) {
-	if (strcmp(path, "/") != 0)
-		return -ENOENT;
-	int sockets = crearSocketCliente(ip, puerto);
-	protocoloPokedex_t protocolo;
-	//enviarMensaje(sockets,path);
-	// Recibe, protocolo, tamaño del buffer, y contenido
-	if (!recv(sockets, &protocolo, sizeof(protocoloPokedex_t), 0))
-		return -ENOENT; // Esto es para error?
-	//if(protocolo == ERROR)
-	//return -ENOENT;
+
+	(void) offset;
+		(void) fi;
+
+		if (strcmp(path, "/") != 0)
+			return -ENOENT;
+
+		// "." y ".." son entradas validas, la primera es una referencia al directorio donde estamos parados
+		// y la segunda indica el directorio padre
+		filler(buf, ".", NULL, 0);
+		filler(buf, "..", NULL, 0);
+		filler(buf, DEFAULT_FILE_NAME, NULL, 0);
+
 	return 0;
 
 }
 
-/*
- * @DESC
- *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
- * para tratar de abrir un archivo
- *
- * @PARAMETROS
- * 		path - El path es relativo al punto de montaje y es la forma mediante la cual debemos
- * 		       encontrar el archivo o directorio que nos solicitan
- * 		fi - es una estructura que contiene la metadata del archivo indicado en el path
- *
- * 	@RETURN
- * 		O archivo fue encontrado. -EACCES archivo no es accesible
- */
 static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
-	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
-		return -ENOENT;
+	//int sockets = crearSocketCliente(ip, puerto);
+	//protocoloPokedex_t protocolo;
+	//enviarMensaje(sockets,path);  //ME TIENE QUE DECIR EL SERVIDOR SI EXISTE ESTE ARCHIVO
+	//----Recibe, protocolo, alguna bandera que me indique si existe o no (llamemosla ----//
 
-	if ((fi->flags & 3) != O_RDONLY)
-		return -EACCES;
+	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
+			return -ENOENT;
+
+		if ((fi->flags & 3) != O_RDONLY)
+			return -EACCES;
 
 	return 0;
 }
 
-/*
- * @DESC
- *  Esta función va a ser llamada cuando a la biblioteca de FUSE le llege un pedido
- * para obtener el contenido de un archivo
- *
- * @PARAMETROS
- * 		path - El path es relativo al punto de montaje y es la forma mediante la cual debemos
- * 		       encontrar el archivo o directorio que nos solicitan
- * 		buf - Este es el buffer donde se va a guardar el contenido solicitado
- * 		size - Nos indica cuanto tenemos que leer
- * 		offset - A partir de que posicion del archivo tenemos que leer
- *
- * 	@RETURN
- * 		Si se usa el parametro direct_io los valores de retorno son 0 si  elarchivo fue encontrado
- * 		o -ENOENT si ocurrio un error. Si el parametro direct_io no esta presente se retorna
- * 		la cantidad de bytes leidos o -ENOENT si ocurrio un error. ( Este comportamiento es igual
- * 		para la funcion write )
- */
 static int leerArchivo(const char * path, char *buffer, size_t size,
 		off_t offset, struct fuse_file_info *fi) {
-	int sockets = crearSocketCliente(ip, puerto);
-	protocoloPokedex_t protocolo;
-	//EnviarMensaje(sockets,path,tamano,offset)
-	recv(sockets,&protocolo,size,0);
-	recv(sockets,buffer,size,0);
 
-	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
-		return -ENOENT;
+		mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+		mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+		mensaje->protocolo=LEER;
+		mensaje->path=path;
+		mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
+		mensaje->start=offset;  //El START es desde donde voy a leer
 
-	/*size_t len;
-	len = strlen(buffer);
+		//enviarMensaje(tipoMensaje,socket,mensaje);
+
+		//RECIBIR EL MENSAJE, FALTA DEFINIR QUE ENVIA SERVIDOR A CLIENTE
+
+	//Esto esta para saber que no esta rompiendo. Sin importar que tenga el archivo, lo que se lee es "jejox"
 	char * hola = malloc(7);
 	hola = "jejox";
-	if (offset < len) {
-		if (offset + size > len)
-			size = len - offset;
-		memcpy(buffer, hola, size);
-	} else
-		size = 0;
-		*/
-	return size; // ???
+
+	size_t len;
+	len = strlen(hola);
+
+	 memcpy(buffer, hola, size);
+
+	 return size;
 }
 
 static int borrarArchivo(const char * path) {
+
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=BORRAR;
+	mensaje->path=path;
+
+	//enviarMensaje(tipoMensaje,socket,mensaje);
+
+
 	return 0;
 }
-static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea direcotior
+static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea directorio
+
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=CREAR;
+	mensaje->path=path;
+
+	//enviarMensaje(tipoMensaje,socket,mensaje);
+
 	return 0;
 }
-static int crearDirectorio(const char * nombreDirectorio, mode_t modo) {
-	int sockets = crearSocketCliente(ip, puerto);
-	protocoloPokedex_t protocolo;
-	//enviarMensaje(sockets,nombreDirectorio);
-	if (!recv(sockets, &protocolo, sizeof(protocoloPokedex_t), 0))
-		return -ENOENT; // Esto es para error?
-	//if(protocolo == ERROR)
-	//return -ENOENT;
+static int crearDirectorio(const char * path, mode_t modo) {
+
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=CREARDIR;
+	mensaje->path=path;
+
 	return 0;
 }
 
-static int escribirArchivo(const char * descriptor, const char * buffer,
-		size_t tamano, off_t offset, struct fuse_file_info * otracosa) {
-	return 0;
+static int escribirArchivo(const char * path, const char * buffer,
+		size_t size, off_t offset, struct fuse_file_info * otracosa) {
+
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=ESCRIBIR;
+	mensaje->path=path;
+	mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
+	mensaje->start=offset;  //El START es desde donde voy a leer
+
+	//enviarMensaje(tipoMensaje,socket,mensaje);
+
+	return size; //La funcion retorna lo que se escribio realmente. Puede que no sea este, eso depende lo que me devuelva el servidor
 }
 
-static int borrarDirectorio(const char * nombreDirectorio) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
+static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
+
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=BORRARDIR;
+	mensaje->path=path;
+
+	//enviarMensaje(tipoMensaje,socket,mensaje);
+
 	return 0;
 }
 
 static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) {
-	return 0;
-}
 
-static int crearArchivoSiNoExiste(const char * path, mode_t modo,
-		struct fuse_file_info * info) {
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protocolo=RENOMBRAR;
+	mensaje->path=nombreViejo;
+	mensaje->nuevoNombre = nombreNuevo;
+
+	//enviarMensaje(tipoMensaje,socket,mensaje);
+
 	return 0;
 }
 
@@ -218,9 +203,7 @@ static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
 		.readdir = leerDirectorio, .open = abrirArchivo, .read = leerArchivo,
 		.unlink = borrarArchivo, .mknod = crearArchivo,
 		.mkdir = crearDirectorio, .write = escribirArchivo, .rmdir =
-				borrarDirectorio, .rename = renombrarArchivo, .create =
-				crearArchivoSiNoExiste,   //*1
-		.fgetattr = obtenerAtributosArchivos, //*1
+				borrarDirectorio, .rename = renombrarArchivo, .fgetattr = obtenerAtributosArchivos, //*1
 
 		//*1 Si el archivo no existía, se llama a tu función create() en lugar de open() - si existía,
 		//entonces se llama a open(). Luego de llamar a tu función create(), llaman a tu fgetattr(),
@@ -229,6 +212,9 @@ static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
 		//al modo de acceso de archivo de los open()s subsiguientes). Si el archivo no existía y el flag no
 		//estaba seteado, FUSE sólo llama a tu función getattr() (en este caso no llama ni a tu create() ni
 		//a tu open()). SACADO DE LA DOCUMENTACION
+
+		//Esto creo que despues se va a borrar. Si ellos nos dan las cosas sin errores, no deberiamos
+		//usar CREATE
 
 		/*
 		 read-Leer archivos
@@ -268,6 +254,9 @@ int main(int argc, char *argv[]) {
 	/*ip = argv[1];
 	 puerto = argv[2];*/
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+
+	//Creo el socket cliente
+	//socket = crearSocketCliente(ip, puerto);
 
 	// Limpio la estructura que va a contener los parametros
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
