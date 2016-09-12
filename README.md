@@ -27,6 +27,7 @@ truncate --size 100M disco.bin
 ./osada-format disco.bin
 
 <strong>Para ver las actualizaciones de un archivo</strong>
+
 <em> tail -f <NOMBRE DEL ARCHIVO></em>
 
 
