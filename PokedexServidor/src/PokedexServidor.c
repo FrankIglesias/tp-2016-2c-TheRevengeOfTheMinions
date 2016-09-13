@@ -54,6 +54,16 @@ char * bloquesDeDatos;
 int puerto = 10000;
 t_log * log;
 void * data;
+typedef enum {
+	LEER, CREAR, ESCRIBIR, BORRAR, CREARDIR, BORRARDIR, RENOMBRAR, ERROR
+} protocoloPokedex_t;
+typedef struct mensaje_CLIENTE_SERVIDOR_t{
+	protocoloPokedex_t protocolo;
+	char * path;
+	uint32_t start;
+	uint32_t offset;
+	char * nuevoNombre; //Usado en Rename. El nombre viejo se saca del path
+}mensaje_CLIENTE_SERVIDOR;
 
 int tamanioTablaAsignacion() { //devuelve el tamaño en bloques
 	int f = fileHeader.fs_blocks;
@@ -70,34 +80,39 @@ void inicializarBitArray(void) {
 int tamanioStructAdministrativa() {
 	return 1 + fileHeader.bitmap_blocks + 1024 + tamanioTablaAsignacion();
 }
-
+/*
 void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
-	recv(socket, &unHeader, sizeof(header), 0);
-	switch (unHeader.mensaje) {
+	mensaje_CLIENTE_SERVIDOR mensaje;
+	while (recv(socket,(void*) mensaje, sizeof(mensaje_CLIENTE_SERVIDOR), 0) > 0){ // no esta echa la serealizacion
+	switch (mensaje.protocolo){
 	case LEER:
-		/*SOlicitar path, tamaño e inicio?
-		 * char * contenido = leerArchivo(ruta);
-		 * Deberia leer una cantidad de bytes
-		 *Deberia indicar desde donde leer?
-		 */
+		mensaje.data = leerArchivo(mensaje.path,mensaje.offset,mensaje.start);
+		if(mensaje.data == NULL){
+			mensaje.protocolo = ERROR;
+			enviarMensaje(mensaje,socket(),0);
+			break;
+		}
+
+
+		}
 		break;
 	case CREARDIR:
 		/* solicitar path y nombre
 		 * crearArchivo(path,nombre)
 		 * ok u error;
 		 */
-		break;
-	case GUARDAR:
+//		break;
+//	case GUARDAR:
 		/*Solicitar path, contenido e inicio?
 		 * guardarArchivo(path,contenido,inicio?)
 		 * return ok o error por falta de espacio
 		 */
-		break;
-	default:
-		log_trace(log,
-				"Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
-	}
-}
+//		break;
+//	default:
+//		log_trace(log,
+//				"Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
+//	}
+
 void atenderClientes(void) {
 	fd_set master;
 	fd_set read_fds;
@@ -245,9 +260,9 @@ int buscarAlPadre(char *path, char * nombre) {
 	}
 	return padre;
 }
-void borrarPrimeraLetra(char * palabra){
+void borrarPrimeraLetra(char * palabra) {
 	int i = 1;
-	while(palabra[i]){
+	while (palabra[i]) {
 		palabra[i - 1] = palabra[i];
 		i++;
 	}
@@ -384,7 +399,7 @@ void crearArchivo(char * path, char * nombre) {
 			tablaDeArchivos[i].bloquePadre = padre;
 			tablaDeArchivos[i].estado = ARCHIVO;
 			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
-			if(nombre[0] == "/")
+			if (nombre[0] == "/")
 				borrarPrimeraLetra(nombre);
 			strcpy(tablaDeArchivos[i].nombreArchivo, nombre);
 			tablaDeArchivos[i].tamanioArchivo = 1;
@@ -414,7 +429,7 @@ void borrar(char * path) {
 			}
 		}
 	}
-	while(archivo->bloqueInicial != 0){
+	while (archivo->bloqueInicial != 0) {
 		j = archivo->bloqueInicial;
 		bitmap[j] = 0;
 		archivo->bloqueInicial = tablaDeAsignaciones[j];
@@ -423,8 +438,8 @@ void borrar(char * path) {
 	archivo->bloqueInicial = -1;
 	archivo->bloquePadre = -1;
 	archivo->estado = BORRADO;
-	archivo->tamanioArchivo =  0;
-	log_trace(log,"Se ah borrado el archivo: &s",archivo->nombreArchivo);
+	archivo->tamanioArchivo = 0;
+	log_trace(log, "Se ah borrado el archivo: &s", archivo->nombreArchivo);
 	free(archivo);
 }
 
@@ -605,6 +620,10 @@ int main(int argc, void *argv[]) {
 //	lectura = leerArchivo("/solito.txt", 100, 0);
 //	crearDir("/yasmila/");
 	borrar("/solito.txt");
+	free(log);
+	free(tablaDeArchivos);
+	free(tablaDeAsignaciones);
+	free(bitmap);
 	return 0;
 }
 
