@@ -60,6 +60,6 @@ typedef struct mensaje_CLIENTE_SERVIDOR_t{
 	char * path;
 	uint32_t start;
 	uint32_t offset;
-	char * nuevoNombre; //Usado en Rename. El nombre viejo se saca del path
+	char * data; //Usado en rename, y para la devolucion del leer.
 }mensaje_CLIENTE_SERVIDOR;
 #endif /* LIBRERIAS_SF_TIPOSDATO_H_ */
