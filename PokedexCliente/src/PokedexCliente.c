@@ -9,10 +9,12 @@
 #include <sys/socket.h>
 #include <tiposDato.h>
 #include <sw_sockets.c>
+#include <log.h>
 
+t_log * log;
 char ipPokedexCliente;
 int puertoPokedexCliente;
-int socket; //Lo creo aca asi lo tengo global
+//int socket; //Lo creo aca asi lo tengo global
 
 char * ip = "127.0.0.1";
 int puerto = 9000;
@@ -20,7 +22,7 @@ int puerto = 9000;
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
 
-#define DEFAULT_FILE_CONTENT "KEKEKEK"
+#define DEFAULT_FILE_CONTENT "KEKEKEKanananan"
 #define DEFAULT_FILE_NAME "hello"
 #define DEFAULT_FILE_PATH "/" DEFAULT_FILE_NAME
 
@@ -80,10 +82,8 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 }
 
 static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
-	//int sockets = crearSocketCliente(ip, puerto);
-	//protocoloPokedex_t protocolo;
-	//enviarMensaje(sockets,path);  //ME TIENE QUE DECIR EL SERVIDOR SI EXISTE ESTE ARCHIVO
-	//----Recibe, protocolo, alguna bandera que me indique si existe o no (llamemosla ----//
+
+	log_trace(log,"Se abrio el archivo %s",path);
 
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
 			return -ENOENT;
@@ -97,20 +97,23 @@ static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
 static int leerArchivo(const char * path, char *buffer, size_t size,
 		off_t offset, struct fuse_file_info *fi) {
 
+	log_trace(log,"Se quiso leer %s path,%s buffer, %d size, %d offset",path,buffer,size,offset);
+	/*
 		mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 		mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 		mensaje->protocolo=LEER;
 		mensaje->path=path;
 		mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
 		mensaje->start=offset;  //El START es desde donde voy a leer
+		*/
 
 		//enviarMensaje(tipoMensaje,socket,mensaje);
 
 		//RECIBIR EL MENSAJE, FALTA DEFINIR QUE ENVIA SERVIDOR A CLIENTE
 
 	//Esto esta para saber que no esta rompiendo. Sin importar que tenga el archivo, lo que se lee es "jejox"
-	char * hola = malloc(7);
-	hola = "jejox";
+	char * hola = malloc(50);
+	hola = "holaProbando";
 
 	size_t len;
 	len = strlen(hola);
@@ -122,10 +125,12 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 
 static int borrarArchivo(const char * path) {
 
+	/*
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protocolo=BORRAR;
 	mensaje->path=path;
+	*/
 
 	//enviarMensaje(tipoMensaje,socket,mensaje);
 
@@ -134,10 +139,13 @@ static int borrarArchivo(const char * path) {
 }
 static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea directorio
 
+	log_trace(log,"Se quiso crear el archivo %s path",path);
+	/*
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protocolo=CREAR;
 	mensaje->path=path;
+	*/
 
 	//enviarMensaje(tipoMensaje,socket,mensaje);
 
@@ -156,12 +164,15 @@ static int crearDirectorio(const char * path, mode_t modo) {
 static int escribirArchivo(const char * path, const char * buffer,
 		size_t size, off_t offset, struct fuse_file_info * otracosa) {
 
+	log_trace(log,"Se quiso escribir en %s path,%s buffer, %d size, %d offset",path,buffer,size,offset);
+	/*
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protocolo=ESCRIBIR;
 	mensaje->path=path;
 	mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
 	mensaje->start=offset;  //El START es desde donde voy a leer
+	*/
 
 	//enviarMensaje(tipoMensaje,socket,mensaje);
 
@@ -251,6 +262,7 @@ static struct fuse_opt fuse_options[] = {
 // Dentro de los argumentos que recibe nuestro programa obligatoriamente
 // debe estar el path al directorio donde vamos a montar nuestro FS
 int main(int argc, char *argv[]) {
+	 log = log_create("Log","Fuse",0,0);
 	/*ip = argv[1];
 	 puerto = argv[2];*/
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
