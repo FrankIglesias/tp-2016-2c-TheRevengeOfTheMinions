@@ -14,17 +14,12 @@
 #include <sys/mman.h>
 #define BLOCK_SIZE 64
 
-typedef enum atributo {
-	BORRADO = '\0', ARCHIVO = '\1', DIRECTORIO = '\2',
-} osada_state;
-
 typedef enum
 	__attribute__((packed)) { // wtf ???
-		DELETED = '\0',
-	REGULAR = '\1',
-	DIRECTORY = '\2',
+		BORRADO = '\0',
+	ARCHIVO = '\1',
+	DIRECTORIO = '\2',
 } osada_file_state;
-
 typedef struct OSADA_HEADER {
 	unsigned char identificador[7];
 	uint8_t version;
@@ -34,8 +29,6 @@ typedef struct OSADA_HEADER {
 	uint32_t data_blocks; // cantidad de bloques asignadas para datos
 	char relleno[40];
 } osadaHeader;
-#pragma pack(pop) // :(
-
 typedef struct osadaFile {
 	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
 	unsigned char nombreArchivo[17];
@@ -54,12 +47,13 @@ char * bloquesDeDatos;
 int puerto = 10000;
 t_log * log;
 void * data;
+
 int tamanioTablaAsignacion() { //devuelve el tamaño en bloques
 	int f = fileHeader.fs_blocks;
 	int n = fileHeader.bitmap_blocks;
 	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
 }
-void inicializarBitArray(void) {
+void inicializarBitArray() {
 	bitmap = malloc(fileHeader.fs_blocks); //tantos bits como bloques tenga el FS
 	int tablaAsignacion = tamanioTablaAsignacion();
 	int calculo = (fileHeader.bitmap_blocks + 1025 + tamanioTablaAsignacion());
@@ -69,8 +63,8 @@ void inicializarBitArray(void) {
 int tamanioStructAdministrativa() {
 	return 1 + fileHeader.bitmap_blocks + 1024 + tamanioTablaAsignacion();
 }
-/*
- void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
+
+/* void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
  mensaje_CLIENTE_SERVIDOR mensaje;
  while (recv(socket,(void*) mensaje, sizeof(mensaje_CLIENTE_SERVIDOR), 0) > 0){ // no esta echa la serealizacion
  switch (mensaje.protocolo){
@@ -81,26 +75,16 @@ int tamanioStructAdministrativa() {
  enviarMensaje(mensaje,socket(),0);
  break;
  }
-
-
  }
  break;
  case CREARDIR:
- /* solicitar path y nombre
- * crearArchivo(path,nombre)
- * ok u error;
- */
-//		break;
-//	case GUARDAR:
-/*Solicitar path, contenido e inicio?
- * guardarArchivo(path,contenido,inicio?)
- * return ok o error por falta de espacio
- */
-//		break;
-//	default:
-//		log_trace(log,
-//				"Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
-//	}
+ break;
+ case GUARDAR:
+ break;
+ default:
+ log_trace(log,
+ "Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
+ }*/
 void atenderClientes(void) {
 	fd_set master;
 	fd_set read_fds;
@@ -151,20 +135,34 @@ void atenderClientes(void) {
 	}
 }
 
-int string_contains(char *path, char letra) {
-	//log_trace(log, "path: %s", path);
-	int i;
-	for (i = 0; path[i] != '\0'; i++) {
-
-		if (path[i] == letra) {
-			//	log_trace(log, "Es un archivo");
+int string_contains(const char *path, char letra) {
+	int teta;
+	for (teta = 0; path[teta] != '\0'; teta++) {
+		if (path[teta] == letra)
 			return 1;
-
-		}
 	}
 	return 0;
 }
-int buscarNroTArchivos(char ** path) { // no funca
+void borrarPrimeraLetra(char * palabra) { // En caso de que haya un /123 comparando
+	int i = 1;
+	while (palabra[i]) {
+		palabra[i - 1] = palabra[i];
+		i++;
+	}
+}
+int compararStrings(char * x, char *y) {
+	int i = 0;
+	while (y[i]) {
+		if (x[i] == y[i]) {
+			i++;
+		} else {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int buscarNroTArchivos(char ** path) { // En caso de archivo
 	int i;
 	uint16_t padre = -1;
 	int contador = 0;
@@ -183,13 +181,11 @@ int buscarNroTArchivos(char ** path) { // no funca
 			if (padre == tablaDeArchivos[i].bloquePadre) {
 				if (string_equals_ignore_case(tablaDeArchivos[i].nombreArchivo,
 						path[contador])) {
-					//log_trace(log, "Se encontro el arhivo tabla:%d", i);
 					return i;
 				}
 			}
 		}
 	}
-
 	log_error(log, "No encontre el archivo");
 	return -1;
 }
@@ -230,7 +226,7 @@ int verificarBloqueSiguiente(int *actual, int *siguiente) {
 	*siguiente = tablaDeAsignaciones[*actual];
 	return 0;
 }
-int buscarAlPadre(char *path, char * nombre) {
+int buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios o archivos
 	int i = 0;
 	int j = 0;
 	uint32_t padre = -1;
@@ -247,24 +243,6 @@ int buscarAlPadre(char *path, char * nombre) {
 		}
 	}
 	return padre;
-}
-void borrarPrimeraLetra(char * palabra) {
-	int i = 1;
-	while (palabra[i]) {
-		palabra[i - 1] = palabra[i];
-		i++;
-	}
-}
-int compararStrings(char * x, char *y) {
-	int i = 0;
-	while (y[i]) {
-		if (x[i] == y[i]) {
-			i++;
-		} else {
-			return 0;
-		}
-	}
-	return 1;
 }
 
 char * leerArchivo(char * path, int tamano, int offset) {
@@ -390,7 +368,7 @@ void crearArchivo(char * path, char * nombre) {
 	int i = 0;
 	uint32_t padre = -1;
 	if (path != "/") {
-		padre = buscarAlPadre(path, nombre); // hay que verificar esto si devuelve que no tiene padre no deberia.
+		padre = buscarAlPadre(path); // hay que verificar esto si devuelve que no tiene padre no deberia.
 	}
 	for (i = 0; i < 1024; ++i) {
 		if (tablaDeArchivos[i].estado == BORRADO) {
@@ -411,22 +389,29 @@ void crearArchivo(char * path, char * nombre) {
 void borrar(char * path) { // no funca
 	log_trace(log, "Borrar archivo  %s", path);
 	char ** ruta = string_split(path, "/");
-	archivos_t * archivo = malloc(sizeof(archivos_t));
+	archivos_t * archivo;
 	int i = 0;
 	int j = 0;
 	uint16_t padre = -1;
-	while (j != -1) {
+	while (j > -1) {
 		for (i = 0; i < 1024; i++) {
+			log_trace(log, "Tabla:%s", tablaDeArchivos[i].nombreArchivo);
+			log_trace(log, "Ruta:%s", ruta[j]);
+			sleep(1);
 			if ((padre == tablaDeArchivos[i].bloquePadre)
-					&& (tablaDeArchivos[i].nombreArchivo == ruta[j])) {
-				if (string_contains(ruta[j], ".")) {
+					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
+				if (tablaDeArchivos[i].estado == ARCHIVO) {
 					archivo = &tablaDeArchivos[i];
-					j = -1;
+					j = -1000;
 				}
+				padre = tablaDeArchivos[i].bloqueInicial;
 				j++;
 				break;
+
 			}
+
 		}
+
 	}
 	while (archivo->bloqueInicial != 0) {
 		j = archivo->bloqueInicial;
@@ -438,8 +423,7 @@ void borrar(char * path) { // no funca
 	archivo->bloquePadre = -1;
 	archivo->estado = BORRADO;
 	archivo->tamanioArchivo = 0;
-	log_trace(log, "Se ah borrado el archivo: &s", archivo->nombreArchivo);
-	free(archivo);
+	log_trace(log, "Se ah borrado el archivo: %s", archivo->nombreArchivo);
 }
 
 void crearDir(char * path) {
@@ -449,7 +433,7 @@ void crearDir(char * path) {
 	int j = 0;
 	uint32_t padre = -1;
 	if (path != "/" && (ruta[i + 1])) {
-		while (ruta[i +1]) {
+		while (ruta[i + 1]) {
 			for (j = 0; j < 1024; ++j) {
 				if ((tablaDeArchivos[j].estado == DIRECTORIO)
 						&& (compararStrings(tablaDeArchivos[j].nombreArchivo,
@@ -546,26 +530,55 @@ void dump() {
 	}
 	log_trace(log, "Bitmap: Libres: &d    Ocupados:&d",
 			fileHeader.bitmap_blocks - ocupados, ocupados);
+	imprimirArbolDeDirectorios();
 }
 void imprimirArchivosDe(char* path) {
+	log_trace(log,"Archivos de: %s",path);
+	archivos_t archivito = tablaDeArchivos[buscarAlPadre(path)];
 	int i;
-	if (path == "/") {
-		for (i = 0; i < 1024; ++i) {
-			if (tablaDeArchivos[i].estado == ARCHIVO) {
-				log_trace(log, "Nombre de carpeta: %s",
-						tablaDeArchivos[i].nombreArchivo);
-			}
-		}
-		return;
-	}
-
 	for (i = 0; i < 1024; ++i) {
-		if (tablaDeArchivos[i].nombreArchivo != 0) {
-			log_trace(log, "Nombre de carpeta: %s",
+		if (tablaDeArchivos[i].estado == ARCHIVO) {
+			log_trace(log, "%s",
 					tablaDeArchivos[i].nombreArchivo);
 		}
 	}
 }
+void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre) {
+	int i;
+	for (i = 0; i < 1024; i++) {
+		if (tablaDeArchivos[i].estado == DIRECTORIO
+				&& tablaDeArchivos[i].bloquePadre == padre) {
+			if (tablaDeArchivos[i].estado == DIRECTORIO) {
+				char * coshita = string_repeat('-', nivel * 5);
+				log_debug(log, "%s %s", coshita,
+						tablaDeArchivos[i].nombreArchivo);
+				imprimirDirectoriosRecursivo(tablaDeArchivos[i], nivel + 1,
+						tablaDeArchivos[i].bloqueInicial);
+			}
+		}
+	}
+}
+void mostrarTablaDeArchivos(archivos_t* tablaDeArchivos, t_log* log) {
+	int i;
+	for (i = 0; i < 1024; i++) {
+		if (tablaDeArchivos[i].estado != BORRADO)
+			log_trace(log, "%d .... %s", i, tablaDeArchivos[i].nombreArchivo);
+	}
+}
+void imprimirArbolDeDirectorios() {
+	log_trace(log, "Mostrando arbol de directorio");
+	int i;
+	uint16_t padre = -1;
+	for (i = 0; i < 1024; i++) {
+		if (tablaDeArchivos[i].estado == DIRECTORIO
+				&& tablaDeArchivos[i].bloquePadre == padre) {
+			log_debug(log, "%s", tablaDeArchivos[i].nombreArchivo);
+			imprimirDirectoriosRecursivo(tablaDeArchivos[i], 1,
+					tablaDeArchivos[i].bloqueInicial);
+		}
+	}
+}
+
 void mapearMemoria() {
 //data = malloc(fileHeader.fs_blocks * BLOCK_SIZE);
 	data = mmap(NULL, fileHeader.fs_blocks * BLOCK_SIZE,
@@ -592,41 +605,6 @@ void sincronizarMemoria() {
 
 }
 
-void mostrarTablaDeArchivos(archivos_t* tablaDeArchivos, t_log* log) {
-	int i;
-	for (i = 0; i < 1024; i++) {
-		if (tablaDeArchivos[i].estado != BORRADO)
-			log_trace(log, "%d .... %s", i, tablaDeArchivos[i].nombreArchivo);
-	}
-}
-void imprimirListaDeArchivos(archivos_t archivo, int nivel, uint16_t padre) {
-	int i;
-	for (i = 0; i < 1024; i++) {
-		if (tablaDeArchivos[i].estado == DIRECTORIO
-				&& tablaDeArchivos[i].bloquePadre == padre) {
-			if(tablaDeArchivos[i].estado == DIRECTORIO){
-			char * coshita = string_repeat("x", nivel * 5);
-			log_debug(log, "%s %s", coshita,
-					tablaDeArchivos[i].nombreArchivo);
-			imprimirListaDeArchivos(tablaDeArchivos[i], nivel +1,
-					tablaDeArchivos[i].bloqueInicial);
-			}
-		}
-	}
-}
-void imprimirArbolDeDirectorios() {
-	log_trace(log,"Mostrando arbol de directorio");
-	int i;
-	uint16_t padre = -1;
-	for (i = 0; i < 1024; i++) {
-		if (tablaDeArchivos[i].estado == DIRECTORIO && tablaDeArchivos[i].bloquePadre == padre) {
-			log_debug(log, "%s", tablaDeArchivos[i].nombreArchivo);
-			imprimirListaDeArchivos(tablaDeArchivos[i], 1,
-					tablaDeArchivos[i].bloqueInicial);
-		}
-	}
-}
-
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
 	osadaFile =
@@ -636,25 +614,28 @@ int main(int argc, void *argv[]) {
 	levantarOsada();
 //	mapearMemoria();
 //	sincronizarMemoria();
-	crearArchivo("/", "solito.txt"); // no considero que haya un archivo con el mismo nombre
+	// no considero que haya un archivo con el mismo nombre
 
 //	crearArchivo("/", "solito");
 //	imprimirArchivosDe("/");
-	guardarArchivo("/solito.txt",
-			"abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
-			0);
+
 //	char * lectura = malloc(100);
 //mostrarTablaDeArchivos();
 //	lectura = leerArchivo("/solito.txt", 100, 0);
-	crearDir("/yasmila/");
+	crearDir("/yasmila");
 	crearDir("/geminis/");
 	crearDir("/pollito/");
 	crearDir("/yasmila/mira/");
 	crearDir("/yasmila/frank/");
 	crearDir("/yasmila/mira/santi/");
 	crearDir("/yasmila/mira/pepe/");
-	imprimirArbolDeDirectorios();
-	borrar("/solito.txt");
+	crearArchivo("/yasmila/mira/", "solito.txt");
+	guardarArchivo("/yasmila/mira/solito.txt",
+			"abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
+			0);
+	imprimirArchivosDe("yasmila/mira/");
+	//imprimirArbolDeDirectorios();
+	borrar("/yasmila/mira/solito.txt");
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
