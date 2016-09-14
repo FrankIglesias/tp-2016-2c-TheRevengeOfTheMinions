@@ -245,7 +245,9 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 	int i = 0;
 	int j;
 	uint16_t padre = -1;
-	while (ruta[i]) {
+	int bandera =1;
+	while (ruta[i] && bandera) {
+		bandera =0;
 		for (j = 0; j < 1024; j++) {
 			if (ruta[i + 1]) {
 				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == estado){
@@ -253,9 +255,12 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 				}
 			}else{
 				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == DIRECTORIO){
+					bandera =1;
 					i++;
 					padre = tablaDeArchivos[j].bloqueInicial;
 				}
+			} if(j==1023 && bandera == 0){
+				return -1;
 			}
 		}
 	}
@@ -265,10 +270,10 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 char * leerArchivo(char * path, int tamano, int offset) {
 	log_info(log, "Se va a leer el archivo: %s", path);
 	archivos_t * archivo = obtenerArchivo(path);
-	if(verificarSiExiste(path,ARCHIVO) == -1){
-		log_error(log,"NO existe el archivo/directorio: %s",path);
-		return NULL;
-	}
+//	if(verificarSiExiste(path,ARCHIVO) == -1){
+//		log_error(log,"NO existe el archivo/directorio: %s",path);
+//		return NULL;
+//	}
 
 	if (archivo->tamanioArchivo + offset < tamano) {
 		log_error(log, "Se va a leer basura");
@@ -322,10 +327,10 @@ char * leerArchivo(char * path, int tamano, int offset) {
 }
 int guardarArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
-	if(verificarSiExiste(path,ARCHIVO) == -1){
-		log_error(log,"NO existe el archivo/directorio: %s",path);
-			return -1;
-	}
+//	if(verificarSiExiste(path,ARCHIVO) == -1){
+//		log_error(log,"NO existe el archivo/directorio: %s",path);
+//			return -1;
+//	}
 	archivos_t * archivo = malloc(sizeof(archivos_t));
 	archivo = obtenerArchivo(path);
 	int aux = offset;
@@ -392,10 +397,10 @@ int guardarArchivo(char * path, char * buffer, int offset) {
 }
 int crearArchivo(char * path, char * nombre) {
 	log_trace(log, "creando archivo  %s", nombre);
-	if(verificarSiExiste(path,ARCHIVO) == 1){
-		log_error(log,"Ya existe ese archivo");
-				return -1;
-	}
+//	if(verificarSiExiste(path,ARCHIVO) == 1){
+//		log_error(log,"Ya existe ese archivo");
+//				return -1;
+//	}
 	int i = 0;
 	uint16_t padre = -1;
 	if (path != "/") {
@@ -420,10 +425,10 @@ int crearArchivo(char * path, char * nombre) {
 }
 int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
-	if(verificarSiExiste(path,ARCHIVO) == -1){
-		log_error(log,"NO existe el archivo/directorio: %s",path);
-			return -1;
-	}
+//	if(verificarSiExiste(path,ARCHIVO) == -1){
+//		log_error(log,"NO existe el archivo/directorio: %s",path);
+//			return -1;
+//	}
 	char ** ruta = string_split(path, "/");
 	archivos_t * archivo;
 	int i = 0;
@@ -465,10 +470,10 @@ int borrar(char * path) {
 }
 int crearDir(char * path) {
 	log_info(log, "creando directorio");
-	if(verificarSiExiste(path,DIRECTORIO) == 1){
-			log_error(log,"Ya existe ese directorio");
-					return -1;
-		}
+//	if(verificarSiExiste(path,DIRECTORIO) == 1){
+//			log_error(log,"Ya existe ese directorio");
+//					return -1;
+//		}
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -506,10 +511,10 @@ int crearDir(char * path) {
 }
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
-	if(verificarSiExiste(path,DIRECTORIO) == -1){
-		log_error(log,"NO existe el archivo/directorio: %s",path);
-				return -1;
-	}
+//	if(verificarSiExiste(path,DIRECTORIO) == -1){
+//		log_error(log,"NO existe el archivo/directorio: %s",path);
+//				return -1;
+//	}
 	char ** ruta = string_split(path, "/");
 	archivos_t * file;
 	int i = 0;
@@ -540,8 +545,8 @@ int borrarDir(char * path) {
 }
 int renombrar(char * path, char * nombre) {
 	log_info(log, "Renombrando: %s por %s", path, nombre);
-	if(verificarSiExiste(path,ARCHIVO || DIRECTORIO) == -1) // esto funcionara ???
-				return -1;
+//	if(verificarSiExiste(path,ARCHIVO || DIRECTORIO) == -1) // esto funcionara ???
+//				return -1;
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -721,8 +726,6 @@ int main(int argc, void *argv[]) {
 //	mapearMemoria();
 //	sincronizarMemoria();
 // no considero que haya un archivo con el mismo nombre
-
-	crearArchivo("/", "archivo1");
 //	imprimirArchivosDe("/");
 
 	crearDir("/yasmila");
@@ -746,6 +749,9 @@ int main(int argc, void *argv[]) {
 	renombrar("/yasmila", "yamila");
 	imprimirArbolDeDirectorios();
 	renombrar("/yamila/sisop/", "peperoni");
+	crearArchivo("/","pepeee.txt");
+	crearArchivo("/","pepeee.txt");
+	borrar("traceeee");
 	imprimirArbolDeDirectorios();
 	free(log);
 	free(tablaDeArchivos);
