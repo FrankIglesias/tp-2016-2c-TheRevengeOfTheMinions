@@ -150,20 +150,6 @@ void borrarPrimeraLetra(char * palabra) { // En caso de que haya un /123 compara
 		i++;
 	}
 }
-int compararStrings(char * x, char *y) {
-	int i = 0;
-	int retorno = 1;
-	for (i = 0; i < strlen(y) && (retorno == 1); y++) {
-		//log_trace(log,"%c-%c",x[i],y[i]);
-		if (x[i] == y[i]) {
-			i++;
-		} else {
-			retorno = 0;
-			break;
-		}
-	}
-	return retorno;
-}
 
 int buscarNroTArchivos(char ** path) { // En caso de archivo
 	int i;
@@ -254,10 +240,36 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	}
 	return padre;
 }
+int verificarSiExiste(char * path, osada_file_state estado) {
+	char ** ruta = string_split(path, "/");
+	int i = 0;
+	int j;
+	uint16_t padre = -1;
+	while (ruta[i]) {
+		for (j = 0; j < 1024; j++) {
+			if (ruta[i + 1]) {
+				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == estado){
+					return 1;
+				}
+			}else{
+				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == DIRECTORIO){
+					i++;
+					padre = tablaDeArchivos[j].bloqueInicial;
+				}
+			}
+		}
+	}
+	return -1;
+}
 
 char * leerArchivo(char * path, int tamano, int offset) {
 	log_info(log, "Se va a leer el archivo: %s", path);
 	archivos_t * archivo = obtenerArchivo(path);
+	if(verificarSiExiste(path,ARCHIVO) == -1){
+		log_error(log,"NO existe el archivo/directorio: %s",path);
+		return NULL;
+	}
+
 	if (archivo->tamanioArchivo + offset < tamano) {
 		log_error(log, "Se va a leer basura");
 		return NULL;
@@ -310,6 +322,10 @@ char * leerArchivo(char * path, int tamano, int offset) {
 }
 int guardarArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
+	if(verificarSiExiste(path,ARCHIVO) == -1){
+		log_error(log,"NO existe el archivo/directorio: %s",path);
+			return -1;
+	}
 	archivos_t * archivo = malloc(sizeof(archivos_t));
 	archivo = obtenerArchivo(path);
 	int aux = offset;
@@ -374,8 +390,12 @@ int guardarArchivo(char * path, char * buffer, int offset) {
 	return 0;
 
 }
-void crearArchivo(char * path, char * nombre) {
+int crearArchivo(char * path, char * nombre) {
 	log_trace(log, "creando archivo  %s", nombre);
+	if(verificarSiExiste(path,ARCHIVO) == 1){
+		log_error(log,"Ya existe ese archivo");
+				return -1;
+	}
 	int i = 0;
 	uint16_t padre = -1;
 	if (path != "/") {
@@ -396,9 +416,14 @@ void crearArchivo(char * path, char * nombre) {
 	}
 	log_trace(log, "se ha creado un archivo en el bloque: %d, padre: %d",
 			tablaDeArchivos[i].bloqueInicial, padre);
+	return 1;
 }
-void borrar(char * path) {
+int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
+	if(verificarSiExiste(path,ARCHIVO) == -1){
+		log_error(log,"NO existe el archivo/directorio: %s",path);
+			return -1;
+	}
 	char ** ruta = string_split(path, "/");
 	archivos_t * archivo;
 	int i = 0;
@@ -436,10 +461,14 @@ void borrar(char * path) {
 	archivo->estado = BORRADO;
 	archivo->tamanioArchivo = 0;
 	log_trace(log, "Se ah borrado el archivo: %s", archivo->nombreArchivo);
+	return 0;
 }
-
-void crearDir(char * path) {
+int crearDir(char * path) {
 	log_info(log, "creando directorio");
+	if(verificarSiExiste(path,DIRECTORIO) == 1){
+			log_error(log,"Ya existe ese directorio");
+					return -1;
+		}
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -473,10 +502,14 @@ void crearDir(char * path) {
 	}
 	log_trace(log, "Se ha creado el directorio: %s , padre %u", ruta[i],
 			minion);
+	return 1;
 }
-
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
+	if(verificarSiExiste(path,DIRECTORIO) == -1){
+		log_error(log,"NO existe el archivo/directorio: %s",path);
+				return -1;
+	}
 	char ** ruta = string_split(path, "/");
 	archivos_t * file;
 	int i = 0;
@@ -505,30 +538,10 @@ int borrarDir(char * path) {
 	log_trace(log, "Se ah borrado el directorio: %s", file->nombreArchivo);
 	return 1;
 }
-
-char * ultimoPath(char *path) {
-	int i = 0;
-	char ** ruta = string_split(path, "/");
-	char * minion;
-	while (ruta[i]) {
-		strcpy(minion, ruta[i]);
-		i++;
-	}
-	log_trace(log, "ultimo:%s", minion);
-	return minion;
-}
-int cantidadElementos(char ** algo) {
-	int i = 0;
-	int minion = 0;
-	while (algo[i]) {
-		log_trace(log, "minion: %d", minion);
-		i++;
-		minion++;
-	}
-	return minion;
-}
 int renombrar(char * path, char * nombre) {
 	log_info(log, "Renombrando: %s por %s", path, nombre);
+	if(verificarSiExiste(path,ARCHIVO || DIRECTORIO) == -1) // esto funcionara ???
+				return -1;
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -549,9 +562,10 @@ int renombrar(char * path, char * nombre) {
 		if (padre == tablaDeArchivos[j].bloquePadre
 				&& tablaDeArchivos[j].estado != BORRADO) {
 			if (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0) {
-				log_trace(log,"Antiguo: %s", tablaDeArchivos[j].nombreArchivo);
-				log_trace(log,"Nuevo: %s",nombre);
-				memcpy(&tablaDeArchivos[j].nombreArchivo,nombre,strlen(nombre) + 1);
+				log_trace(log, "Antiguo: %s", tablaDeArchivos[j].nombreArchivo);
+				log_trace(log, "Nuevo: %s", nombre);
+				memcpy(&tablaDeArchivos[j].nombreArchivo, nombre,
+						strlen(nombre) + 1);
 				return 1;
 			}
 		}
@@ -731,7 +745,7 @@ int main(int argc, void *argv[]) {
 	imprimirArbolDeDirectorios();
 	renombrar("/yasmila", "yamila");
 	imprimirArbolDeDirectorios();
-	renombrar("/yamila/sisop/","peperoni");
+	renombrar("/yamila/sisop/", "peperoni");
 	imprimirArbolDeDirectorios();
 	free(log);
 	free(tablaDeArchivos);
