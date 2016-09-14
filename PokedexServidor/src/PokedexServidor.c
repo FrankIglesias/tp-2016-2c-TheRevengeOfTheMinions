@@ -152,14 +152,19 @@ void borrarPrimeraLetra(char * palabra) { // En caso de que haya un /123 compara
 }
 int compararStrings(char * x, char *y) {
 	int i = 0;
-	while (y[i]) {
+	int retorno =1;
+	for(i=0;i<strlen(y) && (retorno == 1);y++){
+		sleep(1);
+		log_trace(log,"%c-%c",x[i],y[i]);
 		if (x[i] == y[i]) {
 			i++;
 		} else {
-			return 0;
+			log_trace(log,"MOJOJOJO");
+			retorno = 0;
+			break;
 		}
 	}
-	return 1;
+	return retorno;
 }
 
 int buscarNroTArchivos(char ** path) { // En caso de archivo
@@ -170,12 +175,20 @@ int buscarNroTArchivos(char ** path) { // En caso de archivo
 		for (i = 0; i < 1024; i++) {
 			if ((tablaDeArchivos[i].estado == DIRECTORIO)
 					&& (padre == tablaDeArchivos[i].bloquePadre)) {
-				padre = tablaDeArchivos[i].bloquePadre;
-				contador++;
-				break;
+				log_trace(log,"tabla %s",tablaDeArchivos[i].nombreArchivo);
+				log_trace(log,"path %s",path[contador]);
+				log_trace(log,"padre: %u",padre);
+				sleep(1);
+				if (strcmp(tablaDeArchivos[i].nombreArchivo,
+						path[contador]) == 0) {
+					padre = tablaDeArchivos[i].bloqueInicial;
+					contador++;
+					break;
+				}
 			}
 		}
 	}
+	log_trace(log, "log: %u", padre);
 	for (i = 0; i < 1024; i++) {
 		if (tablaDeArchivos[i].estado == ARCHIVO) {
 			if (padre == tablaDeArchivos[i].bloquePadre) {
@@ -226,14 +239,14 @@ int verificarBloqueSiguiente(int *actual, int *siguiente) {
 	*siguiente = tablaDeAsignaciones[*actual];
 	return 0;
 }
-int buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios o archivos
+uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios o archivos
 	int i = 0;
 	int j = 0;
-	uint32_t padre = -1;
+	uint16_t padre = -1;
 	char ** ruta = string_split(path, "/");
-	while (!ruta[i]) {
+	while (ruta[i]) {
 		if (tablaDeArchivos[j].bloquePadre == padre
-				&& tablaDeArchivos[j].nombreArchivo == ruta[i]
+				&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
 			padre = tablaDeArchivos[j].bloqueInicial;
 			i++;
@@ -366,7 +379,7 @@ int guardarArchivo(char * path, char * buffer, int offset) {
 void crearArchivo(char * path, char * nombre) {
 	log_trace(log, "creando archivo  %s", nombre);
 	int i = 0;
-	uint32_t padre = -1;
+	uint16_t padre = -1;
 	if (path != "/") {
 		padre = buscarAlPadre(path); // hay que verificar esto si devuelve que no tiene padre no deberia.
 	}
@@ -395,6 +408,7 @@ void borrar(char * path) { // no funca
 	uint16_t padre = -1;
 	while (j > -1) {
 		for (i = 0; i < 1024; i++) {
+			log_trace(log, "Padre:%u", padre);
 			log_trace(log, "Tabla:%s", tablaDeArchivos[i].nombreArchivo);
 			log_trace(log, "Ruta:%s", ruta[j]);
 			sleep(1);
@@ -436,8 +450,8 @@ void crearDir(char * path) {
 		while (ruta[i + 1]) {
 			for (j = 0; j < 1024; ++j) {
 				if ((tablaDeArchivos[j].estado == DIRECTORIO)
-						&& (compararStrings(tablaDeArchivos[j].nombreArchivo,
-								ruta[i]))) {
+						&& (strcmp(tablaDeArchivos[j].nombreArchivo,
+								ruta[i]) == 0)) {
 					padre = tablaDeArchivos[j].bloqueInicial;
 					i++;
 					j = 1025;
@@ -446,10 +460,12 @@ void crearDir(char * path) {
 			}
 		}
 	}
+	uint32_t minion;
 	for (j = 0; j < 1024; j++) {
 		if (tablaDeArchivos[j].estado == BORRADO) {
 			tablaDeArchivos[j].bloqueInicial = buscarBloqueLibre();
 			tablaDeArchivos[j].bloquePadre = padre;
+			minion = tablaDeArchivos[j].bloqueInicial;
 			tablaDeArchivos[j].estado = DIRECTORIO;
 			tablaDeArchivos[j].fechaUltimaModif = 0; // Emmm fechas ?
 			strcpy(tablaDeArchivos[j].nombreArchivo, ruta[i]);
@@ -457,7 +473,7 @@ void crearDir(char * path) {
 			break;
 		}
 	}
-	log_trace(log, "Se ha creado el directorio: %s", ruta[i]);
+	log_trace(log, "Se ha creado el directorio: %s , padre %u", ruta[i],minion);
 }
 
 void borrarDir(void) {
@@ -533,13 +549,12 @@ void dump() {
 	imprimirArbolDeDirectorios();
 }
 void imprimirArchivosDe(char* path) {
-	log_trace(log,"Archivos de: %s",path);
+	log_trace(log, "Archivos de: %s", path);
 	archivos_t archivito = tablaDeArchivos[buscarAlPadre(path)];
 	int i;
 	for (i = 0; i < 1024; ++i) {
 		if (tablaDeArchivos[i].estado == ARCHIVO) {
-			log_trace(log, "%s",
-					tablaDeArchivos[i].nombreArchivo);
+			log_trace(log, "%s", tablaDeArchivos[i].nombreArchivo);
 		}
 	}
 }
