@@ -38,7 +38,7 @@ void theMinionsRevengeSelect(char puerto[], void (*funcionAceptar(int n)),
 						funcionAceptar(i);
 					}
 				} else {
-					if (funcionRecibir(i) == -1) {
+					if (funcionRecibir(i) < 0) {
 						close(i);
 						FD_CLR(i, &master);
 					}
@@ -97,6 +97,22 @@ int crearSocketCliente(char ip[], int puerto) {
 	}
 	return socketCliente;
 }
+
+void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
+		header header) {
+	mensaje_CLIENTE_SERVIDOR * mensaje = malloc(header.payload);
+	memcpy(mensaje, buffer, sizeof(instruccion_t) + sizeof(uint32_t) * 3);
+	int puntero = sizeof(instruccion_t) + sizeof(uint32_t) * 3;
+	mensaje->path = malloc(mensaje->path_payload);
+	memcpy(mensaje + puntero, buffer + puntero, mensaje->path_payload);
+	puntero += mensaje->path_payload;
+	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
+		mensaje->buffer = malloc(mensaje->tamano);
+		memcpy(mensaje + puntero, buffer + puntero, mensaje->tamano);
+	}
+	free(buffer);
+	return mensaje;
+}
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
@@ -128,6 +144,27 @@ void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
 	return mensaje;
 }
 
+char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
+		header * nuevoHeader) {
+	mensaje_CLIENTE_SERVIDOR * mensaje = (mensaje_CLIENTE_SERVIDOR *) data;
+	nuevoHeader->payload = sizeof(instruccion_t) + sizeof(uint32_t) * 3
+			+ strlen(mensaje->path) + strlen(mensaje->buffer);
+	mensaje->path_payload = strlen(mensaje->path);
+	mensaje->tamano = strlen(mensaje->buffer);
+	char * buffer = malloc(nuevoHeader->payload + sizeof(header));
+	int pasaje = 0;
+	memcpy(buffer, nuevoHeader, sizeof(header));
+	pasaje = sizeof(header);
+	memcpy(buffer + pasaje, mensaje,
+			sizeof(instruccion_t) + sizeof(uint32_t) * 3);
+	pasaje += sizeof(instruccion_t) + sizeof(uint32_t) * 3;
+	memcpy(buffer + pasaje, mensaje->path, mensaje->path_payload);
+	pasaje += mensaje->path_payload;
+	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
+		memcpy(buffer + pasaje, mensaje->buffer, mensaje->tamano);
+	}
+	return buffer;
+}
 char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
 	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;
 	int tamanioString = 0;
@@ -169,13 +206,14 @@ char * serializar_MAPA_ENTRENADOR(void * data, header * nuevoHeader) {
 	}
 	return buffer;
 }
+
 void * (*funcionesDesserializadoras[CLIENTE_SERVIDOR + 1])(char * buffer,
 		header header) = {
-			deserializarMensaje_ENTRENADOR_MAPA,deserializarMensaje_MAPA_ENTRENADOR
+			deserializarMensaje_ENTRENADOR_MAPA,deserializarMensaje_MAPA_ENTRENADOR,deserializarMensaje_CLIENTE_SERVIDOR_bidireccional,deserializarMensaje_CLIENTE_SERVIDOR_bidireccional
 };
 void * (*fucionesSerializadoras[CLIENTE_SERVIDOR + 1])(void * data,
 		header * nuevoHeader) = {
-			serializar_ENTRENADOR_MAPA,serializar_MAPA_ENTRENADOR
+			serializar_ENTRENADOR_MAPA,serializar_MAPA_ENTRENADOR,serializar_CLIENTE_SERVIDOR_bidireccionl,serializar_CLIENTE_SERVIDOR_bidireccionl
 };
 void enviarMensaje(mensaje_t mensaje, int socket, void *data) {
 	header nuevoHeader;

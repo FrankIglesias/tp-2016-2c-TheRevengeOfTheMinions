@@ -30,12 +30,8 @@ typedef enum {
 typedef enum {
 	ENTRENADOR_MAPA,
 	MAPA_ENTRENADOR,
-	POKEDEX_MAPA,
-	MAPA_POKEDEX,
-	POKEDEX_ENTRENADOR,
-	ENTRENADOR_POKEDEX,
-	SERVIDOR_CLIENTE,
-	CLIENTE_SERVIDOR
+	CLIENTE_SERVIDOR,
+	SERVIDOR_CLIENTE
 } mensaje_t;
 typedef struct header_t {
 	mensaje_t mensaje;
@@ -55,11 +51,13 @@ typedef struct mensaje_MAPA_ENTRENADOR_t {
 	posicionMapa posicion;
 	char * nombrePokemon;
 } mensaje_MAPA_ENTRENADOR;
-typedef struct mensaje_CLIENTE_SERVIDOR_t{
-	protocoloPokedex_t protocolo;
-	char * path;
-	uint32_t start;
+typedef struct mensaje_CLIENTE_SERVIDOR_t {
+	instruccion_t protolo;
+	uint32_t path_payload;
 	uint32_t offset;
-	char * data; //Usado en rename, y para la devolucion del leer.
-}mensaje_CLIENTE_SERVIDOR;
+	uint32_t tamano;
+	char * path;
+	char * buffer;
+} mensaje_CLIENTE_SERVIDOR;
+
 #endif /* LIBRERIAS_SF_TIPOSDATO_H_ */
