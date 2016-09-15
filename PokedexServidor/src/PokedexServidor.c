@@ -64,77 +64,6 @@ int tamanioStructAdministrativa() {
 	return 1 + fileHeader.bitmap_blocks + 1024 + tamanioTablaAsignacion();
 }
 
-/* void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
- mensaje_CLIENTE_SERVIDOR mensaje;
- while (recv(socket,(void*) mensaje, sizeof(mensaje_CLIENTE_SERVIDOR), 0) > 0){ // no esta echa la serealizacion
- switch (mensaje.protocolo){
- case LEER:
- mensaje.data = leerArchivo(mensaje.path,mensaje.offset,mensaje.start);
- if(mensaje.data == NULL){
- mensaje.protocolo = ERROR;
- enviarMensaje(mensaje,socket(),0);
- break;
- }
- }
- break;
- case CREARDIR:
- break;
- case GUARDAR:
- break;
- default:
- log_trace(log,
- "Falta implementar BORRAR,CREARARCHIVO,BORRARDIR,RENOMBRAR");
- }*/
-void atenderClientes(void) {
-	fd_set master;
-	fd_set read_fds;
-	struct sockaddr_in remoteaddr;
-	int tamanioMaximoDelFd;
-	int socketListen;
-	int nuevoSocketAceptado;
-	int addrlen;
-	int i;
-	FD_ZERO(&master);
-	FD_ZERO(&read_fds);
-	socketListen = crearSocketServidor(puerto);
-	FD_SET(socketListen, &master);
-	tamanioMaximoDelFd = socketListen;
-	//mensaje_ENTRENADOR_MAPA * mensaje;
-	while (1) {
-		read_fds = master;
-		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
-			perror("select");
-			exit(1);
-		}
-		for (i = 0; i <= tamanioMaximoDelFd; i++) {
-			if (FD_ISSET(i, &read_fds)) {
-				if (i == socketListen) {
-					addrlen = sizeof(remoteaddr);
-					if ((nuevoSocketAceptado = accept(socketListen,
-							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
-						perror("accept");
-					} else {
-						FD_SET(nuevoSocketAceptado, &master);
-						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
-							tamanioMaximoDelFd = nuevoSocketAceptado;
-						}
-					}
-				} else {
-					header nuevoHeader;
-					if (recv(i, &nuevoHeader, sizeof(header), 0)) {
-						close(i);
-						FD_CLR(i, &master);
-					} else {
-						char * ruta; // RUTA RECIBIDA POR EL POKEDEX CLIENTE
-						//			atenderPeticiones(i, nuevoHeader, ruta);
-					}
-
-				}
-			}
-		}
-	}
-}
-
 int string_contains(const char *path, char letra) {
 	int teta;
 	for (teta = 0; path[teta] != '\0'; teta++) {
@@ -245,21 +174,24 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 	int i = 0;
 	int j;
 	uint16_t padre = -1;
-	int bandera =1;
+	int bandera = 1;
 	while (ruta[i] && bandera) {
-		bandera =0;
+		bandera = 0;
 		for (j = 0; j < 1024; j++) {
 			if (ruta[i + 1]) {
-				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == estado){
+				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
+						&& tablaDeArchivos[j].estado == estado) {
 					return 1;
 				}
-			}else{
-				if(tablaDeArchivos[j].nombreArchivo == ruta[i] && tablaDeArchivos[j].estado == DIRECTORIO){
-					bandera =1;
+			} else {
+				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
+						&& tablaDeArchivos[j].estado == DIRECTORIO) {
+					bandera = 1;
 					i++;
 					padre = tablaDeArchivos[j].bloqueInicial;
 				}
-			} if(j==1023 && bandera == 0){
+			}
+			if (j == 1023 && bandera == 0) {
 				return -1;
 			}
 		}
@@ -325,7 +257,7 @@ char * leerArchivo(char * path, int tamano, int offset) {
 	}
 	return lectura;
 }
-int guardarArchivo(char * path, char * buffer, int offset) {
+int escribirArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
 //	if(verificarSiExiste(path,ARCHIVO) == -1){
 //		log_error(log,"NO existe el archivo/directorio: %s",path);
@@ -578,6 +510,115 @@ int renombrar(char * path, char * nombre) {
 	return -1;
 }
 
+void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
+	mensaje_CLIENTE_SERVIDOR * mensaje;
+	int devolucion = 1;
+	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
+			!= NULL) { // no esta echa el envio
+		switch (mensaje->protolo) {
+		case LEER:
+			mensaje->buffer = leerArchivo(mensaje->path, mensaje->tamano,
+					mensaje->offset);
+			if (mensaje->buffer == NULL) {
+				mensaje->protolo = ERROR;
+			}
+			mensaje->tamano = strlen(mensaje->buffer);
+			break;
+		case ESCRIBIR:
+			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
+					mensaje->offset);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		case CREAR:
+			devolucion = crearArchivo(mensaje->path, mensaje->buffer);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		case CREARDIR:
+			devolucion = crearDir(mensaje->path);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		case BORRAR:
+			devolucion = borrar(mensaje->path);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		case BORRARDIR:
+			devolucion = borrarDir(mensaje->path);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		case RENOMBRAR:
+			devolucion = renombrar(mensaje->path, mensaje->buffer);
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			mensaje->tamano = 0;
+			break;
+		default:
+			if (devolucion == -1)
+				mensaje->protolo = ERROR;
+			log_error(log, "No te entendi wacho");
+		}
+		enviarMensaje(SERVIDOR_CLIENTE, socket, (void *) &mensaje);
+	}
+}
+void atenderClientes(void) {
+	fd_set master;
+	fd_set read_fds;
+	struct sockaddr_in remoteaddr;
+	int tamanioMaximoDelFd;
+	int socketListen;
+	int nuevoSocketAceptado;
+	int addrlen;
+	int i;
+	FD_ZERO(&master);
+	FD_ZERO(&read_fds);
+	socketListen = crearSocketServidor(puerto);
+	FD_SET(socketListen, &master);
+	tamanioMaximoDelFd = socketListen;
+	//mensaje_ENTRENADOR_MAPA * mensaje;
+	while (1) {
+		read_fds = master;
+		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
+			perror("select");
+			exit(1);
+		}
+		for (i = 0; i <= tamanioMaximoDelFd; i++) {
+			if (FD_ISSET(i, &read_fds)) {
+				if (i == socketListen) {
+					addrlen = sizeof(remoteaddr);
+					if ((nuevoSocketAceptado = accept(socketListen,
+							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
+						perror("accept");
+					} else {
+						FD_SET(nuevoSocketAceptado, &master);
+						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
+							tamanioMaximoDelFd = nuevoSocketAceptado;
+						}
+					}
+				} else {
+					header nuevoHeader;
+					if (recv(i, &nuevoHeader, sizeof(header), 0)) {
+						close(i);
+						FD_CLR(i, &master);
+					} else {
+						char * ruta; // RUTA RECIBIDA POR EL POKEDEX CLIENTE
+						//			atenderPeticiones(i, nuevoHeader, ruta);
+					}
+
+				}
+			}
+		}
+	}
+}
+
 void levantarHeader() {
 	log_trace(log, "Levantando Header");
 	fread(&fileHeader, sizeof(osadaHeader), 1, osadaFile);
@@ -736,7 +777,7 @@ int main(int argc, void *argv[]) {
 	crearDir("/yasmila/sisop/fs/");
 	crearDir("/yasmila/sisop/dl/");
 	crearArchivo("/yasmila/sisop/", "solito.txt");
-	guardarArchivo("/yasmila/sisop/solito.txt",
+	escribirArchivo("/yasmila/sisop/solito.txt",
 			"abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
 			0);
 	char * asd = leerArchivo("/yasmila/sisop/solito.txt", 80, 10);
@@ -749,8 +790,8 @@ int main(int argc, void *argv[]) {
 	renombrar("/yasmila", "yamila");
 	imprimirArbolDeDirectorios();
 	renombrar("/yamila/sisop/", "peperoni");
-	crearArchivo("/","pepeee.txt");
-	crearArchivo("/","pepeee.txt");
+	crearArchivo("/", "pepeee.txt");
+	crearArchivo("/", "pepeee.txt");
 	borrar("traceeee");
 	imprimirArbolDeDirectorios();
 	free(log);
