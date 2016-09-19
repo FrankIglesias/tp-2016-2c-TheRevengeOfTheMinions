@@ -11,7 +11,12 @@
 #include <tiposDato.h>
 #include <sw_sockets.h>
 #include <log.h>
+#include <sys/stat.h>
 #include <sys/mman.h>
+#include <sys/io.h>
+#include <fcntl.h>
+#include <sys/types.h>
+
 #define BLOCK_SIZE 64
 
 typedef enum
@@ -40,25 +45,18 @@ typedef struct osadaFile {
 
 osadaHeader fileHeader;
 archivos_t * tablaDeArchivos;
-FILE * osadaFile;
+int osadaFile;
 char* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 int puerto = 10000;
 t_log * log;
-void * data;
+char * data;
 
 int tamanioTablaAsignacion() { //devuelve el tamaño en bloques
 	int f = fileHeader.fs_blocks;
 	int n = fileHeader.bitmap_blocks;
 	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
-}
-void inicializarBitArray() {
-	bitmap = malloc(fileHeader.fs_blocks); //tantos bits como bloques tenga el FS
-	int tablaAsignacion = tamanioTablaAsignacion();
-	int calculo = (fileHeader.bitmap_blocks + 1025 + tamanioTablaAsignacion());
-	memset(bitmap, 1, calculo);
-	memset(bitmap + calculo, 0, fileHeader.fs_blocks - calculo);
 }
 int tamanioStructAdministrativa() {
 	return 1 + fileHeader.bitmap_blocks + 1024 + tamanioTablaAsignacion();
@@ -621,8 +619,9 @@ void atenderClientes(void) {
 
 void levantarHeader() {
 	log_trace(log, "Levantando Header");
-	fread(&fileHeader, sizeof(osadaHeader), 1, osadaFile);
-	fileHeader.identificador[7] = '\0';
+	//read(&fileHeader, sizeof(osadaHeader), 1, osadaFile);
+	memcpy(&fileHeader, data, sizeof(osadaHeader));
+	//fileHeader.identificador[7] = '\0'; <-- pisa la version
 	log_trace(log, "Identificador: %s", fileHeader.identificador);
 	log_trace(log, "Version:%d", fileHeader.version);
 	log_trace(log, "Fs_blocks:%u", fileHeader.fs_blocks);
@@ -634,8 +633,8 @@ void levantarHeader() {
 }
 void levantarTablaDeArchivos() {
 	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
-	fread(tablaDeArchivos, sizeof(archivos_t),
-			(1024 * BLOCK_SIZE) / sizeof(archivos_t), osadaFile);
+	memcpy(tablaDeArchivos, data + BLOCK_SIZE + fileHeader.fs_blocks,
+			1024 * BLOCK_SIZE * sizeof(archivos_t));
 	int i;
 	for (i = 0; i < (1024 * BLOCK_SIZE) / sizeof(archivos_t); ++i) {
 		if (tablaDeArchivos[i].estado == 2) {
@@ -646,14 +645,15 @@ void levantarTablaDeArchivos() {
 }
 void levantarTablaDeAsignaciones() {
 	tablaDeAsignaciones = malloc(sizeof(int) * tamanioTablaAsignacion());
-	fread(tablaDeAsignaciones, tamanioTablaAsignacion() * sizeof(int), 1,
-			osadaFile);
+	memcpy(tablaDeAsignaciones,
+			data + fileHeader.inicioTablaAsignaciones * BLOCK_SIZE,
+			tamanioTablaAsignacion() * sizeof(int));
 }
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
 	levantarHeader();
-	inicializarBitArray();
-	fread(bitmap, fileHeader.bitmap_blocks, 1, osadaFile);
+	bitmap = malloc(fileHeader.fs_blocks);
+	memcpy(bitmap, data + BLOCK_SIZE, fileHeader.fs_blocks);
 	uint32_t ocupados = 0;
 	int i;
 	for (i = 0; i < fileHeader.fs_blocks; ++i) {
@@ -667,7 +667,7 @@ void levantarOsada() {
 	levantarTablaDeArchivos();
 	levantarTablaDeAsignaciones();
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
-	fread(bloquesDeDatos, fileHeader.data_blocks * BLOCK_SIZE, 1, osadaFile);
+	memcpy(bloquesDeDatos, data + tamanioStructAdministrativa() * BLOCK_SIZE,fileHeader.data_blocks * BLOCK_SIZE);
 }
 
 void dump() {
@@ -732,14 +732,18 @@ void imprimirArbolDeDirectorios() {
 }
 
 void mapearMemoria() {
-//data = malloc(fileHeader.fs_blocks * BLOCK_SIZE);
-	data = mmap(NULL, fileHeader.fs_blocks * BLOCK_SIZE,
-	PROT_WRITE | PROT_READ,
-	MAP_SHARED, osadaFile, 0);
-	if (data == MAP_FAILED) {
-		log_error(log, "error al mapeo de la memoria");
-		perror(MAP_FAILED);
-	}
+	osadaFile =
+			open(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/minidisk.bin",
+					O_RDWR);
+	struct stat s;
+	int status = fstat(osadaFile, &s);
+	int size = s.st_size;
+	data = malloc(size);
+	if ((data = (char*) mmap(0, size, PROT_READ, MAP_PRIVATE, osadaFile, 0))
+			== -1)
+		log_trace(log, "la estamos cagando");
+
 	log_trace(log, "memoria mapeada");
 }
 void sincronizarMemoria() {
@@ -759,13 +763,9 @@ void sincronizarMemoria() {
 
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
-	osadaFile =
-			fopen(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/minidisk.bin",
-					"r+");
+	mapearMemoria();
 	levantarOsada();
-//	mapearMemoria();
-//	sincronizarMemoria();
+	sincronizarMemoria();
 // no considero que haya un archivo con el mismo nombre
 //	imprimirArchivosDe("/");
 
