@@ -637,17 +637,11 @@ void levantarOsada() {
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
 	memcpy(bitmap, data + puntero, fileHeader.bitmap_blocks / 8 / BLOCK_SIZE);
 	puntero += fileHeader.bitmap_blocks / 8 / BLOCK_SIZE;
-	/*for (i = 0; i < fileHeader.bitmap_blocks; i++) {
-	 if ((data + BLOCK_SIZE + i) == 1)
-	 bitarray_set_bit(bitmap, i);
-	 else
-	 bitarray_clean_bit(bitmap, i);
-	 }*/
 	int ocupados = bitmapOcupados();
 	log_trace(log, "Bitmap: Libres: %d    Ocupados:%d",
 			fileHeader.fs_blocks - ocupados, ocupados);
-	log_trace(log, "tamaño estructuras administrativas: %d en bloques",
-			tamanioStructAdministrativa());
+	log_trace(log, "tamaño tabla asignacion: %d en bloques",
+			tamanioTablaAsignacion());
 	memcpy(tablaDeArchivos, data + puntero, 1024 * BLOCK_SIZE);
 	puntero += 1024 * BLOCK_SIZE;
 	memcpy(tablaDeAsignaciones, data + puntero, tamanioTablaAsignacion());
@@ -672,6 +666,29 @@ void dump() {
 			fileHeader.bitmap_blocks - ocupados, ocupados);
 	imprimirArbolDeDirectorios();
 }
+char * tipoArchivo(int i) {
+	switch (tablaDeArchivos[i].estado) {
+	case (BORRADO):
+		return "BORRADO";
+		break;
+	case (ARCHIVO):
+		return "ARCHIVO";
+		break;
+	case (DIRECTORIO):
+		return "DIRECTORIO";
+		break;
+	default:
+		return "SARASA";
+	}
+}
+int archivoDirectorio(int i) {
+	if (tablaDeArchivos[i].estado == ARCHIVO)
+		return 1;
+	if (tablaDeArchivos[i].estado == DIRECTORIO)
+		return 1;
+	return 0;
+}
+
 void imprimirArchivosDe(char* path) {
 	log_trace(log, "Archivos de: %s", path);
 	archivos_t archivito = tablaDeArchivos[buscarAlPadre(path)];
@@ -685,10 +702,10 @@ void imprimirArchivosDe(char* path) {
 void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre) {
 	int i;
 	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].estado != BORRADO
-				&& tablaDeArchivos[i].bloquePadre == padre) {
+		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
 			char * coshita = string_repeat('-', nivel * 5);
-			log_debug(log, "%s %s", coshita, tablaDeArchivos[i].nombreArchivo);
+			log_debug(log, "%s %s -- %s", coshita,
+					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO) {
 				imprimirDirectoriosRecursivo(tablaDeArchivos[i], nivel + 1,
 						tablaDeArchivos[i].bloqueInicial);
@@ -703,6 +720,7 @@ void mostrarTablaDeArchivos(archivos_t* tablaDeArchivos, t_log* log) {
 			log_trace(log, "%d .... %s", i, tablaDeArchivos[i].nombreArchivo);
 	}
 }
+
 void imprimirArbolDeDirectorios() {
 	log_trace(log, "Mostrando arbol de directorio");
 	int i;
@@ -718,7 +736,8 @@ void imprimirArbolDeDirectorios() {
 	for (i = 0; i < 2048; i++) {
 		if (tablaDeArchivos[i].estado != BORRADO
 				&& tablaDeArchivos[i].bloquePadre == padre) {
-			log_debug(log, "%s", tablaDeArchivos[i].nombreArchivo);
+			log_debug(log, "%s  -- %s", tablaDeArchivos[i].nombreArchivo,
+					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
 				imprimirDirectoriosRecursivo(tablaDeArchivos[i], 1,
 						tablaDeArchivos[i].bloqueInicial);
