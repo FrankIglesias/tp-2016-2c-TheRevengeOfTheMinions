@@ -25,7 +25,7 @@ typedef enum {
 	GUARDAR,
 } instruccion_t;
 typedef enum {
-	LEER, CREAR, ESCRIBIR, BORRAR, CREARDIR, BORRARDIR, RENOMBRAR, ERROR
+	LEER, CREAR, ESCRIBIR, BORRAR, CREARDIR, BORRARDIR, RENOMBRAR, ERROR,GETATTR
 } protocoloPokedex_t;
 typedef enum {
 	ENTRENADOR_MAPA,

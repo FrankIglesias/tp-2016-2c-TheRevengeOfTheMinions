@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <bitarray.h>
+#include <commons/list.h>
 
 #define BLOCK_SIZE 64
 
@@ -543,6 +544,11 @@ void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesar
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
 			break;
+		case GETATTR:
+			list_t * lista = getAtrr(mensaje->path);
+			devolucion =1;
+			mensaje->tamano = list_size(lista) * sizeof(archivos_t);
+			break;
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -774,6 +780,34 @@ void sincronizarMemoria() {
 			fileHeader.data_blocks * BLOCK_SIZE);
 	log_trace(log, "Memoria sincronizada");
 
+}
+
+t_list * getAtrr(char *path) {
+	t_list * lista = list_create();
+	int i;
+	int j;
+	uint16_t padre = -1;
+
+	if (path != "/") {
+		char ** ruta = string_split(path, "/");
+		for (i = 0; (i < 2048) && ruta[j]; i++) {
+			if ((padre == tablaDeArchivos[i].bloquePadre)
+					&& (tablaDeArchivos[i].estado == DIRECTORIO)
+					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
+				padre = tablaDeArchivos[i].bloqueInicial;
+				i = 0;
+				j++;
+			}
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if (padre == tablaDeArchivos[i].bloquePadre) {
+			archivos_t * file = malloc(sizeof(archivos_t));
+			*file = tablaDeArchivos[i];
+			list_add(lista, (void) file); // CONSULTAR A FRANK
+		}
+	}
+	return lista;
 }
 
 int main(int argc, void *argv[]) {
