@@ -9,12 +9,29 @@
 #include <sys/socket.h>
 #include <tiposDato.h>
 #include <sw_sockets.c>
+#include <commons/collections/list.h>
 #include <log.h>
 
 t_log * log;
 char ipPokedexCliente;
 int puertoPokedexCliente;
 int socketParaServidor;
+
+typedef enum
+	__attribute__((packed)) { // wtf ???
+		BORRADO = '\0',
+	ARCHIVO = '\1',
+	DIRECTORIO = '\2',
+} osada_file_state;
+
+typedef struct osadaFile {
+	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
+	unsigned char nombreArchivo[17];
+	uint16_t bloquePadre;
+	uint32_t tamanioArchivo;
+	uint32_t fechaUltimaModif; //como hago fechas?
+	uint32_t bloqueInicial;
+} archivos_t;
 
 char * ip = "127.0.0.1";
 int puerto = 9000;
@@ -25,6 +42,7 @@ int puerto = 9000;
 #define DEFAULT_FILE_CONTENT "KEKEKEKanananan"
 #define DEFAULT_FILE_NAME "hello"
 #define DEFAULT_FILE_PATH "/" DEFAULT_FILE_NAME
+
 
 /*
  * Esta es una estructura auxiliar utilizada para almacenar parametros
@@ -83,6 +101,8 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 
 	log_trace(log,"Se quiere leer el directorio de path %s",path);
 	int res=0;
+	int i=0;
+	archivos_t* nuevoArchivo;
 
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
@@ -97,11 +117,18 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
 	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
 
-	//Analizo la lista que me devuelve la respuesta y en base a eso lleno el buf
-	//TODO
+	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
+	t_list * listaArchivos = list_create();
+	listaArchivos = (t_list*) respuesta->buffer;
+
+	for(i=0;i<=list_size(listaArchivos);i++){
+		nuevoArchivo = (archivos_t*) list_get(listaArchivos, i);
+		filler(buf,nuevoArchivo->nombreArchivo, NULL, 0);
+	}
 
 	free(mensaje);
 	free(respuesta);
+	list_destroy(listaArchivos);
 	return res;
 }
 
