@@ -51,7 +51,7 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protolo=ATRIBUTO;
+	mensaje->protolo=GETATTR;
 	mensaje->path=path;
 
 	//Envio el mensaje
