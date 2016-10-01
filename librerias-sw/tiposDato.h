@@ -25,7 +25,7 @@ typedef enum {
 	GUARDAR,
 } instruccion_t;
 typedef enum {
-	LEER, CREAR, ESCRIBIR, BORRAR, CREARDIR, BORRARDIR, RENOMBRAR, ERROR,GETATTR
+	LEER, CREAR, ESCRIBIR, BORRAR, CREARDIR, BORRARDIR, RENOMBRAR, ERROR,ATRIBUTO,LEERDIR
 } protocoloPokedex_t;
 typedef enum {
 	ENTRENADOR_MAPA,
@@ -52,10 +52,11 @@ typedef struct mensaje_MAPA_ENTRENADOR_t {
 	char * nombrePokemon;
 } mensaje_MAPA_ENTRENADOR;
 typedef struct mensaje_CLIENTE_SERVIDOR_t {
-	instruccion_t protolo;
+	protocoloPokedex_t protolo;
 	uint32_t path_payload;
 	uint32_t offset;
 	uint32_t tamano;
+	uint32_t tipoArchivo;	//Usado en getattr para saber de que tipo es (1 archivo-2 directorio-0 nada)
 	char * path;
 	char * buffer;
 } mensaje_CLIENTE_SERVIDOR;

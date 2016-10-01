@@ -14,7 +14,7 @@
 t_log * log;
 char ipPokedexCliente;
 int puertoPokedexCliente;
-//int socket; //Lo creo aca asi lo tengo global
+int socketParaServidor;
 
 char * ip = "127.0.0.1";
 int puerto = 9000;
@@ -43,46 +43,71 @@ struct t_runtime_options {
 #define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
 
 static int obtenerAtributo(const char *path, struct stat *stbuf) {
+	log_trace(log,"Se quiere saber los atributos del path %s",path);
+
 	int res = 0;
+	memset(stbuf, 0, sizeof(struct stat));
 
-		memset(stbuf, 0, sizeof(struct stat));
+	//Creo el mensaje
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protolo=ATRIBUTO;
+	mensaje->path=path;
 
-		//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
-		if (strcmp(path, "/") == 0) {
-			stbuf->st_mode = S_IFDIR | 0755;
-			stbuf->st_nlink = 2;
-		} else if (strcmp(path, DEFAULT_FILE_PATH) == 0) {
-			stbuf->st_mode = S_IFREG | 0444;
-			stbuf->st_nlink = 1;
-			stbuf->st_size = strlen(DEFAULT_FILE_CONTENT);
-		} else {
-			res = -ENOENT;
-		}
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+	//Segun el tipo de archivo que sea el path, lleno la estructura stbuf
+	if(respuesta->tipoArchivo==2){//Si es un directorio
+		stbuf->st_mode = S_IFDIR | 0755;
+		stbuf->st_nlink = 2;
+	}else if (respuesta->tipoArchivo==1){//Si es un archivo (tambien lleno su tamaño)
+		stbuf->st_mode = S_IFREG | 0444;
+		stbuf->st_nlink = 1;
+		stbuf->st_size =respuesta->tamano;
+	}else{
+		res = -ENOENT;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return res;
 }
 
 static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 		off_t offset, struct fuse_file_info *fi) {
 
-	(void) offset;
-		(void) fi;
+	log_trace(log,"Se quiere leer el directorio de path %s",path);
+	int res=0;
 
-		if (strcmp(path, "/") != 0)
-			return -ENOENT;
+	//Creo el mensaje
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protolo=LEERDIR;
+	mensaje->path=path;
 
-		// "." y ".." son entradas validas, la primera es una referencia al directorio donde estamos parados
-		// y la segunda indica el directorio padre
-		filler(buf, ".", NULL, 0);
-		filler(buf, "..", NULL, 0);
-		filler(buf, DEFAULT_FILE_NAME, NULL, 0);
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
-	return 0;
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
 
+	//Analizo la lista que me devuelve la respuesta y en base a eso lleno el buf
+	//TODO
+
+	free(mensaje);
+	free(respuesta);
+	return res;
 }
 
 static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
 
+	/*
 	log_trace(log,"Se abrio el archivo %s",path);
 
 	if (strcmp(path, DEFAULT_FILE_PATH) != 0)
@@ -91,152 +116,205 @@ static int abrirArchivo(const char *path, struct fuse_file_info *fi) {
 		if ((fi->flags & 3) != O_RDONLY)
 			return -EACCES;
 
+	*/
 	return 0;
 }
 
 static int leerArchivo(const char * path, char *buffer, size_t size,
 		off_t offset, struct fuse_file_info *fi) {
 
-	log_trace(log,"Se quiso leer %s path,%s buffer, %d size, %d offset",path,buffer,size,offset);
-	/*
-		mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
-		mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-		mensaje->protocolo=LEER;
-		mensaje->path=path;
-		mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
-		mensaje->start=offset;  //El START es desde donde voy a leer
-		*/
+	log_trace(log,"Se quiere leer el archivo con path %s,un size de %d,desde el offset %d",path,size,offset);
 
-		//enviarMensaje(tipoMensaje,socket,mensaje);
+	//Creo el mensaje
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protolo=LEER;
+	mensaje->path=path;
+	mensaje->offset=offset;
+	mensaje->tamano=size;
 
-		//RECIBIR EL MENSAJE, FALTA DEFINIR QUE ENVIA SERVIDOR A CLIENTE
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
-	//Esto esta para saber que no esta rompiendo. Sin importar que tenga el archivo, lo que se lee es "jejox"
-	char * hola = malloc(50);
-	hola = "holaProbando";
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
 
-	size_t len;
-	len = strlen(hola);
+	//Si no hay ningun error, copio en el buffer lo que me haya respondido el servidor
+	if (respuesta->protolo==ERROR){
+		return -1;
+	}else{
+		memcpy(buffer,respuesta->buffer,size);
+	}
 
-	 memcpy(buffer, hola, size);
+	int retorno = strlen(respuesta->buffer);
+	free(mensaje);
+	free(respuesta);
+	return retorno; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
 
-	 return size;
 }
 
 static int borrarArchivo(const char * path) {
 
-	/*
+	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=BORRAR;
+	mensaje->protolo=BORRAR;
 	mensaje->path=path;
-	*/
 
-	//enviarMensaje(tipoMensaje,socket,mensaje);
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
 
+	//Si no hubo errores retorno 0, caso contrario -1
+	if(respuesta->protolo==ERROR){
+		return -1;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return 0;
 }
 static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea directorio
 
-	log_trace(log,"Se quiso crear el archivo %s path",path);
-	/*
+	log_trace(log,"Se quiere crear el archivo %s",path);
+
+	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=CREAR;
-	mensaje->path=path;
-	*/
+	//TODO Definir como pasarle el path y el nombre del archivo por separado
 
-	//enviarMensaje(tipoMensaje,socket,mensaje);
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+	//Si no hubo errores retorno 0, caso contrario -1
+	if(respuesta->protolo==ERROR){
+		return -1;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return 0;
 }
 static int crearDirectorio(const char * path, mode_t modo) {
 
+	log_trace(log,"Se quiere crear el directorio %s",path);
+
+	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=CREARDIR;
+	mensaje->protolo=CREARDIR;
 	mensaje->path=path;
 
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+	//Si no hubo errores retorno 0, caso contrario -1
+	if(respuesta->protolo==ERROR){
+		return -1;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return 0;
 }
 
 static int escribirArchivo(const char * path, const char * buffer,
 		size_t size, off_t offset, struct fuse_file_info * otracosa) {
 
-	log_trace(log,"Se quiso escribir en %s path,%s buffer, %d size, %d offset",path,buffer,size,offset);
-	/*
-	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
-	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=ESCRIBIR;
-	mensaje->path=path;
-	mensaje->offset=size;   //El OFFSET es el tamaño de lo que quiero leer
-	mensaje->start=offset;  //El START es desde donde voy a leer
-	*/
+	log_trace(log,"Se quiere escribir el archivo con path %s,un size de %d,desde el offset %d",path,size,offset);
 
-	//enviarMensaje(tipoMensaje,socket,mensaje);
+		//Creo el mensaje
+		mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+		mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+		mensaje->protolo=ESCRIBIR;
+		mensaje->path=path;
+		memcpy(mensaje->buffer,buffer,size); //Se escribe un tamaño [size] del buffer [buffer] recibido
+		mensaje->offset=offset;
 
-	return size; //La funcion retorna lo que se escribio realmente. Puede que no sea este, eso depende lo que me devuelva el servidor
+		//Envio el mensaje
+		enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+
+		//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+		mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+		respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+		if (respuesta->protolo==ERROR){
+			return -1;
+		}
+
+	free(mensaje);
+	free(respuesta);
+	return size; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
 }
 
 static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
 
+	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=BORRARDIR;
+	mensaje->protolo=BORRARDIR;
 	mensaje->path=path;
 
-	//enviarMensaje(tipoMensaje,socket,mensaje);
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+	//Si no hubo errores retorno 0, caso contrario -1
+	if(respuesta->protolo==ERROR){
+		return -1;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return 0;
 }
 
 static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) {
 
+	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensaje->protocolo=RENOMBRAR;
+	mensaje->protolo=RENOMBRAR;
 	mensaje->path=nombreViejo;
-	mensaje->nuevoNombre = nombreNuevo;
+	mensaje->buffer=nombreNuevo;
 
-	//enviarMensaje(tipoMensaje,socket,mensaje);
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
 
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+
+	//Si no hubo errores retorno 0, caso contrario -1
+	if(respuesta->protolo==ERROR){
+		return -1;
+	}
+
+	free(mensaje);
+	free(respuesta);
 	return 0;
 }
-
-static int obtenerAtributosArchivos(const char * path, struct stat * stat,
-		struct fuse_file_info * info) {
-	return 0;
-}
-
 
 static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
 		.readdir = leerDirectorio, .open = abrirArchivo, .read = leerArchivo,
 		.unlink = borrarArchivo, .mknod = crearArchivo,
 		.mkdir = crearDirectorio, .write = escribirArchivo, .rmdir =
-				borrarDirectorio, .rename = renombrarArchivo, .fgetattr = obtenerAtributosArchivos, //*1
-
-		//*1 Si el archivo no existía, se llama a tu función create() en lugar de open() - si existía,
-		//entonces se llama a open(). Luego de llamar a tu función create(), llaman a tu fgetattr(),
-		//aunque todavía no entendí muy bien por qué. Un posible uso es que podrías usarla para modificar
-		//la semántica de crear un archivo al que no tenés acceso (la semántica estándar aplica unícamente
-		//al modo de acceso de archivo de los open()s subsiguientes). Si el archivo no existía y el flag no
-		//estaba seteado, FUSE sólo llama a tu función getattr() (en este caso no llama ni a tu create() ni
-		//a tu open()). SACADO DE LA DOCUMENTACION
-
-		//Esto creo que despues se va a borrar. Si ellos nos dan las cosas sin errores, no deberiamos
-		//usar CREATE
-
-		/*
-		 read-Leer archivos
-		 mknod-Crear archivos
-		 write-Escribir y modificar archivos			DEBE ESTAR SINCRONIZADA
-		 unlink-Borrar archivos						DEBE ESTAR SINCRONIZADA
-		 mkdir-Crear directorios y subdirectorios.
-		 rmdir-Borrar directorios vacíos				DEBE ESTAR SINCRONIZADA
-		 rename-Renombrar archivos 					DEBE ESTAR SINCRONIZADA
-		 */
-
+				borrarDirectorio, .rename = renombrarArchivo,
 		};
 
 /** keys for FUSE_OPT_ options */
@@ -263,12 +341,11 @@ static struct fuse_opt fuse_options[] = {
 // debe estar el path al directorio donde vamos a montar nuestro FS
 int main(int argc, char *argv[]) {
 	 log = log_create("Log","Fuse",0,0);
-	/*ip = argv[1];
-	 puerto = argv[2];*/
+
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
 	//Creo el socket cliente
-	//socket = crearSocketCliente(ip, puerto);
+	socketParaServidor = crearSocketCliente(ip, puerto);
 
 	// Limpio la estructura que va a contener los parametros
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
