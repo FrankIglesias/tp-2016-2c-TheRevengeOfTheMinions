@@ -54,17 +54,11 @@ char * bloquesDeDatos;
 int puerto = 10000;
 t_log * log;
 char * data;
-
-int tamanioTablaAsignacion() { //devuelve el tamaño en bloques
-	int f = fileHeader.fs_blocks;
-	int n = fileHeader.bitmap_blocks;
-	return ((f - 1 - n - 1024) * 4) / BLOCK_SIZE;
-}
-int tamanioStructAdministrativa() {
-	return (fileHeader.inicioTablaAsignaciones + tamanioTablaAsignacion())
-			* BLOCK_SIZE;
-}
-
+int B;
+int N;
+int A;
+int X;
+int F;
 int string_contains(const char *path, char letra) {
 	int teta;
 	for (teta = 0; path[teta] != '\0'; teta++) {
@@ -572,11 +566,11 @@ void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesar
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
 			break;
-		/*case LEERDIR:
-			t_list = readAttr(mensaje->path);
-			devolucion =1;
-			mensaje->tamano = list_size(lista) * sizeof(archivos_t);
-			break;*/
+			/*case LEERDIR:
+			 t_list = readAttr(mensaje->path);
+			 devolucion =1;
+			 mensaje->tamano = list_size(lista) * sizeof(archivos_t);
+			 break;*/
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -650,39 +644,41 @@ void levantarHeader() {
 	log_trace(log, "Data_blocks:%u", fileHeader.data_blocks);
 }
 
-int bitmapOcupados() {
+uint32_t bitmapOcupados() {
 	int i;
-	int ocupados = 0;
-	for (i = 0; i < fileHeader.fs_blocks; ++i) {
-		if (bitarray_test_bit(bitmap, i))
+	uint32_t ocupados = 0;
+	for (i = 0; i < N * BLOCK_SIZE * 8; ++i) {
+		if (bitarray_test_bit(bitmap, i)){
 			ocupados++;
+			log_trace(log,"jiji");
+		}
 	}
 	return ocupados;
 }
 
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
-	levantarHeader();
 	int i;
-	int puntero = BLOCK_SIZE;
-	bitmap = bitarray_create(data + 64, puntero);
-	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
-	tablaDeAsignaciones = malloc(sizeof(int) * tamanioTablaAsignacion());
-	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
-	memcpy(bitmap, data + puntero, fileHeader.bitmap_blocks / 8 / BLOCK_SIZE);
-	puntero += fileHeader.bitmap_blocks / 8 / BLOCK_SIZE;
-	int ocupados = bitmapOcupados();
-	log_trace(log, "Bitmap: Libres: %d    Ocupados:%d",
+	levantarHeader();
+	B = BLOCK_SIZE;
+	F = fileHeader.fs_blocks;
+	N = fileHeader.fs_blocks / 8 / B;
+	A = ((F - 1 - N - 1024) * 4) / B;
+	X = F - 1 -N -1024 -A;
+	bitmap = bitarray_create(data + 64, N * B);
+	tablaDeArchivos = malloc(1024 * B);
+	tablaDeAsignaciones = malloc(A * B);
+	bloquesDeDatos = malloc(X * B);
+	memcpy(bitmap, data + B, N * B);
+	uint32_t ocupados = bitmapOcupados();
+	log_trace(log,"ocupados: %u",ocupados);
+	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
 			fileHeader.fs_blocks - ocupados, ocupados);
 	log_trace(log, "tamaño tabla asignacion: %d en bloques",
-			tamanioTablaAsignacion());
-	memcpy(tablaDeArchivos, data + puntero, 1024 * BLOCK_SIZE);
-	puntero += 1024 * BLOCK_SIZE;
-	memcpy(tablaDeAsignaciones, data + puntero, tamanioTablaAsignacion());
-	puntero += tamanioTablaAsignacion();
-	memcpy(bloquesDeDatos, data + puntero,
-			(fileHeader.fs_blocks - 1025 - tamanioTablaAsignacion()
-					- (fileHeader.bitmap_blocks / 8 / BLOCK_SIZE)) * BLOCK_SIZE);
+			A);
+	memcpy(tablaDeArchivos, data +B +  N *B, 1024 * B);
+	memcpy(tablaDeAsignaciones, data + (B + N + 1024) * B, A);
+	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B,X);
 }
 
 void dump() {
@@ -735,13 +731,15 @@ void imprimirArchivosDe(char* path) {
 }
 void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre) {
 	int i;
+	int aux;
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
 			char * coshita = string_repeat('-', nivel);
 			log_debug(log, "%s %s -- %s", coshita,
 					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO) {
-				imprimirDirectoriosRecursivo(tablaDeArchivos[i], nivel + 1,
+				aux = nivel + 1;
+				imprimirDirectoriosRecursivo(tablaDeArchivos[i], aux,
 						tablaDeArchivos[i].bloqueInicial);
 			}
 		}
@@ -751,7 +749,8 @@ void mostrarTablaDeArchivos() {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
-			log_trace(log, "%d . %s . %s", i, tablaDeArchivos[i].nombreArchivo,tipoArchivo(i));
+			log_trace(log, "%d . %s . %s", i, tablaDeArchivos[i].nombreArchivo,
+					tipoArchivo(i));
 	}
 }
 
@@ -789,15 +788,14 @@ void mapearMemoria() {
 }
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
-	memcpy(data + BLOCK_SIZE, bitmap, fileHeader.bitmap_blocks * BLOCK_SIZE);
-	memcpy(data + (1 + fileHeader.bitmap_blocks) * BLOCK_SIZE, tablaDeArchivos,
+	memcpy(data + BLOCK_SIZE, bitmap,N);
+	memcpy(data + (1 + N) * BLOCK_SIZE, tablaDeArchivos,
 			1024 * BLOCK_SIZE);
-	memcpy(data + fileHeader.inicioTablaAsignaciones * BLOCK_SIZE,
-			tablaDeAsignaciones, tamanioTablaAsignacion() * sizeof(int));
+	memcpy(data + (1025 + N)* BLOCK_SIZE,
+			tablaDeAsignaciones, A);
 	memcpy(
-			data + fileHeader.inicioTablaAsignaciones * sizeof(int)+
-			+ tamanioTablaAsignacion() * BLOCK_SIZE, bloquesDeDatos,
-			fileHeader.data_blocks * BLOCK_SIZE);
+			data + (1025 + N + A) * BLOCK_SIZE, bloquesDeDatos,
+			X);
 	log_trace(log, "Memoria sincronizada");
 
 }
@@ -809,34 +807,34 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 // no considero que haya un archivo con el mismo nombre
 //	imprimirArchivosDe("/");
-	mostrarTablaDeArchivos();
-	//imprimirArbolDeDirectorios();
+//	mostrarTablaDeArchivos();
+	imprimirArbolDeDirectorios();
 	/*crearDir("/yasmila");
-	crearDir("/frank/");
-	crearDir("/juani/");
-	crearDir("/yasmila/amii/");
-	crearDir("/yasmila/sisop/");
-	crearDir("/yasmila/sisop/fs/");
-	crearDir("/yasmila/sisop/dl/");
-	crearArchivo("/yasmila/sisop/", "solito.txt");
-	imprimirArbolDeDirectorios();
-	escribirArchivo("/yasmila/sisop/solito.txt",
-			"abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
-			0);
-	char * asd = leerArchivo("/yasmila/sisop/solito.txt", 80, 10);
-//	imprimirArchivosDe("yasmila/mira/");
-	imprimirArbolDeDirectorios();
-	borrar("/yasmila/sisop/solito.txt");
-	borrarDir("yasmila/amii");
-	borrarDir("yasmila/sisop/fs");
-	imprimirArbolDeDirectorios();
-	renombrar("/yasmila", "yamila");
-	imprimirArbolDeDirectorios();
-	renombrar("/yamila/sisop/", "peperoni");
-	crearArchivo("/", "pepeee.txt");
-	crearArchivo("/", "pepeee.txt");
-	borrar("traceeee");
-	imprimirArbolDeDirectorios();*/
+	 crearDir("/frank/");
+	 crearDir("/juani/");
+	 crearDir("/yasmila/amii/");
+	 crearDir("/yasmila/sisop/");
+	 crearDir("/yasmila/sisop/fs/");
+	 crearDir("/yasmila/sisop/dl/");
+	 crearArchivo("/yasmila/sisop/", "solito.txt");
+	 imprimirArbolDeDirectorios();
+	 escribirArchivo("/yasmila/sisop/solito.txt",
+	 "abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
+	 0);
+	 char * asd = leerArchivo("/yasmila/sisop/solito.txt", 80, 10);
+	 //	imprimirArchivosDe("yasmila/mira/");
+	 imprimirArbolDeDirectorios();
+	 borrar("/yasmila/sisop/solito.txt");
+	 borrarDir("yasmila/amii");
+	 borrarDir("yasmila/sisop/fs");
+	 imprimirArbolDeDirectorios();
+	 renombrar("/yasmila", "yamila");
+	 imprimirArbolDeDirectorios();
+	 renombrar("/yamila/sisop/", "peperoni");
+	 crearArchivo("/", "pepeee.txt");
+	 crearArchivo("/", "pepeee.txt");
+	 borrar("traceeee");
+	 imprimirArbolDeDirectorios();*/
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
