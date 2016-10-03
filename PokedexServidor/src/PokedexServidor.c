@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <bitarray.h>
-#include <commons/list.h>
+#include <collections/list.h>
 
 #define BLOCK_SIZE 64
 
@@ -492,10 +492,38 @@ int renombrar(char * path, char * nombre) {
 	}
 	return -1;
 }
+t_list * readAttr(char *path) {
+	t_list * lista = list_create();
+	int i;
+	int j;
+	uint16_t padre = -1;
+
+	if (path != "/") {
+		char ** ruta = string_split(path, "/");
+		for (i = 0; (i < 2048) && ruta[j]; i++) {
+			if ((padre == tablaDeArchivos[i].bloquePadre)
+					&& (tablaDeArchivos[i].estado == DIRECTORIO)
+					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
+				padre = tablaDeArchivos[i].bloqueInicial;
+				i = 0;
+				j++;
+			}
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if (padre == tablaDeArchivos[i].bloquePadre) {
+			archivos_t * file = malloc(sizeof(archivos_t));
+			*file = tablaDeArchivos[i];
+			list_add(lista, (void*) file); // CONSULTAR A FRANK
+		}
+	}
+	return lista;
+}
 
 void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
+	t_list * lista;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
@@ -544,11 +572,11 @@ void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesar
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
 			break;
-		case GETATTR:
-			list_t * lista = getAtrr(mensaje->path);
+		/*case LEERDIR:
+			t_list = readAttr(mensaje->path);
 			devolucion =1;
 			mensaje->tamano = list_size(lista) * sizeof(archivos_t);
-			break;
+			break;*/
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -709,7 +737,7 @@ void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre)
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
-			char * coshita = string_repeat('-', nivel * 5);
+			char * coshita = string_repeat('-', nivel);
 			log_debug(log, "%s %s -- %s", coshita,
 					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO) {
@@ -719,11 +747,11 @@ void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre)
 		}
 	}
 }
-void mostrarTablaDeArchivos(archivos_t* tablaDeArchivos, t_log* log) {
+void mostrarTablaDeArchivos() {
 	int i;
 	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].estado != BORRADO)
-			log_trace(log, "%d .... %s", i, tablaDeArchivos[i].nombreArchivo);
+		if (archivoDirectorio(i))
+			log_trace(log, "%d . %s . %s", i, tablaDeArchivos[i].nombreArchivo,tipoArchivo(i));
 	}
 }
 
@@ -731,18 +759,10 @@ void imprimirArbolDeDirectorios() {
 	log_trace(log, "Mostrando arbol de directorio");
 	int i;
 	uint16_t padre = -1;
-	/*for (i = 0; i < 2048; i++) {
-	 if (tablaDeArchivos[i].estado == DIRECTORIO
-	 && tablaDeArchivos[i].bloquePadre == padre) {
-	 log_debug(log, "%s", tablaDeArchivos[i].nombreArchivo);
-	 imprimirDirectoriosRecursivo(tablaDeArchivos[i], 1,
-	 tablaDeArchivos[i].bloqueInicial);
-	 }
-	 }*/
 	for (i = 0; i < 2048; i++) {
 		if (tablaDeArchivos[i].estado != BORRADO
 				&& tablaDeArchivos[i].bloquePadre == padre) {
-			log_debug(log, "%s  -- %s", tablaDeArchivos[i].nombreArchivo,
+			log_debug(log, "%s - %s", tablaDeArchivos[i].nombreArchivo,
 					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
 				imprimirDirectoriosRecursivo(tablaDeArchivos[i], 1,
@@ -754,7 +774,7 @@ void imprimirArbolDeDirectorios() {
 void mapearMemoria() {
 	osadaFile =
 			open(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/minidisk.bin",
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/challenge.bin",
 					O_RDWR);
 	struct stat s;
 	int status = fstat(osadaFile, &s);
@@ -782,34 +802,6 @@ void sincronizarMemoria() {
 
 }
 
-t_list * getAtrr(char *path) {
-	t_list * lista = list_create();
-	int i;
-	int j;
-	uint16_t padre = -1;
-
-	if (path != "/") {
-		char ** ruta = string_split(path, "/");
-		for (i = 0; (i < 2048) && ruta[j]; i++) {
-			if ((padre == tablaDeArchivos[i].bloquePadre)
-					&& (tablaDeArchivos[i].estado == DIRECTORIO)
-					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
-				padre = tablaDeArchivos[i].bloqueInicial;
-				i = 0;
-				j++;
-			}
-		}
-	}
-	for (i = 0; i < 2048; i++) {
-		if (padre == tablaDeArchivos[i].bloquePadre) {
-			archivos_t * file = malloc(sizeof(archivos_t));
-			*file = tablaDeArchivos[i];
-			list_add(lista, (void) file); // CONSULTAR A FRANK
-		}
-	}
-	return lista;
-}
-
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
 	mapearMemoria();
@@ -817,8 +809,9 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 // no considero que haya un archivo con el mismo nombre
 //	imprimirArchivosDe("/");
-	imprimirArbolDeDirectorios();
-	crearDir("/yasmila");
+	mostrarTablaDeArchivos();
+	//imprimirArbolDeDirectorios();
+	/*crearDir("/yasmila");
 	crearDir("/frank/");
 	crearDir("/juani/");
 	crearDir("/yasmila/amii/");
@@ -843,7 +836,7 @@ int main(int argc, void *argv[]) {
 	crearArchivo("/", "pepeee.txt");
 	crearArchivo("/", "pepeee.txt");
 	borrar("traceeee");
-	imprimirArbolDeDirectorios();
+	imprimirArbolDeDirectorios();*/
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
