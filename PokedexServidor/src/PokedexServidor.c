@@ -648,10 +648,8 @@ uint32_t bitmapOcupados() {
 	int i;
 	uint32_t ocupados = 0;
 	for (i = 0; i < N * BLOCK_SIZE * 8; ++i) {
-		if (bitarray_test_bit(bitmap, i)){
+		if (bitarray_test_bit(bitmap, i))
 			ocupados++;
-			log_trace(log,"jiji");
-		}
 	}
 	return ocupados;
 }
@@ -669,7 +667,7 @@ void levantarOsada() {
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
 	bloquesDeDatos = malloc(X * B);
-	memcpy(bitmap, data + B, N * B);
+	//memcpy(bitmap, data + B, N * B);
 	uint32_t ocupados = bitmapOcupados();
 	log_trace(log,"ocupados: %u",ocupados);
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
@@ -681,21 +679,6 @@ void levantarOsada() {
 	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B,X);
 }
 
-void dump() {
-	log_trace(log,
-			"Identificador: %s     B-BitMap:%d    B-CantBLoquesFS:%d     B-CantDatos:%d",
-			fileHeader.identificador, fileHeader.bitmap_blocks,
-			fileHeader.fs_blocks, fileHeader.data_blocks);
-	int ocupados = 0;
-	int i;
-	/*for (i = 0; i < fileHeader.fs_blocks; ++i) {
-	 if (bitmap[i] == 1)
-	 ocupados++;
-	 }*/
-	log_trace(log, "Bitmap: Libres: &d    Ocupados:&d",
-			fileHeader.bitmap_blocks - ocupados, ocupados);
-	imprimirArbolDeDirectorios();
-}
 char * tipoArchivo(int i) {
 	switch (tablaDeArchivos[i].estado) {
 	case (BORRADO):
@@ -773,7 +756,7 @@ void imprimirArbolDeDirectorios() {
 void mapearMemoria() {
 	osadaFile =
 			open(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/challenge.bin",
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/basic.bin",
 					O_RDWR);
 	struct stat s;
 	int status = fstat(osadaFile, &s);
@@ -807,8 +790,8 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 // no considero que haya un archivo con el mismo nombre
 //	imprimirArchivosDe("/");
-//	mostrarTablaDeArchivos();
-	imprimirArbolDeDirectorios();
+	mostrarTablaDeArchivos();
+//	imprimirArbolDeDirectorios();
 	/*crearDir("/yasmila");
 	 crearDir("/frank/");
 	 crearDir("/juani/");
