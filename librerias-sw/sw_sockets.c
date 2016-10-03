@@ -101,8 +101,8 @@ int crearSocketCliente(char ip[], int puerto) {
 void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 		header header) {
 	mensaje_CLIENTE_SERVIDOR * mensaje = malloc(header.payload);
-	memcpy(mensaje, buffer, sizeof(instruccion_t) + sizeof(uint32_t) * 3);
-	int puntero = sizeof(instruccion_t) + sizeof(uint32_t) * 3;
+	memcpy(mensaje, buffer, sizeof(instruccion_t) + sizeof(uint32_t) * 4);
+	int puntero = sizeof(instruccion_t) + sizeof(uint32_t) * 4;
 	mensaje->path = malloc(mensaje->path_payload);
 	memcpy(mensaje + puntero, buffer + puntero, mensaje->path_payload);
 	puntero += mensaje->path_payload;
@@ -147,7 +147,7 @@ void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
 char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		header * nuevoHeader) {
 	mensaje_CLIENTE_SERVIDOR * mensaje = (mensaje_CLIENTE_SERVIDOR *) data;
-	nuevoHeader->payload = sizeof(instruccion_t) + sizeof(uint32_t) * 3
+	nuevoHeader->payload = sizeof(instruccion_t) + sizeof(uint32_t) * 4
 			+ strlen(mensaje->path) + strlen(mensaje->buffer);
 	mensaje->path_payload = strlen(mensaje->path);
 	mensaje->tamano = strlen(mensaje->buffer);
@@ -156,8 +156,8 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 	memcpy(buffer, nuevoHeader, sizeof(header));
 	pasaje = sizeof(header);
 	memcpy(buffer + pasaje, mensaje,
-			sizeof(instruccion_t) + sizeof(uint32_t) * 3);
-	pasaje += sizeof(instruccion_t) + sizeof(uint32_t) * 3;
+			sizeof(instruccion_t) + sizeof(uint32_t) * 4);
+	pasaje += sizeof(instruccion_t) + sizeof(uint32_t) * 4;
 	memcpy(buffer + pasaje, mensaje->path, mensaje->path_payload);
 	pasaje += mensaje->path_payload;
 	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
