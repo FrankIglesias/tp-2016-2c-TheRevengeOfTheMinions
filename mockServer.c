@@ -87,13 +87,15 @@ int main(void) {
 	list_add(listaArchivos2,(void*)&directorioHola);
 	printf ("Creo lista 2 y lo asigno \n");
 
+	struct sockaddr_in addr;
+	socklen_t addrlen = sizeof(addr);
+	int socketCliente = accept(socketParaServidor, (struct sockaddr *) &addr, &addrlen);
 
 	while(1){
 
 		printf ("Entro al while y estoy por bloquearme \n");
-		struct sockaddr_in addr;
-		socklen_t addrlen = sizeof(addr);
-		int socketCliente = accept(socketParaServidor, (struct sockaddr *) &addr, &addrlen);
+
+
 		respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketCliente);
 
 		printf ("Recibi respuesta \n");
@@ -114,10 +116,11 @@ int main(void) {
 					printf ("Recibi /chau.txt getattr \n");
 					mensajeAEnviar->tipoArchivo=1;
 					mensajeAEnviar->tamano=144;
+				}else{
+					mensajeAEnviar->protolo=ERROR;
 				}
-				printf ("Recibi /Voy a responder \n");
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensajeAEnviar);
-
+				printf ("Recibi / ,voy a responder \n");
+				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
 				break;
 
 			case LEERDIR:
@@ -132,14 +135,14 @@ int main(void) {
 					mensajeAEnviar->buffer=(char *) listaArchivos1;
 				}
 				printf ("Recibi /Voy a responder \n");
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensajeAEnviar);
+				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
 
 				break;
 
 			default:
 				printf("Algo fallo");
 				mensajeAEnviar->protolo=ERROR;
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensajeAEnviar);
+				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
 				break;
 		}
 	}

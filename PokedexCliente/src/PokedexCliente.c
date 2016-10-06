@@ -70,8 +70,10 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=GETATTR;
-	mensaje->path=path;
-	mensaje->buffer="nada";
+	mensaje->path=malloc(strlen(path));
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"holu");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
