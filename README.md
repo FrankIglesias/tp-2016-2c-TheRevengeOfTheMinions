@@ -32,3 +32,11 @@ truncate --size 100M disco.bin
 
 
 <font size = 8><strong>VAMOS EQUIPO!</strong></font>
+
+Para correr el cliente de fuse con el mock:
+1)Correr el mock hasta que se bloquee
+2)Tirar por consola "sudo umount /home/utnso/puntoMontada"
+3)Correr el cliente y lo corres hasta que haga el primer getattr con ./[nombreDelProyectoEnEclipse] /[rutaDelArchvio] -f
+TIPS:Cuando debugeas el cliente(fuse) ponele en argumentos "-s /home/utnso/puntoMontada -f"
+
+
