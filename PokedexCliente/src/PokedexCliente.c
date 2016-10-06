@@ -73,7 +73,7 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -115,7 +115,7 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -165,7 +165,7 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	mensaje->tamano=size;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -194,7 +194,7 @@ static int borrarArchivo(const char * path) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -219,7 +219,7 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	//TODO Definir como pasarle el path y el nombre del archivo por separado
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -245,7 +245,7 @@ static int crearDirectorio(const char * path, mode_t modo) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -275,7 +275,7 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje->offset=offset;
 
 		//Envio el mensaje
-		enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+		enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 		//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 		mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -299,7 +299,7 @@ static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACI
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -325,7 +325,7 @@ static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) 
 	mensaje->buffer=nombreNuevo;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
