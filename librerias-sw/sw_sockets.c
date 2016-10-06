@@ -233,9 +233,9 @@ void * recibirMensaje(int socket) {
 		return NULL;
 	}
 	if (unheader.mensaje == MAPA_ENTRENADOR
-			|| unheader.mensaje == ENTRENADOR_MAPA)
+			|| unheader.mensaje == ENTRENADOR_MAPA || unheader.mensaje==CLIENTE_SERVIDOR)
 		mensaje = funcionesDesserializadoras[unheader.mensaje](buffer,
 				unheader);
-	free(buffer);
+	//free(buffer); Esta de mas, ya hace free cuando desserealiza
 	return mensaje;
 }

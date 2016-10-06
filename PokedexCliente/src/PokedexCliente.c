@@ -34,7 +34,7 @@ typedef struct osadaFile {
 } archivos_t;
 
 char * ip = "127.0.0.1";
-int puerto = 9000;
+int puerto = 6000;
 
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
@@ -73,11 +73,15 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
+
+	if(respuesta->protolo==ERROR){
+		return -ENOENT;
+	}
 
 	//Segun el tipo de archivo que sea el path, lleno la estructura stbuf
 	if(respuesta->tipoArchivo==2){//Si es un directorio
@@ -111,11 +115,11 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
 	t_list * listaArchivos = list_create();
@@ -161,11 +165,11 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	mensaje->tamano=size;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hay ningun error, copio en el buffer lo que me haya respondido el servidor
 	if (respuesta->protolo==ERROR){
@@ -190,11 +194,11 @@ static int borrarArchivo(const char * path) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
@@ -215,11 +219,11 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	//TODO Definir como pasarle el path y el nombre del archivo por separado
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
@@ -241,11 +245,11 @@ static int crearDirectorio(const char * path, mode_t modo) {
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
@@ -271,11 +275,11 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje->offset=offset;
 
 		//Envio el mensaje
-		enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+		enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 		//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 		mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-		respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+		respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 		if (respuesta->protolo==ERROR){
 			return -1;
@@ -295,11 +299,11 @@ static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACI
 	mensaje->path=path;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
@@ -321,11 +325,11 @@ static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) 
 	mensaje->buffer=nombreNuevo;
 
 	//Envio el mensaje
-	enviarMensaje(tipoMensaje,socket,(void *) &mensaje);
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) &mensaje);
 
 	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socket);
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
