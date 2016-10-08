@@ -26,7 +26,7 @@ typedef enum
 
 typedef struct osadaFile {
 	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
-	unsigned char nombreArchivo[17];
+	char* nombreArchivo;
 	uint16_t bloquePadre;
 	uint32_t tamanioArchivo;
 	uint32_t fechaUltimaModif; //como hago fechas?
@@ -70,10 +70,10 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=GETATTR;
-	mensaje->path=malloc(strlen(path));
+	mensaje->path=malloc(strlen(path)+1);
 	strcpy(mensaje->path,path);
 	mensaje->buffer=malloc(20);
-	strcpy(mensaje->buffer,"holu");
+	strcpy(mensaje->buffer,"buffer");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -98,6 +98,8 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 		res = -ENOENT;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return res;
@@ -109,13 +111,15 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	log_trace(log,"Se quiere leer el directorio de path %s",path);
 	int res=0;
 	int i=0;
-	archivos_t* nuevoArchivo;
 
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=LEERDIR;
-	mensaje->path=path;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -126,13 +130,18 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 
 	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
 	t_list * listaArchivos = list_create();
+	archivos_t* archivoEntrante=malloc(sizeof(archivos_t));
+	archivoEntrante->nombreArchivo=malloc(17);
+
 	listaArchivos = (t_list*) respuesta->buffer;
 
 	for(i=0;i<=list_size(listaArchivos);i++){
-		nuevoArchivo = (archivos_t*) list_get(listaArchivos, i);
-		filler(buf,nuevoArchivo->nombreArchivo, NULL, 0);
+		archivoEntrante = (archivos_t*) list_get(listaArchivos, i);
+		filler(buf,archivoEntrante->nombreArchivo, NULL, 0);
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	list_destroy(listaArchivos);
@@ -163,7 +172,10 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=LEER;
-	mensaje->path=path;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 	mensaje->offset=offset;
 	mensaje->tamano=size;
 
@@ -182,6 +194,8 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	}
 
 	int retorno = strlen(respuesta->buffer);
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return retorno; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
@@ -194,7 +208,10 @@ static int borrarArchivo(const char * path) {
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=BORRAR;
-	mensaje->path=path;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -208,6 +225,8 @@ static int borrarArchivo(const char * path) {
 		return -1;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return 0;
@@ -219,6 +238,8 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 	//TODO Definir como pasarle el path y el nombre del archivo por separado
 
 	//Envio el mensaje
@@ -233,6 +254,8 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 		return -1;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return 0;
@@ -245,7 +268,10 @@ static int crearDirectorio(const char * path, mode_t modo) {
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=CREARDIR;
-	mensaje->path=path;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -259,6 +285,8 @@ static int crearDirectorio(const char * path, mode_t modo) {
 		return -1;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return 0;
@@ -273,7 +301,9 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 		mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 		mensaje->protolo=ESCRIBIR;
-		mensaje->path=path;
+		mensaje->path=malloc(strlen(path)+1);
+		strcpy(mensaje->path,path);
+		mensaje->buffer=malloc(strlen(buffer)+1);
 		memcpy(mensaje->buffer,buffer,size); //Se escribe un tamaño [size] del buffer [buffer] recibido
 		mensaje->offset=offset;
 
@@ -288,6 +318,8 @@ static int escribirArchivo(const char * path, const char * buffer,
 			return -1;
 		}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return size; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
@@ -299,7 +331,10 @@ static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACI
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=BORRARDIR;
-	mensaje->path=path;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->buffer=malloc(20);
+	strcpy(mensaje->buffer,"buffer");
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -313,6 +348,8 @@ static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACI
 		return -1;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return 0;
@@ -324,8 +361,10 @@ static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) 
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje->protolo=RENOMBRAR;
-	mensaje->path=nombreViejo;
-	mensaje->buffer=nombreNuevo;
+	mensaje->path=malloc(strlen(nombreViejo)+1);
+	strcpy(mensaje->path,nombreViejo);
+	mensaje->buffer=malloc(strlen(nombreNuevo)+1);
+	strcpy(mensaje->buffer,nombreNuevo);
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -339,6 +378,8 @@ static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) 
 		return -1;
 	}
 
+	free(mensaje->buffer);
+	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
 	return 0;

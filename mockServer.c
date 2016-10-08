@@ -60,31 +60,35 @@ int main(void) {
 
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
 	mensaje_CLIENTE_SERVIDOR * mensajeAEnviar = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensajeAEnviar->path=malloc(1);
+
 	printf ("Cree las estructuras de respuesta y mensaje \n");
 
 	//Creo el archivo para la lista si me preguntan por el directorio /hola
 	char * nombreArchivo = malloc(17);
 	nombreArchivo="chau.txt";
-	archivos_t archivoChau;
-	archivoChau.nombreArchivo=nombreArchivo;
-	archivoChau.tamanioArchivo=144;
+	archivos_t* archivoChau=malloc(sizeof(archivos_t));
+	archivoChau->nombreArchivo=malloc(17);
+	strcpy(archivoChau->nombreArchivo,nombreArchivo);
+	archivoChau->tamanioArchivo=144;
 
 
 	//Creo el archivo para la lista si me preguntan por el directorio "/"
 	char * nombreDirectorio = malloc(17);
 	nombreDirectorio="hola";
-	archivos_t directorioHola;
-	directorioHola.nombreArchivo = nombreDirectorio;
+	archivos_t* directorioHola=malloc(sizeof(archivos_t));
+	directorioHola->nombreArchivo =malloc(17);
+	strcpy(directorioHola->nombreArchivo,nombreDirectorio);
 	printf ("Creo archivo 2 y lo asigno \n");
 
 	//Creo la lista para devolver si me preguntan por /hola
 	t_list * listaArchivos1 = list_create();
-	list_add(listaArchivos1,(void*)&archivoChau);
+	list_add(listaArchivos1,(void*)archivoChau);
 	printf ("Creo lista 1 y lo asigno \n");
 
 	//Creo la lista para devolver si me preguntan por "/"
 	t_list * listaArchivos2 = list_create();
-	list_add(listaArchivos2,(void*)&directorioHola);
+	list_add(listaArchivos2,(void*)directorioHola);
 	printf ("Creo lista 2 y lo asigno \n");
 
 	struct sockaddr_in addr;
@@ -106,43 +110,68 @@ int main(void) {
 			case GETATTR:
 				if(strcmp(respuesta->path, "/") == 0){
 					printf ("Recibi / getattr \n");
+					mensajeAEnviar->protolo=GETATTR;
 					mensajeAEnviar->tipoArchivo=2;
+					mensajeAEnviar->path=malloc(1);
+					mensajeAEnviar->buffer=malloc(1);
 				}
 				if(strcmp(respuesta->path, "/hola") == 0){
+					mensajeAEnviar->protolo=GETATTR;
 					printf ("Recibi /hola getattr \n");
 					mensajeAEnviar->tipoArchivo=2;
+					mensajeAEnviar->path=malloc(1);
+					mensajeAEnviar->buffer=malloc(1);
 				}
 				if(strcmp(respuesta->path, "/chau.txt") == 0){
+					mensajeAEnviar->protolo=GETATTR;
 					printf ("Recibi /chau.txt getattr \n");
 					mensajeAEnviar->tipoArchivo=1;
 					mensajeAEnviar->tamano=144;
+					mensajeAEnviar->path=malloc(1);
+					mensajeAEnviar->buffer=malloc(1);
 				}else{
+					printf("Recibi basura");
 					mensajeAEnviar->protolo=ERROR;
 				}
-				printf ("Recibi / ,voy a responder \n");
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
+				printf ("Voy a responder \n");
+				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 				break;
 
 			case LEERDIR:
 
 				if(strcmp(respuesta->path, "/") == 0){
+					mensajeAEnviar->protolo=LEERDIR;
 					printf ("Recibi / readdir \n");
+					mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos2));
 					mensajeAEnviar->buffer=(char *) listaArchivos2;
+
+					//Pruebo si anda esto de parsear la lista en un char*
+					t_list * pruebaLista = list_create();
+					archivos_t* archivoPrueba=malloc(sizeof(archivos_t));
+					archivoPrueba->nombreArchivo=malloc(17);
+					pruebaLista=(t_list*)mensajeAEnviar->buffer;
+					archivoPrueba=(archivos_t*)list_get(pruebaLista,0);
+					printf("%s",archivoPrueba->nombreArchivo);
+
+
+					printf ("Creo lista 2 y lo asigno \n");
 				}
 
 				if(strcmp(respuesta->path, "/hola") == 0){
+					mensajeAEnviar->protolo=LEERDIR;
 					printf ("Recibi /hola readdir \n");
+					mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos1));
 					mensajeAEnviar->buffer=(char *) listaArchivos1;
 				}
 				printf ("Recibi /Voy a responder \n");
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
+				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 
 				break;
 
 			default:
 				printf("Algo fallo");
 				mensajeAEnviar->protolo=ERROR;
-				enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensajeAEnviar);
+				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 				break;
 		}
 	}

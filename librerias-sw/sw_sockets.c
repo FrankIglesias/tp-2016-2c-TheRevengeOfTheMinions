@@ -152,11 +152,11 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 	mensaje_CLIENTE_SERVIDOR * mensaje = (mensaje_CLIENTE_SERVIDOR *) data;
 	int tamanioVariable;
 	if(mensaje->protolo != ERROR){
-		mensaje->path_payload = strlen(mensaje->path);
-		mensaje->tamano = strlen(mensaje->buffer);
-	}else{
-		mensaje->path_payload = 0;
-		mensaje->tamano = 0;
+			mensaje->path_payload = strlen(mensaje->path);
+			mensaje->tamano = strlen(mensaje->buffer);
+		}else{
+			mensaje->path_payload = 0;
+			mensaje->tamano = 0;
 	}
 	nuevoHeader->payload = sizeof(instruccion_t) + sizeof(uint32_t) * 4
 			+ mensaje->path_payload + mensaje->tamano;
