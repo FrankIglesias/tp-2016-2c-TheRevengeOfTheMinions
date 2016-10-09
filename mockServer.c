@@ -59,8 +59,9 @@ int main(void) {
 	socketParaServidor=crearSocketServidor(puerto);
 
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta->path=malloc(30);
 	mensaje_CLIENTE_SERVIDOR * mensajeAEnviar = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
-	mensajeAEnviar->path=malloc(1);
+	mensajeAEnviar->path=malloc(10);
 
 	printf ("Cree las estructuras de respuesta y mensaje \n");
 
@@ -142,17 +143,21 @@ int main(void) {
 				if(strcmp(respuesta->path, "/") == 0){
 					mensajeAEnviar->protolo=LEERDIR;
 					printf ("Recibi / readdir \n");
-					mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos2));
+					//mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos2));
+					mensajeAEnviar->buffer = malloc((list_size(listaArchivos2)*sizeof(archivos_t))+17);
 					mensajeAEnviar->buffer=(char *) listaArchivos2;
+					mensajeAEnviar->tamano=(list_size(listaArchivos2)*sizeof(archivos_t))+17;
+					strcpy(mensajeAEnviar->path,"LEERV");
 
 					//Pruebo si anda esto de parsear la lista en un char*
 					t_list * pruebaLista = list_create();
 					archivos_t* archivoPrueba=malloc(sizeof(archivos_t));
 					archivoPrueba->nombreArchivo=malloc(17);
 					pruebaLista=(t_list*)mensajeAEnviar->buffer;
+					int verTamano = (list_size(pruebaLista)*sizeof(archivos_t))+17;
 					archivoPrueba=(archivos_t*)list_get(pruebaLista,0);
-					printf("%s",archivoPrueba->nombreArchivo);
-
+					printf("Lo que contiene el archivo que voy a mandar es:%s \n",archivoPrueba->nombreArchivo);
+					printf("El tamaño del buffer a enviar es %d y el del de prueba es %d \n",mensajeAEnviar->tamano,verTamano);
 
 					printf ("Creo lista 2 y lo asigno \n");
 				}
