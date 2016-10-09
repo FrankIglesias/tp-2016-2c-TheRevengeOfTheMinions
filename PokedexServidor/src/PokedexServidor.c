@@ -51,7 +51,6 @@ int osadaFile;
 t_bitarray* bitmap;
 int * tablaDeAsignaciones;
 char * bloquesDeDatos;
-int puerto = 10000;
 t_log * log;
 char * data;
 int B;
@@ -514,7 +513,7 @@ t_list * readAttr(char *path) {
 	return lista;
 }
 
-void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesario la ruta de montaje?
+void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
 	t_list * lista;
@@ -577,55 +576,6 @@ void atenderPeticiones(int socket, header unHeader, char * ruta) { // es necesar
 			log_error(log, "No te entendi wacho");
 		}
 		enviarMensaje(SERVIDOR_CLIENTE, socket, (void *) &mensaje);
-	}
-}
-void atenderClientes(void) {
-	fd_set master;
-	fd_set read_fds;
-	struct sockaddr_in remoteaddr;
-	int tamanioMaximoDelFd;
-	int socketListen;
-	int nuevoSocketAceptado;
-	int addrlen;
-	int i;
-	FD_ZERO(&master);
-	FD_ZERO(&read_fds);
-	socketListen = crearSocketServidor(puerto);
-	FD_SET(socketListen, &master);
-	tamanioMaximoDelFd = socketListen;
-	//mensaje_ENTRENADOR_MAPA * mensaje;
-	while (1) {
-		read_fds = master;
-		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
-			perror("select");
-			exit(1);
-		}
-		for (i = 0; i <= tamanioMaximoDelFd; i++) {
-			if (FD_ISSET(i, &read_fds)) {
-				if (i == socketListen) {
-					addrlen = sizeof(remoteaddr);
-					if ((nuevoSocketAceptado = accept(socketListen,
-							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
-						perror("accept");
-					} else {
-						FD_SET(nuevoSocketAceptado, &master);
-						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
-							tamanioMaximoDelFd = nuevoSocketAceptado;
-						}
-					}
-				} else {
-					header nuevoHeader;
-					if (recv(i, &nuevoHeader, sizeof(header), 0)) {
-						close(i);
-						FD_CLR(i, &master);
-					} else {
-						char * ruta; // RUTA RECIBIDA POR EL POKEDEX CLIENTE
-						//			atenderPeticiones(i, nuevoHeader, ruta);
-					}
-
-				}
-			}
-		}
 	}
 }
 
@@ -783,41 +733,14 @@ void sincronizarMemoria() {
 
 }
 
+void funcionAceptar(){
+}
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
 	mapearMemoria();
 	levantarOsada();
 	sincronizarMemoria();
-// no considero que haya un archivo con el mismo nombre
-//	imprimirArchivosDe("/");
-	mostrarTablaDeArchivos();
-//	imprimirArbolDeDirectorios();
-	/*crearDir("/yasmila");
-	 crearDir("/frank/");
-	 crearDir("/juani/");
-	 crearDir("/yasmila/amii/");
-	 crearDir("/yasmila/sisop/");
-	 crearDir("/yasmila/sisop/fs/");
-	 crearDir("/yasmila/sisop/dl/");
-	 crearArchivo("/yasmila/sisop/", "solito.txt");
-	 imprimirArbolDeDirectorios();
-	 escribirArchivo("/yasmila/sisop/solito.txt",
-	 "abc def ghi jkl mnñ opq rst uvw xyz 012 345 678 9ab cde fgh ijk lmn ñop qrs tuv wxy z01 234 567 89...",
-	 0);
-	 char * asd = leerArchivo("/yasmila/sisop/solito.txt", 80, 10);
-	 //	imprimirArchivosDe("yasmila/mira/");
-	 imprimirArbolDeDirectorios();
-	 borrar("/yasmila/sisop/solito.txt");
-	 borrarDir("yasmila/amii");
-	 borrarDir("yasmila/sisop/fs");
-	 imprimirArbolDeDirectorios();
-	 renombrar("/yasmila", "yamila");
-	 imprimirArbolDeDirectorios();
-	 renombrar("/yamila/sisop/", "peperoni");
-	 crearArchivo("/", "pepeee.txt");
-	 crearArchivo("/", "pepeee.txt");
-	 borrar("traceeee");
-	 imprimirArbolDeDirectorios();*/
+	theMinionsRevengeSelect(argv[1],funcionAceptar,atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
