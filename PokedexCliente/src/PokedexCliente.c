@@ -111,6 +111,7 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	log_trace(log,"Se quiere leer el directorio de path %s",path);
 	int res=0;
 	int i=0;
+	int cantEncontrados;
 
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
@@ -129,22 +130,19 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
 	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
-	t_list * listaArchivos = list_create();
-	archivos_t* archivoEntrante=malloc(sizeof(archivos_t));
-	archivoEntrante->nombreArchivo=malloc(17);
+	char* archivoEntrante=malloc(17);
+	cantEncontrados=(respuesta->tamano)/17;
 
-	listaArchivos = (t_list*) respuesta->buffer;
 
-	for(i=0;i<=list_size(listaArchivos);i++){
-		archivoEntrante = (archivos_t*) list_get(listaArchivos, i);
-		filler(buf,archivoEntrante->nombreArchivo, NULL, 0);
+	for(i=0;i<cantEncontrados;i++){
+		memcpy(archivoEntrante,respuesta->buffer+i*17,17);
+		filler(buf,archivoEntrante, NULL, 0);
 	}
 
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	list_destroy(listaArchivos);
 	return res;
 }
 

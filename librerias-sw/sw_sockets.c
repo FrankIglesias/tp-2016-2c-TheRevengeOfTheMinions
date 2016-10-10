@@ -151,8 +151,8 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		header * nuevoHeader) {
 	mensaje_CLIENTE_SERVIDOR * mensaje = (mensaje_CLIENTE_SERVIDOR *) data;
 	int tamanioVariable;
-	if(strcmp(mensaje->path, "LEERV") == 0){
-		mensaje->path_payload = strlen(mensaje->path);
+	if(mensaje->protolo == SLEERDIR){
+		mensaje->path_payload = 0;
 	}else if(mensaje->protolo != ERROR){
 		mensaje->path_payload = strlen(mensaje->path);
 		mensaje->tamano = strlen(mensaje->buffer);
