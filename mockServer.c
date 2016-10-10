@@ -57,6 +57,7 @@ int main(void) {
 	char* puerto=malloc(10);
 	puerto="6000";
 	socketParaServidor=crearSocketServidor(puerto);
+	int cantEncontrados=1;
 
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
 	respuesta->path=malloc(30);
@@ -68,28 +69,19 @@ int main(void) {
 	//Creo el archivo para la lista si me preguntan por el directorio /hola
 	char * nombreArchivo = malloc(17);
 	nombreArchivo="chau.txt";
-	archivos_t* archivoChau=malloc(sizeof(archivos_t));
-	archivoChau->nombreArchivo=malloc(17);
-	strcpy(archivoChau->nombreArchivo,nombreArchivo);
-	archivoChau->tamanioArchivo=144;
-
 
 	//Creo el archivo para la lista si me preguntan por el directorio "/"
 	char * nombreDirectorio = malloc(17);
 	nombreDirectorio="hola";
-	archivos_t* directorioHola=malloc(sizeof(archivos_t));
-	directorioHola->nombreArchivo =malloc(17);
-	strcpy(directorioHola->nombreArchivo,nombreDirectorio);
-	printf ("Creo archivo 2 y lo asigno \n");
 
 	//Creo la lista para devolver si me preguntan por /hola
 	t_list * listaArchivos1 = list_create();
-	list_add(listaArchivos1,(void*)archivoChau);
+	int cant1 =list_add(listaArchivos1,(void*)nombreArchivo);
 	printf ("Creo lista 1 y lo asigno \n");
 
 	//Creo la lista para devolver si me preguntan por "/"
 	t_list * listaArchivos2 = list_create();
-	list_add(listaArchivos2,(void*)directorioHola);
+	int cant2= list_add(listaArchivos2,(void*)nombreDirectorio);
 	printf ("Creo lista 2 y lo asigno \n");
 
 	struct sockaddr_in addr;
@@ -106,28 +98,25 @@ int main(void) {
 		printf ("Recibi respuesta \n");
 
 
-
 		switch(respuesta->protolo){
 			case GETATTR:
 				if(strcmp(respuesta->path, "/") == 0){
 					printf ("Recibi / getattr \n");
-					mensajeAEnviar->protolo=GETATTR;
+					mensajeAEnviar->protolo=SGETATTR;
 					mensajeAEnviar->tipoArchivo=2;
 					mensajeAEnviar->path=malloc(1);
 					mensajeAEnviar->buffer=malloc(1);
-				}
-				if(strcmp(respuesta->path, "/hola") == 0){
-					mensajeAEnviar->protolo=GETATTR;
+				}else if(strcmp(respuesta->path, "/hola") == 0){
+					mensajeAEnviar->protolo=SGETATTR;
 					printf ("Recibi /hola getattr \n");
 					mensajeAEnviar->tipoArchivo=2;
 					mensajeAEnviar->path=malloc(1);
 					mensajeAEnviar->buffer=malloc(1);
-				}
-				if(strcmp(respuesta->path, "/chau.txt") == 0){
-					mensajeAEnviar->protolo=GETATTR;
+				}else if(strcmp(respuesta->path, "/hola/chau.txt") == 0){
+					mensajeAEnviar->protolo=SGETATTR;
 					printf ("Recibi /chau.txt getattr \n");
 					mensajeAEnviar->tipoArchivo=1;
-					mensajeAEnviar->tamano=144;
+					mensajeAEnviar->tamano=20;
 					mensajeAEnviar->path=malloc(1);
 					mensajeAEnviar->buffer=malloc(1);
 				}else{
@@ -141,36 +130,50 @@ int main(void) {
 			case LEERDIR:
 
 				if(strcmp(respuesta->path, "/") == 0){
-					mensajeAEnviar->protolo=LEERDIR;
+					mensajeAEnviar->protolo=SLEERDIR;
 					printf ("Recibi / readdir \n");
-					//mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos2));
-					mensajeAEnviar->buffer = malloc((list_size(listaArchivos2)*sizeof(archivos_t))+17);
-					mensajeAEnviar->buffer=(char *) listaArchivos2;
-					mensajeAEnviar->tamano=(list_size(listaArchivos2)*sizeof(archivos_t))+17;
-					strcpy(mensajeAEnviar->path,"LEERV");
-
-					//Pruebo si anda esto de parsear la lista en un char*
-					t_list * pruebaLista = list_create();
-					archivos_t* archivoPrueba=malloc(sizeof(archivos_t));
-					archivoPrueba->nombreArchivo=malloc(17);
-					pruebaLista=(t_list*)mensajeAEnviar->buffer;
-					int verTamano = (list_size(pruebaLista)*sizeof(archivos_t))+17;
-					archivoPrueba=(archivos_t*)list_get(pruebaLista,0);
-					printf("Lo que contiene el archivo que voy a mandar es:%s \n",archivoPrueba->nombreArchivo);
-					printf("El tamaño del buffer a enviar es %d y el del de prueba es %d \n",mensajeAEnviar->tamano,verTamano);
+					mensajeAEnviar->buffer = malloc(cantEncontrados*17);
+					memcpy(mensajeAEnviar->buffer,nombreDirectorio,17);
+					mensajeAEnviar->tamano=cantEncontrados*17;
 
 					printf ("Creo lista 2 y lo asigno \n");
 				}
 
 				if(strcmp(respuesta->path, "/hola") == 0){
-					mensajeAEnviar->protolo=LEERDIR;
+					mensajeAEnviar->protolo=SLEERDIR;
 					printf ("Recibi /hola readdir \n");
-					mensajeAEnviar->buffer = malloc(sizeof((char*)listaArchivos1));
-					mensajeAEnviar->buffer=(char *) listaArchivos1;
+					mensajeAEnviar->buffer = malloc(cantEncontrados*17);
+					memcpy(mensajeAEnviar->buffer,nombreArchivo,17);
+					mensajeAEnviar->tamano=cantEncontrados*17;
 				}
 				printf ("Recibi /Voy a responder \n");
 				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 
+				break;
+
+			case LEER:
+				if(strcmp(respuesta->path, "/hola/chau.txt") == 0){
+					mensajeAEnviar->protolo=SLEER;
+
+					//Defino el contenido del archivo
+					char* textoChau=malloc(20);
+					textoChau="vamooloredooo";
+
+					//Valido si lo que me piden leer es mas grande de lo que puedo leer
+					int cantidadALeer;
+					if(respuesta->tamano>strlen(textoChau)){
+						cantidadALeer=strlen(textoChau);
+					}else{
+						cantidadALeer=respuesta->tamano;
+					}
+
+					//Malloqueo tanto espacio en el buffer como el tamaño que me pida leer el cliente
+					mensajeAEnviar->buffer=malloc(cantidadALeer);
+
+					memcpy(mensajeAEnviar->buffer,textoChau+respuesta->offset,cantidadALeer);
+					mensajeAEnviar->tamano=cantidadALeer;
+				}
+				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 				break;
 
 			default:

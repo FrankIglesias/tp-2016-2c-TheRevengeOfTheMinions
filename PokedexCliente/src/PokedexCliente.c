@@ -17,22 +17,6 @@ char ipPokedexCliente;
 int puertoPokedexCliente;
 int socketParaServidor;
 
-typedef enum
-	__attribute__((packed)) { // wtf ???
-		BORRADO = '\0',
-	ARCHIVO = '\1',
-	DIRECTORIO = '\2',
-} osada_file_state;
-
-typedef struct osadaFile {
-	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
-	char* nombreArchivo;
-	uint16_t bloquePadre;
-	uint32_t tamanioArchivo;
-	uint32_t fechaUltimaModif; //como hago fechas?
-	uint32_t bloqueInicial;
-} archivos_t;
-
 char * ip = "127.0.0.1";
 int puerto = 6000;
 
@@ -188,10 +172,13 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	if (respuesta->protolo==ERROR){
 		return -1;
 	}else{
-		memcpy(buffer,respuesta->buffer,size);
+		//respuesta->buffer[respuesta->tamano]='\0';
+		//strcpy(buffer,respuesta->buffer);
+		memcpy(buffer,respuesta->buffer,respuesta->tamano+1);
+		buffer[respuesta->tamano]='\0';
 	}
 
-	int retorno = strlen(respuesta->buffer);
+	int retorno = strlen(buffer);
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);

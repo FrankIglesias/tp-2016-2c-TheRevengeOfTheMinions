@@ -110,7 +110,7 @@ void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 		puntero += mensaje->path_payload;
 	}
 	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
-		mensaje->buffer = malloc(mensaje->tamano);
+		mensaje->buffer = malloc(mensaje->tamano+1);
 		memcpy(mensaje->buffer, buffer + puntero, mensaje->tamano);
 	}
 	free(buffer);
@@ -153,6 +153,10 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 	int tamanioVariable;
 	if(mensaje->protolo == SLEERDIR){
 		mensaje->path_payload = 0;
+	}else if (mensaje->protolo==SLEER){
+		mensaje->path_payload = 0;
+	}else if (mensaje->protolo==LEER){
+		mensaje->path_payload=strlen(mensaje->path);
 	}else if(mensaje->protolo != ERROR){
 		mensaje->path_payload = strlen(mensaje->path);
 		mensaje->tamano = strlen(mensaje->buffer);
