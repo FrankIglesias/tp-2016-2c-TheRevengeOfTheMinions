@@ -76,7 +76,6 @@ void cargarPokeNests(char nombre[]) {
 
 	// Do not cast malloc in C
 
-
 	t_config * config;
 	config =
 			config_create(
@@ -95,7 +94,7 @@ void cargarPokeNests(char nombre[]) {
 	char * letra = strdup(config_get_string_value(config, "Identificador"));
 	letras[indexLetras] = config_get_string_value(config, "Identificador");
 	cantDePokenests++;
-		indexLetras++;
+	indexLetras++;
 	dictionary_put(configuracion.diccionarioDePokeparadas, letra,
 			(void *) nuevaPokenest);
 
@@ -103,7 +102,6 @@ void cargarPokeNests(char nombre[]) {
 	//nuevaPokenest->posicion.posiciony, nuevaPokenest->cantidad);
 	//config_destroy(config);
 }
-
 
 void cargarConfiguracion(void) {
 	t_config * config;
@@ -255,7 +253,16 @@ void detectarDeadLock() {
 	}
 
 	if (noPudoAnalizar == cantEntrenadores) {
-		log_trace(log, "SE DETECTO DEADLOCK!!!!!!!");
+		log_trace(log,
+				"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON");
+		entrenadorPokemon* unEntrenador = malloc(sizeof(entrenadorPokemon));
+		for (i = 0; i < cantEntrenadores; i++) {
+			pthread_mutex_lock(&sem_config);
+			unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores,
+					i);
+			pthread_mutex_unlock(&sem_config);
+			log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
+		}
 		return;
 	}
 	if (pudoAnalizar == cantEntrenadores) {
@@ -294,7 +301,18 @@ void detectarDeadLock() {
 		}
 	} while (yaEvaluada != noPaso || noPaso != 1);
 	if (yaEvaluada == noPaso && noPaso != 1) {
-		log_trace(log, "SE DETECTO DEADLOCK!!!!!!!");
+		{
+			entrenadorPokemon* unEntrenador = malloc(sizeof(entrenadorPokemon));
+			log_trace(log,
+					"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON");
+			for (i = 0; i < cantEntrenadores; i++) {
+				if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == -1) {
+					unEntrenador = (entrenadorPokemon*) list_get(
+							listaDeEntrenadores, i);
+					log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
+				}
+			}
+		}
 	} else {
 		if (noPaso == 1) {
 			for (i = 0; i < cantEntrenadores; i++) {
@@ -307,7 +325,19 @@ void detectarDeadLock() {
 						log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 						return;
 					} else {
-						log_trace(log, "SE DETECTO DEADLOCK!!!!!!!");
+						entrenadorPokemon* unEntrenador = malloc(
+								sizeof(entrenadorPokemon));
+						log_trace(log,
+								"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON");
+						for (i = 0; i < cantEntrenadores; i++) {
+							if (pokemonAAtraparPorEntrenador[i][cantDePokenests]
+									== -1) {
+								unEntrenador = (entrenadorPokemon*) list_get(
+										listaDeEntrenadores, i);
+								log_trace(log, "ENTRENADOR %c",
+										unEntrenador->simbolo);
+							}
+						}
 					}
 				}
 			}
@@ -460,130 +490,129 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		} else {
 			if (unEntrenador->accionARealizar == PROXIMAPOKENEST) {
 				unEntrenador->proximoPokemon = malloc(2);
-			strcpy(unEntrenador->proximoPokemon,mensaje->nombrePokemon);
-				}
-				unEntrenador->accionARealizar = mensaje->protocolo;
-				list_add(listaDeReady, (void *) unEntrenador);
-				if (ejecutandoId == unEntrenador->simbolo)
-					sem_post(&semaphore_listos);
-				if (ejecutandoId == NULL) {
-					ejecutandoId = unEntrenador->simbolo;
-					sem_post(&semaphore_listos);
-				}
+				strcpy(unEntrenador->proximoPokemon, mensaje->nombrePokemon);
 			}
-			pthread_mutex_unlock(&sem_listaDeReady);
-		} else {
-			nuevoEntrenador(socket, mensaje);
-			log_trace(log, "Se conectó un nuevo entrenador: %c", mensaje->id);
-			pthread_mutex_lock(&sem_mapas);
-			CrearPersonaje(items, mensaje->id, 1, 1);
-			actualizarMapa();
-			pthread_mutex_unlock(&sem_mapas);
+			unEntrenador->accionARealizar = mensaje->protocolo;
+			list_add(listaDeReady, (void *) unEntrenador);
+			if (ejecutandoId == unEntrenador->simbolo)
+				sem_post(&semaphore_listos);
+			if (ejecutandoId == NULL) {
+				ejecutandoId = unEntrenador->simbolo;
+				sem_post(&semaphore_listos);
+			}
 		}
-
-	}
-	int recibirMensajesEntrenadores(int socket) {
-		mensaje_ENTRENADOR_MAPA * mensaje;
-		if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(socket))
-				== NULL) {
-			pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-			// list_remove_by_condition(listaDeEntrenadoresBloqueados,/*entrenador->socket == socket*/); TODO
-			pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
-			// LIST REMOVE AND DESTROY BY CONDITION TODO
-			// IF EJECUTANDOID == entrenador->simbolo TODO
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
-			return -1;
-		} else {
-			atenderClienteEntrenadores(socket, mensaje);
-		}
-		return 1;
-	}
-	void funcionNULL(int n) {
-	}
-	void atenderEntrenadores(void) {
-		theMinionsRevengeSelect(configuracion.puerto, funcionNULL,
-				recibirMensajesEntrenadores);
-	}
-
-	void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
-		entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
-		entrenador->socket = socket;
-		entrenador->posicion.posicionx = 1;
-		entrenador->posicion.posiciony = 1;
-		entrenador->pokemonesAtrapados = dictionary_create();
-		entrenador->simbolo = mensajeRecibido->id;
+		pthread_mutex_unlock(&sem_listaDeReady);
+	} else {
+		nuevoEntrenador(socket, mensaje);
+		log_trace(log, "Se conectó un nuevo entrenador: %c", mensaje->id);
 		pthread_mutex_lock(&sem_mapas);
-		CrearPersonaje(items, mensajeRecibido->id, 1, 1);
+		CrearPersonaje(items, mensaje->id, 1, 1);
 		actualizarMapa();
 		pthread_mutex_unlock(&sem_mapas);
-		list_add(listaDeEntrenadores, (void *) entrenador);
 	}
-	void actualizarMapa() {
+
+}
+int recibirMensajesEntrenadores(int socket) {
+	mensaje_ENTRENADOR_MAPA * mensaje;
+	if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(socket)) == NULL) {
+		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+		// list_remove_by_condition(listaDeEntrenadoresBloqueados,/*entrenador->socket == socket*/); TODO
+		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		// LIST REMOVE AND DESTROY BY CONDITION TODO
+		// IF EJECUTANDOID == entrenador->simbolo TODO
+		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		return -1;
+	} else {
+		atenderClienteEntrenadores(socket, mensaje);
+	}
+	return 1;
+}
+void funcionNULL(int n) {
+}
+void atenderEntrenadores(void) {
+	theMinionsRevengeSelect(configuracion.puerto, funcionNULL,
+			recibirMensajesEntrenadores);
+}
+
+void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
+	entrenadorPokemon * entrenador = malloc(sizeof(entrenadorPokemon));
+	entrenador->socket = socket;
+	entrenador->posicion.posicionx = 1;
+	entrenador->posicion.posiciony = 1;
+	entrenador->pokemonesAtrapados = dictionary_create();
+	entrenador->simbolo = mensajeRecibido->id;
+	pthread_mutex_lock(&sem_mapas);
+	CrearPersonaje(items, mensajeRecibido->id, 1, 1);
+	actualizarMapa();
+	pthread_mutex_unlock(&sem_mapas);
+	list_add(listaDeEntrenadores, (void *) entrenador);
+}
+void actualizarMapa() {
 	//	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
-	}
-	void iniciarDatos() {
-		log = log_create("Log", "Mapa", 0, 0);
-		listaDeEntrenadores = list_create();
-		sem_init(&bloqueados_semaphore, 0, 0);
-		sem_init(&semaphore_listos, 0, 0);
-		listaDeEntrenadoresBloqueados = list_create();
-		configuracion.diccionarioDePokeparadas = dictionary_create();
-		pthread_mutex_init(&sem_listaDeEntrenadores, NULL);
-		pthread_mutex_init(&sem_listaDeEntrenadoresBloqueados, NULL);
-		pthread_mutex_init(&sem_mapas, NULL);
-		pthread_mutex_init(&sem_listaDeReady, NULL);
-		pthread_mutex_init(&sem_config, NULL);
-		listaDeReady = list_create();
-		items = list_create();
-		letras = realloc((void*) punteritoAChar, sizeof(char*));
+}
+void iniciarDatos() {
+	log = log_create("Log", "Mapa", 0, 0);
+	listaDeEntrenadores = list_create();
+	sem_init(&bloqueados_semaphore, 0, 0);
+	sem_init(&semaphore_listos, 0, 0);
+	listaDeEntrenadoresBloqueados = list_create();
+	configuracion.diccionarioDePokeparadas = dictionary_create();
+	pthread_mutex_init(&sem_listaDeEntrenadores, NULL);
+	pthread_mutex_init(&sem_listaDeEntrenadoresBloqueados, NULL);
+	pthread_mutex_init(&sem_mapas, NULL);
+	pthread_mutex_init(&sem_listaDeReady, NULL);
+	pthread_mutex_init(&sem_config, NULL);
+	listaDeReady = list_create();
+	items = list_create();
+	letras = realloc((void*) punteritoAChar, sizeof(char*));
 //		nivel_gui_inicializar();
 //		nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
 //				&configuracion.posicionMaxima.posiciony);
 //
-		}
-	void liberarDatos() {
-		/*	BorrarItem(items, '#');
-		 BorrarItem(items, '@');
+}
+void liberarDatos() {
+	/*	BorrarItem(items, '#');
+	 BorrarItem(items, '@');
 
-		 BorrarItem(items, '1');
-		 BorrarItem(items, '2');
+	 BorrarItem(items, '1');
+	 BorrarItem(items, '2');
 
-		 BorrarItem(items, 'H');
-		 BorrarItem(items, 'M');
-		 BorrarItem(items, 'F');
-		 */
+	 BorrarItem(items, 'H');
+	 BorrarItem(items, 'M');
+	 BorrarItem(items, 'F');
+	 */
 
-		nivel_gui_terminar();
-	}
-	void crearHiloParaDeadlock() {
-		pthread_t hiloDeDeteccionDeDeadLock;
-		pthread_create(hiloDeDeteccionDeDeadLock, NULL, atenderDeadLock,
-		NULL);
-	}
-	void crearHiloAtenderEntrenadores() {
-		pthread_t hiloAtencionDeEntrenadores;
-		pthread_create(hiloAtencionDeEntrenadores, NULL, atenderEntrenadores,
-		NULL);
-	}
-	void crearHiloPlanificador() {
-		pthread_t hiloPlanificador;
-		pthread_create(hiloPlanificador, NULL, planificador,
-		NULL);
-	}
+	nivel_gui_terminar();
+}
+void crearHiloParaDeadlock() {
+	pthread_t hiloDeDeteccionDeDeadLock;
+	pthread_create(hiloDeDeteccionDeDeadLock, NULL, atenderDeadLock,
+	NULL);
+}
+void crearHiloAtenderEntrenadores() {
+	pthread_t hiloAtencionDeEntrenadores;
+	pthread_create(hiloAtencionDeEntrenadores, NULL, atenderEntrenadores,
+	NULL);
+}
+void crearHiloPlanificador() {
+	pthread_t hiloPlanificador;
+	pthread_create(hiloPlanificador, NULL, planificador,
+	NULL);
+}
 
-	int main(int arc, char * argv[]) {
-		configuracion.nombreDelMapa = string_duplicate(argv[1]);
-		iniciarDatos();
-		cargarConfiguracion();
-		signal(SIGUSR2, cargarConfiguracion);
-		crearHiloAtenderEntrenadores();
-		crearHiloParaDeadlock();
-		crearHiloPlanificador();
-		actualizarMapa();
-		sleep(60000000);
-		/* restarRecurso(items, 'F');
-		 */
+int main(int arc, char * argv[]) {
+	configuracion.nombreDelMapa = string_duplicate(argv[1]);
+	iniciarDatos();
+	cargarConfiguracion();
+	signal(SIGUSR2, cargarConfiguracion);
+	crearHiloAtenderEntrenadores();
+	crearHiloParaDeadlock();
+	crearHiloPlanificador();
+	actualizarMapa();
+	sleep(60000000);
+	/* restarRecurso(items, 'F');
+	 */
 //liberarDatos();
-		return 0;
-	}
+	return 0;
+}
