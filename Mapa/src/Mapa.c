@@ -28,6 +28,7 @@ typedef struct pokenest_t {
 	char * tipo;
 	posicionMapa posicion;
 	int cantidad;
+	int nivelDelPokemon;
 } pokenest;
 typedef struct entrenadorPokemon_t {
 	char simbolo;
@@ -299,7 +300,7 @@ void detectarDeadLock() {
 				yaEvaluada++;
 			}
 		}
-	} while (yaEvaluada != noPaso || noPaso != 1);
+	} while (yaEvaluada != noPaso && noPaso != 1);
 	if (yaEvaluada == noPaso && noPaso != 1) {
 		{
 			entrenadorPokemon* unEntrenador = malloc(sizeof(entrenadorPokemon));
