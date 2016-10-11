@@ -174,6 +174,7 @@ void detectarDeadLock() {
 		}
 	}
 	for (j = 0; j < cantDePokenests; j++) {
+
 		if (dictionary_has_key(configuracion.diccionarioDePokeparadas,
 				letras[j])) {
 			pokenest * unaPokenest = malloc(sizeof(pokenest));
@@ -186,33 +187,49 @@ void detectarDeadLock() {
 			pokemonesDisponibles[j] = 0;
 		}
 	}
-	log_trace(log, "MATRIZ DE ASIGNACION");
-	for (i = 0; i < cantEntrenadores; i++) {
+	////////
+	void imprimirMatrizAsignacion(
+			int asignacion[cantEntrenadores][cantDePokenests]) {
+		log_trace(log, "MATRIZ DE ASIGNACION");
+		for (i = 0; i < cantEntrenadores; i++) {
+			for (j = 0; j < cantDePokenests; j++) {
+				printf("%d \t", asignacion[i][j]);
+			}
+			printf("\n");
+		}
+	}
+	void imprimirMatrizNecesidad(
+			int necesidad[cantEntrenadores][cantDePokenests + 1]) {
+		log_trace(log, "MATRIZ DE NECESIDAD");
+		for (i = 0; i < cantEntrenadores; i++) {
+			for (j = 0; j < cantDePokenests; j++) {
+				printf("%d \t", necesidad[i][j]);
+			}
+			printf("\n");
+		}
+	}
+	void imprimirMatrizMaximo(int maximos[cantEntrenadores][cantDePokenests]) {
+		log_trace(log, "MATRIZ DE MAXIMO");
+		for (i = 0; i < cantEntrenadores; i++) {
+			for (j = 0; j < cantDePokenests; j++) {
+				printf("%d \t", maximos[i][j]);
+			}
+			printf("\n");
+		}
+	}
+	void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
+		log_trace(log, "MATRIZ DE DISPONIBLES");
 		for (j = 0; j < cantDePokenests; j++) {
-			printf("%d \t", pokemonesPorEntrenador[i][j]);
+			printf("%d \t", disponibles[j]);
 		}
 		printf("\n");
 	}
-	log_trace(log, "MATRIZ DE NECESIDAD");
-	for (i = 0; i < cantEntrenadores; i++) {
-		for (j = 0; j < cantDePokenests; j++) {
-			printf("%d \t", pokemonAAtraparPorEntrenador[i][j]);
-		}
-		printf("\n");
-	}
-	log_trace(log, "MATRIZ DE MAXIMO");
-	for (i = 0; i < cantEntrenadores; i++) {
-		for (j = 0; j < cantDePokenests; j++) {
-			printf("%d \t", maximosRecursosPorEntrenador[i][j]);
-		}
-		printf("\n");
-	}
-	log_trace(log, "MATRIZ DE DISPONIBLES");
-	for (j = 0; j < cantDePokenests; j++) {
-		printf("%d \t", pokemonesDisponibles[j]);
-	}
-
 	////////////////////////////////////////////////////////////////////////
+	imprimirMatrizDisponibles(pokemonesDisponibles);
+	imprimirMatrizAsignacion(pokemonesPorEntrenador);
+	imprimirMatrizNecesidad(pokemonAAtraparPorEntrenador);
+	imprimirMatrizMaximo(maximosRecursosPorEntrenador);
+	////
 	bool puedoRestar(int disponibles[cantDePokenests],
 			int necesidad[cantDePokenests]) {
 		int resultado[cantDePokenests];
@@ -242,6 +259,7 @@ void detectarDeadLock() {
 
 				pokemonesDisponibles[j] -= pokemonAAtraparPorEntrenador[i][j];
 			}
+
 			for (j = 0; j < cantDePokenests; j++) {
 				pokemonesDisponibles[j] += maximosRecursosPorEntrenador[i][j];
 			}
@@ -292,6 +310,7 @@ void detectarDeadLock() {
 						pokemonesDisponibles[k] +=
 								maximosRecursosPorEntrenador[i][k];
 					}
+
 					pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
 				} else {
 					pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
@@ -301,7 +320,9 @@ void detectarDeadLock() {
 			}
 		}
 	} while (yaEvaluada != noPaso && noPaso != 1);
-	if (yaEvaluada == noPaso && noPaso != 1) {
+	if (yaEvaluada == noPaso && noPaso == 0)
+		log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
+	if (yaEvaluada == noPaso && noPaso != 1 && noPaso != 0) {
 		{
 			entrenadorPokemon* unEntrenador = malloc(sizeof(entrenadorPokemon));
 			log_trace(log,
