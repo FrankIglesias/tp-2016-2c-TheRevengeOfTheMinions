@@ -151,9 +151,6 @@ void detectarDeadLock() {
 		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		for (j = 0; j < cantDePokenests; j++) {
-			log_trace(log, "LA CANT ELEMENTOS DICCIONARIO ES %d",
-					dictionary_size(unEntrenador->pokemonesAtrapados));
-			log_trace(log, "La letra analizada es %s\n", letras[j]);
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 					letras[j])) {
 				pokemonesPorEntrenador[i][j] = dictionary_get(
@@ -162,17 +159,11 @@ void detectarDeadLock() {
 				pokemonesPorEntrenador[i][j] = 0;
 
 			}
-			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0) {
+			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
 				pokemonAAtraparPorEntrenador[i][j] = 1;
-				log_trace(log, "IMPRIMO VALOR DE POKEMON A ATRAPAR %d ",
-						pokemonAAtraparPorEntrenador[i][j]);
-			}
-
-			else {
+			else
 				pokemonAAtraparPorEntrenador[i][j] = 0;
-				log_trace(log, "IMPRIMO VALOR DE POKEMON A ATRAPAR %d ",
-						pokemonAAtraparPorEntrenador[i][j]);
-			}
+
 		}
 
 	}
@@ -303,7 +294,7 @@ void detectarDeadLock() {
 		}
 	} while (yaEvaluada != noPaso || noPaso != 1);
 	if (yaEvaluada == noPaso && noPaso != 1) {
-		log_trace(log, "HAY DEADLOCK");
+		log_trace(log, "SE DETECTO DEADLOCK!!!!!!!");
 	} else {
 		if (noPaso == 1) {
 			for (i = 0; i < cantEntrenadores; i++) {
@@ -313,15 +304,14 @@ void detectarDeadLock() {
 						filaDeNecesidad[w] = pokemonAAtraparPorEntrenador[i][w];
 					}
 					if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
-						log_trace(log, "NO HAY DEADLOCK");
+						log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 						return;
 					} else {
-						log_trace(log, "HAY DEADLOCK");
+						log_trace(log, "SE DETECTO DEADLOCK!!!!!!!");
 					}
 				}
 			}
 		}
-
 	}
 	return;
 }
