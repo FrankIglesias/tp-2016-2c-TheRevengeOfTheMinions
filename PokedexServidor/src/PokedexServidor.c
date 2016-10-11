@@ -196,11 +196,6 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 char * leerArchivo(char * path, int tamano, int offset) {
 	log_info(log, "Se va a leer el archivo: %s", path);
 	archivos_t * archivo = obtenerArchivo(path);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//		return NULL;
-//	}
-
 	if (archivo->tamanioArchivo + offset < tamano) {
 		log_error(log, "Se va a leer basura");
 		return NULL;
@@ -246,10 +241,6 @@ char * leerArchivo(char * path, int tamano, int offset) {
 }
 int escribirArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//			return -1;
-//	}
 	archivos_t * archivo = malloc(sizeof(archivos_t));
 	archivo = obtenerArchivo(path);
 	int aux = offset;
@@ -300,15 +291,12 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		}
 	}
 	free(archivo);
+	sincronizarMemoria();
 	return 0;
 
 }
 int crearArchivo(char * path, char * nombre) {
 	log_trace(log, "creando archivo  %s", nombre);
-//	if(verificarSiExiste(path,ARCHIVO) == 1){
-//		log_error(log,"Ya existe ese archivo");
-//				return -1;
-//	}
 	int i = 0;
 	uint16_t padre = -1;
 	if (path != "/") {
@@ -329,14 +317,12 @@ int crearArchivo(char * path, char * nombre) {
 	}
 	log_trace(log, "se ha creado un archivo en el bloque: %d, padre: %u",
 			tablaDeArchivos[i].bloqueInicial, padre);
+	sincronizarMemoria();
 	return 1;
 }
 int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//			return -1;
-//	}
+
 	char ** ruta = string_split(path, "/");
 	archivos_t * archivo;
 	int i = 0;
@@ -374,14 +360,11 @@ int borrar(char * path) {
 	archivo->estado = BORRADO;
 	archivo->tamanioArchivo = 0;
 	log_trace(log, "Se ah borrado el archivo: %s", archivo->nombreArchivo);
+	sincronizarMemoria();
 	return 0;
 }
 int crearDir(char * path) {
 	log_info(log, "creando directorio");
-//	if(verificarSiExiste(path,DIRECTORIO) == 1){
-//			log_error(log,"Ya existe ese directorio");
-//					return -1;
-//		}
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -415,14 +398,11 @@ int crearDir(char * path) {
 	}
 	log_trace(log, "Se ha creado el directorio: %s , padre; %u, inicial; %u",
 			ruta[i], padre, minion);
+	sincronizarMemoria();
 	return 1;
 }
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
-//	if(verificarSiExiste(path,DIRECTORIO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//				return -1;
-//	}
 	char ** ruta = string_split(path, "/");
 	archivos_t * file;
 	int i = 0;
@@ -453,8 +433,7 @@ int borrarDir(char * path) {
 }
 int renombrar(char * path, char * nombre) {
 	log_info(log, "Renombrando: %s por %s", path, nombre);
-//	if(verificarSiExiste(path,ARCHIVO || DIRECTORIO) == -1) // esto funcionara ???
-//				return -1;
+
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -483,14 +462,15 @@ int renombrar(char * path, char * nombre) {
 			}
 		}
 	}
+	sincronizarMemoria();
 	return -1;
 }
-t_list * readAttr(char *path) {
-	t_list * lista = list_create();
+char * readAttr(char *path, int *var) {
+	char * lista = malloc(17);
+	*var = 0;
 	int i;
 	int j;
 	uint16_t padre = -1;
-
 	if (path != "/") {
 		char ** ruta = string_split(path, "/");
 		for (i = 0; (i < 2048) && ruta[j]; i++) {
@@ -505,17 +485,41 @@ t_list * readAttr(char *path) {
 	}
 	for (i = 0; i < 2048; i++) {
 		if (padre == tablaDeArchivos[i].bloquePadre) {
-			archivos_t * file = malloc(sizeof(archivos_t));
-			*file = tablaDeArchivos[i];
-			list_add(lista, (void*) file); // CONSULTAR A FRANK
+			log_trace(log, "diganme que no da error aca");
+			realloc(lista, *var * 17);
+			memcpy(lista + (*var * 17), tablaDeArchivos[i].nombreArchivo, 17);
+			var++;
 		}
 	}
 	return lista;
+}
+osada_file_state getAttr(char *path) {
+	int i;
+	int j;
+	uint16_t padre = -1;
+	char ** ruta = string_split(path, "/");
+	for (i = 0; (i < 2048) && ruta[j + 1]; i++) {
+		if ((padre == tablaDeArchivos[i].bloquePadre)
+				&& (tablaDeArchivos[i].estado == DIRECTORIO)
+				&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
+			padre = tablaDeArchivos[i].bloqueInicial;
+			i = 0;
+			j++;
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if ((strcmp(ruta[j], tablaDeArchivos[i].nombreArchivo) == 0)
+				&& (tablaDeArchivos[i].bloquePadre = padre)) {
+			return tablaDeArchivos[i].estado;
+		}
+	}
+	return -1;
 }
 
 void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
+	int var;
 	t_list * lista;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
@@ -565,11 +569,16 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
 			break;
-			/*case LEERDIR:
-			 t_list = readAttr(mensaje->path);
-			 devolucion =1;
-			 mensaje->tamano = list_size(lista) * sizeof(archivos_t);
-			 break;*/
+		case LEERDIR:
+			mensaje->buffer = readAttr(mensaje->path, &var);
+			devolucion = 1;
+			mensaje->tamano = var * 17;
+			break;
+		case GETATTR:
+			mensaje->buffer =(char*) getAttr(mensaje->path);
+			devolucion = 1;
+			mensaje->tamano = sizeof(osada_file_state);
+			break;
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -612,21 +621,20 @@ void levantarOsada() {
 	F = fileHeader.fs_blocks;
 	N = fileHeader.fs_blocks / 8 / B;
 	A = ((F - 1 - N - 1024) * 4) / B;
-	X = F - 1 -N -1024 -A;
+	X = F - 1 - N - 1024 - A;
 	bitmap = bitarray_create(data + 64, N * B);
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
 	bloquesDeDatos = malloc(X * B);
 	//memcpy(bitmap, data + B, N * B);
 	uint32_t ocupados = bitmapOcupados();
-	log_trace(log,"ocupados: %u",ocupados);
+	log_trace(log, "ocupados: %u", ocupados);
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
 			fileHeader.fs_blocks - ocupados, ocupados);
-	log_trace(log, "tamaño tabla asignacion: %d en bloques",
-			A);
-	memcpy(tablaDeArchivos, data +B +  N *B, 1024 * B);
+	log_trace(log, "tamaño tabla asignacion: %d en bloques", A);
+	memcpy(tablaDeArchivos, data + B + N * B, 1024 * B);
 	memcpy(tablaDeAsignaciones, data + (B + N + 1024) * B, A);
-	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B,X);
+	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B, X);
 }
 
 char * tipoArchivo(int i) {
@@ -703,11 +711,10 @@ void imprimirArbolDeDirectorios() {
 	}
 }
 
-void mapearMemoria() {
+void mapearMemoria(char * nombreBin) {
 	osadaFile =
-			open(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/basic.bin",
-					O_RDWR);
+			open(string_from_format(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/%s", nombreBin),O_RDWR);
 	struct stat s;
 	int status = fstat(osadaFile, &s);
 	int size = s.st_size;
@@ -721,26 +728,22 @@ void mapearMemoria() {
 }
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
-	memcpy(data + BLOCK_SIZE, bitmap,N);
-	memcpy(data + (1 + N) * BLOCK_SIZE, tablaDeArchivos,
-			1024 * BLOCK_SIZE);
-	memcpy(data + (1025 + N)* BLOCK_SIZE,
-			tablaDeAsignaciones, A);
-	memcpy(
-			data + (1025 + N + A) * BLOCK_SIZE, bloquesDeDatos,
-			X);
+	memcpy(data + BLOCK_SIZE, bitmap, N);
+	memcpy(data + (1 + N) * BLOCK_SIZE, tablaDeArchivos, 1024 * BLOCK_SIZE);
+	memcpy(data + (1025 + N) * BLOCK_SIZE, tablaDeAsignaciones, A);
+	memcpy(data + (1025 + N + A) * BLOCK_SIZE, bloquesDeDatos, X);
 	log_trace(log, "Memoria sincronizada");
 
 }
 
-void funcionAceptar(){
+void funcionAceptar() {
 }
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
-	mapearMemoria();
+	mapearMemoria(argv[2]);
 	levantarOsada();
 	sincronizarMemoria();
-	theMinionsRevengeSelect(argv[1],funcionAceptar,atenderPeticiones);
+	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
