@@ -163,31 +163,24 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	}
 	return padre;
 }
-int verificarSiExiste(char * path, osada_file_state estado) {
+int verificarSiExiste(char * path) {
 	char ** ruta = string_split(path, "/");
-	int i = 0;
-	int j;
+	int i;
+	int j = 0;
 	uint16_t padre = -1;
-	int bandera = 1;
-	while (ruta[i] && bandera) {
-		bandera = 0;
-		for (j = 0; j < 2048; j++) {
-			if (ruta[i + 1]) {
-				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
-						&& tablaDeArchivos[j].estado == estado) {
-					return 1;
-				}
-			} else {
-				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
-						&& tablaDeArchivos[j].estado == DIRECTORIO) {
-					bandera = 1;
-					i++;
-					padre = tablaDeArchivos[j].bloqueInicial;
-				}
-			}
-			if (j == 1023 && bandera == 0) {
-				return -1;
-			}
+	for (i = 0; i < 2048 && ruta[j + 1]; i++) {
+		if ((strcmp(tablaDeArchivos[j].nombreArchivo, ruta[j]) == 0)
+				&& (tablaDeArchivos[j].estado == DIRECTORIO)
+				&& (tablaDeArchivos[j].bloquePadre == padre)) {
+			padre = tablaDeArchivos[j].bloqueInicial;
+			i = 0;
+			j++;
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if ((strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)
+				&& (tablaDeArchivos[i].bloquePadre == padre)) {
+			return i;
 		}
 	}
 	return -1;
@@ -493,7 +486,7 @@ char * readAttr(char *path, int *var) {
 	}
 	return lista;
 }
-osada_file_state getAttr(char *path) {
+int getAttr(char *path) {
 	int i;
 	int j;
 	uint16_t padre = -1;
@@ -510,7 +503,7 @@ osada_file_state getAttr(char *path) {
 	for (i = 0; i < 2048; i++) {
 		if ((strcmp(ruta[j], tablaDeArchivos[i].nombreArchivo) == 0)
 				&& (tablaDeArchivos[i].bloquePadre = padre)) {
-			return tablaDeArchivos[i].estado;
+			return i;
 		}
 	}
 	return -1;
@@ -520,7 +513,6 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
 	int var;
-	t_list * lista;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
@@ -575,9 +567,12 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var * 17;
 			break;
 		case GETATTR:
-			mensaje->buffer =(char*) getAttr(mensaje->path);
-			devolucion = 1;
-			mensaje->tamano = sizeof(osada_file_state);
+			devolucion = getAttr(mensaje->path);
+			if (devolucion != -1) {
+				memcpy(&mensaje->tipoArchivo, &tablaDeArchivos[devolucion].estado,
+						sizeof(osada_file_state));
+				memcpy(mensaje->tamano, tablaDeArchivos[devolucion].tamanioArchivo, sizeof(uint32_t));
+			}
 			break;
 		default:
 			if (devolucion == -1)
@@ -615,7 +610,6 @@ uint32_t bitmapOcupados() {
 
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
-	int i;
 	levantarHeader();
 	B = BLOCK_SIZE;
 	F = fileHeader.fs_blocks;
@@ -713,15 +707,17 @@ void imprimirArbolDeDirectorios() {
 
 void mapearMemoria(char * nombreBin) {
 	osadaFile =
-			open(string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/%s", nombreBin),O_RDWR);
+			open(
+					string_from_format(
+							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/%s",
+							nombreBin), O_RDWR);
 	struct stat s;
 	int status = fstat(osadaFile, &s);
 	int size = s.st_size;
 	log_trace(log, "%d", size);
 	data = malloc(size);
-	if ((data = (char*) mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
-			osadaFile, 0)) == -1)
+	if ((data = (char*) mmap(0, size, PROT_READ | PROT_WRITE,
+	MAP_SHARED, osadaFile, 0)) == -1)
 		log_trace(log, "la estamos cagando");
 
 	log_trace(log, "memoria mapeada");
