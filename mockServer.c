@@ -57,7 +57,7 @@ int main(void) {
 	char* puerto=malloc(10);
 	puerto="6000";
 	socketParaServidor=crearSocketServidor(puerto);
-	int cantEncontrados=1;
+	int cantEncontrados=2;
 
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
 	respuesta->path=malloc(30);
@@ -70,9 +70,14 @@ int main(void) {
 	char * nombreArchivo = malloc(17);
 	nombreArchivo="chau.txt";
 
+	char * nombreArchivo2 = malloc(17);
+	nombreArchivo2="perro.txt";
+
 	//Creo el archivo para la lista si me preguntan por el directorio "/"
 	char * nombreDirectorio = malloc(17);
 	nombreDirectorio="hola";
+	char * nombreDirectorio2 = malloc(17);
+	nombreDirectorio2="perro";
 
 	//Creo la lista para devolver si me preguntan por /hola
 	t_list * listaArchivos1 = list_create();
@@ -112,7 +117,20 @@ int main(void) {
 					mensajeAEnviar->tipoArchivo=2;
 					mensajeAEnviar->path=malloc(1);
 					mensajeAEnviar->buffer=malloc(1);
+				}else if(strcmp(respuesta->path, "/perro") == 0){
+					mensajeAEnviar->protolo=SGETATTR;
+					printf ("Recibi /hola getattr \n");
+					mensajeAEnviar->tipoArchivo=2;
+					mensajeAEnviar->path=malloc(1);
+					mensajeAEnviar->buffer=malloc(1);
 				}else if(strcmp(respuesta->path, "/hola/chau.txt") == 0){
+					mensajeAEnviar->protolo=SGETATTR;
+					printf ("Recibi /chau.txt getattr \n");
+					mensajeAEnviar->tipoArchivo=1;
+					mensajeAEnviar->tamano=20;
+					mensajeAEnviar->path=malloc(1);
+					mensajeAEnviar->buffer=malloc(1);
+				}else if(strcmp(respuesta->path, "/hola/perro.txt") == 0){
 					mensajeAEnviar->protolo=SGETATTR;
 					printf ("Recibi /chau.txt getattr \n");
 					mensajeAEnviar->tipoArchivo=1;
@@ -134,6 +152,7 @@ int main(void) {
 					printf ("Recibi / readdir \n");
 					mensajeAEnviar->buffer = malloc(cantEncontrados*17);
 					memcpy(mensajeAEnviar->buffer,nombreDirectorio,17);
+					memcpy(mensajeAEnviar->buffer+17,nombreDirectorio2,17);
 					mensajeAEnviar->tamano=cantEncontrados*17;
 
 					printf ("Creo lista 2 y lo asigno \n");
@@ -144,6 +163,7 @@ int main(void) {
 					printf ("Recibi /hola readdir \n");
 					mensajeAEnviar->buffer = malloc(cantEncontrados*17);
 					memcpy(mensajeAEnviar->buffer,nombreArchivo,17);
+					memcpy(mensajeAEnviar->buffer+17,nombreArchivo2,17);
 					mensajeAEnviar->tamano=cantEncontrados*17;
 				}
 				printf ("Recibi /Voy a responder \n");
@@ -156,8 +176,8 @@ int main(void) {
 					mensajeAEnviar->protolo=SLEER;
 
 					//Defino el contenido del archivo
-					char* textoChau=malloc(20);
-					textoChau="vamooloredooo";
+					char* textoChau=malloc(17);
+					textoChau="012345678912345\n";
 
 					//Valido si lo que me piden leer es mas grande de lo que puedo leer
 					int cantidadALeer;
@@ -172,6 +192,8 @@ int main(void) {
 
 					memcpy(mensajeAEnviar->buffer,textoChau+respuesta->offset,cantidadALeer);
 					mensajeAEnviar->tamano=cantidadALeer;
+				}else{
+					mensajeAEnviar->protolo=ERROR;
 				}
 				enviarMensaje(tipoMensaje,socketCliente,(void *) mensajeAEnviar);
 				break;

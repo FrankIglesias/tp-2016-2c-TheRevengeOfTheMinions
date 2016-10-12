@@ -113,6 +113,10 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
 	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
 
+	if(respuesta->protolo==ERROR){
+		return -ENOENT;
+	}
+
 	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
 	char* archivoEntrante=malloc(17);
 	cantEncontrados=(respuesta->tamano)/17;
@@ -172,13 +176,10 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	if (respuesta->protolo==ERROR){
 		return -1;
 	}else{
-		//respuesta->buffer[respuesta->tamano]='\0';
-		//strcpy(buffer,respuesta->buffer);
-		memcpy(buffer,respuesta->buffer,respuesta->tamano+1);
-		buffer[respuesta->tamano]='\0';
+		memcpy(buffer,respuesta->buffer,respuesta->tamano);
 	}
 
-	int retorno = strlen(buffer);
+	int retorno = respuesta->tamano;
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
