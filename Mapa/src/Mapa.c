@@ -52,7 +52,10 @@ typedef struct config_t {
 	t_dictionary * diccionarioDePokeparadas;
 	posicionMapa posicionMaxima;
 } t_configuracion;
-
+typedef struct pokemon_nom_lev {
+	char* nombreDelPokemon;
+	int nivel;
+} nom_lev_pokemon;
 t_log * log;
 int quantum = 0;
 char ejecutandoId = NULL;
