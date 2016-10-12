@@ -163,31 +163,24 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	}
 	return padre;
 }
-int verificarSiExiste(char * path, osada_file_state estado) {
+int verificarSiExiste(char * path) {
 	char ** ruta = string_split(path, "/");
-	int i = 0;
-	int j;
+	int i;
+	int j = 0;
 	uint16_t padre = -1;
-	int bandera = 1;
-	while (ruta[i] && bandera) {
-		bandera = 0;
-		for (j = 0; j < 2048; j++) {
-			if (ruta[i + 1]) {
-				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
-						&& tablaDeArchivos[j].estado == estado) {
-					return 1;
-				}
-			} else {
-				if (tablaDeArchivos[j].nombreArchivo == ruta[i]
-						&& tablaDeArchivos[j].estado == DIRECTORIO) {
-					bandera = 1;
-					i++;
-					padre = tablaDeArchivos[j].bloqueInicial;
-				}
-			}
-			if (j == 1023 && bandera == 0) {
-				return -1;
-			}
+	for (i = 0; i < 2048 && ruta[j + 1]; i++) {
+		if ((strcmp(tablaDeArchivos[j].nombreArchivo, ruta[j]) == 0)
+				&& (tablaDeArchivos[j].estado == DIRECTORIO)
+				&& (tablaDeArchivos[j].bloquePadre == padre)) {
+			padre = tablaDeArchivos[j].bloqueInicial;
+			i = 0;
+			j++;
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if ((strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)
+				&& (tablaDeArchivos[i].bloquePadre == padre)) {
+			return i;
 		}
 	}
 	return -1;
@@ -196,11 +189,6 @@ int verificarSiExiste(char * path, osada_file_state estado) {
 char * leerArchivo(char * path, int tamano, int offset) {
 	log_info(log, "Se va a leer el archivo: %s", path);
 	archivos_t * archivo = obtenerArchivo(path);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//		return NULL;
-//	}
-
 	if (archivo->tamanioArchivo + offset < tamano) {
 		log_error(log, "Se va a leer basura");
 		return NULL;
@@ -246,10 +234,6 @@ char * leerArchivo(char * path, int tamano, int offset) {
 }
 int escribirArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//			return -1;
-//	}
 	archivos_t * archivo = malloc(sizeof(archivos_t));
 	archivo = obtenerArchivo(path);
 	int aux = offset;
@@ -300,15 +284,12 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		}
 	}
 	free(archivo);
+	sincronizarMemoria();
 	return 0;
 
 }
 int crearArchivo(char * path, char * nombre) {
 	log_trace(log, "creando archivo  %s", nombre);
-//	if(verificarSiExiste(path,ARCHIVO) == 1){
-//		log_error(log,"Ya existe ese archivo");
-//				return -1;
-//	}
 	int i = 0;
 	uint16_t padre = -1;
 	if (path != "/") {
@@ -329,59 +310,32 @@ int crearArchivo(char * path, char * nombre) {
 	}
 	log_trace(log, "se ha creado un archivo en el bloque: %d, padre: %u",
 			tablaDeArchivos[i].bloqueInicial, padre);
+	sincronizarMemoria();
 	return 1;
 }
 int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
-//	if(verificarSiExiste(path,ARCHIVO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//			return -1;
-//	}
-	char ** ruta = string_split(path, "/");
-	archivos_t * archivo;
-	int i = 0;
-	int j = 0;
-	uint16_t padre = -1;
-	while (j > -1) {
-		for (i = 0; i < 2048; i++) {
-			//	log_trace(log, "Padre:%u", padre);
-			//	log_trace(log, "Tabla:%s", tablaDeArchivos[i].nombreArchivo);
-			//	log_trace(log, "Ruta:%s", ruta[j]);
-
-			if ((padre == tablaDeArchivos[i].bloquePadre)
-					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
-				if (tablaDeArchivos[i].estado == ARCHIVO) {
-					archivo = &tablaDeArchivos[i];
-					j = -1000;
-				}
-				padre = tablaDeArchivos[i].bloqueInicial;
-				j++;
-				break;
-
-			}
-
+	int j;
+	int file = verificarSiExiste(path);
+	if (file != -1) {
+		while (tablaDeArchivos[file].bloqueInicial != 0) {
+			j = tablaDeArchivos[file].bloqueInicial;
+			bitarray_clean_bit(bitmap, j);
+			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
+			tablaDeAsignaciones[j] = 0;
 		}
-
+		tablaDeArchivos[file].bloqueInicial = -1;
+		tablaDeArchivos[file].bloquePadre = -1;
+		tablaDeArchivos[file].estado = BORRADO;
+		tablaDeArchivos[file].tamanioArchivo = 0;
+		log_trace(log, "Se ah borrado el archivo: %s", tablaDeArchivos[file].nombreArchivo);
+		sincronizarMemoria();
+		return 1;
 	}
-	while (archivo->bloqueInicial != 0) {
-		j = archivo->bloqueInicial;
-		bitarray_clean_bit(bitmap, j);
-		archivo->bloqueInicial = tablaDeAsignaciones[j];
-		tablaDeAsignaciones[j] = 0;
-	}
-	archivo->bloqueInicial = -1;
-	archivo->bloquePadre = -1;
-	archivo->estado = BORRADO;
-	archivo->tamanioArchivo = 0;
-	log_trace(log, "Se ah borrado el archivo: %s", archivo->nombreArchivo);
 	return 0;
 }
 int crearDir(char * path) {
 	log_info(log, "creando directorio");
-//	if(verificarSiExiste(path,DIRECTORIO) == 1){
-//			log_error(log,"Ya existe ese directorio");
-//					return -1;
-//		}
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
@@ -415,82 +369,53 @@ int crearDir(char * path) {
 	}
 	log_trace(log, "Se ha creado el directorio: %s , padre; %u, inicial; %u",
 			ruta[i], padre, minion);
+	sincronizarMemoria();
 	return 1;
 }
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
-//	if(verificarSiExiste(path,DIRECTORIO) == -1){
-//		log_error(log,"NO existe el archivo/directorio: %s",path);
-//				return -1;
-//	}
-	char ** ruta = string_split(path, "/");
-	archivos_t * file;
-	int i = 0;
-	int j = 0;
-	while (ruta[i]) {
+	int file = verificarSiExiste(path);
+	int j;
+	if (file != -1) {
 		for (j = 0; j < 2048; j++) {
-			if ((strcmp(ruta[i], tablaDeArchivos[j].nombreArchivo) == 0)
-					&& tablaDeArchivos[j].estado == DIRECTORIO) {
-				file = &tablaDeArchivos[j];
-				i++;
-				break;
+			if (tablaDeArchivos[j].estado != BORRADO
+					&& tablaDeArchivos[j].bloquePadre
+							== tablaDeArchivos[file].bloqueInicial) {
+				log_error(log, "TIene archivos adentro no puede ser borrado");
+				return -1;
 			}
 		}
 	}
-	for (j = 0; j < 2048; j++) {
-		if (tablaDeArchivos[j].estado != BORRADO
-				&& tablaDeArchivos[j].bloquePadre == file->bloqueInicial) {
-			log_error(log, "TIene archivos adentro no puede ser borrado");
-			return -1;
-		}
-	}
-	file->bloqueInicial = -1;
-	file->bloquePadre = -1;
-	file->estado = BORRADO;
-	file->tamanioArchivo = 0;
-	log_trace(log, "Se ah borrado el directorio: %s", file->nombreArchivo);
+	tablaDeArchivos[file].bloqueInicial = -1;
+	tablaDeArchivos[file].bloquePadre = -1;
+	tablaDeArchivos[file].estado = BORRADO;
+	tablaDeArchivos[file].tamanioArchivo = 0;
+	log_trace(log, "Se ah borrado el directorio: %s",
+			tablaDeArchivos[file].nombreArchivo);
+	sincronizarMemoria();
 	return 1;
 }
 int renombrar(char * path, char * nombre) {
 	log_info(log, "Renombrando: %s por %s", path, nombre);
-//	if(verificarSiExiste(path,ARCHIVO || DIRECTORIO) == -1) // esto funcionara ???
-//				return -1;
-	char ** ruta = string_split(path, "/");
-	int i = 0;
-	int j = 0;
-	uint16_t padre = -1;
-	while (ruta[i + 1])
-		for (j = 0; j < 2048; j++) {
-			if ((padre == tablaDeArchivos[j].bloquePadre)
-					&& tablaDeArchivos[j].estado == DIRECTORIO) {
-				if (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0) {
-					padre = tablaDeArchivos[j].bloqueInicial;
-					i++;
-					break;
-				}
-			}
 
-		}
-	for (j = 0; j < 2048; j++) {
-		if (padre == tablaDeArchivos[j].bloquePadre
-				&& tablaDeArchivos[j].estado != BORRADO) {
-			if (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0) {
-				log_trace(log, "Antiguo: %s", tablaDeArchivos[j].nombreArchivo);
-				log_trace(log, "Nuevo: %s", nombre);
-				memcpy(&tablaDeArchivos[j].nombreArchivo, nombre,
-						strlen(nombre) + 1);
-				return 1;
-			}
-		}
+	int file = verificarSiExiste(path);
+	if (file != -1) {
+		log_trace(log, "Antiguo: %s", tablaDeArchivos[file].nombreArchivo);
+		log_trace(log, "Nuevo: %s", nombre);
+		memcpy(&tablaDeArchivos[file].nombreArchivo, nombre,
+				strlen(nombre) + 1);
+		//tablaDeArchivos[file].nombreArchivo[strlen(nombre) +1] = "/0";
+		sincronizarMemoria();
+		return 1;
 	}
 	return -1;
 }
-t_list * readAttr(char *path) {
-	t_list * lista = list_create();
+char * readAttr(char *path, int *var) {
+	char * lista = malloc(17);
+	*var = 0;
 	int i;
 	int j;
 	uint16_t padre = -1;
-
 	if (path != "/") {
 		char ** ruta = string_split(path, "/");
 		for (i = 0; (i < 2048) && ruta[j]; i++) {
@@ -505,18 +430,41 @@ t_list * readAttr(char *path) {
 	}
 	for (i = 0; i < 2048; i++) {
 		if (padre == tablaDeArchivos[i].bloquePadre) {
-			archivos_t * file = malloc(sizeof(archivos_t));
-			*file = tablaDeArchivos[i];
-			list_add(lista, (void*) file); // CONSULTAR A FRANK
+			log_trace(log, "diganme que no da error aca");
+			realloc(lista, *var * 17);
+			memcpy(lista + (*var * 17), tablaDeArchivos[i].nombreArchivo, 17);
+			var++;
 		}
 	}
 	return lista;
+}
+int getAttr(char *path) {
+	int i;
+	int j;
+	uint16_t padre = -1;
+	char ** ruta = string_split(path, "/");
+	for (i = 0; (i < 2048) && ruta[j + 1]; i++) {
+		if ((padre == tablaDeArchivos[i].bloquePadre)
+				&& (tablaDeArchivos[i].estado == DIRECTORIO)
+				&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
+			padre = tablaDeArchivos[i].bloqueInicial;
+			i = 0;
+			j++;
+		}
+	}
+	for (i = 0; i < 2048; i++) {
+		if ((strcmp(ruta[j], tablaDeArchivos[i].nombreArchivo) == 0)
+				&& (tablaDeArchivos[i].bloquePadre = padre)) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
-	t_list * lista;
+	int var;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
@@ -565,11 +513,22 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
 			break;
-			/*case LEERDIR:
-			 t_list = readAttr(mensaje->path);
-			 devolucion =1;
-			 mensaje->tamano = list_size(lista) * sizeof(archivos_t);
-			 break;*/
+		case LEERDIR:
+			mensaje->buffer = readAttr(mensaje->path, &var);
+			devolucion = 1;
+			mensaje->tamano = var * 17;
+			break;
+		case GETATTR:
+			devolucion = getAttr(mensaje->path);
+			if (devolucion != -1) {
+				memcpy(&mensaje->tipoArchivo,
+						&tablaDeArchivos[devolucion].estado,
+						sizeof(osada_file_state));
+				memcpy(mensaje->tamano,
+						tablaDeArchivos[devolucion].tamanioArchivo,
+						sizeof(uint32_t));
+			}
+			break;
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -581,9 +540,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 
 void levantarHeader() {
 	log_trace(log, "Levantando Header");
-	//read(&fileHeader, sizeof(osadaHeader), 1, osadaFile);
 	memcpy(&fileHeader, data, sizeof(osadaHeader));
-	//fileHeader.identificador[7] = '\0'; <-- pisa la version
 	log_trace(log, "Identificador: %s", fileHeader.identificador);
 	log_trace(log, "Version:%d", fileHeader.version);
 	log_trace(log, "Fs_blocks:%u", fileHeader.fs_blocks);
@@ -606,27 +563,24 @@ uint32_t bitmapOcupados() {
 
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
-	int i;
 	levantarHeader();
 	B = BLOCK_SIZE;
 	F = fileHeader.fs_blocks;
 	N = fileHeader.fs_blocks / 8 / B;
 	A = ((F - 1 - N - 1024) * 4) / B;
-	X = F - 1 -N -1024 -A;
+	X = F - 1 - N - 1024 - A;
 	bitmap = bitarray_create(data + 64, N * B);
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
 	bloquesDeDatos = malloc(X * B);
-	//memcpy(bitmap, data + B, N * B);
 	uint32_t ocupados = bitmapOcupados();
-	log_trace(log,"ocupados: %u",ocupados);
+	log_trace(log, "ocupados: %u", ocupados);
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
 			fileHeader.fs_blocks - ocupados, ocupados);
-	log_trace(log, "tamaño tabla asignacion: %d en bloques",
-			A);
-	memcpy(tablaDeArchivos, data +B +  N *B, 1024 * B);
+	log_trace(log, "tamaño tabla asignacion: %d en bloques", A);
+	memcpy(tablaDeArchivos, data + B + N * B, 1024 * B);
 	memcpy(tablaDeAsignaciones, data + (B + N + 1024) * B, A);
-	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B,X);
+	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B, X);
 }
 
 char * tipoArchivo(int i) {
@@ -703,44 +657,41 @@ void imprimirArbolDeDirectorios() {
 	}
 }
 
-void mapearMemoria() {
+void mapearMemoria(char * nombreBin) {
 	osadaFile =
 			open(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/basic.bin",
-					O_RDWR);
+					string_from_format(
+							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/PokedexServidor/Debug/%s",
+							nombreBin), O_RDWR);
 	struct stat s;
-	int status = fstat(osadaFile, &s);
+	fstat(osadaFile, &s);
 	int size = s.st_size;
 	log_trace(log, "%d", size);
 	data = malloc(size);
-	if ((data = (char*) mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
-			osadaFile, 0)) == -1)
+	if ((data = (char*) mmap(0, size, PROT_READ | PROT_WRITE,
+	MAP_SHARED, osadaFile, 0)) == -1)
 		log_trace(log, "la estamos cagando");
 
 	log_trace(log, "memoria mapeada");
 }
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
-	memcpy(data + BLOCK_SIZE, bitmap,N);
-	memcpy(data + (1 + N) * BLOCK_SIZE, tablaDeArchivos,
-			1024 * BLOCK_SIZE);
-	memcpy(data + (1025 + N)* BLOCK_SIZE,
-			tablaDeAsignaciones, A);
-	memcpy(
-			data + (1025 + N + A) * BLOCK_SIZE, bloquesDeDatos,
-			X);
+	memcpy(data + BLOCK_SIZE, bitmap, N);
+	memcpy(data + (1 + N) * BLOCK_SIZE, tablaDeArchivos, 1024 * BLOCK_SIZE);
+	memcpy(data + (1025 + N) * BLOCK_SIZE, tablaDeAsignaciones, A);
+	memcpy(data + (1025 + N + A) * BLOCK_SIZE, bloquesDeDatos, X);
 	log_trace(log, "Memoria sincronizada");
 
 }
 
-void funcionAceptar(){
+void funcionAceptar() {
 }
 int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
-	mapearMemoria();
+	mapearMemoria(argv[2]);
 	levantarOsada();
 	sincronizarMemoria();
-	theMinionsRevengeSelect(argv[1],funcionAceptar,atenderPeticiones);
+	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
