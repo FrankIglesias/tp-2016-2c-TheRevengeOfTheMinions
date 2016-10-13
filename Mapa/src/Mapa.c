@@ -54,10 +54,11 @@ typedef struct config_t {
 	t_dictionary * diccionarioDePokeparadas;
 	posicionMapa posicionMaxima;
 } t_configuracion;
-typedef struct pokemon_nom_lev {
-	char* nombreDelPokemon;
+typedef struct valorDeDiccionarioEntrenador_t {
+	int cantidad;
 	int nivel;
-} nom_lev_pokemon;
+} valorEntrenador;
+
 t_log * log;
 int quantum = 0;
 char ID = NULL;
@@ -158,21 +159,28 @@ void detectarDeadLock() {
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
-		for (j = 0; j < cantDePokenests; j++) {
-			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
-					letras[j])) {
-				pokemonesPorEntrenador[i][j] = dictionary_get(
-						unEntrenador->pokemonesAtrapados, letras[j]);
-			} else {
-				pokemonesPorEntrenador[i][j] = 0;
+		for (i = 0; i < cantEntrenadores; i++) {
+				entrenadorPokemon* unEntrenador = malloc(sizeof(entrenadorPokemon));
+				pthread_mutex_lock(&sem_listaDeEntrenadores);
+				unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
+				pthread_mutex_unlock(&sem_listaDeEntrenadores);
+				valorEntrenador* valor = malloc(sizeof(valorEntrenador));
+				for (j = 0; j < cantDePokenests; j++) {
+					if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
+							letras[j])) {
+						valor = (valorEntrenador*) dictionary_get(
+								unEntrenador->pokemonesAtrapados, letras[j]);
+						pokemonesPorEntrenador[i][j] = valor->cantidad;
+					} else {
+						pokemonesPorEntrenador[i][j] = 0;
 
-			}
-			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
-				pokemonAAtraparPorEntrenador[i][j] = 1;
-			else
-				pokemonAAtraparPorEntrenador[i][j] = 0;
+					}
+					if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
+						pokemonAAtraparPorEntrenador[i][j] = 1;
+					else
+						pokemonAAtraparPorEntrenador[i][j] = 0;
 
-		}
+				}
 
 	}
 	for (i = 0; i < cantEntrenadores; i++) {
@@ -256,40 +264,45 @@ void detectarDeadLock() {
 	//////
 
 	t_pokemon* obtenerPokemonMasFuerte(entrenadorPokemon* unEntrenador) {
-		int mayorNivel;
-		int nivel1;
-		int nivel2;
-		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0]))
-			nivel1 = (int) dictionary_get(unEntrenador->pokemonesAtrapados,
-					letras[0]);
-		else
-			nivel1 = -1;
-		char* letraMayorNivel;
-		mayorNivel = nivel1;
-		for (i = 1; i < cantDePokenests; i++) {
-			if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[i]))
-				nivel2 = (int) dictionary_get(unEntrenador->pokemonesAtrapados,
-						letras[i]);
-			else
-				nivel2 = -1;
-			if (mayorNivel > nivel2) {
-				letraMayorNivel = letras[i - 1];
-				mayorNivel = nivel1;
-			} else {
-				letraMayorNivel = letras[i];
-				mayorNivel = nivel2;
+			int mayorNivel;
+			int nivel1;
+			int nivel2;
+			valorEntrenador* valorE = malloc(sizeof(valorEntrenador));
+			valorEntrenador* valorE2 = malloc(sizeof(valorEntrenador));
+			if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
+				valorE = (valorEntrenador*) dictionary_get(
+						unEntrenador->pokemonesAtrapados, letras[0]);
+				nivel1 = valorE->nivel;
+			} else
+				nivel1 = -1;
+			char* letraMayorNivel;
+			mayorNivel = nivel1;
+			for (i = 1; i < cantDePokenests; i++) {
+				if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
+						letras[i])) {
+					valorE2 = (valorEntrenador*) dictionary_get(
+							unEntrenador->pokemonesAtrapados, letras[i]);
+					nivel2 = valorE2->nivel;
+				} else
+					nivel2 = -1;
+				if (mayorNivel > nivel2) {
+					letraMayorNivel = letras[i - 1];
+					mayorNivel = nivel1;
+				} else {
+					letraMayorNivel = letras[i];
+					mayorNivel = nivel2;
+				}
 			}
+			pokenest * nuevaPokenest = malloc(sizeof(pokenest));
+			pthread_mutex_lock(&sem_config);
+			nuevaPokenest = (pokenest*) dictionary_get(
+					configuracion.diccionarioDePokeparadas, letraMayorNivel);
+			pthread_mutex_unlock(&sem_config);
+			t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
+			fabricaPokemon = create_pkmn_factory();
+			return (create_pokemon(fabricaPokemon, nuevaPokenest->nombreDelPokemon,
+					mayorNivel));
 		}
-		pokenest * nuevaPokenest = malloc(sizeof(pokenest));
-		pthread_mutex_lock(&sem_config);
-		nuevaPokenest = (pokenest*) dictionary_get(
-				configuracion.diccionarioDePokeparadas, letraMayorNivel);
-		pthread_mutex_unlock(&sem_config);
-		t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
-		fabricaPokemon = create_pkmn_factory();
-		return (create_pokemon(fabricaPokemon, nuevaPokenest->nombreDelPokemon,
-				mayorNivel));
-	}
 	bool unEntrenadorTienePokemon(entrenadorPokemon* unEntrenador,
 			t_pokemon* unPokemon) {
 		char * nombre = unPokemon->species;
