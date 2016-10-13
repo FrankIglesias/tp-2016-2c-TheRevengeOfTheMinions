@@ -632,7 +632,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		} else {
 			unEntrenador->tiempo = clock();
 			list_add(listaDeReady, unEntrenador);
-			if (ID) {
+			if (ID==NULL) {
 				sem_post(&semaphore_listos);
 			}
 		}
