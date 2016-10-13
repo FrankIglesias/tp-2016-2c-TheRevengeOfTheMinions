@@ -103,14 +103,14 @@ void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 	mensaje_CLIENTE_SERVIDOR * mensaje = malloc(header.payload);
 	memcpy(mensaje, buffer, sizeof(instruccion_t) + sizeof(uint32_t) * 4);
 	int puntero = sizeof(instruccion_t) + sizeof(uint32_t) * 4;
-	if(mensaje->path_payload>0){
-		mensaje->path = malloc((mensaje->path_payload)+1);
+	if (mensaje->path_payload > 0) {
+		mensaje->path = malloc((mensaje->path_payload) + 1);
 		memcpy(mensaje->path, buffer + puntero, mensaje->path_payload);
-		mensaje->path[mensaje->path_payload]='\0';
+		mensaje->path[mensaje->path_payload] = '\0';
 		puntero += mensaje->path_payload;
 	}
-	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
-		mensaje->buffer = malloc(mensaje->tamano+1);
+	if (mensaje->tamano > 0 && mensaje->protolo != ERROR) {
+		mensaje->buffer = malloc(mensaje->tamano + 1);
 		memcpy(mensaje->buffer, buffer + puntero, mensaje->tamano);
 	}
 	free(buffer);
@@ -119,15 +119,6 @@ void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
-	if (header.payload > sizeof(char) + sizeof(instruccion_t)) {
-		mensaje->nombrePokemon = malloc(
-				header.payload - sizeof(char) - sizeof(instruccion_t) + 1);
-		memcpy(mensaje->nombrePokemon,
-				buffer + sizeof(char) + sizeof(instruccion_t),
-				header.payload - sizeof(char) - sizeof(instruccion_t));
-		mensaje->nombrePokemon[header.payload - sizeof(char)
-				- sizeof(instruccion_t)] = '\0';
-	}
 	return mensaje;
 }
 void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
@@ -151,16 +142,16 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		header * nuevoHeader) {
 	mensaje_CLIENTE_SERVIDOR * mensaje = (mensaje_CLIENTE_SERVIDOR *) data;
 	int tamanioVariable;
-	if(mensaje->protolo == SLEERDIR){
+	if (mensaje->protolo == SLEERDIR) {
 		mensaje->path_payload = 0;
-	}else if (mensaje->protolo==SLEER){
+	} else if (mensaje->protolo == SLEER) {
 		mensaje->path_payload = 0;
-	}else if (mensaje->protolo==LEER){
-		mensaje->path_payload=strlen(mensaje->path);
-	}else if(mensaje->protolo != ERROR){
+	} else if (mensaje->protolo == LEER) {
+		mensaje->path_payload = strlen(mensaje->path);
+	} else if (mensaje->protolo != ERROR) {
 		mensaje->path_payload = strlen(mensaje->path);
 		mensaje->tamano = strlen(mensaje->buffer);
-	}else{
+	} else {
 		mensaje->path_payload = 0;
 		mensaje->tamano = 0;
 	}
@@ -173,33 +164,23 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 	memcpy(buffer + pasaje, mensaje,
 			sizeof(instruccion_t) + sizeof(uint32_t) * 4);
 	pasaje += sizeof(instruccion_t) + sizeof(uint32_t) * 4;
-	if(mensaje->path_payload>0){
+	if (mensaje->path_payload > 0) {
 		memcpy(buffer + pasaje, mensaje->path, mensaje->path_payload);
 		pasaje += mensaje->path_payload;
 	}
-	if (mensaje->tamano>0 && mensaje->protolo != ERROR) {
+	if (mensaje->tamano > 0 && mensaje->protolo != ERROR) {
 		memcpy(buffer + pasaje, mensaje->buffer, mensaje->tamano);
 	}
 	return buffer;
 }
 char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
 	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;
-	int tamanioString = 0;
-	if (mensajeAEnviar->protocolo == POKEMON) {
-		tamanioString = strlen(mensajeAEnviar->nombrePokemon);
-	}
-	char *buffer = malloc(
-			sizeof(header) + sizeof(instruccion_t) + 1 + tamanioString);
-	nuevoHeader->payload = sizeof(instruccion_t) + 1 + tamanioString;
+	char *buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1);
+	nuevoHeader->payload = sizeof(instruccion_t) + 1;
 	memcpy(buffer, nuevoHeader, sizeof(header));
 	memcpy(buffer + sizeof(header), mensajeAEnviar,
 			sizeof(instruccion_t) + sizeof(char));
-	if (tamanioString > 0) {
-		memcpy(buffer + sizeof(header) + sizeof(instruccion_t) + sizeof(char),
-				mensajeAEnviar->nombrePokemon, tamanioString);
-	}
 	return buffer;
-
 }
 char * serializar_MAPA_ENTRENADOR(void * data, header * nuevoHeader) {
 	mensaje_MAPA_ENTRENADOR * mensajeAEnviar = (mensaje_MAPA_ENTRENADOR *) data;
@@ -250,7 +231,8 @@ void * recibirMensaje(int socket) {
 		return NULL;
 	}
 	if (unheader.mensaje == MAPA_ENTRENADOR
-			|| unheader.mensaje == ENTRENADOR_MAPA || unheader.mensaje==CLIENTE_SERVIDOR)
+			|| unheader.mensaje == ENTRENADOR_MAPA
+			|| unheader.mensaje == CLIENTE_SERVIDOR)
 		mensaje = funcionesDesserializadoras[unheader.mensaje](buffer,
 				unheader);
 	//free(buffer); Esta de mas, ya hace free cuando desserealiza

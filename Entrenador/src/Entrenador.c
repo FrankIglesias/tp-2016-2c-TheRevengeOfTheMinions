@@ -248,7 +248,7 @@ void jugar(void) {
 		socketCliente = crearSocketCliente(ipMapa, puertoMapa);
 		free(ipMapa);
 		mensajeAEnviar.protocolo = HANDSHAKE;
-		mensajeAEnviar.id = config.simbolo[0];
+		mensajeAEnviar.simbolo = config.simbolo[0];
 		posicionActual.posicionx = 1;
 		posicionActual.posiciony = 1;
 		enviarMensaje(ENTRENADOR_MAPA, socketCliente, (void *) &mensajeAEnviar);

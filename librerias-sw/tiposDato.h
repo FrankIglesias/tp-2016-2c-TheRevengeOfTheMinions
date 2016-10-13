@@ -43,8 +43,7 @@ typedef struct posicionMapa_t {
 } posicionMapa;
 typedef struct mensaje_ENTRENADOR_MAPA_t {
 	instruccion_t protocolo;
-	char id; // TANTO ENTRENADOR COMO POKENEST
-	char * nombrePokemon;
+	char simbolo; // TANTO ENTRENADOR COMO POKENEST
 } mensaje_ENTRENADOR_MAPA;
 typedef struct mensaje_MAPA_ENTRENADOR_t {
 	instruccion_t protocolo;
