@@ -58,6 +58,37 @@ int N;
 int A;
 int X;
 int F;
+
+char * tipoArchivo(int i) {
+	switch (tablaDeArchivos[i].estado) {
+	case (BORRADO):
+		return "BORRADO";
+		break;
+	case (ARCHIVO):
+		return "ARCHIVO";
+		break;
+	case (DIRECTORIO):
+		return "DIRECTORIO";
+		break;
+	default:
+		return "SARASA";
+	}
+}
+uint32_t estadoEnum(int i) {
+	switch (tablaDeArchivos[i].estado) {
+	case (BORRADO):
+		return 0;
+		break;
+	case (ARCHIVO):
+		return 1;
+		break;
+	case (DIRECTORIO):
+		return 2;
+		break;
+	default:
+		return -1;
+	}
+}
 int string_contains(const char *path, char letra) {
 	int teta;
 	for (teta = 0; path[teta] != '\0'; teta++) {
@@ -328,7 +359,8 @@ int borrar(char * path) {
 		tablaDeArchivos[file].bloquePadre = -1;
 		tablaDeArchivos[file].estado = BORRADO;
 		tablaDeArchivos[file].tamanioArchivo = 0;
-		log_trace(log, "Se ah borrado el archivo: %s", tablaDeArchivos[file].nombreArchivo);
+		log_trace(log, "Se ah borrado el archivo: %s",
+				tablaDeArchivos[file].nombreArchivo);
 		sincronizarMemoria();
 		return 1;
 	}
@@ -411,12 +443,12 @@ int renombrar(char * path, char * nombre) {
 	return -1;
 }
 char * readAttr(char *path, int *var) {
-	char * lista = malloc(17);
-	*var = 0;
+	char * lista;
+	int aux = 0;
 	int i;
 	int j;
 	uint16_t padre = -1;
-	if (path != "/") {
+	if (strcmp(path, "/") != 0) {
 		char ** ruta = string_split(path, "/");
 		for (i = 0; (i < 2048) && ruta[j]; i++) {
 			if ((padre == tablaDeArchivos[i].bloquePadre)
@@ -430,19 +462,48 @@ char * readAttr(char *path, int *var) {
 	}
 	for (i = 0; i < 2048; i++) {
 		if (padre == tablaDeArchivos[i].bloquePadre) {
-			log_trace(log, "diganme que no da error aca");
-			realloc(lista, *var * 17);
-			memcpy(lista + (*var * 17), tablaDeArchivos[i].nombreArchivo, 17);
-			var++;
+			if (tipoArchivo(i)) {
+				aux++;
+			}
 		}
 	}
+	lista = malloc(aux * 17);
+	aux = 0;
+	for (i = 0; i < 2048; i++) {
+		if (padre == tablaDeArchivos[i].bloquePadre) {
+			if (tipoArchivo(i)) {
+				memcpy(lista + (aux * 17), tablaDeArchivos[i].nombreArchivo,
+						17);
+				aux++;
+			}
+		}
+	}
+	*var = aux;
 	return lista;
 }
 int getAttr(char *path) {
+
 	int i;
-	int j;
-	uint16_t padre = -1;
+	int j = 0;
+	int funciona = 0;
 	char ** ruta = string_split(path, "/");
+	for (i = 0; (i < 2048) && ruta[j]; i++) {
+
+		if (strcmp(tipoArchivo(i), "SARASA") == 0) {
+			continue;
+		}
+		if (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0) {
+			j++;
+			i = 0;
+		}
+	}
+
+	if (!ruta[j])
+		funciona = 1;
+	if (funciona == 0)
+		return -1;
+	j = 0;
+	uint16_t padre = -1;
 	for (i = 0; (i < 2048) && ruta[j + 1]; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == DIRECTORIO)
@@ -462,8 +523,10 @@ int getAttr(char *path) {
 }
 
 void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
-	mensaje_CLIENTE_SERVIDOR * mensaje;
+	mensaje_CLIENTE_SERVIDOR * mensaje = malloc(
+			sizeof(mensaje_CLIENTE_SERVIDOR));
 	int devolucion = 1;
+	char * puntero;
 	int var;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
@@ -514,19 +577,19 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = 0;
 			break;
 		case LEERDIR:
-			mensaje->buffer = readAttr(mensaje->path, &var);
+			puntero = readAttr(mensaje->path, &var);
+			mensaje->tamano = var * 17;
+			mensaje->buffer = malloc(mensaje->tamano);
+			memcpy(mensaje->buffer, puntero, mensaje->tamano);
 			devolucion = 1;
+			mensaje->protolo = SLEERDIR;
 			mensaje->tamano = var * 17;
 			break;
 		case GETATTR:
 			devolucion = getAttr(mensaje->path);
 			if (devolucion != -1) {
-				memcpy(&mensaje->tipoArchivo,
-						&tablaDeArchivos[devolucion].estado,
-						sizeof(osada_file_state));
-				memcpy(mensaje->tamano,
-						tablaDeArchivos[devolucion].tamanioArchivo,
-						sizeof(uint32_t));
+				mensaje->tipoArchivo = estadoEnum(devolucion);
+				mensaje->tamano =tablaDeArchivos[devolucion].tamanioArchivo;
 			}
 			break;
 		default:
@@ -534,7 +597,10 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->protolo = ERROR;
 			log_error(log, "No te entendi wacho");
 		}
-		enviarMensaje(SERVIDOR_CLIENTE, socket, (void *) &mensaje);
+		if (devolucion == -1)
+			mensaje->protolo = ERROR;
+		log_error(log, "No te entendi wacho");
+		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
 	}
 }
 
@@ -583,21 +649,6 @@ void levantarOsada() {
 	memcpy(bloquesDeDatos, data + (B + N + 1024 + A) * B, X);
 }
 
-char * tipoArchivo(int i) {
-	switch (tablaDeArchivos[i].estado) {
-	case (BORRADO):
-		return "BORRADO";
-		break;
-	case (ARCHIVO):
-		return "ARCHIVO";
-		break;
-	case (DIRECTORIO):
-		return "DIRECTORIO";
-		break;
-	default:
-		return "SARASA";
-	}
-}
 int archivoDirectorio(int i) {
 	if (tablaDeArchivos[i].estado == ARCHIVO)
 		return 1;
@@ -687,10 +738,12 @@ void sincronizarMemoria() {
 void funcionAceptar() {
 }
 int main(int argc, void *argv[]) {
+
 	log = log_create("log", "Osada", 1, 0);
 	mapearMemoria(argv[2]);
 	levantarOsada();
 	sincronizarMemoria();
+	imprimirArbolDeDirectorios();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
