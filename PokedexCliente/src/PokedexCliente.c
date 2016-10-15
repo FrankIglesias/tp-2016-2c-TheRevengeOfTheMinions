@@ -116,6 +116,9 @@ static int leerDirectorio(const char *path, void *buf, fuse_fill_dir_t filler,
 	if(respuesta->protolo==ERROR){
 		return -ENOENT;
 	}
+	if((respuesta->tamano)==0){
+		return -ENOENT;
+	}
 
 	//Casteo el buffer a una lista de archivos. Itero la lista y lleno el buf con el nombre de cada archivo
 	char* archivoEntrante=malloc(17);
