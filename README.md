@@ -40,3 +40,10 @@ Para correr el cliente de fuse con el mock:
 TIPS:Cuando debugeas el cliente(fuse) ponele en argumentos "-s /home/utnso/puntoMontada -f"
 
 
+<strong> Para levantar el pokedex servidor </strong>
+./PokedexServidor <puertoServidor> <NOmbreArchivoBin>
+Ej: ./PokedexServidor 9999 disco.bin
+Consideraciones: El puerto es el que quieran utilizar como servidor, el que ingresa al select.
+EL archibo  bin que hay en el repo es disco.bin pero pueden poner el challenge.bin o el basic.bin que nos dieron ellos, o crear uno como indica arriba
+
+
