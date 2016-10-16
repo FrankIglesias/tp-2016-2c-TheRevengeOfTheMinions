@@ -23,10 +23,6 @@ int puerto = 6000;
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
 
-#define DEFAULT_FILE_CONTENT "KEKEKEKanananan"
-#define DEFAULT_FILE_NAME "hello"
-#define DEFAULT_FILE_PATH "/" DEFAULT_FILE_NAME
-
 
 /*
  * Esta es una estructura auxiliar utilizada para almacenar parametros
@@ -227,9 +223,11 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
 	mensaje->buffer=malloc(20);
 	strcpy(mensaje->buffer,"buffer");
-	//TODO Definir como pasarle el path y el nombre del archivo por separado
+
 
 	//Envio el mensaje
 	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -307,11 +305,12 @@ static int escribirArchivo(const char * path, const char * buffer,
 			return -1;
 		}
 
+	int cantRetorno = strlen(respuesta->tamano);
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	return size; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
+	return cantRetorno; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
 }
 
 static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
