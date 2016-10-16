@@ -443,6 +443,7 @@ int renombrar(char * path, char * nombre) {
 	return -1;
 }
 char * readAttr(char *path, int *var) {
+	log_debug(log, "readAttr: %s", path);
 	char * lista;
 	int aux = 0;
 	int i;
@@ -482,7 +483,7 @@ char * readAttr(char *path, int *var) {
 	return lista;
 }
 int getAttr(char *path) {
-
+	log_debug(log, "getAttr: %s", path);
 	int i;
 	int j = 0;
 	int funciona = 0;
@@ -497,6 +498,7 @@ int getAttr(char *path) {
 			i = 0;
 		}
 	}
+	log_trace(log, "%d", funciona);
 
 	if (!ruta[j])
 		funciona = 1;
@@ -504,6 +506,7 @@ int getAttr(char *path) {
 		return -1;
 	j = 0;
 	uint16_t padre = -1;
+	log_trace(log, "ACA");
 	for (i = 0; (i < 2048) && ruta[j + 1]; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == DIRECTORIO)
@@ -513,6 +516,7 @@ int getAttr(char *path) {
 			j++;
 		}
 	}
+	log_trace(log, "ALLA");
 	for (i = 0; i < 2048; i++) {
 		if ((strcmp(ruta[j], tablaDeArchivos[i].nombreArchivo) == 0)
 				&& (tablaDeArchivos[i].bloquePadre = padre)) {
@@ -586,10 +590,16 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var * 17;
 			break;
 		case GETATTR:
-			devolucion = getAttr(mensaje->path);
-			if (devolucion != -1) {
-				mensaje->tipoArchivo = estadoEnum(devolucion);
-				mensaje->tamano =tablaDeArchivos[devolucion].tamanioArchivo;
+			if ((strcmp(mensaje->path, "/") != 0)) {
+				devolucion = getAttr(mensaje->path);
+				if (devolucion != -1) {
+					mensaje->tipoArchivo = estadoEnum(devolucion);
+					mensaje->tamano =
+							tablaDeArchivos[devolucion].tamanioArchivo;
+				}
+			} else{
+				mensaje->tipoArchivo =0;
+				devolucion =1;
 			}
 			break;
 		default:
@@ -599,7 +609,6 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 		}
 		if (devolucion == -1)
 			mensaje->protolo = ERROR;
-		log_error(log, "No te entendi wacho");
 		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
 	}
 }

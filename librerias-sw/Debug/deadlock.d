@@ -1,1 +1,0 @@
-deadlock.d: ../deadlock.c
