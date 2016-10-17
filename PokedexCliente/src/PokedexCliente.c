@@ -226,6 +226,7 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	mensaje->path=malloc(strlen(path)+1);
 	strcpy(mensaje->path,path);
 	mensaje->buffer=malloc(20);
+	mensaje->protolo=CREAR
 	strcpy(mensaje->buffer,"buffer");
 
 

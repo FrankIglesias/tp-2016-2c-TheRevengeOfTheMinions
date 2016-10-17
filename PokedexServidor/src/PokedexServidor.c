@@ -182,17 +182,17 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	int j = 0;
 	uint16_t padre = -1;
 	char ** ruta = string_split(path, "/");
-	while (ruta[i]) {
+	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
 		if (tablaDeArchivos[j].bloquePadre == padre
 				&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
 			padre = tablaDeArchivos[j].bloqueInicial;
 			i++;
 			j = 0;
-		} else {
-			j++;
 		}
 	}
+	if(ruta[i + 1])
+		return -2;
 	return padre;
 }
 int verificarSiExiste(char * path) {
@@ -325,12 +325,19 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 	return puntero;
 
 }
-int crearArchivo(char * path, char * nombre) {
-	log_trace(log, "creando archivo  %s", nombre);
+int crearArchivo(char * path) {
+	log_trace(log, "creando archivo  %s", path);
 	int i = 0;
+	int j = 0;
 	uint16_t padre = -1;
 	if (path != "/") {
-		padre = buscarAlPadre(path); // hay que verificar esto si devuelve que no tiene padre no deberia.
+		padre = buscarAlPadre(path);
+	}
+	if (padre==-2)
+		return -1;
+	char ** ruta = string_split(path,"/");
+	while(ruta[j+1]){
+		j++;
 	}
 	for (i = 0; i < 2048; ++i) {
 		if (tablaDeArchivos[i].estado == BORRADO) {
@@ -338,9 +345,7 @@ int crearArchivo(char * path, char * nombre) {
 			tablaDeArchivos[i].bloquePadre = padre;
 			tablaDeArchivos[i].estado = ARCHIVO;
 			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
-			if (nombre[0] == "/")
-				borrarPrimeraLetra(nombre);
-			strcpy(tablaDeArchivos[i].nombreArchivo, nombre);
+			memcpy(tablaDeArchivos[i].nombreArchivo, ruta[j],17);
 			tablaDeArchivos[i].tamanioArchivo = 1;
 			break;
 		}
@@ -560,7 +565,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = devolucion;
 			break;
 		case CREAR:
-			devolucion = crearArchivo(mensaje->path, mensaje->buffer);
+			devolucion = crearArchivo(mensaje->path);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
 			mensaje->tamano = 0;
@@ -607,7 +612,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 							tablaDeArchivos[devolucion].tamanioArchivo;
 				}
 			} else {
-				mensaje->tipoArchivo = 0;
+				mensaje->tipoArchivo = 2;
 				devolucion = 1;
 			}
 			break;
@@ -675,16 +680,6 @@ int archivoDirectorio(int i) {
 	return 0;
 }
 
-void imprimirArchivosDe(char* path) {
-	log_trace(log, "Archivos de: %s", path);
-	archivos_t archivito = tablaDeArchivos[buscarAlPadre(path)];
-	int i;
-	for (i = 0; i < 2048; ++i) {
-		if (tablaDeArchivos[i].estado == ARCHIVO) {
-			log_trace(log, "%s", tablaDeArchivos[i].nombreArchivo);
-		}
-	}
-}
 void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre) {
 	int i;
 	int aux;
@@ -707,8 +702,10 @@ void mostrarTablaDeArchivos() {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
-			log_trace(log, "%d . %s . %s . %d . %d", i, tablaDeArchivos[i].nombreArchivo,
-					tipoArchivo(i),tablaDeArchivos[i].bloquePadre, tablaDeArchivos[i].bloqueInicial);
+			log_trace(log, "%d . %s . %s . %d . %d", i,
+					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i),
+					tablaDeArchivos[i].bloquePadre,
+					tablaDeArchivos[i].bloqueInicial);
 	}
 }
 
