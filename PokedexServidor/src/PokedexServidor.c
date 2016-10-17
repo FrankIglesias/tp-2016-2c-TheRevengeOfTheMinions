@@ -154,6 +154,7 @@ int buscarBloqueLibre() {
 			return i;
 		}
 	}
+	log_trace(log, "No hay memoria suficiente");
 	return -1;
 }
 int asignarBloqueLibre(int *bloqueAnterior) {
@@ -208,10 +209,16 @@ int verificarSiExiste(char * path) {
 			j++;
 		}
 	}
+	if (ruta[j + 1]) {
+		log_trace(log, "no encontre el directorio");
+		return -1;
+	}
 	for (i = 0; i < 2048; i++) {
-		if ((strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)
-				&& (tablaDeArchivos[i].bloquePadre == padre)) {
-			return i;
+		if (tipoArchivo(i)) {
+			if ((strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)
+					&& (tablaDeArchivos[i].bloquePadre == padre)) {
+				return i;
+			}
 		}
 	}
 	return -1;
@@ -265,13 +272,11 @@ char * leerArchivo(char * path, int tamano, int offset) {
 }
 int escribirArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
-	archivos_t * archivo = malloc(sizeof(archivos_t));
-	archivo = obtenerArchivo(path);
+	archivos_t archivo = tablaDeArchivos[verificarSiExiste(path)];
 	int aux = offset;
 	int tam = strlen(buffer);
 	int puntero = 0;
-	int contador = 0;
-	int bloqueActual = archivo->bloqueInicial;
+	int bloqueActual = archivo.bloqueInicial;
 	int bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
 	if (bloqueActual == -1) {
 		log_error(log, "la cagamo amigo, nada para ver");
@@ -285,38 +290,39 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		offset -= BLOCK_SIZE;
 	}
 	if (tam > BLOCK_SIZE - offset) {
-		memcpy(bloquesDeDatos + bloqueActual * 64 + offset, buffer,
+		(bloquesDeDatos + bloqueActual * 64 + offset, buffer,
 		BLOCK_SIZE - offset);
 		puntero += BLOCK_SIZE - offset;
 		if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente) == -1)
-			return -1;
-
+			return puntero;
 	} else {
 		memcpy(bloquesDeDatos + bloqueActual * 64 + offset, buffer, tam);
-		if (archivo->tamanioArchivo < tam + aux)
-			archivo->tamanioArchivo = tam + aux;
-		free(archivo);
-		return 0;
+		if (archivo.tamanioArchivo < tam + aux)
+			archivo.tamanioArchivo = tam + aux;
+		puntero += tam;
+		return puntero;
 	}
 	while (tam > puntero) {
 		if ((tam - puntero) >= BLOCK_SIZE) {
 			memcpy(bloquesDeDatos + bloqueActual * 64, buffer + puntero,
 			BLOCK_SIZE);
 			puntero += BLOCK_SIZE;
-			if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente) == -1)
-				return -1;
+			if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente)
+					== -1) {
+				return puntero;
+			}
 		} else {
 			memcpy(bloquesDeDatos + bloqueActual * 64, buffer + puntero,
 					tam - puntero);
 			log_trace(log, "Se ha escrito exitosamente bytes: %d", tam);
-			if (archivo->tamanioArchivo < tam + aux)
-				archivo->tamanioArchivo = aux + tam;
-			return 0;
+			if (archivo.tamanioArchivo < tam + aux)
+				archivo.tamanioArchivo = aux + tam;
+			puntero = tam - puntero;
+			return puntero;
 		}
 	}
-	free(archivo);
 	sincronizarMemoria();
-	return 0;
+	return puntero;
 
 }
 int crearArchivo(char * path, char * nombre) {
@@ -410,9 +416,11 @@ int borrarDir(char * path) {
 	int j;
 	if (file != -1) {
 		for (j = 0; j < 2048; j++) {
-			if (tablaDeArchivos[j].estado != BORRADO
+			if ((strcmp(tipoArchivo(j), "SARASA") != 0)
 					&& tablaDeArchivos[j].bloquePadre
 							== tablaDeArchivos[file].bloqueInicial) {
+				log_trace(log, "%d | %d", tablaDeArchivos[j].bloquePadre,
+						tablaDeArchivos[file].bloqueInicial);
 				log_error(log, "TIene archivos adentro no puede ser borrado");
 				return -1;
 			}
@@ -489,14 +497,15 @@ int getAttr(char *path) {
 	int funciona = 0;
 	char ** ruta = string_split(path, "/");
 	for (i = 0; (i < 2048) && ruta[j]; i++) {
-
 		if (strcmp(tipoArchivo(i), "SARASA") == 0) {
 			continue;
 		}
 		if (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0) {
 			j++;
 			i = 0;
+			log_trace(log, "existe");
 		}
+
 	}
 	log_trace(log, "%d", funciona);
 
@@ -546,9 +555,9 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 		case ESCRIBIR:
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset);
-			if (devolucion == -1)
-				mensaje->protolo = ERROR;
-			mensaje->tamano = 0;
+			if (devolucion != strlen(mensaje->buffer))
+				log_error(log, "NO se pudo escribir completamente");
+			mensaje->tamano = devolucion;
 			break;
 		case CREAR:
 			devolucion = crearArchivo(mensaje->path, mensaje->buffer);
@@ -597,9 +606,9 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 					mensaje->tamano =
 							tablaDeArchivos[devolucion].tamanioArchivo;
 				}
-			} else{
-				mensaje->tipoArchivo =0;
-				devolucion =1;
+			} else {
+				mensaje->tipoArchivo = 0;
+				devolucion = 1;
 			}
 			break;
 		default:
@@ -680,6 +689,8 @@ void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre)
 	int i;
 	int aux;
 	for (i = 0; i < 2048; i++) {
+		if (tablaDeArchivos[i].bloqueInicial == archivo.bloqueInicial)
+			continue;
 		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
 			char * coshita = string_repeat('-', nivel);
 			log_debug(log, "%s %s -- %s", coshita,
@@ -696,8 +707,8 @@ void mostrarTablaDeArchivos() {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
-			log_trace(log, "%d . %s . %s", i, tablaDeArchivos[i].nombreArchivo,
-					tipoArchivo(i));
+			log_trace(log, "%d . %s . %s . %d . %d", i, tablaDeArchivos[i].nombreArchivo,
+					tipoArchivo(i),tablaDeArchivos[i].bloquePadre, tablaDeArchivos[i].bloqueInicial);
 	}
 }
 
@@ -706,8 +717,7 @@ void imprimirArbolDeDirectorios() {
 	int i;
 	uint16_t padre = -1;
 	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].estado != BORRADO
-				&& tablaDeArchivos[i].bloquePadre == padre) {
+		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
 			log_debug(log, "%s - %s", tablaDeArchivos[i].nombreArchivo,
 					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
@@ -753,6 +763,7 @@ int main(int argc, void *argv[]) {
 	levantarOsada();
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
+	mostrarTablaDeArchivos();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
