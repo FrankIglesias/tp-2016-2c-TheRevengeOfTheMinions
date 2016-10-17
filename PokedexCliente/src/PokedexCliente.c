@@ -175,15 +175,14 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	if (respuesta->protolo==ERROR){
 		return -1;
 	}else{
-		memcpy(buffer,respuesta->buffer,respuesta->tamano);
+		memcpy(buffer,respuesta->buffer+offset,size);
 	}
 
-	int retorno = respuesta->tamano;
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	return retorno; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
+	return size; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
 
 }
 
@@ -226,7 +225,7 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	mensaje->path=malloc(strlen(path)+1);
 	strcpy(mensaje->path,path);
 	mensaje->buffer=malloc(20);
-	mensaje->protolo=CREAR
+	mensaje->protolo=CREAR;
 	strcpy(mensaje->buffer,"buffer");
 
 
