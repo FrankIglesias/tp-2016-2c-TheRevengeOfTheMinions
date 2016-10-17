@@ -151,19 +151,20 @@ int buscarBloqueLibre() {
 	for (i = 0; i < fileHeader.fs_blocks; ++i) {
 		if (bitarray_test_bit(bitmap, i) == 0) {
 			bitarray_set_bit(bitmap, i);
+			tablaDeAsignaciones[i] = -1;
 			return i;
 		}
 	}
 	log_trace(log, "No hay memoria suficiente");
 	return -1;
 }
-int asignarBloqueLibre(int *bloqueAnterior) {
+int asignarBloqueLibre(int bloqueAnterior) {
 	int bloqueLibre = buscarBloqueLibre();
 	log_trace(log, "Bloque libre a ocupar: %d", bloqueLibre);
 	if (bloqueLibre == -1) {
 		return -1;
 	}
-	tablaDeAsignaciones[*bloqueAnterior] = bloqueLibre;
+	tablaDeAsignaciones[bloqueAnterior] = bloqueLibre;
 	return 0;
 }
 int verificarBloqueSiguiente(int *actual, int *siguiente) {
@@ -191,7 +192,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 			j = 0;
 		}
 	}
-	if(ruta[i + 1])
+	if (ruta[i + 1])
 		return -2;
 	return padre;
 }
@@ -224,105 +225,84 @@ int verificarSiExiste(char * path) {
 	return -1;
 }
 
-char * leerArchivo(char * path, int tamano, int offset) {
+char * leerArchivo(char * path, int *aux) {
 	log_info(log, "Se va a leer el archivo: %s", path);
-	archivos_t * archivo = obtenerArchivo(path);
-	if (archivo->tamanioArchivo + offset < tamano) {
-		log_error(log, "Se va a leer basura");
+	int file = verificarSiExiste(path);
+	if (file != -1)
 		return NULL;
-	}
-	char * lectura = malloc(tamano);
-	int bloqueSiguiente = archivo->bloqueInicial;
+	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo);
+	int bloqueSiguiente = tablaDeArchivos[file].bloqueInicial;
 	int puntero = 0;
-	while (offset > BLOCK_SIZE) { // Muevo al nodo que tenga algo para leer
-		if (bloqueSiguiente == 0) {
-			log_trace(log, "ERROR");
-			return NULL;
-		}
-		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
-		offset -= BLOCK_SIZE;
-	}
-	if (tamano > BLOCK_SIZE - offset) { // Leo el contenido del primer nodo a partir offset
-		memcpy(lectura, bloquesDeDatos + bloqueSiguiente * BLOCK_SIZE + offset,
-		BLOCK_SIZE - offset);
-		tamano = tamano - (BLOCK_SIZE - offset);
-		puntero = BLOCK_SIZE - offset;
-		bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
-	} else {  // Si es menor de lo que le queda al nodo
-		memcpy(lectura,
-				bloquesDeDatos + (bloqueSiguiente * BLOCK_SIZE) + offset,
-				tamano);
-		return lectura;
-	}
-	while (tamano > 0) { // prosigo con la lectura si hay que leer mas
-		if (tamano > BLOCK_SIZE) {
-			memcpy(lectura + puntero,
-					bloquesDeDatos + bloqueSiguiente * BLOCK_SIZE,
-					BLOCK_SIZE);
-			tamano -= BLOCK_SIZE;
+	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
+		if ((tablaDeArchivos[file].tamanioArchivo - puntero) > BLOCK_SIZE) {
+			memcpy(lectura + puntero, bloquesDeDatos[bloqueSiguiente],
+			BLOCK_SIZE);
 			puntero += BLOCK_SIZE;
 			bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
+			if (bloqueSiguiente == -1)
+				break;
 		} else {
-			memcpy(lectura + puntero,
-					bloquesDeDatos + bloqueSiguiente * BLOCK_SIZE, tamano);
-			tamano = 0;
+			memcpy(lectura + puntero, bloquesDeDatos[bloqueSiguiente],
+					tablaDeArchivos[file].tamanioArchivo - puntero);
+			puntero += tablaDeArchivos[file].tamanioArchivo - puntero;
 		}
 	}
+	*aux = puntero;
 	return lectura;
 }
 int escribirArchivo(char * path, char * buffer, int offset) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s ", path, buffer);
-	archivos_t archivo = tablaDeArchivos[verificarSiExiste(path)];
-	int aux = offset;
-	int tam = strlen(buffer);
-	int puntero = 0;
-	int bloqueActual = archivo.bloqueInicial;
-	int bloqueSiguiente = tablaDeAsignaciones[bloqueActual];
-	if (bloqueActual == -1) {
-		log_error(log, "la cagamo amigo, nada para ver");
+	int file = verificarSiExiste(path);
+	if (file == -1)
 		return -1;
-	}
-	log_trace(log, "BLoque al cual se va a escribir: %d", bloqueActual);
-
-	while (offset > BLOCK_SIZE) { // Muevo al nodo que tenga algo para escribir
-		if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente) == -1)
-			return -1;
-		offset -= BLOCK_SIZE;
-	}
-	if (tam > BLOCK_SIZE - offset) {
-		(bloquesDeDatos + bloqueActual * 64 + offset, buffer,
-		BLOCK_SIZE - offset);
-		puntero += BLOCK_SIZE - offset;
-		if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente) == -1)
-			return puntero;
-	} else {
-		memcpy(bloquesDeDatos + bloqueActual * 64 + offset, buffer, tam);
-		if (archivo.tamanioArchivo < tam + aux)
-			archivo.tamanioArchivo = tam + aux;
-		puntero += tam;
-		return puntero;
-	}
-	while (tam > puntero) {
-		if ((tam - puntero) >= BLOCK_SIZE) {
-			memcpy(bloquesDeDatos + bloqueActual * 64, buffer + puntero,
-			BLOCK_SIZE);
+	int aux = 0;
+	int tam = strlen(buffer);
+	int puntero = 0; // Para saber el tamaño
+	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
+	log_trace(log, "BLoque a escribir: %d", bloqueActual);
+	while (offset != puntero) {
+		if (tablaDeAsignaciones[bloqueActual] == -1) {
+			if (asignarBloqueLibre(bloqueActual) == -1)
+				return -1;
+		}
+		bloqueActual = tablaDeAsignaciones[bloqueActual];
+		if ((offset - puntero) > BLOCK_SIZE) {
 			puntero += BLOCK_SIZE;
-			if (verificarBloqueSiguiente(&bloqueActual, &bloqueSiguiente)
-					== -1) {
-				return puntero;
-			}
 		} else {
-			memcpy(bloquesDeDatos + bloqueActual * 64, buffer + puntero,
-					tam - puntero);
-			log_trace(log, "Se ha escrito exitosamente bytes: %d", tam);
-			if (archivo.tamanioArchivo < tam + aux)
-				archivo.tamanioArchivo = aux + tam;
-			puntero = tam - puntero;
-			return puntero;
+			aux = offset - puntero;
+			puntero = offset;
 		}
 	}
+	puntero = 0;
+	if (tam > (BLOCK_SIZE - aux)) {
+		memcpy(bloquesDeDatos[bloqueActual] + aux, buffer, BLOCK_SIZE - aux);
+		tam -= (BLOCK_SIZE - aux);
+		puntero = BLOCK_SIZE - aux;
+	} else {
+		memcpy(bloquesDeDatos[bloqueActual] + aux, buffer, tam);
+	}
+	tam=0;
+	while (tam != 0) {
+		if (tablaDeAsignaciones[bloqueActual] == -1) {
+			if (asignarBloqueLibre(bloqueActual) == -1){
+				tam=0;
+				break;
+			}
+		}
+		bloqueActual = tablaDeAsignaciones[bloqueActual];
+		if (tam > BLOCK_SIZE) {
+			memcpy(bloquesDeDatos[bloqueActual], buffer + puntero, BLOCK_SIZE);
+			puntero += BLOCK_SIZE;
+			tam -= BLOCK_SIZE;
+		} else {
+			memcpy(bloquesDeDatos[bloqueActual], buffer + puntero, tam);
+			puntero += BLOCK_SIZE;
+			tam=0;
+		}
+	}
+	tablaDeArchivos[file].tamanioArchivo = strlen(buffer) + offset;
 	sincronizarMemoria();
-	return puntero;
+	return tablaDeArchivos[file].tamanioArchivo;
 
 }
 int crearArchivo(char * path) {
@@ -333,10 +313,10 @@ int crearArchivo(char * path) {
 	if (path != "/") {
 		padre = buscarAlPadre(path);
 	}
-	if (padre==-2)
+	if (padre == -2)
 		return -1;
-	char ** ruta = string_split(path,"/");
-	while(ruta[j+1]){
+	char ** ruta = string_split(path, "/");
+	while (ruta[j + 1]) {
 		j++;
 	}
 	for (i = 0; i < 2048; ++i) {
@@ -345,7 +325,7 @@ int crearArchivo(char * path) {
 			tablaDeArchivos[i].bloquePadre = padre;
 			tablaDeArchivos[i].estado = ARCHIVO;
 			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
-			memcpy(tablaDeArchivos[i].nombreArchivo, ruta[j],17);
+			memcpy(tablaDeArchivos[i].nombreArchivo, ruta[j], 17);
 			tablaDeArchivos[i].tamanioArchivo = 1;
 			break;
 		}
@@ -550,17 +530,16 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
 		case LEER:
-			mensaje->buffer = leerArchivo(mensaje->path, mensaje->tamano,
-					mensaje->offset);
+			mensaje->buffer = leerArchivo(mensaje->path, &var);
 			if (mensaje->buffer == NULL) {
 				mensaje->protolo = ERROR;
 			}
-			mensaje->tamano = strlen(mensaje->buffer);
+			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset);
-			if (devolucion != strlen(mensaje->buffer))
+			if (devolucion != (strlen(mensaje->buffer)+mensaje->offset))
 				log_error(log, "NO se pudo escribir completamente");
 			mensaje->tamano = devolucion;
 			break;
