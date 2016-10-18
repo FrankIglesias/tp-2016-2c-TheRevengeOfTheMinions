@@ -13,12 +13,12 @@ sudo apt-get install apt-file
 
 apt-file update
 
-<strong>EN PATH AND SYMBOLS, EN LA PESTAÑA DE LIBRARIES AGREGAR <em>ncurses</em> (arregla cosas es magicoou)</strong>
+<strong>Para pokedex Cliente:</strong>
 
-Para hacer correr el cliente pokedex:
 -Linkearle como librerias "fuse" y "pthreads"
 -Cuando lo ejecutas, ejecutalo como ./[nombreDelProyectoEnEclipse] /[rutaDelArchvio] -f  (el -f lo deja "en background)
-
+-DFUSE_USE_VERSION=27
+-D_FILE_OFFSET_BITS=64
 
 <strong> Para crear un archivo y formatearlo osada </strong>
 
