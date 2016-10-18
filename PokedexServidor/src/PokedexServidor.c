@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <bitarray.h>
 #include <collections/list.h>
+#include <time.h>
 
 #define BLOCK_SIZE 64
 
@@ -89,67 +90,10 @@ uint32_t estadoEnum(int i) {
 		return -1;
 	}
 }
-int string_contains(const char *path, char letra) {
-	int teta;
-	for (teta = 0; path[teta] != '\0'; teta++) {
-		if (path[teta] == letra)
-			return 1;
-	}
-	return 0;
-}
-void borrarPrimeraLetra(char * palabra) { // En caso de que haya un /123 comparando
-	int i = 1;
-	while (palabra[i]) {
-		palabra[i - 1] = palabra[i];
-		i++;
-	}
-}
-
-int buscarNroTArchivos(char ** path) { // En caso de archivo
-	int i;
-	uint16_t padre = -1;
-	int contador = 0;
-	while (!string_contains(path[contador], '.')) {
-		for (i = 0; i < 2048; i++) {
-			if ((tablaDeArchivos[i].estado == DIRECTORIO)
-					&& (padre == tablaDeArchivos[i].bloquePadre)) {
-//				log_trace(log,"tabla %s",tablaDeArchivos[i].nombreArchivo);
-//				log_trace(log,"path %s",path[contador]);
-//				log_trace(log,"padre: %u",padre);
-				if (strcmp(tablaDeArchivos[i].nombreArchivo, path[contador])
-						== 0) {
-					padre = tablaDeArchivos[i].bloqueInicial;
-					contador++;
-					break;
-				}
-			}
-		}
-	}
-	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].estado == ARCHIVO) {
-			if (padre == tablaDeArchivos[i].bloquePadre) {
-				if (string_equals_ignore_case(tablaDeArchivos[i].nombreArchivo,
-						path[contador])) {
-					log_trace(log, "Encontre el archivo: %d", i);
-					return i;
-				}
-			}
-		}
-	}
-	log_error(log, "No encontre el archivo");
-	return -1;
-}
-archivos_t * obtenerArchivo(char * path) {
-	char ** ruta = string_split(path, "/");
-	int numeroDeArchivo = buscarNroTArchivos(ruta);
-	if (numeroDeArchivo == -1)
-		log_error(log, "No se encontro el archivo");
-	return &tablaDeArchivos[numeroDeArchivo];
-}
 int buscarBloqueLibre() {
 	int i;
 	for (i = 0; i < fileHeader.fs_blocks; ++i) {
-		if (bitarray_test_bit(bitmap, i) == 0) {
+		if (bitarray_test_bit(bitmap, i) != 0) {
 			bitarray_set_bit(bitmap, i);
 			tablaDeAsignaciones[i] = -1;
 			return i;
@@ -215,7 +159,7 @@ int verificarSiExiste(char * path) {
 		return -1;
 	}
 	for (i = 0; i < 2048; i++) {
-		if (tipoArchivo(i)) {
+		if (archivoDirectorio(i)) {
 			if ((strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)
 					&& (tablaDeArchivos[i].bloquePadre == padre)) {
 				return i;
@@ -281,11 +225,11 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 	} else {
 		memcpy(bloquesDeDatos[bloqueActual] + aux, buffer, tam);
 	}
-	tam=0;
+	tam = 0;
 	while (tam != 0) {
 		if (tablaDeAsignaciones[bloqueActual] == -1) {
-			if (asignarBloqueLibre(bloqueActual) == -1){
-				tam=0;
+			if (asignarBloqueLibre(bloqueActual) == -1) {
+				tam = 0;
 				break;
 			}
 		}
@@ -297,7 +241,7 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		} else {
 			memcpy(bloquesDeDatos[bloqueActual], buffer + puntero, tam);
 			puntero += BLOCK_SIZE;
-			tam=0;
+			tam = 0;
 		}
 	}
 	tablaDeArchivos[file].tamanioArchivo = strlen(buffer) + offset;
@@ -344,7 +288,7 @@ int borrar(char * path) {
 			j = tablaDeArchivos[file].bloqueInicial;
 			bitarray_clean_bit(bitmap, j);
 			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
-			tablaDeAsignaciones[j] = 0;
+			tablaDeAsignaciones[j] = -1;
 		}
 		tablaDeArchivos[file].bloqueInicial = -1;
 		tablaDeArchivos[file].bloquePadre = -1;
@@ -373,7 +317,6 @@ int crearDir(char * path) {
 					i++;
 					j = 1025;
 				}
-
 			}
 		}
 	}
@@ -401,7 +344,7 @@ int borrarDir(char * path) {
 	int j;
 	if (file != -1) {
 		for (j = 0; j < 2048; j++) {
-			if ((strcmp(tipoArchivo(j), "SARASA") != 0)
+			if (archivoDirectorio(j)
 					&& tablaDeArchivos[j].bloquePadre
 							== tablaDeArchivos[file].bloqueInicial) {
 				log_trace(log, "%d | %d", tablaDeArchivos[j].bloquePadre,
@@ -440,7 +383,8 @@ char * readAttr(char *path, int *var) {
 	char * lista;
 	int aux = 0;
 	int i;
-	int j;
+	int j = 0;
+	int inicial;
 	uint16_t padre = -1;
 	if (strcmp(path, "/") != 0) {
 		char ** ruta = string_split(path, "/");
@@ -448,28 +392,27 @@ char * readAttr(char *path, int *var) {
 			if ((padre == tablaDeArchivos[i].bloquePadre)
 					&& (tablaDeArchivos[i].estado == DIRECTORIO)
 					&& (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0)) {
-				padre = tablaDeArchivos[i].bloqueInicial;
+				inicial = tablaDeArchivos[i].bloqueInicial;
+				padre = inicial;
 				i = 0;
 				j++;
 			}
 		}
 	}
 	for (i = 0; i < 2048; i++) {
-		if (padre == tablaDeArchivos[i].bloquePadre) {
-			if (tipoArchivo(i)) {
-				aux++;
-			}
-		}
+		if ((padre == tablaDeArchivos[i].bloquePadre)
+				&& (archivoDirectorio(i)
+						&& (tablaDeArchivos[i].bloqueInicial != inicial)))
+			aux++;
 	}
 	lista = malloc(aux * 17);
 	aux = 0;
 	for (i = 0; i < 2048; i++) {
-		if (padre == tablaDeArchivos[i].bloquePadre) {
-			if (tipoArchivo(i)) {
-				memcpy(lista + (aux * 17), tablaDeArchivos[i].nombreArchivo,
-						17);
-				aux++;
-			}
+		if ((padre == tablaDeArchivos[i].bloquePadre)
+				&& (archivoDirectorio(i)
+						&& (tablaDeArchivos[i].bloqueInicial != inicial))) {
+			memcpy(lista + (aux * 17), tablaDeArchivos[i].nombreArchivo, 17);
+			aux++;
 		}
 	}
 	*var = aux;
@@ -488,19 +431,14 @@ int getAttr(char *path) {
 		if (strcmp(tablaDeArchivos[i].nombreArchivo, ruta[j]) == 0) {
 			j++;
 			i = 0;
-			log_trace(log, "existe");
 		}
-
 	}
-	log_trace(log, "%d", funciona);
-
 	if (!ruta[j])
 		funciona = 1;
 	if (funciona == 0)
 		return -1;
 	j = 0;
 	uint16_t padre = -1;
-	log_trace(log, "ACA");
 	for (i = 0; (i < 2048) && ruta[j + 1]; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == DIRECTORIO)
@@ -510,7 +448,6 @@ int getAttr(char *path) {
 			j++;
 		}
 	}
-	log_trace(log, "ALLA");
 	for (i = 0; i < 2048; i++) {
 		if ((strcmp(ruta[j], tablaDeArchivos[i].nombreArchivo) == 0)
 				&& (tablaDeArchivos[i].bloquePadre = padre)) {
@@ -539,7 +476,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 		case ESCRIBIR:
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset);
-			if (devolucion != (strlen(mensaje->buffer)+mensaje->offset))
+			if (devolucion != (strlen(mensaje->buffer) + mensaje->offset))
 				log_error(log, "NO se pudo escribir completamente");
 			mensaje->tamano = devolucion;
 			break;
@@ -628,7 +565,6 @@ uint32_t bitmapOcupados() {
 	}
 	return ocupados;
 }
-
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
 	levantarHeader();
