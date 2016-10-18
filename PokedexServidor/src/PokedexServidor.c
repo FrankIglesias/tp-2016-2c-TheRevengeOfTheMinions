@@ -92,9 +92,11 @@ uint32_t estadoEnum(int i) {
 }
 int buscarBloqueLibre() {
 	int i;
+	int aux;
 	for (i = 0; i < fileHeader.fs_blocks; ++i) {
-		if (bitarray_test_bit(bitmap, i) != 0) {
-			bitarray_set_bit(bitmap, i);
+		aux = bitarray_test_bit(&bitmap, i);
+		if (aux == 0) {
+			bitarray_set_bit(&bitmap, i);
 			tablaDeAsignaciones[i] = -1;
 			return i;
 		}
@@ -286,7 +288,7 @@ int borrar(char * path) {
 	if (file != -1) {
 		while (tablaDeArchivos[file].bloqueInicial != 0) {
 			j = tablaDeArchivos[file].bloqueInicial;
-			bitarray_clean_bit(bitmap, j);
+			bitarray_clean_bit(&bitmap, j);
 			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
 			tablaDeAsignaciones[j] = -1;
 		}
@@ -573,6 +575,7 @@ void levantarOsada() {
 	N = fileHeader.fs_blocks / 8 / B;
 	A = ((F - 1 - N - 1024) * 4) / B;
 	X = F - 1 - N - 1024 - A;
+	bitmap = malloc(N * B);
 	bitmap = bitarray_create(data + 64, N * B);
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
@@ -676,6 +679,14 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
+	int i;
+	for (i = 0; i < 15; ++i) {
+		if (bitarray_test_bit(&bitmap, i) == 0) {
+			log_trace(log,"0");
+		} else{
+			log_trace(log,"1");
+		}
+	}
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
