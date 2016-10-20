@@ -38,7 +38,7 @@ typedef struct entrenadorPokemon_t {
 	clock_t tiempo;
 	instruccion_t accionARealizar;
 	posicionMapa posicion;
-	char proximoPokemon;
+	char* proximoPokemon;
 	t_dictionary * pokemonesAtrapados;
 } entrenadorPokemon;
 typedef struct config_t {
@@ -199,10 +199,17 @@ void detectarDeadLock() {
 				pokemonesPorEntrenador[i][j] = 0;
 
 			}
+			/*if(unEntrenador->accionARealizar != ATRAPAR)
+			{
+				pokemonAAtraparPorEntrenador[i][j] = 0;
+			}*/
+			//else
+			//{
 			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
 				pokemonAAtraparPorEntrenador[i][j] = 1;
 			else
 				pokemonAAtraparPorEntrenador[i][j] = 0;
+			//}
 
 		}
 
