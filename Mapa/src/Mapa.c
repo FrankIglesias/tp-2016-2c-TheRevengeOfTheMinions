@@ -79,6 +79,9 @@ int cantDePokenests = 0;
 int indexLetras = 0;
 char **letras;
 char *punteritoAChar;
+int *pokemonesDisponibles = NULL;
+
+
 
 void cargarPokeNests(char nombre[]) {
 
@@ -103,6 +106,7 @@ void cargarPokeNests(char nombre[]) {
 	letras[indexLetras] = config_get_string_value(config, "Identificador");
 	cantDePokenests++;
 	indexLetras++;
+	pokemonesDisponibles = (int *)realloc(pokemonesDisponibles, sizeof(int)*cantDePokenests);
 	dictionary_put(configuracion.diccionarioDePokeparadas, letra,
 			(void *) nuevaPokenest);
 
@@ -110,7 +114,31 @@ void cargarPokeNests(char nombre[]) {
 	//nuevaPokenest->posicion.posiciony, nuevaPokenest->cantidad);
 	//config_destroy(config);
 }
+void cargarMatrizDisponibles() {
+	int j;
+		for (j = 0; j < cantDePokenests; j++) {
 
+			if (dictionary_has_key(configuracion.diccionarioDePokeparadas,
+					letras[j])) {
+				pokenest * unaPokenest;
+				pthread_mutex_lock(&sem_config);
+				unaPokenest = (pokenest*) dictionary_get(
+						configuracion.diccionarioDePokeparadas, letras[j]);
+				pthread_mutex_unlock(&sem_config);
+				pokemonesDisponibles[j] = unaPokenest->cantidad;
+			} else {
+				pokemonesDisponibles[j] = 0;
+			}
+		}
+	}
+void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
+	int j;
+		log_trace(log, "MATRIZ DE DISPONIBLES");
+		for (j = 0; j < cantDePokenests; j++) {
+			printf("%d \t", disponibles[j]);
+		}
+		printf("\n");
+	}
 void cargarConfiguracion(void) {
 	t_config * config;
 	char * rutaDeConfigs =
@@ -143,353 +171,309 @@ void cargarConfiguracion(void) {
 }
 void detectarDeadLock() {
 	entrenadorPokemon* entrenadorPerdedor;
-		entrenadorPokemon* segundoEntrenador;
-		t_pokemon* pokemonGanador;
-		pthread_mutex_lock(&sem_listaDeEntrenadores);
-		int cantEntrenadores = list_size(listaDeEntrenadores);
-		pthread_mutex_unlock(&sem_listaDeEntrenadores);
-		int pokemonesPorEntrenador[cantEntrenadores][cantDePokenests];
-		int pokemonAAtraparPorEntrenador[cantEntrenadores][cantDePokenests + 1];
-		//int maximosRecursosPorEntrenador[cantEntrenadores][cantDePokenests];
-		int pokemonesDisponibles[cantDePokenests];
-		int i;
-		int j = 0;
-		for (i = 0; i < cantEntrenadores; i++) {
-			entrenadorPokemon* unEntrenador;
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
-			unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
-			valorEntrenador* valor;
-			for (j = 0; j < cantDePokenests; j++) {
-				if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
-						letras[j])) {
-					valor = (valorEntrenador*) dictionary_get(
-							unEntrenador->pokemonesAtrapados, letras[j]);
-					pokemonesPorEntrenador[i][j] = valor->cantidad;
-				} else {
-					pokemonesPorEntrenador[i][j] = 0;
+	entrenadorPokemon* segundoEntrenador;
+	t_pokemon* pokemonGanador;
+	pthread_mutex_lock(&sem_listaDeEntrenadores);
+	int cantEntrenadores = list_size(listaDeEntrenadores);
+	pthread_mutex_unlock(&sem_listaDeEntrenadores);
+	//int pokemonesDisponibles[cantDePokenests];
+	int pokemonesPorEntrenador[cantEntrenadores][cantDePokenests];
+	int pokemonAAtraparPorEntrenador[cantEntrenadores][cantDePokenests + 1];
+	//int maximosRecursosPorEntrenador[cantEntrenadores][cantDePokenests];
 
-				}
-				if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
-					pokemonAAtraparPorEntrenador[i][j] = 1;
-				else
-					pokemonAAtraparPorEntrenador[i][j] = 0;
+	int i;
+	int j = 0;
+	for (i = 0; i < cantEntrenadores; i++) {
+		entrenadorPokemon* unEntrenador;
+		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
+		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		valorEntrenador* valor;
+		for (j = 0; j < cantDePokenests; j++) {
+			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
+					letras[j])) {
+				valor = (valorEntrenador*) dictionary_get(
+						unEntrenador->pokemonesAtrapados, letras[j]);
+				pokemonesPorEntrenador[i][j] = valor->cantidad;
+			} else {
+				pokemonesPorEntrenador[i][j] = 0;
 
 			}
+			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
+				pokemonAAtraparPorEntrenador[i][j] = 1;
+			else
+				pokemonAAtraparPorEntrenador[i][j] = 0;
 
 		}
-		/*for (i = 0; i < cantEntrenadores; i++) {
-			for (j = 0; j < cantDePokenests; j++) {
-				maximosRecursosPorEntrenador[i][j] =
-						pokemonAAtraparPorEntrenador[i][j]
-								+ pokemonesPorEntrenador[i][j];
-			}
-		}*/
+
+	}
+
+	/*void cargarMatrizDisponibles() {
 		for (j = 0; j < cantDePokenests; j++) {
 
-		 if (dictionary_has_key(configuracion.diccionarioDePokeparadas,
-		 letras[j])) {
-		 pokenest * unaPokenest;
-		 pthread_mutex_lock(&sem_config);
-		 unaPokenest = (pokenest*) dictionary_get(
-		 configuracion.diccionarioDePokeparadas, letras[j]);
-		 pthread_mutex_unlock(&sem_config);
-		 pokemonesDisponibles[j] = unaPokenest->cantidad;
-		 } else {
-		 pokemonesDisponibles[j] = 0;
-		 }
-		 }
-
-	//	pokemonesDisponibles[0] = 0;
-		//pokemonesDisponibles[1] = 1;
-
-		////////
-		void imprimirMatrizAsignacion(
-				int asignacion[cantEntrenadores][cantDePokenests]) {
-			log_trace(log, "MATRIZ DE ASIGNACION");
-			for (i = 0; i < cantEntrenadores; i++) {
-				for (j = 0; j < cantDePokenests; j++) {
-					printf("%d \t", asignacion[i][j]);
-				}
-				printf("\n");
+			if (dictionary_has_key(configuracion.diccionarioDePokeparadas,
+					letras[j])) {
+				pokenest * unaPokenest;
+				pthread_mutex_lock(&sem_config);
+				unaPokenest = (pokenest*) dictionary_get(
+						configuracion.diccionarioDePokeparadas, letras[j]);
+				pthread_mutex_unlock(&sem_config);
+				pokemonesDisponibles[j] = unaPokenest->cantidad;
+			} else {
+				pokemonesDisponibles[j] = 0;
 			}
 		}
-		void imprimirMatrizNecesidad(
-				int necesidad[cantEntrenadores][cantDePokenests + 1]) {
-			log_trace(log, "MATRIZ DE NECESIDAD");
-			for (i = 0; i < cantEntrenadores; i++) {
-				for (j = 0; j < cantDePokenests; j++) {
-					printf("%d \t", necesidad[i][j]);
-				}
-				printf("\n");
-			}
-		}
-		/*void imprimirMatrizMaximo(int maximos[cantEntrenadores][cantDePokenests]) {
-			log_trace(log, "MATRIZ DE MAXIMO");
-			for (i = 0; i < cantEntrenadores; i++) {
-				for (j = 0; j < cantDePokenests; j++) {
-					printf("%d \t", maximos[i][j]);
-				}
-				printf("\n");
-			}
-		}*/
-		void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
-			log_trace(log, "MATRIZ DE DISPONIBLES");
+	}*/
+
+	cargarMatrizDisponibles();
+
+	////////
+	void imprimirMatrizAsignacion(
+			int asignacion[cantEntrenadores][cantDePokenests]) {
+		log_trace(log, "MATRIZ DE ASIGNACION");
+		for (i = 0; i < cantEntrenadores; i++) {
 			for (j = 0; j < cantDePokenests; j++) {
-				printf("%d \t", disponibles[j]);
+				printf("%d \t", asignacion[i][j]);
 			}
 			printf("\n");
 		}
-		////////////////////////////////////////////////////////////////////////
-		imprimirMatrizDisponibles(pokemonesDisponibles);
-		imprimirMatrizAsignacion(pokemonesPorEntrenador);
-		imprimirMatrizNecesidad(pokemonAAtraparPorEntrenador);
-		//imprimirMatrizMaximo(maximosRecursosPorEntrenador);
-		////
-		bool puedoRestar(int disponibles[cantDePokenests],
-				int necesidad[cantDePokenests]) {
-			int resultado[cantDePokenests];
+	}
+	void imprimirMatrizNecesidad(
+			int necesidad[cantEntrenadores][cantDePokenests + 1]) {
+		log_trace(log, "MATRIZ DE NECESIDAD");
+		for (i = 0; i < cantEntrenadores; i++) {
 			for (j = 0; j < cantDePokenests; j++) {
-				if (disponibles[j] >= necesidad[j])
-					resultado[i] = disponibles[j] - necesidad[j];
-				else {
-					return false;
-				}
+				printf("%d \t", necesidad[i][j]);
 			}
-			return true;
-
+			printf("\n");
 		}
-		//////
+	}
 
-		t_pokemon* obtenerPokemonMasFuerte(entrenadorPokemon* unEntrenador) {
-			int mayorNivel;
-			int nivel1;
-			int nivel2;
-			valorEntrenador* valorE;
-			valorEntrenador* valorE2;
-			if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
-				valorE = (valorEntrenador*) dictionary_get(
-						unEntrenador->pokemonesAtrapados, letras[0]);
-				nivel1 = valorE->nivel;
+	/*void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
+		log_trace(log, "MATRIZ DE DISPONIBLES");
+		for (j = 0; j < cantDePokenests; j++) {
+			printf("%d \t", disponibles[j]);
+		}
+		printf("\n");
+	}*/
+	////////////////////////////////////////////////////////////////////////
+	imprimirMatrizDisponibles(pokemonesDisponibles);
+	imprimirMatrizAsignacion(pokemonesPorEntrenador);
+	imprimirMatrizNecesidad(pokemonAAtraparPorEntrenador);
+
+	bool puedoRestar(int disponibles[cantDePokenests],
+			int necesidad[cantDePokenests]) {
+		int resultado[cantDePokenests];
+		for (j = 0; j < cantDePokenests; j++) {
+			if (disponibles[j] >= necesidad[j])
+				resultado[i] = disponibles[j] - necesidad[j];
+			else {
+				return false;
+			}
+		}
+		return true;
+
+	}
+	//////
+
+	t_pokemon* obtenerPokemonMasFuerte(entrenadorPokemon* unEntrenador) {
+		int mayorNivel;
+		int nivel1;
+		int nivel2;
+		valorEntrenador* valorE;
+		valorEntrenador* valorE2;
+		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
+			valorE = (valorEntrenador*) dictionary_get(
+					unEntrenador->pokemonesAtrapados, letras[0]);
+			nivel1 = valorE->nivel;
+		} else
+			nivel1 = -1;
+		char* letraMayorNivel;
+		mayorNivel = nivel1;
+		for (i = 1; i < cantDePokenests; i++) {
+			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
+					letras[i])) {
+				valorE2 = (valorEntrenador*) dictionary_get(
+						unEntrenador->pokemonesAtrapados, letras[i]);
+				nivel2 = valorE2->nivel;
 			} else
-				nivel1 = -1;
-			char* letraMayorNivel;
-			mayorNivel = nivel1;
-			for (i = 1; i < cantDePokenests; i++) {
-				if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
-						letras[i])) {
-					valorE2 = (valorEntrenador*) dictionary_get(
-							unEntrenador->pokemonesAtrapados, letras[i]);
-					nivel2 = valorE2->nivel;
-				} else
-					nivel2 = -1;
-				if (mayorNivel > nivel2) {
-					letraMayorNivel = letras[i - 1];
-					mayorNivel = nivel1;
-				} else {
-					letraMayorNivel = letras[i];
-					mayorNivel = nivel2;
-				}
+				nivel2 = -1;
+			if (mayorNivel > nivel2) {
+				letraMayorNivel = letras[i - 1];
+				mayorNivel = nivel1;
+			} else {
+				letraMayorNivel = letras[i];
+				mayorNivel = nivel2;
 			}
-			pokenest * nuevaPokenest;
-			pthread_mutex_lock(&sem_config);
-			nuevaPokenest = (pokenest*) dictionary_get(
-					configuracion.diccionarioDePokeparadas, letraMayorNivel);
-			pthread_mutex_unlock(&sem_config);
-			t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
-			fabricaPokemon = create_pkmn_factory();
-			return (create_pokemon(fabricaPokemon, nuevaPokenest->nombreDelPokemon,
-					mayorNivel));
 		}
-		bool unEntrenadorTienePokemon(entrenadorPokemon* unEntrenador,
-				t_pokemon* unPokemon) {
-			char * nombre = unPokemon->species;
-			char ** posiciones = string_split(nombre, "");
-			char* letraInicial = posiciones[0];
-			if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letraInicial))
-				return true;
-			return false;
-		}
+		pokenest * nuevaPokenest;
+		pthread_mutex_lock(&sem_config);
+		nuevaPokenest = (pokenest*) dictionary_get(
+				configuracion.diccionarioDePokeparadas, letraMayorNivel);
+		pthread_mutex_unlock(&sem_config);
+		t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
+		fabricaPokemon = create_pkmn_factory();
+		return (create_pokemon(fabricaPokemon, nuevaPokenest->nombreDelPokemon,
+				mayorNivel));
+	}
+	bool unEntrenadorTienePokemon(entrenadorPokemon* unEntrenador,
+			t_pokemon* unPokemon) {
+		char * nombre = unPokemon->species;
+		char ** posiciones = string_split(nombre, "");
+		char* letraInicial = posiciones[0];
+		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letraInicial))
+			return true;
+		return false;
+	}
 
-		entrenadorPokemon* lucharEntreDosEntrenadoresYObtenerPerdedor(
-				entrenadorPokemon* unEntrenador, entrenadorPokemon* otroEntrenador) {
+	entrenadorPokemon* lucharEntreDosEntrenadoresYObtenerPerdedor(
+			entrenadorPokemon* unEntrenador, entrenadorPokemon* otroEntrenador) {
 
-			t_pokemon* pokemonGanador;
-			t_pokemon* pokemonAPelear1;
-			pokemonAPelear1 = (t_pokemon*) obtenerPokemonMasFuerte(unEntrenador);
-			t_pokemon* pokemonAPelear2;
-			pokemonAPelear2 = (t_pokemon*) obtenerPokemonMasFuerte(otroEntrenador);
-			pokemonGanador = (t_pokemon*) pkmn_battle(pokemonAPelear1,
-					pokemonAPelear2);
-			if (unEntrenadorTienePokemon(unEntrenador, pokemonGanador))
-				return unEntrenador;
-			else
-				return otroEntrenador;
+		t_pokemon* pokemonGanador;
+		t_pokemon* pokemonAPelear1;
+		pokemonAPelear1 = (t_pokemon*) obtenerPokemonMasFuerte(unEntrenador);
+		t_pokemon* pokemonAPelear2;
+		pokemonAPelear2 = (t_pokemon*) obtenerPokemonMasFuerte(otroEntrenador);
+		pokemonGanador = (t_pokemon*) pkmn_battle(pokemonAPelear1,
+				pokemonAPelear2);
+		if (unEntrenadorTienePokemon(unEntrenador, pokemonGanador))
+			return unEntrenador;
+		else
+			return otroEntrenador;
 
-		}
+	}
 
-		void recorrerListaDeEntrenadoresYPelear(int cantBloqueados) {
-
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
-			if (pokemonAAtraparPorEntrenador[0][cantDePokenests] == -1)
-				entrenadorPerdedor = (entrenadorPokemon*) list_get(
-						listaDeEntrenadores, 0);
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
-			int l;
-			for (l = 1; l < cantBloqueados; l++) {
+	entrenadorPokemon* recorrerListaDeEntrenadoresYPelear(int cantBloqueados) {
+		int i = -1;
+		do {
+			i++;
+		} while (pokemonAAtraparPorEntrenador[i][cantDePokenests] != -1);
+		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		entrenadorPerdedor = (entrenadorPokemon*) list_get(listaDeEntrenadores,
+				i);
+		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		int l;
+		for (l = i + 1; l < cantBloqueados; l++) {
+			if (pokemonAAtraparPorEntrenador[l][cantDePokenests] == -1) {
 				pthread_mutex_lock(&sem_listaDeEntrenadores);
-				if (pokemonAAtraparPorEntrenador[l][cantDePokenests] == -1)
-					segundoEntrenador = (entrenadorPokemon*) list_get(
-							listaDeEntrenadores, l);
+				segundoEntrenador = (entrenadorPokemon*) list_get(
+						listaDeEntrenadores, l);
 				pthread_mutex_unlock(&sem_listaDeEntrenadores);
 				entrenadorPerdedor = lucharEntreDosEntrenadoresYObtenerPerdedor(
 						entrenadorPerdedor, segundoEntrenador);
 			}
-			log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c",
-					entrenadorPerdedor->simbolo);
-			return;
 		}
-		bool noTienePokemonesAsignados(int filaDeAsignados[cantDePokenests])
-		{
-			int contador;
-			int i;
-			for(i=0;i<cantDePokenests;i++)
-			{
-				if(filaDeAsignados[i] ==0)
-					contador++;
-			}
-			return(contador == cantDePokenests);
-		}
-		int k;
-		int noPudoAnalizar = 0;
-		int pudoAnalizar = 0;
-		int w;
-		int o;
-		int filaDeNecesidad[cantDePokenests];
-		int filaDeAsignados[cantDePokenests];
+		log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c",
+				entrenadorPerdedor->simbolo);
+		log_trace(log, "EL ENTRENADOR %c MORIRA", entrenadorPerdedor->simbolo);
+		close(entrenadorPerdedor->socket);
+		return entrenadorPerdedor;
+	}
+
+	void imprimirEntrenadoresNoEnDeadLock() {
+		int i;
 		for (i = 0; i < cantEntrenadores; i++) {
+			pthread_mutex_lock(&listaDeEntrenadores);
+			entrenadorPokemon* unEntrenador = (entrenadorPokemon*) list_get(
+					listaDeEntrenadores, i);
+			pthread_mutex_unlock(&listaDeEntrenadores);
+			if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == 0)
+				log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
+		}
+	}
+	bool noTienePokemonesAsignados(int filaDeAsignados[cantDePokenests]) {
+		int contador = 0;
+		int i;
+		for (i = 0; i < cantDePokenests; i++) {
+			if (filaDeAsignados[i] == 0)
+				contador++;
+		}
+		return (contador == cantDePokenests);
+	}
+	int k;
+	int noPudoAnalizar = 0;
+	int pudoAnalizar = 0;
+	int w;
+	int o;
+	int filaDeNecesidad[cantDePokenests];
+	int filaDeAsignados[cantDePokenests];
+	for (i = 0; i < cantEntrenadores; i++) {
+		pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
+	}
+	for (i = 0; i < cantEntrenadores; i++) {
+		if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == -1) {
 			for (w = 0; w < cantDePokenests; w++) {
 				filaDeNecesidad[w] = pokemonAAtraparPorEntrenador[i][w];
 				filaDeAsignados[w] = pokemonesPorEntrenador[i][w];
 			}
-			if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
-				pudoAnalizar++;
-				for (j = 0; j < cantDePokenests; j++) {
-					pokemonesDisponibles[j] += pokemonesPorEntrenador[i][j];
-				}
+			if (noTienePokemonesAsignados(filaDeAsignados)) {
 				pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
+				i = 0;
 			} else {
-				if(noTienePokemonesAsignados(filaDeAsignados))
+				if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
+					pudoAnalizar++;
+					for (j = 0; j < cantDePokenests; j++) {
+						pokemonesDisponibles[j] += pokemonesPorEntrenador[i][j];
+					}
 					pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
-				pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
-				noPudoAnalizar++;
+					i = 0;
+				} else {
+					pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
+					noPudoAnalizar++;
+				}
 			}
+		}
+	}
+
+	if (noPudoAnalizar == cantEntrenadores) {
+		log_trace(log,
+				"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON");
+		entrenadorPokemon* unEntrenador;
+		for (i = 0; i < cantEntrenadores; i++) {
+			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores,
+					i);
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+			log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
 
 		}
 
-		if (noPudoAnalizar == cantEntrenadores) {
-			log_trace(log,
-					"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON");
-			entrenadorPokemon* unEntrenador;
-			for (i = 0; i < cantEntrenadores; i++) {
-				pthread_mutex_lock(&sem_listaDeEntrenadores);
-				unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores,
-						i);
-				pthread_mutex_unlock(&sem_listaDeEntrenadores);
-				log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
-
-			}
-
-			recorrerListaDeEntrenadoresYPelear(cantEntrenadores);
-			return;
-		}
+		recorrerListaDeEntrenadoresYPelear(cantEntrenadores);
+		return;
+	} else {
 		if (pudoAnalizar == cantEntrenadores) {
 			log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 			return;
-		}
-		int noPaso = 0;
-		int yaEvaluada = 0;
-		do {
-			noPaso = 0;
-			yaEvaluada = 0;
-			for (i = 0; i < cantEntrenadores; i++) {
-				int filaDeNecesidad[cantDePokenests];
-				if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == -1) {
-					for (w = 0; w < cantDePokenests; w++) {
-						filaDeNecesidad[w] = pokemonAAtraparPorEntrenador[i][w];
-					}
-					pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
-					if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
-						for (k = 0; k < cantDePokenests; k++) {
-							pokemonesDisponibles[k] +=
-									pokemonesPorEntrenador[i][k];
-						}
-
-						pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
-					} else {
-						pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
-						noPaso++;
-					}
-					yaEvaluada++;
-				}
-			}
-		} while (yaEvaluada != noPaso && noPaso != 1);
-		if (yaEvaluada == noPaso && noPaso == 0)
-			log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
-		if (yaEvaluada == noPaso && noPaso != 1 && noPaso != 0) {
-
-			int cantidadDeBloqueados = 0;
-			entrenadorPokemon* unEntrenador;
-			log_trace(log,
-					"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON");
-			for (i = 0; i < cantEntrenadores; i++) {
-				if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == -1) {
-					unEntrenador = (entrenadorPokemon*) list_get(
-							listaDeEntrenadores, i);
-					cantidadDeBloqueados++;
-					log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
-				}
-			}
-
-			recorrerListaDeEntrenadoresYPelear(cantidadDeBloqueados);
-
 		} else {
-			if (noPaso == 1) {
+			if (noPudoAnalizar == 1) {
+				log_trace(log,
+						"ERROR, NO PUEDE HABER SOLO UN ENTRENADOR EN DEADLOCK");
+				return;
+			} else {
 				int cantidadDeBloqueados = 0;
+				entrenadorPokemon* unEntrenador;
+				log_trace(log,
+						"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON");
 				for (i = 0; i < cantEntrenadores; i++) {
-					int filaDeNecesidad[cantDePokenests];
-					if (pokemonAAtraparPorEntrenador[i][cantDePokenests] == -1) {
-						for (w = 0; w < cantDePokenests; w++) {
-							filaDeNecesidad[w] = pokemonAAtraparPorEntrenador[i][w];
-						}
-						if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
-							log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
-							return;
-						} else {
-							entrenadorPokemon* unEntrenador;
-							log_trace(log,
-									"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON");
-
-							for (i = 0; i < cantEntrenadores; i++) {
-								if (pokemonAAtraparPorEntrenador[i][cantDePokenests]
-										== -1) {
-									cantidadDeBloqueados++;
-									unEntrenador = (entrenadorPokemon*) list_get(
-											listaDeEntrenadores, i);
-									log_trace(log, "ENTRENADOR %c",
-											unEntrenador->simbolo);
-
-								}
-							}
-							recorrerListaDeEntrenadoresYPelear(
-									cantidadDeBloqueados);
-						}
+					if (pokemonAAtraparPorEntrenador[i][cantDePokenests]
+							== -1) {
+						unEntrenador = (entrenadorPokemon*) list_get(
+								listaDeEntrenadoresBloqueados, i);
+						cantidadDeBloqueados++;
+						log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
 					}
 				}
+
+				log_trace(log, "LOS ENTRENADORES QUE NO ESTAN EN DEADLOCK SON");
+				imprimirEntrenadoresNoEnDeadLock();
+				entrenadorPokemon* entrenadorPerdedor =
+						(entrenadorPokemon*) recorrerListaDeEntrenadoresYPelear(
+								cantEntrenadores);
 			}
 		}
-		return;
 	}
+	return;
+}
 
 void atenderDeadLock(void) {
 	while (1) {
@@ -516,6 +500,68 @@ posicionMapa posicionDeUnaPokeNestSegunNombre(char pokeNest) {
 int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) {
 	return abs(posicion1.posicionx - posicion2.posicionx)
 			+ abs(posicion1.posiciony - posicion2.posiciony);
+}
+void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
+	bool tieneEntrenador(entrenadorPokemon* entrenador) {
+		return (unEntrenador->socket == entrenador->socket);
+	}
+	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+	if (list_any_satisfy(listaDeEntrenadoresBloqueados, tieneEntrenador)) {
+		list_remove_by_condition(listaDeEntrenadoresBloqueados,
+				tieneEntrenador);
+	}
+	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+	pthread_mutex_lock(&sem_config);
+	pokenest* unaPoke = (pokenest*) dictionary_get(
+			configuracion.diccionarioDePokeparadas,
+			unEntrenador->proximoPokemon);
+	pthread_mutex_unlock(&sem_config);
+	if (unaPoke->cantidad > 0) {
+		log_trace(log,
+				"EL SISTEMA LE ENTREGA AL ENTRENADOR %c EL POKEMON SOLICITADO",
+				unEntrenador->simbolo);
+		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
+				unEntrenador->proximoPokemon)) {
+			valorEntrenador* unValor = (valorEntrenador*) dictionary_get(
+					unEntrenador->pokemonesAtrapados,
+					unEntrenador->proximoPokemon);
+			unValor->cantidad += 1;
+			dictionary_real_put(unEntrenador->pokemonesAtrapados,
+					(void*) unValor);
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		} else {
+			valorEntrenador* valor = malloc(sizeof(valorEntrenador));
+			valor->cantidad = 1;
+			valor->nivel = unaPoke->nivelDelPokemon;
+			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			dictionary_put(unEntrenador->pokemonesAtrapados,
+					unEntrenador->proximoPokemon, (void*) valor);
+			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		}
+		unaPoke->cantidad -= 1;
+		pthread_mutex_lock(&sem_config);
+		dictionary_real_put(configuracion.diccionarioDePokeparadas,
+				unEntrenador->proximoPokemon, (void*) unaPoke);
+		pthread_mutex_unlock(&sem_config);
+	} else {
+		log_trace(log,
+				"EL SISTEMA NO TIENE EL RECURSO PEDIDO POR EL ENTRENADOR %c",
+				unEntrenador->simbolo);
+		log_trace(log, "SE AGREGA AL ENTRENADOR %c A LA LISTA DE BLOQUEADOS",
+				unEntrenador->simbolo);
+		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+		list_add(listaDeEntrenadoresBloqueados, (void*) unEntrenador);
+		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+
+	}
+
+}
+void abastecerAEntrenadoresBloqueados() {
+
+	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+	list_iterate(listaDeEntrenadoresBloqueados, abastecerEntrenador);
+	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 }
 void realizarAccion(entrenadorPokemon * unEntrenador) {
 	mensaje_MAPA_ENTRENADOR mensaje;
@@ -547,9 +593,8 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 		break;
 	case ATRAPAR:
-		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-		list_add(listaDeEntrenadoresBloqueados, unEntrenador);
-		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+		abastecerEntrenador(unEntrenador);
+
 		bool tieneElMismoSocket(void *data) {
 			entrenadorPokemon * unE = (entrenadorPokemon*) data;
 			return unE->socket == unEntrenador->socket;
@@ -647,18 +692,60 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		} else {
 			unEntrenador->tiempo = clock();
 			list_add(listaDeReady, unEntrenador);
-			if (ID==NULL) {
+			if (ID == NULL) {
 				sem_post(&semaphore_listos);
 			}
 		}
 		free(mensaje);
 	}
 }
+void librerarLosPokemonesAtrapadosAlPerderOMorir(int socket) {
+	bool tieneElMismoSocket(void* data, int socket) {
+		entrenadorPokemon* unEntrenador = (entrenadorPokemon*) data;
+		return (unEntrenador->socket == socket);
+	}
+	pthread_mutex_lock(&sem_listaDeEntrenadores);
+	entrenadorPokemon * entrenador = list_find(listaDeEntrenadores,
+			tieneElMismoSocket);
+	pthread_mutex_unlock(&sem_listaDeEntrenadores);
+	int i;
+	for (i = 0; i < cantDePokenests; i++) {
+		if (dictionary_has_key(entrenador->pokemonesAtrapados, letras[i])) {
+			valorEntrenador* valor = (valorEntrenador*) dictionary_get(
+					entrenador->pokemonesAtrapados, letras[i]);
+			pthread_mutex_lock(&sem_config);
+			pokenest* unaPoke = (pokenest*) dictionary_get(
+					configuracion.diccionarioDePokeparadas, letras[i]);
+			unaPoke->cantidad += valor->cantidad;
+			dictionary_real_put(configuracion.diccionarioDePokeparadas,
+					letras[i], (void*) unaPoke);
+			pthread_mutex_unlock(&sem_config);
+		}
+	}
+	log_trace(log, "LOS POKEMONES DEL ENTRENADOR %c FUERON LIBERADOS", entrenador->simbolo);
+	log_trace(log, "LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON");
+	cargarMatrizDisponibles();
+	imprimirMatrizDisponibles(pokemonesDisponibles);
+
+}
+void removerEntrenadoresPorSocket(int socket) {
+	bool tieneElMismoSocket(void* data, int socket) {
+		entrenadorPokemon* unEntrenador = (entrenadorPokemon*) data;
+		return (unEntrenador->socket == socket);
+	}
+	list_remove_by_condition(listaDeEntrenadores, tieneElMismoSocket);
+}
 int recibirMensajesEntrenadores(int socket) {
 	mensaje_ENTRENADOR_MAPA * mensaje;
 	if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(socket)) == NULL) {
+		librerarLosPokemonesAtrapadosAlPerderOMorir(socket);
+		abastecerAEntrenadoresBloqueados();
+		log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
+		log_trace(log, "LOS POKEMONES DISPONIBLES QUEDARON");
+		cargarMatrizDisponibles();
+		imprimirMatrizDisponibles(pokemonesDisponibles);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-// list_remove_by_condition(listaDeEntrenadoresBloqueados,/*entrenador->socket == socket*/); TODO
+		removerEntrenadoresPorSocket(socket);
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 // LIST REMOVE AND DESTROY BY CONDITION TODO
