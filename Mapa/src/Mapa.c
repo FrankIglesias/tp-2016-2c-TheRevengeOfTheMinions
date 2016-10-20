@@ -201,7 +201,7 @@ void detectarDeadLock() {
 			}
 			/*if(unEntrenador->accionARealizar != ATRAPAR)
 			{
-				pokemonAAtraparPorEntrenador[i][j] = 0;
+				pokemonAAtraparPorEntrenador[i][j] = 0;   // FALTA CHEQUEAR POR QUE NO LO TOMA
 			}*/
 			//else
 			//{
