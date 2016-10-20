@@ -749,7 +749,7 @@ int recibirMensajesEntrenadores(int socket) {
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 // LIST REMOVE AND DESTROY BY CONDITION TODO
-// IF EJECUTANDOID == entrenador->simbolo TODO
+//  IF EJECUTANDOID == entrenador->simbolo TODO
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		return -1;
 	} else {
