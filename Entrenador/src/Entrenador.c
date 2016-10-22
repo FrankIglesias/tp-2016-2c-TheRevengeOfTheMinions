@@ -221,11 +221,34 @@ void levantarHojaDeViaje() {
 }
 
 void iniciarDatos(char * nombreEntrenador) {
-	log = log_create("Log",nombreEntrenador, 1, 0);
+	log = log_create("Log", nombreEntrenador, 1, 0);
 	configuracion =
-			config_create(string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/metadata.txt",nombreEntrenador));
+			config_create(
+					string_from_format(
+							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/metadata.txt",
+							nombreEntrenador));
 }
+
+void actualizarPosicion(instruccion_t protocolo) {
+	switch (protocolo) {
+	case MOVE_DOWN:
+		posicionActual.posiciony--;
+		break;
+	case MOVE_UP:
+		posicionActual.posiciony++;
+		break;
+	case MOVE_LEFT:
+		posicionActual.posicionx--;
+		break;
+	case MOVE_RIGHT:
+		posicionActual.posicionx++;
+		break;
+	default:
+		log_trace(log, "La estamos pifiando");
+		break;
+	}
+}
+
 void jugar(void) {
 	pokemonesAtrapados = 0;
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
@@ -256,9 +279,10 @@ void jugar(void) {
 
 		for (pokemonesAtrapados = 0; pokemonesAtrapados < cantidadDePokemones;
 				pokemonesAtrapados++) {
-			log_trace(log,"MAPA: %s POKEMON: %c",unObjetivo->nombreDelMapa,(char)list_get(unObjetivo
-					->pokemones,0));
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
+			mensajeAEnviar.simbolo = (char) list_get(unObjetivo->pokemones, 0);
+			log_trace(log, "MAPA: %s POKEMON: %c", unObjetivo->nombreDelMapa,
+					mensajeAEnviar.simbolo);
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 					(void *) &mensajeAEnviar);
 			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
@@ -268,9 +292,14 @@ void jugar(void) {
 			posicionDeLaPokeNest.posiciony =
 					mensajeARecibir->posicion.posiciony;
 			free(mensajeARecibir);
+			log_trace(log, "La posicion del pokemon a atrapar es: %d || %d",
+					posicionDeLaPokeNest.posicionx,
+					posicionDeLaPokeNest.posiciony);
 			bool pokemonNoAtrapado = true;
 			while (pokemonNoAtrapado) {
 				mensajeAEnviar.protocolo = moverPosicion();
+				log_trace(log, "Se va a mover hacia %s",
+						mostrarProtocolo(mensajeAEnviar.protocolo));
 				enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 						(void *) &mensajeAEnviar);
 				mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
@@ -279,23 +308,7 @@ void jugar(void) {
 					pokemonNoAtrapado = false;
 				}
 				if (mensajeARecibir->protocolo == OK) {
-					switch (mensajeAEnviar.protocolo) {
-					case MOVE_DOWN:
-						posicionActual.posiciony--;
-						break;
-					case MOVE_UP:
-						posicionActual.posiciony++;
-						break;
-					case MOVE_LEFT:
-						posicionActual.posicionx--;
-						break;
-					case MOVE_RIGHT:
-						posicionActual.posicionx++;
-						break;
-					default:
-						log_trace(log, "La estamos pifiando");
-						break;
-					}
+					actualizarPosicion(mensajeAEnviar.protocolo);
 				}
 				free(mensajeARecibir);
 			}
