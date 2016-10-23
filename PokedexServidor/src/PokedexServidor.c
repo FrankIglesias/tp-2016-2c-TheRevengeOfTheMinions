@@ -60,7 +60,7 @@ int A;
 int X;
 int F;
 
-int buscar(uint32_t padre, char * nombre, osada_file_state tipo) {
+int buscar(uint16_t padre, char * nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
@@ -168,7 +168,7 @@ int verificarSiExiste(char * path, osada_file_state tipo) {
 	}
 	return buscar(padre, ruta[j], tipo);
 }
-int existeUnoIgual(uint32_t padre, char* nombre, osada_file_state tipo) {
+int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if ((tablaDeArchivos[i].bloquePadre == padre)
@@ -179,7 +179,7 @@ int existeUnoIgual(uint32_t padre, char* nombre, osada_file_state tipo) {
 	}
 	return 0;
 }
-void ingresarEnLaTArchivos(uint32_t padre, char *nombre, osada_file_state tipo) {
+void ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (tablaDeArchivos[i].estado == BORRADO) {
@@ -329,7 +329,7 @@ int crearDir(char * path) {
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
-	uint32_t padre = -1;
+	uint16_t padre = -1;
 	if (path != "/" && (ruta[i + 1])) {
 		while (ruta[i + 1]) {
 			for (j = 0; j < 2048; ++j) {
@@ -412,18 +412,14 @@ char * readAttr(char *path, int *var) {
 	}
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
-				&& (archivoDirectorio(i)
-						&& (tablaDeArchivos[i].bloqueInicial
-								!= tablaDeArchivos[file].bloqueInicial)))
+				&& (archivoDirectorio(i) && (i != file)))
 			aux++;
 	}
 	lista = malloc(aux * 17);
 	aux = 0;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
-				&& (archivoDirectorio(i)
-						&& (tablaDeArchivos[i].bloqueInicial
-								!= tablaDeArchivos[file].bloqueInicial))) {
+				&& (archivoDirectorio(i) && (i != file))) {
 			memcpy(lista + (aux * 17), tablaDeArchivos[i].nombreArchivo, 17);
 			aux++;
 		}
@@ -437,7 +433,7 @@ int getAttr(char *path) {
 	int j = 0;
 	int file;
 	char ** ruta = string_split(path, "/");
-	uint32_t padre = -1;
+	uint16_t padre = -1;
 	while (ruta[j + 1]) {
 		file = buscar(padre, ruta[j], DIRECTORIO);
 		if (file == -1)
@@ -610,9 +606,12 @@ void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre)
 }
 void mostrarTablaDeArchivos() {
 	int i;
+	log_trace(log, "%s|%s|%s|%s|%s","Num" ,
+				"nombre","tipo","padre","inicial");
+}
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
-			log_trace(log, "%d . %s . %s . %d . %d", i,
+			log_trace(log, "%d|%s|%s|%d|%d", i,
 					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i),
 					tablaDeArchivos[i].bloquePadre,
 					tablaDeArchivos[i].bloqueInicial);
