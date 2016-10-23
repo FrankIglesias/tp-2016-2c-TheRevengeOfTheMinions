@@ -124,7 +124,7 @@ char * obtenerNombreDelPokemon(char * ruta) {
 	return separados[8];
 }
 char * charToString(char letra) {
-	char string[2];
+	char * string = malloc(2);
 	string[0] = letra;
 	string[1] = '\0';
 	return string;
@@ -152,7 +152,6 @@ void funcionArchivosPokenest(char * ruta) {
 		pokenest * unaPokenest = (pokenest *) dictionary_get(
 				configuracion.diccionarioDePokeparadas, letra_a_buscar);
 		list_add_in_index(unaPokenest->listaDePokemones, 0, nuevoPokemon);
-		config_destroy(config);
 		log_trace(log, "Pokemon nombre %s, nivel: %d",
 				nuevoPokemon->nombreDelFichero, nuevoPokemon->nivel);
 		sumarRecurso(items, letra_a_buscar[0]);
@@ -185,10 +184,9 @@ void funcionDirectoriosPokenest(char * ruta) {
 	pokemonesDisponibles = (int *) realloc(pokemonesDisponibles,
 			sizeof(int) * cantDePokenests);
 	dictionary_put(configuracion.diccionarioDePokeparadas,
-			charToString(nuevaPokenest->id), (void *) nuevaPokenest);
+			charToString(nuevaPokenest->id), nuevaPokenest);
 	CrearCaja(items, nuevaPokenest->id, nuevaPokenest->posicion.posicionx,
 			nuevaPokenest->posicion.posiciony, 0);
-	config_destroy(config);
 }
 void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
@@ -591,20 +589,9 @@ int distanciaEntreDosPosiciones(posicionMapa posicion1, posicionMapa posicion2) 
 			+ abs(posicion1.posiciony - posicion2.posiciony);
 }
 void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
-	bool tieneEntrenador(entrenadorPokemon* entrenador) {
-		return (unEntrenador->socket == entrenador->socket);
-	}
-	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-	if (list_any_satisfy(listaDeEntrenadoresBloqueados, tieneEntrenador)) {
-		list_remove_by_condition(listaDeEntrenadoresBloqueados,
-				tieneEntrenador);
-	}
-	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
-	pthread_mutex_lock(&sem_config);
 	pokenest* unaPoke = (pokenest*) dictionary_get(
 			configuracion.diccionarioDePokeparadas,
-			unEntrenador->proximoPokemon);
-	pthread_mutex_unlock(&sem_config);
+			charToString(unEntrenador->proximoPokemon));
 	if (list_size(unaPoke->listaDePokemones) > 0) {
 		log_trace(log,
 				"EL SISTEMA LE ENTREGA AL ENTRENADOR %c EL POKEMON SOLICITADO",
@@ -614,7 +601,7 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 				unEntrenador->proximoPokemon)) {
 			pokemon* unValor = (pokemon*) dictionary_get(
 					unEntrenador->pokemonesAtrapados,
-					unEntrenador->proximoPokemon);
+					charToString(unEntrenador->proximoPokemon));
 			unValor->cantidad += 1;
 			dictionary_real_put(unEntrenador->pokemonesAtrapados,
 					(void*) unValor);
@@ -684,13 +671,19 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 		break;
 	case ATRAPAR:
-		abastecerEntrenador(unEntrenador);
+		pokenest * pokenestASolicitar = (pokenest *) dictionary_get(
+				configuracion.diccionarioDePokeparadas,
+				charToString(unEntrenador->proximoPokemon));
+		if (list_size(pokenestASolicitar->listaDePokemones) > 0) {
+			mensaje.protocolo = OK;
+		}
+
 		pthread_mutex_lock(&sem_listaDeReady);
 		bool tieneElMismoSocket(void *data) {
 			entrenadorPokemon * unE = (entrenadorPokemon*) data;
 			return unE->socket == unEntrenador->socket;
 		}
-		list_remove(listaDeReady, tieneElMismoSocket);
+		list_remove_by_condition(listaDeReady, tieneElMismoSocket);
 		pthread_mutex_unlock(&sem_listaDeReady);
 		quantum = 0;
 		break;
@@ -898,12 +891,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-//	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-//	nivel_gui_inicializar();
-//	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-//			&configuracion.posicionMaxima.posiciony);
+	nivel_gui_inicializar();
+	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
