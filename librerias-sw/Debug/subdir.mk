@@ -6,7 +6,6 @@
 C_SRCS += \
 ../bitarray.c \
 ../config.c \
-../deadlock.c \
 ../error.c \
 ../log.c \
 ../nivel.c \
@@ -21,7 +20,6 @@ C_SRCS += \
 OBJS += \
 ./bitarray.o \
 ./config.o \
-./deadlock.o \
 ./error.o \
 ./log.o \
 ./nivel.o \
@@ -36,7 +34,6 @@ OBJS += \
 C_DEPS += \
 ./bitarray.d \
 ./config.d \
-./deadlock.d \
 ./error.d \
 ./log.d \
 ./nivel.d \

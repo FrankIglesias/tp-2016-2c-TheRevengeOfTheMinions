@@ -31,12 +31,16 @@
 #include <errno.h>
 
 typedef struct pokenest_t {
-	char * nombreDelPokemon;
-	char * tipo;
+	char * nombrePokemon;
+	char id;
+	t_list * listaDePokemones;
 	posicionMapa posicion;
-	int cantidad;
-	int nivelDelPokemon;
 } pokenest;
+typedef struct pokemon_t {
+	char * nombreDelFichero;
+	int nivel;
+	int cantidad;
+} pokemon;
 typedef struct entrenadorPokemon_t {
 	char simbolo;
 	int socket;
@@ -48,7 +52,6 @@ typedef struct entrenadorPokemon_t {
 } entrenadorPokemon;
 typedef struct config_t {
 	char * nombreDelMapa;
-	char * rutaDelMetadata;
 	int tiempoDeChequeoDeDeadLock;
 	int batalla;
 	char * algoritmo;
@@ -59,10 +62,6 @@ typedef struct config_t {
 	t_dictionary * diccionarioDePokeparadas;
 	posicionMapa posicionMaxima;
 } t_configuracion;
-typedef struct valorDeDiccionarioEntrenador_t {
-	int cantidad;
-	int nivel;
-} valorEntrenador;
 
 pthread_mutex_t sem_listaDeReady;
 pthread_mutex_t sem_ejecutandoID;
@@ -109,7 +108,6 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
-
 			} else if (dit->d_type == 8) {
 				funcionArchivo(aux);
 			}
@@ -123,10 +121,10 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 }
 char * obtenerNombreDelPokemon(char * ruta) {
 	char ** separados = string_split(ruta, "/");
-	return separados[7];
+	return separados[8];
 }
 char * charToString(char letra) {
-	char * string = malloc(2);
+	char string[2];
 	string[0] = letra;
 	string[1] = '\0';
 	return string;
@@ -134,32 +132,71 @@ char * charToString(char letra) {
 bool tienePokemonesAsignados(entrenadorPokemon * unEntrenador) {
 	return (dictionary_size(unEntrenador->pokemonesAtrapados) > 0);
 }
-void cargarPokeNests(char nombre[]) {
-	t_config * config =
-			config_create(
-					string_from_format(
-							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/metadata.txt",
-							configuracion.nombreDelMapa, nombre));
+
+void funcionArchivosPokenest(char * ruta) {
+	char **rutaParseada = string_split(ruta, "/");
+	if (string_ends_with(rutaParseada[8], ".dat")) {
+		t_config * config = config_create(ruta);
+		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
+		nuevoPokemon->nivel = config_get_int_value(config, "Nivel");
+		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[8]);
+		char * letra_a_buscar;
+		void obtenerPokeparada(char * key, void * data) {
+			pokenest * aux = (pokenest *) data;
+			if (strcmp(aux->nombrePokemon, rutaParseada[7]) == 0) {
+				letra_a_buscar = key;
+			}
+		}
+		dictionary_iterator(configuracion.diccionarioDePokeparadas,
+				obtenerPokeparada);
+		pokenest * unaPokenest = (pokenest *) dictionary_get(
+				configuracion.diccionarioDePokeparadas, letra_a_buscar);
+		list_add_in_index(unaPokenest->listaDePokemones, 0, nuevoPokemon);
+		config_destroy(config);
+		log_trace(log, "Pokemon nombre %s, nivel: %d",
+				nuevoPokemon->nombreDelFichero, nuevoPokemon->nivel);
+		sumarRecurso(items, letra_a_buscar[0]);
+	}
+
+}
+void funcionDirectoriosPokenest(char * ruta) {
+	char * rutaAux = string_duplicate(ruta);
+	string_append(&rutaAux, "metadata.txt");
+	t_config * config = config_create(rutaAux);
 	pokenest * nuevaPokenest = malloc(sizeof(pokenest));
-	nuevaPokenest->cantidad = 1;
 	char * string = config_get_string_value(config, "Posicion");
 	char ** posiciones = string_split(string, ";");
-	log_trace(log, "posicion de x %d", atoi(posiciones[0]));
-	log_trace(log, "posicion de y %d", atoi(posiciones[1]));
+	char ** nombrePokenest = string_split(rutaAux, "/");
+	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[7]);
+	log_trace(log, "Nombre de la nueva pokenest %s",
+			nuevaPokenest->nombrePokemon);
 	nuevaPokenest->posicion.posicionx = atoi(posiciones[0]);
 	nuevaPokenest->posicion.posiciony = atoi(posiciones[1]);
-	char * letra = strdup(config_get_string_value(config, "Identificador"));
+	log_trace(log, "Posicion de la pokenest %d ||%d",
+			nuevaPokenest->posicion.posicionx,
+			nuevaPokenest->posicion.posiciony);
+	nuevaPokenest->listaDePokemones = list_create();
+	nuevaPokenest->id =
+			strdup(config_get_string_value(config, "Identificador"))[0];
+	log_trace(log, "Id de la pokenest %c", nuevaPokenest->id);
 	letras[indexLetras] = config_get_string_value(config, "Identificador");
 	cantDePokenests++;
 	indexLetras++;
 	pokemonesDisponibles = (int *) realloc(pokemonesDisponibles,
 			sizeof(int) * cantDePokenests);
-	dictionary_put(configuracion.diccionarioDePokeparadas, letra,
-			(void *) nuevaPokenest);
-
-	CrearCaja(items, letra[0], nuevaPokenest->posicion.posicionx,
-			nuevaPokenest->posicion.posiciony, nuevaPokenest->cantidad);
-	//config_destroy(config);
+	dictionary_put(configuracion.diccionarioDePokeparadas,
+			charToString(nuevaPokenest->id), (void *) nuevaPokenest);
+	CrearCaja(items, nuevaPokenest->id, nuevaPokenest->posicion.posicionx,
+			nuevaPokenest->posicion.posiciony, 0);
+	config_destroy(config);
+}
+void cargarPokeNests(void) {
+	configuracion.diccionarioDePokeparadas = dictionary_create();
+	recorrerDirectorios(
+			string_from_format(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/",
+					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
+			funcionArchivosPokenest);
 }
 void cargarMatrizDisponibles() {
 	int j;
@@ -172,7 +209,7 @@ void cargarMatrizDisponibles() {
 			unaPokenest = (pokenest*) dictionary_get(
 					configuracion.diccionarioDePokeparadas, letras[j]);
 			pthread_mutex_unlock(&sem_config);
-			pokemonesDisponibles[j] = unaPokenest->cantidad;
+			pokemonesDisponibles[j] = list_size(unaPokenest->listaDePokemones);
 		} else {
 			pokemonesDisponibles[j] = 0;
 		}
@@ -214,8 +251,7 @@ void cargarConfiguracion(void) {
 
 	configuracion.puerto = strdup(config_get_string_value(config, "Puerto"));
 	log_trace(log, "Puerto: %s", configuracion.puerto);
-	cargarPokeNests("Charmandercitos"); // HARCODEADO TODO
-	cargarPokeNests("Pikachu"); // HARCODEADO TODO
+	cargarPokeNests();
 
 }
 void detectarDeadLock() {
@@ -237,11 +273,11 @@ void detectarDeadLock() {
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
-		valorEntrenador* valor;
+		pokemon* valor;
 		for (j = 0; j < cantDePokenests; j++) {
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 					letras[j])) {
-				valor = (valorEntrenador*) dictionary_get(
+				valor = (pokemon*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
 				pokemonesPorEntrenador[i][j] = valor->cantidad;
 			} else {
@@ -336,11 +372,11 @@ void detectarDeadLock() {
 		int mayorNivel;
 		int nivel1;
 		int nivel2;
-		valorEntrenador* valorE;
-		valorEntrenador* valorE2;
+		pokemon* valorE;
+		pokemon* valorE2;
 		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
-			valorE = (valorEntrenador*) dictionary_get(
-					unEntrenador->pokemonesAtrapados, letras[0]);
+			valorE = (pokemon*) dictionary_get(unEntrenador->pokemonesAtrapados,
+					letras[0]);
 			nivel1 = valorE->nivel;
 		} else
 			nivel1 = -1;
@@ -349,7 +385,7 @@ void detectarDeadLock() {
 		for (i = 1; i < cantDePokenests; i++) {
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 					letras[i])) {
-				valorE2 = (valorEntrenador*) dictionary_get(
+				valorE2 = (pokemon*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[i]);
 				nivel2 = valorE2->nivel;
 			} else
@@ -369,7 +405,7 @@ void detectarDeadLock() {
 		pthread_mutex_unlock(&sem_config);
 		t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
 		fabricaPokemon = create_pkmn_factory();
-		return (create_pokemon(fabricaPokemon, nuevaPokenest->nombreDelPokemon,
+		return (create_pokemon(fabricaPokemon, nuevaPokenest->nombrePokemon,
 				mayorNivel));
 	}
 	bool unEntrenadorTienePokemon(entrenadorPokemon* unEntrenador,
@@ -569,14 +605,14 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 			configuracion.diccionarioDePokeparadas,
 			unEntrenador->proximoPokemon);
 	pthread_mutex_unlock(&sem_config);
-	if (unaPoke->cantidad > 0) {
+	if (list_size(unaPoke->listaDePokemones) > 0) {
 		log_trace(log,
 				"EL SISTEMA LE ENTREGA AL ENTRENADOR %c EL POKEMON SOLICITADO",
 				unEntrenador->simbolo);
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 				unEntrenador->proximoPokemon)) {
-			valorEntrenador* unValor = (valorEntrenador*) dictionary_get(
+			pokemon* unValor = (pokemon*) dictionary_get(
 					unEntrenador->pokemonesAtrapados,
 					unEntrenador->proximoPokemon);
 			unValor->cantidad += 1;
@@ -584,15 +620,15 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 					(void*) unValor);
 			pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		} else {
-			valorEntrenador* valor = malloc(sizeof(valorEntrenador));
+			pokemon* valor = malloc(sizeof(pokemon));
 			valor->cantidad = 1;
-			valor->nivel = unaPoke->nivelDelPokemon;
+			// valor->nivel = unaPoke->nivel; ACA CAGAMO TODO
 			pthread_mutex_lock(&sem_listaDeEntrenadores);
 			dictionary_put(unEntrenador->pokemonesAtrapados,
 					unEntrenador->proximoPokemon, (void*) valor);
 			pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		}
-		unaPoke->cantidad -= 1;
+		//unaPoke->cantidad -= 1;
 		pthread_mutex_lock(&sem_config);
 		dictionary_real_put(configuracion.diccionarioDePokeparadas,
 				unEntrenador->proximoPokemon, (void*) unaPoke);
@@ -659,12 +695,11 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		quantum = 0;
 		break;
 	}
-		pthread_mutex_lock(&sem_mapas);
-		MoverPersonaje(items, unEntrenador->simbolo,
-				unEntrenador->posicion.posicionx,
-				unEntrenador->posicion.posiciony);
-		actualizarMapa();
-		pthread_mutex_unlock(&sem_mapas);
+	pthread_mutex_lock(&sem_mapas);
+	MoverPersonaje(items, unEntrenador->simbolo,
+			unEntrenador->posicion.posicionx, unEntrenador->posicion.posiciony);
+	actualizarMapa();
+	pthread_mutex_unlock(&sem_mapas);
 
 	quantum--;
 }
@@ -738,7 +773,7 @@ void planificador() {
 				entrenador->tiempo = clock();
 			pthread_mutex_lock(&sem_listaDeReady);
 			replanificar();
-			pthread_mutex_ulock(&sem_listaDeReady);
+			pthread_mutex_unlock(&sem_listaDeReady);
 		}
 
 	}
@@ -791,12 +826,12 @@ void librerarLosPokemonesAtrapadosAlPerderOMorir(int socket) {
 	int i;
 	for (i = 0; i < cantDePokenests; i++) {
 		if (dictionary_has_key(entrenador->pokemonesAtrapados, letras[i])) {
-			valorEntrenador* valor = (valorEntrenador*) dictionary_get(
+			pokemon * valor = (pokemon*) dictionary_get(
 					entrenador->pokemonesAtrapados, letras[i]);
 			pthread_mutex_lock(&sem_config);
 			pokenest* unaPoke = (pokenest*) dictionary_get(
 					configuracion.diccionarioDePokeparadas, letras[i]);
-			unaPoke->cantidad += valor->cantidad;
+			//	unaPoke->cantidad += valor->cantidad;
 			dictionary_real_put(configuracion.diccionarioDePokeparadas,
 					letras[i], (void*) unaPoke);
 			pthread_mutex_unlock(&sem_config);
@@ -863,12 +898,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+//	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	nivel_gui_inicializar();
-	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-			&configuracion.posicionMaxima.posiciony);
+//	nivel_gui_inicializar();
+//	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+//			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
