@@ -693,7 +693,6 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 			unEntrenador->posicion.posicionx, unEntrenador->posicion.posiciony);
 	actualizarMapa();
 	pthread_mutex_unlock(&sem_mapas);
-
 	quantum--;
 }
 void replanificar() {

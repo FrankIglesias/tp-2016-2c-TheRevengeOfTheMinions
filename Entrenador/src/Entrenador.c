@@ -21,8 +21,6 @@ typedef struct objetivo_t {
 	t_list* pokemones;
 } objetivo;
 
-pthread_mutex_t mutex_hojaDeViaje;
-pthread_mutex_t vidasSem;
 posicionMapa posicionDeLaPokeNest;
 posicionMapa posicionActual;
 t_log * log;
@@ -248,7 +246,15 @@ void actualizarPosicion(instruccion_t protocolo) {
 		break;
 	}
 }
-
+void finDeJuego(void) {
+	char* rutaDeLasMedallas = malloc(256);
+	sprintf(rutaDeLasMedallas,
+			"/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
+			config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
+	free(rutaDeLasMedallas);
+	exit(1);
+}
 void jugar(void) {
 	pokemonesAtrapados = 0;
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
@@ -285,8 +291,10 @@ void jugar(void) {
 					mensajeAEnviar.simbolo);
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 					(void *) &mensajeAEnviar);
-			mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
-					socketCliente);
+			if ((mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
+					socketCliente)) == NULL) {
+				finDeJuego();
+			}
 			posicionDeLaPokeNest.posicionx =
 					mensajeARecibir->posicion.posicionx;
 			posicionDeLaPokeNest.posiciony =
@@ -302,8 +310,11 @@ void jugar(void) {
 						mostrarProtocolo(mensajeAEnviar.protocolo));
 				enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 						(void *) &mensajeAEnviar);
-				mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
-						socketCliente);
+				if ((mensajeARecibir =
+						(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
+								socketCliente)) == NULL) {
+					finDeJuego();
+				}
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
 					pokemonNoAtrapado = false;
 				}
