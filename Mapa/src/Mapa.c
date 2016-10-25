@@ -41,6 +41,10 @@ typedef struct pokemon_t {
 	int nivel;
 	int cantidad;
 } pokemon;
+typedef struct estructura_lista_dicc {   // EL ENTRENADOR TIENE UN DICCIONARIO CON CLAVE LA INICIAL DEL POKEMON Y VALOR UNA LISTA
+	char* nombreDelFicheroDelPokemon;             // QUE CONTIENE ESTE TIPO DE ESTRUCTURA
+	int nivel;
+};
 typedef struct entrenadorPokemon_t {
 	char simbolo;
 	int socket;
@@ -271,13 +275,13 @@ void detectarDeadLock() {
 		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
-		pokemon* valor;
+		t_list* valor;
 		for (j = 0; j < cantDePokenests; j++) {
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 					letras[j])) {
-				valor = (pokemon*) dictionary_get(
+				valor = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
-				pokemonesPorEntrenador[i][j] = valor->cantidad;
+				pokemonesPorEntrenador[i][j] = list_size(valor);
 			} else {
 				pokemonesPorEntrenador[i][j] = 0;
 
@@ -365,16 +369,30 @@ void detectarDeadLock() {
 
 	}
 	//////
-
+	void ordenarListaSegunNivelDePokemon(t_list* unaLista)
+	{
+		bool tieneMayorNivel(void* data1, void* data2)
+		{
+			pokemon* pokemon1 = data1;
+			pokemon* pokemon2 = data2;
+			return(pokemon1->nivel > pokemon2->nivel);
+		}
+		list_sort(unaLista, tieneMayorNivel);
+		return;
+	}
 	t_pokemon* obtenerPokemonMasFuerte(entrenadorPokemon* unEntrenador) {
 		int mayorNivel;
 		int nivel1;
 		int nivel2;
 		pokemon* valorE;
 		pokemon* valorE2;
+		t_list* lista1;
+		t_list* lista2;
 		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
-			valorE = (pokemon*) dictionary_get(unEntrenador->pokemonesAtrapados,
+			lista1 = (t_list*) dictionary_get(unEntrenador->pokemonesAtrapados,
 					letras[0]);
+			ordenarListaSegunNivelDePokemon(lista1);
+			valorE = (pokemon*) list_get(lista1, 0);
 			nivel1 = valorE->nivel;
 		} else
 			nivel1 = -1;
@@ -383,8 +401,10 @@ void detectarDeadLock() {
 		for (i = 1; i < cantDePokenests; i++) {
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 					letras[i])) {
-				valorE2 = (pokemon*) dictionary_get(
+				lista2 = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[i]);
+				ordenarListaSegunNivelDePokemon(lista2);
+				valorE2 = list_get(lista2,0);
 				nivel2 = valorE2->nivel;
 			} else
 				nivel2 = -1;
@@ -641,6 +661,7 @@ void abastecerAEntrenadoresBloqueados() {
 }
 void realizarAccion(entrenadorPokemon * unEntrenador) {
 	mensaje_MAPA_ENTRENADOR mensaje;
+	pokenest* pokenestASolicitar;
 	log_trace(log, "La accion a realizar es: %s",
 			mostrarProtocolo(unEntrenador->accionARealizar));
 	switch (unEntrenador->accionARealizar) {
@@ -671,7 +692,7 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 		break;
 	case ATRAPAR:
-		pokenest * pokenestASolicitar = (pokenest *) dictionary_get(
+		pokenestASolicitar = (pokenest*) dictionary_get(
 				configuracion.diccionarioDePokeparadas,
 				charToString(unEntrenador->proximoPokemon));
 		if (list_size(pokenestASolicitar->listaDePokemones) > 0) {
