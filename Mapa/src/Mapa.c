@@ -281,6 +281,7 @@ void detectarDeadLock() {
 					letras[j])) {
 				valor = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
+				log_trace(log, "EL TAMANIO DE LA LITA ES %d", list_size(valor));
 				pokemonesPorEntrenador[i][j] = list_size(valor);
 			} else {
 				pokemonesPorEntrenador[i][j] = 0;
@@ -289,10 +290,10 @@ void detectarDeadLock() {
 			/*if(unEntrenador->accionARealizar != ATRAPAR)
 			 {
 			 pokemonAAtraparPorEntrenador[i][j] = 0;   // FALTA CHEQUEAR POR QUE NO LO TOMA
-			 }*/
-			//else
-			//{
-			if (strcmp(unEntrenador->proximoPokemon, letras[j]) == 0)
+			 }
+			else
+			{*/
+			if (strcmp(charToString(unEntrenador->proximoPokemon), letras[j]) == 0)
 				pokemonAAtraparPorEntrenador[i][j] = 1;
 			else
 				pokemonAAtraparPorEntrenador[i][j] = 0;
