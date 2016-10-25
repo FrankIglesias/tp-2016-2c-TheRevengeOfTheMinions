@@ -15,7 +15,6 @@ struct config_t {
 	int reintentos;
 } config;
 t_config* configuracion;
-
 typedef struct objetivo_t {
 	char * nombreDelMapa;
 	t_list* pokemones;
@@ -255,6 +254,9 @@ void finDeJuego(void) {
 	free(rutaDeLasMedallas);
 	exit(1);
 }
+char * obtenerNombreDelPokemonRecibido(char * archivo) {
+	return string_substring(archivo, 0, strlen(archivo) - 4);
+}
 void jugar(void) {
 	pokemonesAtrapados = 0;
 	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
@@ -314,6 +316,16 @@ void jugar(void) {
 						(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 								socketCliente)) == NULL) {
 					finDeJuego();
+				}
+				if (mensajeARecibir->protocolo == POKEMON) {
+					char * comando  = string_from_format(
+							"cp /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/Pokenest/%s/%s /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir\ de\ Bill/",
+							unObjetivo->nombreDelMapa,
+							obtenerNombreDelPokemonRecibido(
+									mensajeARecibir->nombrePokemon),
+							mensajeARecibir->nombrePokemon,
+							config.nombreDelEntrenador);
+					system(comando);
 				}
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
 					pokemonNoAtrapado = false;

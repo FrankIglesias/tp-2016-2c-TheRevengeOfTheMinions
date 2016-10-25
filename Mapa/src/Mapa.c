@@ -675,9 +675,35 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 				configuracion.diccionarioDePokeparadas,
 				charToString(unEntrenador->proximoPokemon));
 		if (list_size(pokenestASolicitar->listaDePokemones) > 0) {
-			mensaje.protocolo = OK;
-		}
+			log_trace(log, "Se encontro el pokemon %c",
+					pokenestASolicitar->nombrePokemon);
+			mensaje.protocolo = POKEMON;
+			mensaje.nombrePokemon = malloc(
+					strlen(pokenestASolicitar->nombrePokemon));
+			strcpy(mensaje.nombrePokemon, pokenestASolicitar->nombrePokemon);
+			enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket,
+					(void *) &mensaje);
+			pthread_mutex_lock(&sem_mapas);
+			restarRecurso(items, pokenestASolicitar->id);
+			pthread_mutex_unlock(&sem_mapas);
+			pokemon * pokemonAtrapado = (pokemon *) list_get(
+					pokenestASolicitar->listaDePokemones, 0);
+			list_remove(pokenestASolicitar->listaDePokemones, 0);
+			if (!dictionary_has_key(unEntrenador->pokemonesAtrapados,
+					charToString(pokenestASolicitar->id))) {
+				dictionary_put(unEntrenador->pokemonesAtrapados,
+						charToString(pokenestASolicitar->id), pokemonAtrapado);
+			} else {
+				pokemon * aux = dictionary_get(unEntrenador->pokemonesAtrapados,charToString(pokenestASolicitar->id));
+				aux->cantidad++;
+				// TODO  tengo mucha paja
+			}
 
+		} else {
+			pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+			list_add(listaDeEntrenadoresBloqueados, unEntrenador);
+			pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+		}
 		pthread_mutex_lock(&sem_listaDeReady);
 		bool tieneElMismoSocket(void *data) {
 			entrenadorPokemon * unE = (entrenadorPokemon*) data;
@@ -731,7 +757,7 @@ void replanificar() {
 
 	}
 	entrenador = (entrenadorPokemon*) list_get(listaDeReady, 0);
-	log_trace(log, "SE OBTUVO DE LA LISTA DE ENTRENADORES AL ENTRENADOR %c",
+	log_trace(log, "Se obtuvo de la lista de entrenadores el entrenador: %c",
 			entrenador->simbolo);
 	ID = entrenador->simbolo;
 }
