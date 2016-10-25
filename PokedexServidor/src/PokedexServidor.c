@@ -183,12 +183,13 @@ void ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) 
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (tablaDeArchivos[i].estado == BORRADO) {
-			tablaDeArchivos[i].bloqueInicial = -1;
+			tablaDeArchivos[i].bloqueInicial = buscarBloqueLibre();
 			tablaDeArchivos[i].bloquePadre = padre;
 			tablaDeArchivos[i].estado = tipo;
 			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
 			memcpy(tablaDeArchivos[i].nombreArchivo, nombre, 17);
 			tablaDeArchivos[i].tamanioArchivo = 0;
+			tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
 			break;
 		}
 	}
@@ -346,7 +347,6 @@ int crearDir(char * path) {
 	if (existeUnoIgual(padre, ruta[j], DIRECTORIO))
 		return -1;
 	ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
-	tablaDeArchivos[j].bloqueInicial = buscarBloqueLibre();
 	log_trace(log, "Se ha creado el directorio: %s , padre; %u,", ruta[i],
 			padre);
 	sincronizarMemoria();
@@ -606,9 +606,8 @@ void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre)
 }
 void mostrarTablaDeArchivos() {
 	int i;
-	log_trace(log, "%s|%s|%s|%s|%s","Num" ,
-				"nombre","tipo","padre","inicial");
-}
+	log_trace(log, "%s|%s|%s|%s|%s", "Num", "nombre", "tipo", "padre",
+			"inicial");
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
 			log_trace(log, "%d|%s|%s|%d|%d", i,
