@@ -255,7 +255,7 @@ void finDeJuego(void) {
 	exit(1);
 }
 char * obtenerNombreDelPokemonRecibido(char * archivo) {
-	return string_substring(archivo, 0, strlen(archivo) - 4);
+	return string_substring(archivo, 0, strlen(archivo) - 7);
 }
 void jugar(void) {
 	pokemonesAtrapados = 0;
@@ -288,7 +288,7 @@ void jugar(void) {
 		for (pokemonesAtrapados = 0; pokemonesAtrapados < cantidadDePokemones;
 				pokemonesAtrapados++) {
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-			mensajeAEnviar.simbolo = (char) list_get(unObjetivo->pokemones, 0);
+			mensajeAEnviar.simbolo = (char) list_get(unObjetivo->pokemones, pokemonesAtrapados);
 			log_trace(log, "MAPA: %s POKEMON: %c", unObjetivo->nombreDelMapa,
 					mensajeAEnviar.simbolo);
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente,
@@ -319,7 +319,7 @@ void jugar(void) {
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
 					char * comando  = string_from_format(
-							"cp /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/Pokenest/%s/%s /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir\ de\ Bill/",
+							"cp \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir de Bill\"",
 							unObjetivo->nombreDelMapa,
 							obtenerNombreDelPokemonRecibido(
 									mensajeARecibir->nombrePokemon),
@@ -332,6 +332,11 @@ void jugar(void) {
 				}
 				if (mensajeARecibir->protocolo == OK) {
 					actualizarPosicion(mensajeAEnviar.protocolo);
+				}
+				if(mensajeARecibir->protocolo == POKEMON)
+				{
+					if(pokemonesAtrapados == cantidadDePokemones-1)
+											close(socketCliente);
 				}
 				free(mensajeARecibir);
 			}
