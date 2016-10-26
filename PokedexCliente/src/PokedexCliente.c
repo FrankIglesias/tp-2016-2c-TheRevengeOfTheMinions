@@ -175,14 +175,15 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	if (respuesta->protolo==ERROR){
 		return -1;
 	}else{
-		memcpy(buffer,respuesta->buffer+offset,size);
+		memcpy(buffer,respuesta->buffer+offset,respuesta->tamano);
 	}
 
+	int leidos=respuesta->tamano;
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	return size; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
+	return leidos; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
 
 }
 
@@ -293,6 +294,7 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje->buffer=malloc(strlen(buffer)+1);
 		memcpy(mensaje->buffer,buffer,size); //Se escribe un tamaño [size] del buffer [buffer] recibido
 		mensaje->offset=offset;
+		mensaje->tamano=size;
 
 		//Envio el mensaje
 		enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
@@ -305,12 +307,11 @@ static int escribirArchivo(const char * path, const char * buffer,
 			return -1;
 		}
 
-	int cantRetorno = strlen(respuesta->tamano);
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	return cantRetorno; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
+	return size; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
 }
 
 static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
