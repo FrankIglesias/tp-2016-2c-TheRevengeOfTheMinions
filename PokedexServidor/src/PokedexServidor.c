@@ -104,10 +104,10 @@ uint32_t estadoEnum(int i) {
 int buscarBloqueLibre() {
 	int i;
 	int aux;
-	for (i = 0; i < fileHeader.fs_blocks; ++i) {
-		aux = bitarray_test_bit(&bitmap, i);
+	for (i = X; i < fileHeader.fs_blocks; ++i) {
+		aux = bitarray_test_bit(bitmap, i);
 		if (aux == 0) {
-			bitarray_set_bit(&bitmap, i);
+			bitarray_set_bit(bitmap, i);
 			tablaDeAsignaciones[i] = -1;
 			return i;
 		}
@@ -179,7 +179,7 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 	}
 	return 0;
 }
-void ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
+int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if (tablaDeArchivos[i].estado == BORRADO) {
@@ -190,10 +190,10 @@ void ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) 
 			memcpy(tablaDeArchivos[i].nombreArchivo, nombre, 17);
 			tablaDeArchivos[i].tamanioArchivo = 0;
 			tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
-			break;
+			return i;
 		}
 	}
-
+	return -1;
 }
 
 char * leerArchivo(char * path, int *aux) {
@@ -297,8 +297,8 @@ int crearArchivo(char * path) {
 	}
 	if (existeUnoIgual(padre, ruta[j], ARCHIVO))
 		return -1;
-	ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
-	log_trace(log, "se ha creado un archivo en el bloque: %d, padre: %u",
+	i =ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
+	log_trace(log, "se ha creado un archivo en el bloque: %u, padre: %u",
 			tablaDeArchivos[i].bloqueInicial, padre);
 	sincronizarMemoria();
 	return 1;
@@ -339,16 +339,15 @@ int crearDir(char * path) {
 								== 0)) {
 					padre = tablaDeArchivos[j].bloqueInicial;
 					i++;
-					j = 1025;
+					break;
 				}
 			}
 		}
 	}
-	if (existeUnoIgual(padre, ruta[j], DIRECTORIO))
+	if (existeUnoIgual(padre, ruta[i], DIRECTORIO))
 		return -1;
-	ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
-	log_trace(log, "Se ha creado el directorio: %s , padre; %u,", ruta[i],
-			padre);
+	i= ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
+	log_trace(log, "Se ha creado el directorio");
 	sincronizarMemoria();
 	return 1;
 }
@@ -396,7 +395,7 @@ char * readAttr(char *path, int *var) {
 	log_debug(log, "readAttr: %s", path);
 	char * lista;
 	int aux = 0;
-	int file;
+	int file =-1;
 	int j = 0;
 	int i;
 	uint16_t padre = -1;
@@ -568,6 +567,12 @@ void levantarOsada() {
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
 	bloquesDeDatos = malloc(X * B);
+	log_trace(log,"Vamo a setear ocupado la parte administrativa porque yolo");
+	int i;
+	X = fileHeader.fs_blocks - X;
+	for (i = 0; i < X; ++i) {
+			bitarray_set_bit(bitmap, i);
+		}
 	uint32_t ocupados = bitmapOcupados();
 	log_trace(log, "ocupados: %u", ocupados);
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
@@ -676,4 +681,3 @@ int main(int argc, void *argv[]) {
 	free(bitmap);
 	return 0;
 }
-
