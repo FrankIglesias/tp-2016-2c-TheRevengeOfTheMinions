@@ -1,0 +1,9 @@
+[TRACE] 02:53:36:138 Ash/(8329:8329): InicializarConfiguracion
+[TRACE] 02:53:36:141 Ash/(8329:8329): verificarConfiguracion
+[TRACE] 02:53:36:144 Ash/(8329:8329): Nombre Entrenador: Red
+[TRACE] 02:53:36:148 Ash/(8329:8329): Simbolo: H
+[TRACE] 02:53:36:149 Ash/(8329:8329): Vidas : 5
+[TRACE] 02:53:36:149 Ash/(8329:8329): Reintentos: 0
+[TRACE] 02:53:36:156 Ash/(8329:8329): Se cargaron todas las propiedades
+[TRACE] 02:53:50:217 Ash/(8329:8329):  Se va a conectar al PUERTO:  5001 y al IP: 127.0.0.1
+[TRACE] 02:54:04:663 Ash/(8329:8329): MAPA: PuebloPaleta POKEMON: P

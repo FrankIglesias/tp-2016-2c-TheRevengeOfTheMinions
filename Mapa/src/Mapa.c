@@ -644,8 +644,7 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 		restarRecurso(items, unaPoke->id);
 		pthread_mutex_unlock(&sem_mapas);
 		mensaje.protocolo = POKEMON;
-		mensaje.nombrePokemon = malloc(
-				strlen(unPoke->nombreDelFichero));
+		mensaje.nombrePokemon = malloc(strlen(unPoke->nombreDelFichero));
 		strcpy(mensaje.nombrePokemon, unPoke->nombreDelFichero);
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 
@@ -756,13 +755,13 @@ void replanificar() {
 
 	}
 	entrenador = (entrenadorPokemon*) list_get(listaDeReady, 0);
-	if(entrenador==NULL)
-		ID=NULL;
-	else
-	{
-	log_trace(log, "Se obtuvo de la lista de entrenadores el entrenador: %c",
-			entrenador->simbolo);
-	ID = entrenador->simbolo;
+	if (entrenador == NULL)
+		ID = NULL;
+	else {
+		log_trace(log,
+				"Se obtuvo de la lista de entrenadores el entrenador: %c",
+				entrenador->simbolo);
+		ID = entrenador->simbolo;
 	}
 }
 
@@ -771,7 +770,7 @@ void planificador() {
 		pthread_mutex_lock(&sem_config);
 		int aux = configuracion.retardo;
 		pthread_mutex_unlock(&sem_config);
-		sleep(configuracion.retardo);
+		usleep(aux*1000);
 		sem_wait(&semaphore_listos);
 		log_trace(log, "Se ha activado el planificador");
 
@@ -871,7 +870,13 @@ void librerarLosPokemonesAtrapadosAlPerderOMorir(int socket) {
 void removerEntrenadoresPorSocket(int socket) {
 	bool tieneElMismoSocket(void* data) {
 		entrenadorPokemon* unEntrenador = (entrenadorPokemon*) data;
-		return (unEntrenador->socket == socket);
+		if (unEntrenador->socket == socket) {
+			pthread_mutex_lock(&sem_mapas);
+			BorrarItem(items, unEntrenador->simbolo);
+			pthread_mutex_unlock(&sem_mapas);
+			return true;
+		} else
+			return false;
 	}
 	list_remove_by_condition(listaDeEntrenadores, tieneElMismoSocket);
 }
@@ -891,6 +896,7 @@ int recibirMensajesEntrenadores(int socket) {
 // LIST REMOVE AND DESTROY BY CONDITION TODO
 //  IF EJECUTANDOID == entrenador->simbolo TODO
 		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		actualizarMapa();
 		return -1;
 	} else {
 		atenderClienteEntrenadores(socket, mensaje);
@@ -922,12 +928,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	//nivel_gui_inicializar();
-	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-		//&configuracion.posicionMaxima.posiciony);
+	nivel_gui_inicializar();
+	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
