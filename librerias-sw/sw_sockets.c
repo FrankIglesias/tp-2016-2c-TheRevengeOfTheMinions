@@ -2,43 +2,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void theMinionsRevengeSelect(char puerto[], void (*funcionAceptar(int n)),
-		int (*funcionRecibir(int n))) {
+void theMinionsRevengeSelect(char * puerto, void (*funcionAceptar)(int socket),int (* funcionRecibir)(int socket)){
 	fd_set master;
 	fd_set read_fds;
-	struct sockaddr_in remoteaddr;
-	int tamanioMaximoDelFd;
-	int socketListen;
-	int nuevoSocketAceptado;
-	int addrlen;
+	int fdmax;
+	int listener;
 	int i;
 	FD_ZERO(&master);
 	FD_ZERO(&read_fds);
-	socketListen = crearSocketServidor(puerto);
-	FD_SET(socketListen, &master);
-	tamanioMaximoDelFd = socketListen;
-	while (1) {
+	listener = crearSocketServidor(puerto);
+	FD_SET(listener, &master);
+	fdmax = listener;
+	for (;;) {
 		read_fds = master;
-		if (select(tamanioMaximoDelFd + 1, &read_fds, NULL, NULL, NULL) == -1) {
+		if (select(fdmax + 1, &read_fds, NULL, NULL, NULL) == -1) {
 			perror("select");
-			exit(1);
+			exit(4);
 		}
-		for (i = 0; i <= tamanioMaximoDelFd; i++) {
+		for (i = 0; i <= fdmax; i++) {
 			if (FD_ISSET(i, &read_fds)) {
-				if (i == socketListen) {
-					addrlen = sizeof(remoteaddr);
-					if ((nuevoSocketAceptado = accept(socketListen,
-							(struct sockaddr *) &remoteaddr, &addrlen)) == -1) {
-						perror("accept");
-					} else {
-						FD_SET(nuevoSocketAceptado, &master);
-						if (nuevoSocketAceptado > tamanioMaximoDelFd) {
-							tamanioMaximoDelFd = nuevoSocketAceptado;
-						}
-						funcionAceptar(i);
+				if (i == listener) {
+					struct sockaddr_storage remoteaddr;
+					socklen_t addrlen;
+					addrlen = sizeof remoteaddr;
+					int newfd = accept(listener,
+							(struct sockaddr *) &remoteaddr, &addrlen);
+					FD_SET(newfd, &master);
+					if (newfd > fdmax) {
+						fdmax = newfd;
 					}
+					funcionAceptar(newfd);
 				} else {
-					if (funcionRecibir(i) < 0) {
+
+					if (funcionRecibir(i) <= 0) {
 						close(i);
 						FD_CLR(i, &master);
 					}
