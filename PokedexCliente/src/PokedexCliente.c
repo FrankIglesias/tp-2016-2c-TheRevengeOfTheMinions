@@ -314,6 +314,11 @@ static int escribirArchivo(const char * path, const char * buffer,
 	return size; //La funcion write del servidor devuelve 0 si escribio OK. Asumo que escribio el size completo que le mande, por eso aca devuelvo el size.
 }
 
+int remote_truncate(const char * path, off_t offset) {
+// funcion dummy para que no se queje de "function not implemented"
+return 0;
+}
+
 static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
 
 	//Creo el mensaje
@@ -378,7 +383,7 @@ static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
 		.readdir = leerDirectorio, .open = abrirArchivo, .read = leerArchivo,
 		.unlink = borrarArchivo, .mknod = crearArchivo,
 		.mkdir = crearDirectorio, .write = escribirArchivo, .rmdir =
-				borrarDirectorio, .rename = renombrarArchivo,
+				borrarDirectorio, .rename = renombrarArchivo,.truncate = remote_truncate
 		};
 
 /** keys for FUSE_OPT_ options */
