@@ -152,7 +152,7 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 		off_t offset, struct fuse_file_info *fi) {
 
 	log_trace(log,"Se quiere leer el archivo con path %s,un size de %d,desde el offset %d",path,size,offset);
-
+	(void) fi;
 	//Creo el mensaje
 	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
 	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
@@ -175,7 +175,8 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	if (respuesta->protolo==ERROR){
 		return -1;
 	}else{
-		memcpy(buffer,respuesta->buffer+offset,respuesta->tamano);
+		memcpy(buffer,respuesta->buffer+offset,size);//respuesta->tamano);
+		//buffer[respuesta->tamano] ='\0';
 	}
 
 	int leidos=respuesta->tamano;
