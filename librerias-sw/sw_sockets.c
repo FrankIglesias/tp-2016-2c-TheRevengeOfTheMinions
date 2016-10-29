@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void theMinionsRevengeSelect(char * puerto, void (*funcionAceptar)(int socket),int (* funcionRecibir)(int socket)){
+void theMinionsRevengeSelect(char * puerto, void (*funcionAceptar)(int socket),
+		int (*funcionRecibir)(int socket)) {
 	fd_set master;
 	fd_set read_fds;
 	int fdmax;
@@ -144,7 +145,9 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		mensaje->path_payload = 0;
 	} else if (mensaje->protolo == LEER) {
 		mensaje->path_payload = strlen(mensaje->path);
-	}else if (mensaje->protolo ==ESCRIBIR){
+	} else if (mensaje->protolo == ESCRIBIR) {
+		mensaje->path_payload = strlen(mensaje->path);
+	} else if (mensaje->protolo == SGETATTR) {
 		mensaje->path_payload = strlen(mensaje->path);
 	} else if (mensaje->protolo != ERROR) {
 		mensaje->path_payload = strlen(mensaje->path);
@@ -233,6 +236,6 @@ void * recibirMensaje(int socket) {
 			|| unheader.mensaje == CLIENTE_SERVIDOR)
 		mensaje = funcionesDesserializadoras[unheader.mensaje](buffer,
 				unheader);
-	//free(buffer); Esta de mas, ya hace free cuando desserealiza
+//free(buffer); Esta de mas, ya hace free cuando desserealiza
 	return mensaje;
 }

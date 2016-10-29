@@ -509,6 +509,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var * 17;
 			break;
 		case GETATTR:
+			mensaje->protolo = SGETATTR;
 			if ((strcmp(mensaje->path, "/") != 0)) {
 				devolucion = getAttr(mensaje->path);
 				if (devolucion != -1) {
@@ -674,6 +675,8 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
+	crearArchivo("pepe.txt");
+	escribirArchivo("pepe.txt","12345678912345", 0);
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
