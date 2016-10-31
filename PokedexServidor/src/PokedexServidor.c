@@ -201,7 +201,7 @@ char * leerArchivo(char * path, int *aux) {
 	int file = verificarSiExiste(path, ARCHIVO);
 	if (file == -1)
 		return NULL;
-	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo);
+	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1);
 	int bloqueSiguiente = tablaDeArchivos[file].bloqueInicial;
 	int puntero = 0;
 	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
@@ -218,6 +218,7 @@ char * leerArchivo(char * path, int *aux) {
 			puntero += tablaDeArchivos[file].tamanioArchivo - puntero;
 		}
 	}
+	memcpy(lectura + puntero, '\0', 2);
 	*aux = puntero;
 	return lectura;
 }
@@ -248,15 +249,10 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		}
 	}
 	puntero = 0;
-	if (tam > (BLOCK_SIZE - aux)) {
-		memcpy(&bloquesDeDatos[bloqueActual] + aux, buffer,
-		BLOCK_SIZE - aux);
-		tam -= (BLOCK_SIZE - aux);
-		puntero = BLOCK_SIZE - aux;
-	} else {
+	if (tam < (BLOCK_SIZE - aux)) {
 		memcpy(&bloquesDeDatos[bloqueActual] + aux, buffer, tam);
-	}
 	tam = 0;
+	}
 	while (tam != 0) {
 		if (tablaDeAsignaciones[bloqueActual] == -1) {
 			if (asignarBloqueLibre(bloqueActual) == -1) {
@@ -297,7 +293,7 @@ int crearArchivo(char * path) {
 	}
 	if (existeUnoIgual(padre, ruta[j], ARCHIVO))
 		return -1;
-	i =ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
+	i = ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
 	log_trace(log, "se ha creado un archivo en el bloque: %u, padre: %u",
 			tablaDeArchivos[i].bloqueInicial, padre);
 	sincronizarMemoria();
@@ -346,7 +342,7 @@ int crearDir(char * path) {
 	}
 	if (existeUnoIgual(padre, ruta[i], DIRECTORIO))
 		return -1;
-	i= ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
+	i = ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
 	log_trace(log, "Se ha creado el directorio");
 	sincronizarMemoria();
 	return 1;
@@ -395,7 +391,7 @@ char * readAttr(char *path, int *var) {
 	log_debug(log, "readAttr: %s", path);
 	char * lista;
 	int aux = 0;
-	int file =-1;
+	int file = -1;
 	int j = 0;
 	int i;
 	uint16_t padre = -1;
@@ -456,6 +452,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
 		case LEER:
+			var = 0;
 			mensaje->buffer = leerArchivo(mensaje->path, &var);
 			if (mensaje->buffer == NULL) {
 				mensaje->protolo = ERROR;
@@ -568,12 +565,12 @@ void levantarOsada() {
 	tablaDeArchivos = malloc(1024 * B);
 	tablaDeAsignaciones = malloc(A * B);
 	bloquesDeDatos = malloc(X * B);
-	log_trace(log,"Vamo a setear ocupado la parte administrativa porque yolo");
+	log_trace(log, "Vamo a setear ocupado la parte administrativa porque yolo");
 	int i;
 	X = fileHeader.fs_blocks - X;
 	for (i = 0; i < X; ++i) {
-			bitarray_set_bit(bitmap, i);
-		}
+		bitarray_set_bit(bitmap, i);
+	}
 	uint32_t ocupados = bitmapOcupados();
 	log_trace(log, "ocupados: %u", ocupados);
 	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
@@ -675,8 +672,6 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
-	crearArchivo("pepe.txt");
-	escribirArchivo("pepe.txt","12345678912345", 0);
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
