@@ -201,7 +201,7 @@ char * leerArchivo(char * path, int *aux) {
 	int file = verificarSiExiste(path, ARCHIVO);
 	if (file == -1)
 		return NULL;
-	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1);
+	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 2);
 	int bloqueSiguiente = tablaDeArchivos[file].bloqueInicial;
 	int puntero = 0;
 	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
@@ -218,7 +218,7 @@ char * leerArchivo(char * path, int *aux) {
 			puntero += tablaDeArchivos[file].tamanioArchivo - puntero;
 		}
 	}
-	memcpy(lectura + puntero, '\0', 2);
+	lectura[puntero] = '\0';
 	*aux = puntero;
 	return lectura;
 }
@@ -457,6 +457,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			if (mensaje->buffer == NULL) {
 				mensaje->protolo = ERROR;
 			}
+			mensaje->protolo =SLEER;
 			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
