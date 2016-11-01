@@ -60,8 +60,8 @@ int A;
 int X;
 int F;
 
-int buscar(uint16_t padre, char * nombre, osada_file_state tipo) {
-	int i;
+uint16_t buscar(uint16_t padre, char * nombre, osada_file_state tipo) {
+	uint16_t i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == tipo)
@@ -141,7 +141,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	int j = 0;
 	uint16_t padre = -1;
 	char ** ruta = string_split(path, "/");
-	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
+	for (j = 0; j < 2048 && ruta[i]; j++) {
 		if (padre == tablaDeArchivos[j].bloquePadre
 				&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
@@ -150,7 +150,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 			j = 0;
 		}
 	}
-	if (ruta[i + 1])
+	if (ruta[i])
 		return -2;
 	return padre;
 }
@@ -159,10 +159,11 @@ int verificarSiExiste(char * path, osada_file_state tipo) {
 	int i;
 	int j = 0;
 	uint16_t padre = -1;
-	int file;
+	uint16_t file;
+	uint16_t menosuno = -1;
 	while (ruta[j + 1]) {
 		file = buscar(padre, ruta[j], DIRECTORIO);
-		if (file == -1)
+		if (file == menosuno)
 			return -1;
 		padre = file;
 		j++;
@@ -344,7 +345,8 @@ int crearDir(char * path) {
 	if (path != "/" && (ruta[i + 1])) {
 		while (ruta[i + 1]) {
 			for (j = 0; j < 2048; ++j) {
-				if ((tablaDeArchivos[j].estado == DIRECTORIO)
+				if ((tablaDeArchivos[j].bloquePadre == padre)
+						&& (tablaDeArchivos[j].estado == DIRECTORIO)
 						&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i])
 								== 0)) {
 					padre = j;
@@ -407,14 +409,13 @@ char * readAttr(char *path, int *var) {
 	uint16_t file = -1;
 	int j = 0;
 	int i;
-	uint16_t padre = -1;
+	uint16_t unoMenos = -1;
 	if (strcmp(path, "/") != 0) {
 		char ** ruta = string_split(path, "/");
 		while (ruta[j]) {
-			file = buscar(padre, ruta[j], DIRECTORIO);
-			if (file == -1)
+			file = buscar(file, ruta[j], DIRECTORIO);
+			if (file == unoMenos)
 				return NULL;
-			padre = tablaDeArchivos[file].bloquePadre;
 			j++;
 		}
 	}
@@ -448,7 +449,7 @@ int getAttr(char *path) {
 		file = buscar(padre, ruta[j], DIRECTORIO);
 		if (file == -1)
 			return -1;
-		padre = tablaDeArchivos[file].bloquePadre;
+		padre = file;
 		j++;
 	}
 	file = buscar(padre, ruta[j], DIRECTORIO);
@@ -533,7 +534,9 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 					mensaje->tipoArchivo = estadoEnum(devolucion16);
 					mensaje->tamano =
 							tablaDeArchivos[devolucion16].tamanioArchivo;
-				}
+					devolucion16 = 1;
+				} else
+					mensaje->protolo = ERROR;
 			} else {
 				mensaje->tipoArchivo = 2;
 				devolucion16 = 1;
@@ -609,19 +612,19 @@ int archivoDirectorio(int i) {
 	return 0;
 }
 
-void imprimirDirectoriosRecursivo(archivos_t archivo, int nivel, uint16_t padre) {
+void imprimirDirectoriosRecursivo(int archivo, int nivel) {
 	int i;
 	int aux;
 	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].bloqueInicial == archivo.bloqueInicial)
+		if (archivo == i)
 			continue;
-		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
+		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == archivo) {
 			char * guionParaLosPutos = string_repeat('-', nivel);
 			log_debug(log, "%s %s -- %s", guionParaLosPutos,
 					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO) {
 				aux = nivel + 1;
-				imprimirDirectoriosRecursivo(tablaDeArchivos[i], aux, i);
+				imprimirDirectoriosRecursivo(i, aux);
 			}
 		}
 	}
@@ -648,8 +651,7 @@ void imprimirArbolDeDirectorios() {
 			log_debug(log, "%s - %s", tablaDeArchivos[i].nombreArchivo,
 					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
-				imprimirDirectoriosRecursivo(tablaDeArchivos[i], 1,
-						i);
+				imprimirDirectoriosRecursivo( i, 1);
 		}
 	}
 }
