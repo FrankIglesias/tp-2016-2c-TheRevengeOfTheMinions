@@ -141,7 +141,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	int j = 0;
 	uint16_t padre = -1;
 	char ** ruta = string_split(path, "/");
-	for (j = 0; j < 2048 && ruta[i]; j++) {
+	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
 		if (padre == tablaDeArchivos[j].bloquePadre
 				&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
@@ -385,18 +385,31 @@ int borrarDir(char * path) {
 	sincronizarMemoria();
 	return 1;
 }
-int renombrar(char * path, char * nombre) {
-	log_info(log, "Renombrando: %s por %s", path, nombre);
-
-	int file = verificarSiExiste(path, ARCHIVO);
-	if (file == -1)
+int renombrar(char * path, char * path2) {
+	log_info(log, "Renombrando: %s por %s", path, path2);
+	uint32_t menosUno = -1;
+	uint32_t menosDos = -2;
+	uint32_t file = verificarSiExiste(path, ARCHIVO);
+	uint32_t padre = -2;
+	int i = 0;
+	char ** ruta = string_split(path, "/");
+	if (file == menosUno)
 		file = verificarSiExiste(path, DIRECTORIO);
-	if (file != -1) {
-		log_trace(log, "Antiguo: %s", tablaDeArchivos[file].nombreArchivo);
-		log_trace(log, "Nuevo: %s", nombre);
-		memcpy(&tablaDeArchivos[file].nombreArchivo, nombre,
-				strlen(nombre) + 1);
-		//tablaDeArchivos[file].nombreArchivo[strlen(nombre) +1] = "/0";
+	if (file != menosUno) {
+		padre = buscarAlPadre(path2);
+		if (padre != -2) {
+			while (ruta[i + 1]) {
+				i++;
+			}
+			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
+				memcpy(&tablaDeArchivos[file].nombreArchivo, ruta[i],
+						strlen(ruta[i]));
+				tablaDeArchivos[file].bloquePadre;
+				return 1;
+			}
+		}
+
+//tablaDeArchivos[file].nombreArchivo[strlen(nombre) +1] = "/0";
 		sincronizarMemoria();
 		return 1;
 	}
@@ -651,7 +664,7 @@ void imprimirArbolDeDirectorios() {
 			log_debug(log, "%s - %s", tablaDeArchivos[i].nombreArchivo,
 					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
-				imprimirDirectoriosRecursivo( i, 1);
+				imprimirDirectoriosRecursivo(i, 1);
 		}
 	}
 }
