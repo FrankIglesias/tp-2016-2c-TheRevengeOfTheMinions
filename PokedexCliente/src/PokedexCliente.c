@@ -174,6 +174,8 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 	//Si no hay ningun error, copio en el buffer lo que me haya respondido el servidor
 	if (respuesta->protolo==ERROR){
 		return -1;
+	}else if(respuesta->protolo==VACIO){
+		//NO HAGO NADA
 	}else{
 		memcpy(buffer,respuesta->buffer+offset,size);//respuesta->tamano);
 		//buffer[respuesta->tamano] ='\0';
