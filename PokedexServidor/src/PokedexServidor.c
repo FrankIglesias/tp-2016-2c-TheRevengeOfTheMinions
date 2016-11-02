@@ -150,7 +150,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 			j = 0;
 		}
 	}
-	if (ruta[i])
+	if (ruta[i + 1])
 		return -2;
 	return padre;
 }
@@ -387,12 +387,12 @@ int borrarDir(char * path) {
 }
 int renombrar(char * path, char * path2) {
 	log_info(log, "Renombrando: %s por %s", path, path2);
-	uint32_t menosUno = -1;
-	uint32_t menosDos = -2;
-	uint32_t file = verificarSiExiste(path, ARCHIVO);
-	uint32_t padre = -2;
+	uint16_t menosUno = -1;
+	uint16_t menosDos = -2;
+	uint16_t file = verificarSiExiste(path, ARCHIVO);
+	uint16_t padre = -2;
 	int i = 0;
-	char ** ruta = string_split(path, "/");
+	char ** ruta = string_split(path2, "/");
 	if (file == menosUno)
 		file = verificarSiExiste(path, DIRECTORIO);
 	if (file != menosUno) {
@@ -404,15 +404,21 @@ int renombrar(char * path, char * path2) {
 			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
 				memcpy(&tablaDeArchivos[file].nombreArchivo, ruta[i],
 						strlen(ruta[i]));
-				tablaDeArchivos[file].bloquePadre;
+				tablaDeArchivos[file].nombreArchivo[strlen(ruta[i])] = '\0';
+				tablaDeArchivos[file].bloquePadre = padre;
+				sincronizarMemoria();
 				return 1;
+			} else {
+				log_error(log, "Ya existe un archivo con el mismo nombre");
 			}
+		} else {
+			log_error(log,
+					"No existe alguna parte de la ruta donde quiere mover");
 		}
-
-//tablaDeArchivos[file].nombreArchivo[strlen(nombre) +1] = "/0";
-		sincronizarMemoria();
-		return 1;
+	} else {
+		log_error(log, "NO existe el archivo");
 	}
+	sincronizarMemoria();
 	return -1;
 }
 char * readAttr(char *path, int *var) {
