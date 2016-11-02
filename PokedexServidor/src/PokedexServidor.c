@@ -493,10 +493,13 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->buffer = leerArchivo(mensaje->path, &var);
 			if (mensaje->buffer == NULL) {
 				mensaje->protolo = ERROR;
+			}
+			if (var == 0) {
+				mensaje->protolo = VACIO;
 			} else {
 				mensaje->protolo = SLEER;
-				mensaje->tamano = var;
 			}
+			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
@@ -659,6 +662,15 @@ void mostrarTablaDeArchivos() {
 					tablaDeArchivos[i].bloquePadre,
 					tablaDeArchivos[i].bloqueInicial);
 	}
+
+}
+void mostrarTablaDeAsignacion() {
+	t_log * asignacion = log_create("asginacino.txt", "Osada", 1, 0);
+	int i;
+	log_trace(asignacion, "%s|||%s        TABLA DE ASIGNACION", "ID", "SIG");
+	for (i = 0; i < A; i++) {
+		log_trace(asignacion, "%d|||%d", i, tablaDeAsignaciones[i]);
+	}
 }
 
 void imprimirArbolDeDirectorios() {
@@ -712,6 +724,7 @@ int main(int argc, void *argv[]) {
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
+	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
 	free(tablaDeArchivos);
