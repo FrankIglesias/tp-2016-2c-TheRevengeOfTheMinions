@@ -21,13 +21,13 @@
 #include <time.h>
 
 #define BLOCK_SIZE 64
+#define DIRMONTAJE 65535
 
 typedef enum
-	__attribute__((packed)) { // wtf ???
-		BORRADO = '\0',
-	ARCHIVO = '\1',
-	DIRECTORIO = '\2',
+	__attribute__((packed)) {
+		BORRADO = '\0', ARCHIVO = '\1', DIRECTORIO = '\2',
 } osada_file_state;
+
 typedef struct OSADA_HEADER {
 	unsigned char identificador[7];
 	uint8_t version;
@@ -37,6 +37,7 @@ typedef struct OSADA_HEADER {
 	uint32_t data_blocks; // cantidad de bloques asignadas para datos
 	char relleno[40];
 } osadaHeader;
+
 typedef struct osadaFile {
 	osada_file_state estado; //0 borrado, 1 ocupado, 2 directorio
 	unsigned char nombreArchivo[17];
@@ -54,13 +55,13 @@ int * tablaDeAsignaciones;
 char * bloquesDeDatos;
 t_log * log;
 char * data;
-int B;
-int N;
-int A;
-int X;
-int F;
 
-uint16_t buscar(uint16_t padre, char * nombre, osada_file_state tipo) {
+void limpiarNombre(int i) { // quizas con un memset funcionaba
+//	memcpy(tablaDeArchivos[i].nombreArchivo,'\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0',17);
+	memcpy(tablaDeArchivos[i].nombreArchivo, "\0", 17);
+}
+uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
+		osada_file_state tipo) {
 	uint16_t i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
@@ -105,7 +106,7 @@ uint32_t estadoEnum(uint16_t i) {
 int buscarBloqueLibre() {
 	int i;
 	int aux;
-	for (i = X; i < fileHeader.fs_blocks; ++i) {
+	for (i = 0; i < fileHeader.data_blocks; ++i) {
 		aux = bitarray_test_bit(bitmap, i);
 		if (aux == 0) {
 			bitarray_set_bit(bitmap, i);
@@ -113,15 +114,13 @@ int buscarBloqueLibre() {
 			return i;
 		}
 	}
-	log_trace(log, "No hay memoria suficiente");
+	log_error(log, "No hay memoria suficiente");
 	return -1;
 }
 int asignarBloqueLibre(int bloqueAnterior) {
 	int bloqueLibre = buscarBloqueLibre();
-	log_trace(log, "Bloque libre a ocupar: %d", bloqueLibre);
-	if (bloqueLibre == -1) {
+	if (bloqueLibre == -1)
 		return -1;
-	}
 	tablaDeAsignaciones[bloqueAnterior] = bloqueLibre;
 	return 0;
 }
@@ -131,7 +130,6 @@ int verificarBloqueSiguiente(int *actual, int *siguiente) {
 		if (asignarBloqueLibre(actual) == -1)
 			return -1;
 	}
-	log_trace(log, "bloque siguiente: %d", *siguiente);
 	*actual = tablaDeAsignaciones[*actual];
 	*siguiente = tablaDeAsignaciones[*actual];
 	return 0;
@@ -139,7 +137,7 @@ int verificarBloqueSiguiente(int *actual, int *siguiente) {
 uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	int i = 0;
 	int j = 0;
-	uint16_t padre = -1;
+	uint16_t padre = DIRMONTAJE;
 	char ** ruta = string_split(path, "/");
 	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
 		if (padre == tablaDeArchivos[j].bloquePadre
@@ -151,24 +149,23 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 		}
 	}
 	if (ruta[i + 1])
-		return -2;
+		return -2; // si es -1 es DIRMONTAJE
 	return padre;
 }
 int verificarSiExiste(char * path, osada_file_state tipo) {
 	char ** ruta = string_split(path, "/");
 	int i;
 	int j = 0;
-	uint16_t padre = -1;
+	uint16_t padre = DIRMONTAJE;
 	uint16_t file;
-	uint16_t menosuno = -1;
 	while (ruta[j + 1]) {
-		file = buscar(padre, ruta[j], DIRECTORIO);
-		if (file == menosuno)
+		file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
+		if (file == DIRMONTAJE)
 			return -1;
 		padre = file;
 		j++;
 	}
-	return buscar(padre, ruta[j], tipo);
+	return buscarIndiceArchivo(padre, ruta[j], tipo);
 }
 int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 	int i;
@@ -183,18 +180,19 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 }
 int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 	int i;
-	for (i = 0; i < 2048; i++) {
-		if (tablaDeArchivos[i].estado == BORRADO) {
-			tablaDeArchivos[i].bloqueInicial = -1;
-			tablaDeArchivos[i].bloquePadre = padre;
-			tablaDeArchivos[i].estado = tipo;
-			tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
-			memcpy(tablaDeArchivos[i].nombreArchivo, nombre, 17);
-			tablaDeArchivos[i].tamanioArchivo = 0;
-			tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
-			return i;
+	if (strlen(nombre) < 17)
+		for (i = 0; i < 2048; i++) {
+			if (tablaDeArchivos[i].estado == BORRADO) {
+				tablaDeArchivos[i].bloqueInicial = -1;
+				tablaDeArchivos[i].bloquePadre = padre;
+				tablaDeArchivos[i].estado = tipo;
+				tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
+				memcpy(tablaDeArchivos[i].nombreArchivo, nombre, 17);
+				tablaDeArchivos[i].tamanioArchivo = 0;
+				tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
+				return i;
+			}
 		}
-	}
 	return -1;
 }
 
@@ -209,7 +207,6 @@ char * leerArchivo(char * path, int *aux) {
 	int puntero = 0;
 	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
 		if ((tablaDeArchivos[file].tamanioArchivo - puntero) > BLOCK_SIZE) {
-			log_trace(log, "A Leer: %d", bloqueSiguiente);
 			memcpy(lectura + puntero,
 					bloquesDeDatos + (BLOCK_SIZE * bloqueSiguiente),
 					BLOCK_SIZE);
@@ -218,7 +215,6 @@ char * leerArchivo(char * path, int *aux) {
 			if (bloqueSiguiente == -1)
 				break;
 		} else {
-			log_trace(log, "A Leer: %d", bloqueSiguiente);
 			memcpy(lectura + puntero,
 					bloquesDeDatos + (BLOCK_SIZE * bloqueSiguiente),
 					tablaDeArchivos[file].tamanioArchivo - puntero);
@@ -243,7 +239,6 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
 	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
 	while (offset != puntero) {
-		log_trace(log, "si offset es 0 no deberia nunca entrar aca");
 		if (tablaDeAsignaciones[bloqueActual] == -1) {
 			if (asignarBloqueLibre(bloqueActual) == -1)
 				return -1;
@@ -258,14 +253,11 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 	}
 	puntero = 0;
 	if (tam < (BLOCK_SIZE - aux)) {
-		log_trace(log, "Unica escritura: %d", bloqueActual);
 		memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual) + aux, buffer, tam);
 		tam = 0;
 	}
-	int direccion;
 	while (tam != 0) {
 		if (tam > BLOCK_SIZE) {
-			log_trace(log, "A escribir: %d", bloqueActual);
 			memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual),
 					buffer + puntero,
 					BLOCK_SIZE);
@@ -279,7 +271,6 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 			}
 			bloqueActual = tablaDeAsignaciones[bloqueActual];
 		} else {
-			log_trace(log, "A escribir: %d", bloqueActual);
 			memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual),
 					buffer + puntero, tam);
 			puntero += tam;
@@ -293,17 +284,16 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 	return tablaDeArchivos[file].tamanioArchivo;
 }
 int crearArchivo(char * path) {
-	log_trace(log, "creando archivo  %s", path);
 	int i = 0;
 	int j = 0;
-	uint16_t padre = -1;
+	uint16_t padre = DIRMONTAJE;
 	if (path != "/") {
 		padre = buscarAlPadre(path);
 	}
 	if (padre == -2)
 		return -1;
 	char ** ruta = string_split(path, "/");
-	while (ruta[j + 1]) {
+	while (ruta[j + 1]) { // BUSCO EL NOMBRE
 		j++;
 	}
 	if (existeUnoIgual(padre, ruta[j], ARCHIVO))
@@ -321,10 +311,11 @@ int borrar(char * path) {
 	if (file != -1) {
 		while (tablaDeArchivos[file].bloqueInicial != 0) {
 			j = tablaDeArchivos[file].bloqueInicial;
-			bitarray_clean_bit(&bitmap, j);
+			bitarray_clean_bit(bitmap, j);
 			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
 			tablaDeAsignaciones[j] = -1;
 		}
+		limpiarNombre(file);
 		tablaDeArchivos[file].bloqueInicial = -1;
 		tablaDeArchivos[file].bloquePadre = -1;
 		tablaDeArchivos[file].estado = BORRADO;
@@ -341,7 +332,7 @@ int crearDir(char * path) {
 	char ** ruta = string_split(path, "/");
 	int i = 0;
 	int j = 0;
-	uint16_t padre = -1;
+	uint16_t padre = DIRMONTAJE;
 	if (path != "/" && (ruta[i + 1])) {
 		while (ruta[i + 1]) {
 			for (j = 0; j < 2048; ++j) {
@@ -359,7 +350,6 @@ int crearDir(char * path) {
 	if (existeUnoIgual(padre, ruta[i], DIRECTORIO))
 		return -1;
 	i = ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
-	log_trace(log, "Se ha creado el directorio");
 	sincronizarMemoria();
 	return 1;
 }
@@ -376,32 +366,31 @@ int borrarDir(char * path) {
 			}
 		}
 	}
+	limpiarNombre(file);
 	tablaDeArchivos[file].bloqueInicial = -1;
 	tablaDeArchivos[file].bloquePadre = -1;
 	tablaDeArchivos[file].estado = BORRADO;
 	tablaDeArchivos[file].tamanioArchivo = 0;
-	log_trace(log, "Se ah borrado el directorio: %s",
-			tablaDeArchivos[file].nombreArchivo);
 	sincronizarMemoria();
 	return 1;
 }
 int renombrar(char * path, char * path2) {
 	log_info(log, "Renombrando: %s por %s", path, path2);
-	uint16_t menosUno = -1;
 	uint16_t menosDos = -2;
 	uint16_t file = verificarSiExiste(path, ARCHIVO);
 	uint16_t padre = -2;
 	int i = 0;
 	char ** ruta = string_split(path2, "/");
-	if (file == menosUno)
+	if (file == DIRMONTAJE)
 		file = verificarSiExiste(path, DIRECTORIO);
-	if (file != menosUno) {
+	if (file != DIRMONTAJE) {
 		padre = buscarAlPadre(path2);
-		if (padre != -2) {
-			while (ruta[i + 1]) {
+		if (padre != menosDos) {
+			while (ruta[i + 1]) { // busco nombre del archivo
 				i++;
 			}
 			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
+				limpiarNombre(file);
 				memcpy(&tablaDeArchivos[file].nombreArchivo, ruta[i],
 						strlen(ruta[i]));
 				tablaDeArchivos[file].nombreArchivo[strlen(ruta[i])] = '\0';
@@ -428,12 +417,11 @@ char * readAttr(char *path, int *var) {
 	uint16_t file = -1;
 	int j = 0;
 	int i;
-	uint16_t unoMenos = -1;
 	if (strcmp(path, "/") != 0) {
 		char ** ruta = string_split(path, "/");
 		while (ruta[j]) {
-			file = buscar(file, ruta[j], DIRECTORIO);
-			if (file == unoMenos)
+			file = buscarIndiceArchivo(file, ruta[j], DIRECTORIO);
+			if (file == DIRMONTAJE)
 				return NULL;
 			j++;
 		}
@@ -458,22 +446,20 @@ char * readAttr(char *path, int *var) {
 }
 int getAttr(char *path) {
 	log_debug(log, "getAttr: %s", path);
-	int i;
 	int j = 0;
 	uint16_t file;
 	char ** ruta = string_split(path, "/");
-	uint16_t padre = -1;
-	uint16_t menosuno = -1;
+	uint16_t padre = DIRMONTAJE;
 	while (ruta[j + 1]) {
-		file = buscar(padre, ruta[j], DIRECTORIO);
+		file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
 		if (file == -1)
 			return -1;
 		padre = file;
 		j++;
 	}
-	file = buscar(padre, ruta[j], DIRECTORIO);
-	if (file == menosuno)
-		file = buscar(padre, ruta[j], ARCHIVO);
+	file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
+	if (file == DIRMONTAJE)
+		file = buscarIndiceArchivo(padre, ruta[j], ARCHIVO);
 	return file;
 }
 
@@ -482,7 +468,6 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			sizeof(mensaje_CLIENTE_SERVIDOR));
 	int devolucion = 1;
 	uint16_t devolucion16 = 1;
-	uint16_t menosuno = -1;
 	char * puntero;
 	int var;
 	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
@@ -552,7 +537,7 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->protolo = SGETATTR;
 			if ((strcmp(mensaje->path, "/") != 0)) {
 				devolucion16 = getAttr(mensaje->path);
-				if (devolucion16 != menosuno) {
+				if (devolucion16 != DIRMONTAJE) {
 					mensaje->tipoArchivo = estadoEnum(devolucion16);
 					mensaje->tamano =
 							tablaDeArchivos[devolucion16].tamanioArchivo;
@@ -591,42 +576,35 @@ void levantarHeader() {
 uint32_t bitmapOcupados() {
 	int i;
 	uint32_t ocupados = 0;
-	for (i = 0; i < N * BLOCK_SIZE * 8; ++i) {
+	for (i = 0; i < fileHeader.data_blocks; ++i) {
 		if (bitarray_test_bit(bitmap, i))
 			ocupados++;
 	}
 	return ocupados;
 }
-int tamTAsignacion(){
-	return (fileHeader.fs_blocks-fileHeader.data_blocks-fileHeader.inicioTablaAsignaciones) * BLOCK_SIZE;
+int tamTAsignacion() {
+	return (fileHeader.fs_blocks - fileHeader.data_blocks
+			- fileHeader.inicioTablaAsignaciones) * BLOCK_SIZE;
 }
 
 void levantarOsada() {
 	log_trace(log, "Levantando osada");
 	levantarHeader();
 	int puntero = BLOCK_SIZE;
+
 	bitmap = malloc(fileHeader.bitmap_blocks * BLOCK_SIZE);
-	bitmap = bitarray_create(data + BLOCK_SIZE, fileHeader.bitmap_blocks * BLOCK_SIZE);
 	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
 	tablaDeAsignaciones = malloc(tamTAsignacion());
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
-	log_trace(log, "Vamo a setear ocupado la parte administrativa porque yolo");
-/*	int i;
-	X = fileHeader.fs_blocks - X;
-	for (i = 0; i < X; ++i) {
-		bitarray_set_bit(bitmap, i);
-	}
-	uint32_t ocupados = bitmapOcupados();
-	log_trace(log, "ocupados: %u", ocupados);
-	log_trace(log, "Bitmap: Libres: %u    Ocupados:%u",
-			fileHeader.fs_blocks - ocupados, ocupados);
-	log_trace(log, "tamaño tabla asignacion: %d en bloques", A);*/
-	puntero+=fileHeader.bitmap_blocks * BLOCK_SIZE;
+
+	bitmap = bitarray_create(data + puntero,
+			fileHeader.bitmap_blocks * BLOCK_SIZE);
+	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(tablaDeArchivos, data + puntero, 1024 * BLOCK_SIZE);
-	puntero=fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
-	memcpy(tablaDeAsignaciones, data + puntero,tamTAsignacion());
-	puntero=(fileHeader.fs_blocks-fileHeader.data_blocks) * BLOCK_SIZE;
-	memcpy(bloquesDeDatos, data + puntero, fileHeader.data_blocks*BLOCK_SIZE);
+	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
+	memcpy(tablaDeAsignaciones, data + puntero, tamTAsignacion());
+	puntero = (fileHeader.fs_blocks - fileHeader.data_blocks) * BLOCK_SIZE;
+	memcpy(bloquesDeDatos, data + puntero, fileHeader.data_blocks * BLOCK_SIZE);
 }
 
 int archivoDirectorio(int i) {
@@ -671,7 +649,7 @@ void mostrarTablaDeAsignacion() {
 	t_log * asignacion = log_create("asginacino.txt", "Osada", 1, 0);
 	int i;
 	log_trace(asignacion, "%s|||%s        TABLA DE ASIGNACION", "ID", "SIG");
-	for (i = 0; i < A; i++) {
+	for (i = 0; i < tamTAsignacion(); i++) {
 		log_trace(asignacion, "%d|||%d", i, tablaDeAsignaciones[i]);
 	}
 }
@@ -679,9 +657,8 @@ void mostrarTablaDeAsignacion() {
 void imprimirArbolDeDirectorios() {
 	log_trace(log, "Mostrando arbol de directorio");
 	int i;
-	uint16_t padre = -1;
 	for (i = 0; i < 2048; i++) {
-		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == padre) {
+		if (archivoDirectorio(i) && tablaDeArchivos[i].bloquePadre == DIRMONTAJE) {
 			log_debug(log, "%s - %s", tablaDeArchivos[i].nombreArchivo,
 					tipoArchivo(i));
 			if (tablaDeArchivos[i].estado == DIRECTORIO)
@@ -710,19 +687,18 @@ void mapearMemoria(char * nombreBin) {
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
 	int puntero = BLOCK_SIZE;
-	memcpy(data + BLOCK_SIZE, bitmap,fileHeader.bitmap_blocks*BLOCK_SIZE);
-	puntero +=fileHeader.bitmap_blocks*BLOCK_SIZE;
+	memcpy(data + BLOCK_SIZE, bitmap, fileHeader.bitmap_blocks * BLOCK_SIZE);
+	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(data + puntero, tablaDeArchivos, 1024 * BLOCK_SIZE);
-	puntero=fileHeader.inicioTablaAsignaciones*BLOCK_SIZE;
-	memcpy(data + puntero, tablaDeAsignaciones,tamTAsignacion());
-	puntero=(fileHeader.fs_blocks-fileHeader.data_blocks) * BLOCK_SIZE;
-	memcpy(data + puntero, bloquesDeDatos, fileHeader.data_blocks*BLOCK_SIZE);
-	log_trace(log, "Memoria sincronizada");
-
+	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
+	memcpy(data + puntero, tablaDeAsignaciones, tamTAsignacion());
+	puntero = (fileHeader.fs_blocks - fileHeader.data_blocks) * BLOCK_SIZE;
+	memcpy(data + puntero, bloquesDeDatos, fileHeader.data_blocks * BLOCK_SIZE);
 }
 
 void funcionAceptar() {
 }
+
 int main(int argc, void *argv[]) {
 
 	log = log_create("log", "Osada", 1, 0);
@@ -730,7 +706,7 @@ int main(int argc, void *argv[]) {
 	levantarOsada();
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
-	mostrarTablaDeArchivos();
+//	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
