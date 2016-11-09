@@ -29,7 +29,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
-
 typedef struct pokenest_t {
 	char * nombrePokemon;
 	char id;
@@ -774,7 +773,6 @@ void planificador() {
 		sem_wait(&semaphore_listos);
 		log_trace(log, "Se ha activado el planificador");
 
-		pthread_mutex_lock(&sem_listaDeReady);
 		entrenadorPokemon * entrenador;
 		if (ID == NULL) {
 			replanificar();
@@ -789,13 +787,15 @@ void planificador() {
 		log_trace(log, "Entrenador a atender: %c", entrenador->simbolo);
 
 		realizarAccion(entrenador);
-		if (quantum < 0) {
+		if (quantum <= 0) {
+					entrenador->tiempo = time(NULL);
 			log_trace(log, "Fin de quantum para %c", entrenador->simbolo);
-			if (entrenador->accionARealizar == ATRAPAR)
-				entrenador->tiempo = clock();
-			pthread_mutex_lock(&sem_listaDeReady);
-			replanificar();
-			pthread_mutex_unlock(&sem_listaDeReady);
+				pthread_mutex_lock(&sem_listaDeReady);
+				replanificar();
+				pthread_mutex_unlock(&sem_listaDeReady);
+
+				sem_post(&semaphore_listos);
+
 		}
 
 	}
@@ -824,7 +824,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 					unEntrenador->simbolo);
 			sem_post(&semaphore_listos);
 		} else {
-			unEntrenador->tiempo = clock();
+			unEntrenador->tiempo = time(NULL);
 			pthread_mutex_lock(&sem_listaDeReady);
 			list_add(listaDeReady, unEntrenador);
 			pthread_mutex_unlock(&sem_listaDeReady);
