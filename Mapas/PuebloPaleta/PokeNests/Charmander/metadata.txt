@@ -1,3 +1,0 @@
-Tipo=Fuego
-Posicion=23;18
-Identificador=C

@@ -1,6 +1,6 @@
 TiempoChequeoDeadlock=10000
 Batalla=1
-algoritmo=RR
+algoritmo=RS
 quantum=3
 retardo=300
 IP=127.0.0.1

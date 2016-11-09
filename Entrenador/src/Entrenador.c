@@ -333,6 +333,10 @@ void jugar(void) {
 				if (mensajeARecibir->protocolo == OK) {
 					actualizarPosicion(mensajeAEnviar.protocolo);
 				}
+				if(mensajeARecibir->protocolo == MORIR){
+					close(socketCliente);
+					exit(1);
+				}
 				if(mensajeARecibir->protocolo == POKEMON)
 				{
 					if(pokemonesAtrapados == cantidadDePokemones-1)

@@ -25,7 +25,7 @@ t_pkmn_factory* create_pkmn_factory() {
   add_pkmn_data(factory->pkmn_data, "Ivysaur", GRASS, POISON);
   add_pkmn_data(factory->pkmn_data, "Venusaur", GRASS, POISON);
   add_pkmn_data(factory->pkmn_data, "Charmander", FIRE, NO_TYPE);
-  add_pkmn_data(factory->pkmn_data, "Charmandercitos", FIRE, NO_TYPE);
+  add_pkmn_data(factory->pkmn_data, "Charma", FIRE, NO_TYPE);
   add_pkmn_data(factory->pkmn_data, "Charmeleon", FIRE, NO_TYPE);
   add_pkmn_data(factory->pkmn_data, "Charizard", FIRE, FLYING);
   add_pkmn_data(factory->pkmn_data, "Squirtle", WATER, NO_TYPE);
