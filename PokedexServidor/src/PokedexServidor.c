@@ -56,9 +56,8 @@ char * bloquesDeDatos;
 t_log * log;
 char * data;
 
-void limpiarNombre(int i) { // quizas con un memset funcionaba
-//	memcpy(tablaDeArchivos[i].nombreArchivo,'\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0',17);
-	memcpy(tablaDeArchivos[i].nombreArchivo, "\0", 17);
+void limpiarNombre(int i) {
+	memset(tablaDeArchivos[i].nombreArchivo, 0, 17);
 }
 uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
 		osada_file_state tipo) {
@@ -277,7 +276,7 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 			tam = 0;
 		}
 	}
-	tablaDeArchivos[file].tamanioArchivo = strlen(buffer) + offset;
+	tablaDeArchivos[file].tamanioArchivo = strlen(buffer);// + offset;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
@@ -706,7 +705,7 @@ int main(int argc, void *argv[]) {
 	levantarOsada();
 	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
-//	mostrarTablaDeArchivos();
+	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
 	free(log);
