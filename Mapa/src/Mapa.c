@@ -774,7 +774,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		free(mensaje);
 	}
 }
-void librerarLosPokemonesAtrapadosAlPerderOMorir(int socket) {
+void librerarPokemonesAtrapadosAlMorirOTerminarMapa(int socket) {
 	bool tieneElMismoSocket(void* data) {
 		entrenadorPokemon* unEntrenador = (entrenadorPokemon*) data;
 		return (unEntrenador->socket == socket);
@@ -795,13 +795,20 @@ void librerarLosPokemonesAtrapadosAlPerderOMorir(int socket) {
 			dictionary_real_put(configuracion.diccionarioDePokeparadas,
 					letras[i], (void*) unaPoke);
 			pthread_mutex_unlock(&sem_config);
+			sumarRecurso(items, (char) letras[i]);
 		}
 	}
+
 	log_trace(log, "LOS POKEMONES DEL ENTRENADOR %c FUERON LIBERADOS",
 			entrenador->simbolo);
 	log_trace(log, "LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON");
 	cargarMatrizDisponibles();
-	//imprimirMatrizDisponibles(pokemonesDisponibles);
+	log_trace(log, "Se actualizo el mapa");
+	pthread_mutex_lock(&sem_mapas);
+	actualizarMapa();
+	pthread_mutex_unlock(&sem_mapas);
+	log_trace(log, "Se actualizo el mapa");
+	imprimirMatrizDisponibles(pokemonesDisponibles);
 
 }
 void removerEntrenadoresPorSocket(int socket) {
@@ -820,7 +827,7 @@ void removerEntrenadoresPorSocket(int socket) {
 int recibirMensajesEntrenadores(int socket) {
 	mensaje_ENTRENADOR_MAPA * mensaje;
 	if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(socket)) == NULL) {
-		librerarLosPokemonesAtrapadosAlPerderOMorir(socket);
+		librerarPokemonesAtrapadosAlMorirOTerminarMapa(socket);
 		abastecerAEntrenadoresBloqueados();
 		log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
 		log_trace(log, "LOS POKEMONES DISPONIBLES QUEDARON");
@@ -868,12 +875,12 @@ void actualizarMapa() {
 	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	/*	nivel_gui_inicializar();
-	 nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-	 &configuracion.posicionMaxima.posiciony);*/
+		//nivel_gui_inicializar();
+	 //nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+	//&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
-	log = log_create("Log", "Mapa", 0, 0);
+	log = log_create("Log", "Mapa", 1, 0);
 	listaDeEntrenadores = list_create();
 	sem_init(&bloqueados_semaphore, 0, 0);
 	sem_init(&semaphore_listos, 0, 0);
