@@ -454,14 +454,13 @@ int getAttr(char *path) {
 	return file;
 }
 
-void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
-	mensaje_CLIENTE_SERVIDOR * mensaje = malloc(
-			sizeof(mensaje_CLIENTE_SERVIDOR));
+int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
+	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
 	uint16_t devolucion16 = 1;
 	char * puntero;
 	int var;
-	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
+	if ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
 			!= NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
 		case LEER:
@@ -549,6 +548,9 @@ void atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 		if (devolucion == -1)
 			mensaje->protolo = ERROR;
 		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
+		return 1;
+	}else{
+		return -1;
 	}
 }
 
