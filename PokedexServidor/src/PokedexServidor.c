@@ -698,8 +698,8 @@ int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
 	mapearMemoria(argv[2]);
 	levantarOsada();
-	sincronizarMemoria();
-//	imprimirArbolDeDirectorios();
+//	sincronizarMemoria();
+	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);

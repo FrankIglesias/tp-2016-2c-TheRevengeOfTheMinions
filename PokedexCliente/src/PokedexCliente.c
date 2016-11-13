@@ -295,9 +295,9 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje->path=malloc(strlen(path)+1);
 		strcpy(mensaje->path,path);
 		mensaje->buffer=malloc(strlen(buffer)+1);
-		memcpy(mensaje->buffer,buffer,size); //Se escribe un tamaño [size] del buffer [buffer] recibido
+		memcpy(mensaje->buffer,buffer,size+1); //Se escribe un tamaño [size] del buffer [buffer] recibido
 		mensaje->offset=offset;
-		mensaje->tamano=size;
+		mensaje->tamano=size+1;
 
 		//Envio el mensaje
 		enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
