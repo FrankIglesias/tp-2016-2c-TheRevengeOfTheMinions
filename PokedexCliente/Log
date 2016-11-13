@@ -1,0 +1,1864 @@
+[TRACE] 17:21:54:533 Fuse/(5369:5369): Se quiere saber los atributos del path /.Trash
+[TRACE] 17:21:54:542 Fuse/(5369:5369): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 17:21:54:544 Fuse/(5369:5369): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 17:21:54:552 Fuse/(5369:5369): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:21:54:554 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:555 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:21:54:557 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:21:54:558 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:21:54:559 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:21:54:561 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:21:54:570 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:21:54:587 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:21:54:590 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:21:54:597 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:21:54:610 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:21:54:612 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:21:54:617 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:21:54:625 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:639 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:660 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:673 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:683 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:691 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:710 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:718 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:722 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:733 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:736 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:743 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:748 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:752 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:759 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:773 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:778 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:784 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:792 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:798 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:805 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:21:54:810 Fuse/(5369:5369): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:21:54:832 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:21:54:835 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:23:31:230 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:23:40:827 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:23:46:197 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:23:59:47 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:23:59:53 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:23:59:87 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:23:59:89 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:23:59:91 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:23:59:93 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:23:59:94 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:23:59:97 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:23:59:99 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:23:59:100 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:23:59:101 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:23:59:104 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:23:59:111 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:23:59:113 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:23:59:117 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:24:01:202 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:206 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:207 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:209 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:218 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:220 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:224 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:225 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:233 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:238 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:247 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:252 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:254 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:257 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:260 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:264 Fuse/(5369:5369): Se quiere saber los atributos del path /libselinux.so.1
+[TRACE] 17:24:01:267 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:268 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:272 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:273 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:280 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:282 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:285 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:286 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:287 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:288 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:292 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:293 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:295 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:297 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:309 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:311 Fuse/(5369:5369): Se quiere saber los atributos del path /libacl.so.1
+[TRACE] 17:24:01:316 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:317 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:318 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:319 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:320 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:322 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:324 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:325 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:330 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:335 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:337 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:338 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:338 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:339 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:346 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:351 Fuse/(5369:5369): Se quiere saber los atributos del path /libc.so.6
+[TRACE] 17:24:01:353 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:355 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:359 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:363 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:369 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:376 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:384 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:390 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:392 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:394 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:395 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:396 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:398 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:400 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:401 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:403 Fuse/(5369:5369): Se quiere saber los atributos del path /libpcre.so.3
+[TRACE] 17:24:01:405 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:407 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:408 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:410 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:411 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:413 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:414 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:422 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:424 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:426 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:427 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:429 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:430 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:432 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:434 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:437 Fuse/(5369:5369): Se quiere saber los atributos del path /libdl.so.2
+[TRACE] 17:24:01:442 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:444 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:447 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:462 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:463 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:467 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:468 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:470 Fuse/(5369:5369): Se quiere saber los atributos del path /tls
+[TRACE] 17:24:01:471 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:473 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:474 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:475 Fuse/(5369:5369): Se quiere saber los atributos del path /i686
+[TRACE] 17:24:01:477 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:478 Fuse/(5369:5369): Se quiere saber los atributos del path /sse2
+[TRACE] 17:24:01:480 Fuse/(5369:5369): Se quiere saber los atributos del path /cmov
+[TRACE] 17:24:01:482 Fuse/(5369:5369): Se quiere saber los atributos del path /libattr.so.1
+[TRACE] 17:24:01:487 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:01:489 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:01:490 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:24:01:491 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:24:01:493 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:24:01:495 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:24:01:503 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:24:01:505 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:24:01:506 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:24:01:508 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:24:01:509 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:24:01:510 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:24:01:511 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:24:03:943 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:03:947 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:03:968 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:03:970 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:03:0 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:24:05:506 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:24:05:507 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:11:613 Fuse/(5369:5369): Se quiere saber los atributos del path /.directory
+[TRACE] 17:24:11:623 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:24:11:636 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:11:639 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:11:645 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:24:11:649 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:24:11:653 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:24:11:656 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:24:11:685 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:24:11:688 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:24:11:694 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:24:11:697 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:24:11:704 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:24:11:716 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:24:11:724 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:24:17:189 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:17:196 Fuse/(5369:5369): Se quiere leer el directorio de path /Pokemons
+[TRACE] 17:24:17:200 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 17:24:17:206 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/002.txt
+[TRACE] 17:24:17:213 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/003.txt
+[TRACE] 17:24:17:216 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/004.txt
+[TRACE] 17:24:17:221 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/005.txt
+[TRACE] 17:24:17:224 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/006.txt
+[TRACE] 17:24:17:230 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/007.txt
+[TRACE] 17:24:17:266 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/008.txt
+[TRACE] 17:24:17:269 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/009.txt
+[TRACE] 17:24:17:274 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/010.txt
+[TRACE] 17:24:17:281 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/.directory
+[TRACE] 17:24:17:296 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/011.txt
+[TRACE] 17:24:17:300 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/012.txt
+[TRACE] 17:24:17:321 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:17:324 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/013.txt
+[TRACE] 17:24:17:327 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/014.txt
+[TRACE] 17:24:17:333 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/015.txt
+[TRACE] 17:24:17:334 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:17:343 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/016.txt
+[TRACE] 17:24:17:352 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:24:17:354 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/017.txt
+[TRACE] 17:24:17:357 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:24:17:359 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/018.txt
+[TRACE] 17:24:17:367 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/019.txt
+[TRACE] 17:24:17:385 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:24:17:391 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/020.txt
+[TRACE] 17:24:17:394 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/021.txt
+[TRACE] 17:24:17:398 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/022.txt
+[TRACE] 17:24:17:401 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/023.txt
+[TRACE] 17:24:17:406 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/024.txt
+[TRACE] 17:24:17:414 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/025.txt
+[TRACE] 17:24:17:418 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/026.txt
+[TRACE] 17:24:17:424 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/027.txt
+[TRACE] 17:24:17:429 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/028.txt
+[TRACE] 17:24:17:434 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:24:17:460 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/029.txt
+[TRACE] 17:24:17:467 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:24:17:479 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/030.txt
+[TRACE] 17:24:17:485 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:24:17:487 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/031.txt
+[TRACE] 17:24:17:492 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/032.txt
+[TRACE] 17:24:17:500 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:24:17:517 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/033.txt
+[TRACE] 17:24:17:522 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:24:17:527 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/034.txt
+[TRACE] 17:24:17:532 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:24:17:540 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/035.txt
+[TRACE] 17:24:17:542 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:24:17:556 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/036.txt
+[TRACE] 17:24:17:579 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:24:17:588 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/037.txt
+[TRACE] 17:24:17:591 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/038.txt
+[TRACE] 17:24:17:597 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/039.txt
+[TRACE] 17:24:17:610 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/040.txt
+[TRACE] 17:24:17:614 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/041.txt
+[TRACE] 17:24:17:620 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/042.txt
+[TRACE] 17:24:17:624 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/043.txt
+[TRACE] 17:24:17:642 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/044.txt
+[TRACE] 17:24:17:645 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/045.txt
+[TRACE] 17:24:17:652 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/046.txt
+[TRACE] 17:24:17:655 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/047.txt
+[TRACE] 17:24:17:657 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/048.txt
+[TRACE] 17:24:17:660 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/049.txt
+[TRACE] 17:24:17:663 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/050.txt
+[TRACE] 17:24:17:668 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/051.txt
+[TRACE] 17:24:17:669 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/052.txt
+[TRACE] 17:24:17:670 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/053.txt
+[TRACE] 17:24:17:671 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/054.txt
+[TRACE] 17:24:17:673 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/055.txt
+[TRACE] 17:24:17:674 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/056.txt
+[TRACE] 17:24:17:676 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/057.txt
+[TRACE] 17:24:17:679 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/058.txt
+[TRACE] 17:24:17:683 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/059.txt
+[TRACE] 17:24:17:686 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/060.txt
+[TRACE] 17:24:17:688 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/061.txt
+[TRACE] 17:24:17:690 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/062.txt
+[TRACE] 17:24:17:697 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/063.txt
+[TRACE] 17:24:17:705 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/064.txt
+[TRACE] 17:24:17:720 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/065.txt
+[TRACE] 17:24:17:727 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/066.txt
+[TRACE] 17:24:17:730 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/067.txt
+[TRACE] 17:24:17:733 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/068.txt
+[TRACE] 17:24:17:735 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/069.txt
+[TRACE] 17:24:17:758 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/070.txt
+[TRACE] 17:24:17:760 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/071.txt
+[TRACE] 17:24:17:764 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/072.txt
+[TRACE] 17:24:17:766 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/073.txt
+[TRACE] 17:24:17:772 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/074.txt
+[TRACE] 17:24:17:776 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/075.txt
+[TRACE] 17:24:17:779 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/076.txt
+[TRACE] 17:24:17:780 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/077.txt
+[TRACE] 17:24:17:782 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/078.txt
+[TRACE] 17:24:17:791 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/079.txt
+[TRACE] 17:24:17:794 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/080.txt
+[TRACE] 17:24:17:796 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/081.txt
+[TRACE] 17:24:17:801 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/082.txt
+[TRACE] 17:24:17:827 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/083.txt
+[TRACE] 17:24:17:836 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/084.txt
+[TRACE] 17:24:17:837 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/085.txt
+[TRACE] 17:24:17:839 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/086.txt
+[TRACE] 17:24:17:841 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/087.txt
+[TRACE] 17:24:17:843 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/088.txt
+[TRACE] 17:24:17:844 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/089.txt
+[TRACE] 17:24:17:846 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/090.txt
+[TRACE] 17:24:17:848 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/091.txt
+[TRACE] 17:24:17:850 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/092.txt
+[TRACE] 17:24:17:852 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/093.txt
+[TRACE] 17:24:17:854 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/094.txt
+[TRACE] 17:24:17:860 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/095.txt
+[TRACE] 17:24:17:862 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/096.txt
+[TRACE] 17:24:17:863 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/097.txt
+[TRACE] 17:24:17:864 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/098.txt
+[TRACE] 17:24:17:867 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/099.txt
+[TRACE] 17:24:17:876 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/100.txt
+[TRACE] 17:24:17:880 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/101.txt
+[TRACE] 17:24:17:881 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/102.txt
+[TRACE] 17:24:17:882 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/103.txt
+[TRACE] 17:24:17:884 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/104.txt
+[TRACE] 17:24:17:885 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/105.txt
+[TRACE] 17:24:17:888 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/106.txt
+[TRACE] 17:24:17:892 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/107.txt
+[TRACE] 17:24:17:896 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/108.txt
+[TRACE] 17:24:17:897 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/109.txt
+[TRACE] 17:24:17:899 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/110.txt
+[TRACE] 17:24:17:900 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/111.txt
+[TRACE] 17:24:17:904 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/112.txt
+[TRACE] 17:24:17:905 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/113.txt
+[TRACE] 17:24:17:907 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/114.txt
+[TRACE] 17:24:17:908 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/115.txt
+[TRACE] 17:24:17:909 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/116.txt
+[TRACE] 17:24:17:912 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/117.txt
+[TRACE] 17:24:17:916 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/118.txt
+[TRACE] 17:24:17:918 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/119.txt
+[TRACE] 17:24:17:920 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/120.txt
+[TRACE] 17:24:17:922 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/121.txt
+[TRACE] 17:24:17:924 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/122.txt
+[TRACE] 17:24:17:928 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/123.txt
+[TRACE] 17:24:17:930 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/124.txt
+[TRACE] 17:24:17:931 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/125.txt
+[TRACE] 17:24:17:932 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/126.txt
+[TRACE] 17:24:17:937 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/127.txt
+[TRACE] 17:24:17:938 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/128.txt
+[TRACE] 17:24:17:943 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/129.txt
+[TRACE] 17:24:17:945 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/130.txt
+[TRACE] 17:24:17:946 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/131.txt
+[TRACE] 17:24:17:948 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/132.txt
+[TRACE] 17:24:17:949 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/133.txt
+[TRACE] 17:24:17:950 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/134.txt
+[TRACE] 17:24:17:957 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:24:34:675 Fuse/(5369:5369): Se quiere saber los atributos del path /.directory
+[TRACE] 17:24:36:293 Fuse/(5369:5369): Se quiere saber los atributos del path /
+[TRACE] 17:24:37:406 Fuse/(5369:5369): Se quiere leer el directorio de path /
+[TRACE] 17:24:38:348 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:24:39:94 Fuse/(5369:5369): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:24:39:757 Fuse/(5369:5369): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:24:43:19 Fuse/(5369:5369): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:24:43:22 Fuse/(5369:5369): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:24:43:24 Fuse/(5369:5369): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:24:43:25 Fuse/(5369:5369): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:24:43:28 Fuse/(5369:5369): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:24:43:30 Fuse/(5369:5369): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:24:43:31 Fuse/(5369:5369): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:24:43:36 Fuse/(5369:5369): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:24:43:42 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:25:02:815 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:25:09:970 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:25:15:402 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:25:17:558 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:25:18:862 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:25:24:99 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:25:34:258 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:25:39:567 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:26:07:287 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:26:08:798 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:26:09:575 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:26:10:477 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:26:11:268 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:26:26:931 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:26:49:312 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:26:50:642 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:26:51:687 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:27:05:867 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:27:07:639 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:27:16:543 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:27:18:488 Fuse/(5369:5369): Se quiere saber los atributos del path /.goutputstream-WJZZPY
+[TRACE] 17:27:28:811 Fuse/(5369:5369): Se quiere crear el archivo /.goutputstream-WJZZPY
+[TRACE] 17:27:34:883 Fuse/(5369:5369): Se quiere saber los atributos del path /.goutputstream-WJZZPY
+[TRACE] 17:27:39:809 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:27:56:427 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:28:02:461 Fuse/(5369:5369): Se quiere crear el archivo /special.txt
+[TRACE] 17:28:07:266 Fuse/(5369:5369): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:28:13:956 Fuse/(5369:5369): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:28:23:107 Fuse/(5369:5369): Se quiere leer el archivo con path /Pokemons/special.txt,un size de 4096,desde el offset 0
+[TRACE] 17:28:31:517 Fuse/(5369:5369): Se quiere escribir el archivo con path /special.txt,un size de 3200,desde el offset 0
+[TRACE] 17:32:45:755 Fuse/(5660:5660): Se quiere saber los atributos del path /.Trash
+[TRACE] 17:32:45:764 Fuse/(5660:5660): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 17:32:45:768 Fuse/(5660:5660): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 17:32:45:773 Fuse/(5660:5660): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:32:45:777 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:780 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:32:45:785 Fuse/(5660:5660): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:32:45:786 Fuse/(5660:5660): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:32:45:790 Fuse/(5660:5660): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:32:45:792 Fuse/(5660:5660): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:32:45:800 Fuse/(5660:5660): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:32:45:804 Fuse/(5660:5660): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:32:45:815 Fuse/(5660:5660): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:32:45:819 Fuse/(5660:5660): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:32:45:822 Fuse/(5660:5660): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:32:45:824 Fuse/(5660:5660): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:32:45:830 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:32:45:831 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:834 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:836 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ834¡
+[TRACE] 17:32:45:846 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:853 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:860 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:865 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:876 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:877 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:880 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:885 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ880·
+[TRACE] 17:32:45:888 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:893 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJTRAÅ
+[TRACE] 17:32:45:895 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:897 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJlee©
+[TRACE] 17:32:45:900 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:905 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:911 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:921 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJleeë
+[TRACE] 17:32:45:923 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:936 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJtre
+[TRACE] 17:32:45:940 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:942 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJDˆ∑9
+[TRACE] 17:32:45:946 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:948 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:951 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:955 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJDˆ∑
+[TRACE] 17:32:45:958 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:960 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ7:3y
+[TRACE] 17:32:45:965 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:971 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:45:981 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:987 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJleea
+[TRACE] 17:32:45:990 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:995 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:998 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ990·
+[TRACE] 17:32:45:2 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:45:3 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJer ¡
+[TRACE] 17:32:46:13 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:46:15 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:32:46:24 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:32:46:27 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ7:3q
+[TRACE] 17:32:46:31 Fuse/(5660:5660): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:32:46:33 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:32:46:34 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:32:58:334 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:33:00:236 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:33:00:278 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:281 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:283 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:285 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:287 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:292 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:294 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:296 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:300 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:303 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:309 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:317 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:329 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:334 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:335 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:344 Fuse/(5660:5660): Se quiere saber los atributos del path /libselinux.so.1
+[TRACE] 17:33:00:347 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:350 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:353 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:355 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:360 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:362 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:364 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:366 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:367 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:373 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:378 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:383 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:389 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:392 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:394 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:395 Fuse/(5660:5660): Se quiere saber los atributos del path /libacl.so.1
+[TRACE] 17:33:00:397 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:399 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:402 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:404 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:408 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:409 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:411 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:412 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:416 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:417 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:418 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:420 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:421 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:424 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:426 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:428 Fuse/(5660:5660): Se quiere saber los atributos del path /libc.so.6
+[TRACE] 17:33:00:444 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:449 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:451 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:455 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:461 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:464 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:465 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:468 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:472 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:473 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:476 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:477 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:480 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:484 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:485 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:486 Fuse/(5660:5660): Se quiere saber los atributos del path /libpcre.so.3
+[TRACE] 17:33:00:488 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:492 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:493 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:495 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:496 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:498 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:504 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:507 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:516 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:517 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:519 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:520 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:521 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:522 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:524 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:536 Fuse/(5660:5660): Se quiere saber los atributos del path /libdl.so.2
+[TRACE] 17:33:00:538 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:544 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:546 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:547 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:548 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:549 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:550 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:551 Fuse/(5660:5660): Se quiere saber los atributos del path /tls
+[TRACE] 17:33:00:559 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:560 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:561 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:562 Fuse/(5660:5660): Se quiere saber los atributos del path /i686
+[TRACE] 17:33:00:563 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:566 Fuse/(5660:5660): Se quiere saber los atributos del path /sse2
+[TRACE] 17:33:00:569 Fuse/(5660:5660): Se quiere saber los atributos del path /cmov
+[TRACE] 17:33:00:575 Fuse/(5660:5660): Se quiere saber los atributos del path /libattr.so.1
+[TRACE] 17:33:00:616 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:33:00:619 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:00:620 Fuse/(5660:5660): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:33:00:621 Fuse/(5660:5660): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:33:00:623 Fuse/(5660:5660): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:33:00:624 Fuse/(5660:5660): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:33:00:626 Fuse/(5660:5660): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:33:00:627 Fuse/(5660:5660): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:33:00:628 Fuse/(5660:5660): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:33:00:630 Fuse/(5660:5660): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:33:00:642 Fuse/(5660:5660): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:33:00:652 Fuse/(5660:5660): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:33:00:664 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:14:973 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:33:26:146 Fuse/(5660:5660): Se quiere saber los atributos del path /.directory
+[TRACE] 17:33:26:153 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:33:26:157 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:33:26:166 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:26:168 Fuse/(5660:5660): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:33:26:171 Fuse/(5660:5660): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:33:26:176 Fuse/(5660:5660): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:33:26:178 Fuse/(5660:5660): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:33:26:181 Fuse/(5660:5660): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:33:26:185 Fuse/(5660:5660): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:33:26:200 Fuse/(5660:5660): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:33:26:202 Fuse/(5660:5660): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:33:26:204 Fuse/(5660:5660): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:33:26:206 Fuse/(5660:5660): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:33:26:211 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:26:213 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:33:28:792 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:28:797 Fuse/(5660:5660): Se quiere leer el directorio de path /Pokemons
+[TRACE] 17:33:28:799 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 17:33:28:801 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/002.txt
+[TRACE] 17:33:28:803 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/003.txt
+[TRACE] 17:33:28:806 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/004.txt
+[TRACE] 17:33:28:810 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/005.txt
+[TRACE] 17:33:28:815 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/006.txt
+[TRACE] 17:33:28:817 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/007.txt
+[TRACE] 17:33:28:819 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/008.txt
+[TRACE] 17:33:28:821 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/009.txt
+[TRACE] 17:33:28:824 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/010.txt
+[TRACE] 17:33:28:827 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/011.txt
+[TRACE] 17:33:28:830 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/012.txt
+[TRACE] 17:33:28:838 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/013.txt
+[TRACE] 17:33:28:841 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/014.txt
+[TRACE] 17:33:28:842 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/015.txt
+[TRACE] 17:33:28:845 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/016.txt
+[TRACE] 17:33:28:847 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/017.txt
+[TRACE] 17:33:28:850 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/018.txt
+[TRACE] 17:33:28:851 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/019.txt
+[TRACE] 17:33:28:854 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/020.txt
+[TRACE] 17:33:28:860 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/021.txt
+[TRACE] 17:33:28:863 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/022.txt
+[TRACE] 17:33:28:868 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/023.txt
+[TRACE] 17:33:28:870 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/024.txt
+[TRACE] 17:33:28:871 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/025.txt
+[TRACE] 17:33:28:873 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/026.txt
+[TRACE] 17:33:28:875 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/027.txt
+[TRACE] 17:33:28:877 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/028.txt
+[TRACE] 17:33:28:878 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/029.txt
+[TRACE] 17:33:28:882 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/030.txt
+[TRACE] 17:33:28:884 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/031.txt
+[TRACE] 17:33:28:886 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/032.txt
+[TRACE] 17:33:28:888 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/033.txt
+[TRACE] 17:33:28:891 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/034.txt
+[TRACE] 17:33:28:894 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/035.txt
+[TRACE] 17:33:28:907 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/036.txt
+[TRACE] 17:33:28:913 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/037.txt
+[TRACE] 17:33:28:915 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/038.txt
+[TRACE] 17:33:28:919 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/039.txt
+[TRACE] 17:33:28:923 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/040.txt
+[TRACE] 17:33:28:925 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/041.txt
+[TRACE] 17:33:28:927 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/042.txt
+[TRACE] 17:33:28:928 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/043.txt
+[TRACE] 17:33:28:930 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/044.txt
+[TRACE] 17:33:28:932 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/045.txt
+[TRACE] 17:33:28:934 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/046.txt
+[TRACE] 17:33:28:935 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/047.txt
+[TRACE] 17:33:28:937 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/048.txt
+[TRACE] 17:33:28:939 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/049.txt
+[TRACE] 17:33:28:940 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/050.txt
+[TRACE] 17:33:28:942 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/051.txt
+[TRACE] 17:33:28:944 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/052.txt
+[TRACE] 17:33:28:945 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/053.txt
+[TRACE] 17:33:28:947 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/054.txt
+[TRACE] 17:33:28:949 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/055.txt
+[TRACE] 17:33:28:951 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/056.txt
+[TRACE] 17:33:28:959 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/057.txt
+[TRACE] 17:33:28:968 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/058.txt
+[TRACE] 17:33:28:971 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/059.txt
+[TRACE] 17:33:28:973 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/060.txt
+[TRACE] 17:33:28:975 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/061.txt
+[TRACE] 17:33:28:977 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/062.txt
+[TRACE] 17:33:28:979 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/063.txt
+[TRACE] 17:33:28:981 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/064.txt
+[TRACE] 17:33:28:982 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/065.txt
+[TRACE] 17:33:28:985 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/066.txt
+[TRACE] 17:33:28:990 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/067.txt
+[TRACE] 17:33:28:992 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/068.txt
+[TRACE] 17:33:28:995 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/069.txt
+[TRACE] 17:33:28:997 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/070.txt
+[TRACE] 17:33:28:999 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/071.txt
+[TRACE] 17:33:28:3 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/072.txt
+[TRACE] 17:33:29:8 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/073.txt
+[TRACE] 17:33:29:10 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/074.txt
+[TRACE] 17:33:29:12 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/075.txt
+[TRACE] 17:33:29:14 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/076.txt
+[TRACE] 17:33:29:15 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/077.txt
+[TRACE] 17:33:29:18 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/078.txt
+[TRACE] 17:33:29:20 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/079.txt
+[TRACE] 17:33:29:22 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/080.txt
+[TRACE] 17:33:29:24 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/081.txt
+[TRACE] 17:33:29:28 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/082.txt
+[TRACE] 17:33:29:34 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/083.txt
+[TRACE] 17:33:29:43 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/084.txt
+[TRACE] 17:33:29:45 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/085.txt
+[TRACE] 17:33:29:47 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/086.txt
+[TRACE] 17:33:29:48 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/087.txt
+[TRACE] 17:33:29:51 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/088.txt
+[TRACE] 17:33:29:53 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/089.txt
+[TRACE] 17:33:29:54 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/090.txt
+[TRACE] 17:33:29:56 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/.directory
+[TRACE] 17:33:29:61 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/091.txt
+[TRACE] 17:33:29:63 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/092.txt
+[TRACE] 17:33:29:65 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:33:29:66 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/093.txt
+[TRACE] 17:33:29:68 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/094.txt
+[TRACE] 17:33:29:70 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/095.txt
+[TRACE] 17:33:29:71 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:29:76 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/096.txt
+[TRACE] 17:33:29:77 Fuse/(5660:5660): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:33:29:78 Fuse/(5660:5660): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:33:29:80 Fuse/(5660:5660): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:33:29:81 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/097.txt
+[TRACE] 17:33:29:82 Fuse/(5660:5660): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:33:29:83 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/098.txt
+[TRACE] 17:33:29:89 Fuse/(5660:5660): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:33:29:96 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/099.txt
+[TRACE] 17:33:29:100 Fuse/(5660:5660): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:33:29:101 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/100.txt
+[TRACE] 17:33:29:104 Fuse/(5660:5660): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:33:29:108 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/101.txt
+[TRACE] 17:33:29:109 Fuse/(5660:5660): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:33:29:116 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/102.txt
+[TRACE] 17:33:29:117 Fuse/(5660:5660): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:33:29:119 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/103.txt
+[TRACE] 17:33:29:120 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/104.txt
+[TRACE] 17:33:29:121 Fuse/(5660:5660): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:33:29:124 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:29:125 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/105.txt
+[TRACE] 17:33:29:128 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJabe
+[TRACE] 17:33:29:129 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/106.txt
+[TRACE] 17:33:29:130 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/107.txt
+[TRACE] 17:33:29:132 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/108.txt
+[TRACE] 17:33:29:137 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/109.txt
+[TRACE] 17:33:29:139 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/110.txt
+[TRACE] 17:33:29:141 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/111.txt
+[TRACE] 17:33:29:144 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/112.txt
+[TRACE] 17:33:29:148 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/113.txt
+[TRACE] 17:33:29:150 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/114.txt
+[TRACE] 17:33:29:153 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/115.txt
+[TRACE] 17:33:29:156 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/116.txt
+[TRACE] 17:33:29:161 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/117.txt
+[TRACE] 17:33:29:171 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/118.txt
+[TRACE] 17:33:29:174 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/119.txt
+[TRACE] 17:33:29:176 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/120.txt
+[TRACE] 17:33:29:180 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/121.txt
+[TRACE] 17:33:29:184 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/122.txt
+[TRACE] 17:33:29:189 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/123.txt
+[TRACE] 17:33:29:190 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/124.txt
+[TRACE] 17:33:29:192 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/125.txt
+[TRACE] 17:33:29:193 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/126.txt
+[TRACE] 17:33:29:194 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/127.txt
+[TRACE] 17:33:29:197 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/128.txt
+[TRACE] 17:33:29:200 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/129.txt
+[TRACE] 17:33:29:201 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/130.txt
+[TRACE] 17:33:29:203 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/131.txt
+[TRACE] 17:33:29:204 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/132.txt
+[TRACE] 17:33:29:206 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/133.txt
+[TRACE] 17:33:29:208 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/134.txt
+[TRACE] 17:33:29:214 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:33:35:597 Fuse/(5660:5660): Se quiere saber los atributos del path /
+[TRACE] 17:33:35:602 Fuse/(5660:5660): Se quiere saber los atributos del path /.directory
+[TRACE] 17:33:35:605 Fuse/(5660:5660): Se quiere leer el directorio de path /
+[TRACE] 17:33:35:607 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:35:610 Fuse/(5660:5660): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:33:35:613 Fuse/(5660:5660): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:33:35:617 Fuse/(5660:5660): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:33:35:636 Fuse/(5660:5660): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:33:35:637 Fuse/(5660:5660): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:33:35:641 Fuse/(5660:5660): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:33:35:642 Fuse/(5660:5660): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:33:35:644 Fuse/(5660:5660): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:33:35:649 Fuse/(5660:5660): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:33:35:651 Fuse/(5660:5660): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:33:35:659 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:35:660 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:33:38:318 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:38:320 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:33:38:325 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:41:102 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:33:41:103 Fuse/(5660:5660): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:33:41:105 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:41:108 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-FRRDQY
+[TRACE] 17:33:41:112 Fuse/(5660:5660): Se quiere crear el archivo /.goutputstream-FRRDQY
+[TRACE] 17:33:41:136 Fuse/(5660:5660): Se quiere saber los atributos del path /.goutputstream-FRRDQY
+[TRACE] 17:33:41:147 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:41:152 Fuse/(5660:5660): Se quiere crear el archivo /special.txt
+[TRACE] 17:33:41:154 Fuse/(5660:5660): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:33:41:157 Fuse/(5660:5660): Se quiere leer el archivo con path /Pokemons/special.txt,un size de 4096,desde el offset 0
+[TRACE] 17:33:50:39 Fuse/(5660:5660): Se quiere escribir el archivo con path /special.txt,un size de 3200,desde el offset 0
+[TRACE] 17:36:01:758 Fuse/(5845:5845): Se quiere saber los atributos del path /.Trash
+[TRACE] 17:36:01:767 Fuse/(5845:5845): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 17:36:01:768 Fuse/(5845:5845): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 17:36:01:770 Fuse/(5845:5845): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:36:01:776 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:782 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:01:791 Fuse/(5845:5845): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:36:01:792 Fuse/(5845:5845): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:36:01:797 Fuse/(5845:5845): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:36:01:802 Fuse/(5845:5845): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:36:01:810 Fuse/(5845:5845): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:36:01:815 Fuse/(5845:5845): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:36:01:819 Fuse/(5845:5845): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:36:01:823 Fuse/(5845:5845): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:36:01:826 Fuse/(5845:5845): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:36:01:830 Fuse/(5845:5845): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:36:01:831 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:01:833 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:01:838 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:01:857 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:859 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ857q
+[TRACE] 17:36:01:862 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR857q
+[TRACE] 17:36:01:872 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:876 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ845â
+[TRACE] 17:36:01:877 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR845â
+[TRACE] 17:36:01:879 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:886 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJtst
+[TRACE] 17:36:01:888 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FRtst
+[TRACE] 17:36:01:892 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:894 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:01:896 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:01:901 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:908 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:01:910 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:01:920 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:924 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ920˘
+[TRACE] 17:36:01:928 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR920˘
+[TRACE] 17:36:01:932 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:935 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJÌXDˆ∑ 
+[TRACE] 17:36:01:938 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FRÌXDˆ∑ 
+[TRACE] 17:36:01:945 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:949 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:01:957 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:01:961 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:965 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ961Ò
+[TRACE] 17:36:01:966 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR961Ò
+[TRACE] 17:36:01:972 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:984 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJgouÒ
+[TRACE] 17:36:01:989 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FRgouÒ
+[TRACE] 17:36:01:992 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:01:994 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ845â
+[TRACE] 17:36:01:0 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR845â
+[TRACE] 17:36:02:4 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:6 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ4 F
+[TRACE] 17:36:02:10 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR4 F
+[TRACE] 17:36:02:15 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:16 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:02:20 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:02:32 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:37 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ32 Ò
+[TRACE] 17:36:02:49 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR32 Ò
+[TRACE] 17:36:02:56 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:60 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJgouÒ
+[TRACE] 17:36:02:64 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FRgouÒ
+[TRACE] 17:36:02:67 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:73 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ45)â
+[TRACE] 17:36:02:75 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR45)â
+[TRACE] 17:36:02:80 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:82 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ80 
+[TRACE] 17:36:02:84 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR80 
+[TRACE] 17:36:02:87 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:101 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:02:104 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:02:130 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:139 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ130Ò
+[TRACE] 17:36:02:157 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR130Ò
+[TRACE] 17:36:02:161 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:170 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJgouÒ
+[TRACE] 17:36:02:177 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FRgouÒ
+[TRACE] 17:36:02:208 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:02:212 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ845â
+[TRACE] 17:36:02:215 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR845â
+[TRACE] 17:36:02:233 Fuse/(5845:5845): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:36:02:282 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:02:290 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:16:12 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:17:988 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:17:990 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:17:992 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:17:996 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:17:3 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:5 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:7 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:13 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:15 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:24 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:25 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:32 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:33 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:40 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:46 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:48 Fuse/(5845:5845): Se quiere saber los atributos del path /libselinux.so.1
+[TRACE] 17:36:18:50 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:51 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:55 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:57 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:60 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:62 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:64 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:68 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:69 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:72 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:79 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:84 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:87 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:88 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:91 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:92 Fuse/(5845:5845): Se quiere saber los atributos del path /libacl.so.1
+[TRACE] 17:36:18:96 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:98 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:99 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:101 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:107 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:113 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:116 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:118 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:124 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:125 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:126 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:128 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:129 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:130 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:131 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:143 Fuse/(5845:5845): Se quiere saber los atributos del path /libc.so.6
+[TRACE] 17:36:18:145 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:146 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:147 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:148 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:150 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:152 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:153 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:156 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:158 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:159 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:164 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:167 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:169 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:173 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:181 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:184 Fuse/(5845:5845): Se quiere saber los atributos del path /libpcre.so.3
+[TRACE] 17:36:18:186 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:187 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:189 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:190 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:192 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:196 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:197 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:198 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:200 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:204 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:205 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:206 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:208 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:209 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:212 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:213 Fuse/(5845:5845): Se quiere saber los atributos del path /libdl.so.2
+[TRACE] 17:36:18:216 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:217 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:226 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:228 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:232 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:235 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:238 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:245 Fuse/(5845:5845): Se quiere saber los atributos del path /tls
+[TRACE] 17:36:18:252 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:253 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:254 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:256 Fuse/(5845:5845): Se quiere saber los atributos del path /i686
+[TRACE] 17:36:18:260 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:262 Fuse/(5845:5845): Se quiere saber los atributos del path /sse2
+[TRACE] 17:36:18:264 Fuse/(5845:5845): Se quiere saber los atributos del path /cmov
+[TRACE] 17:36:18:268 Fuse/(5845:5845): Se quiere saber los atributos del path /libattr.so.1
+[TRACE] 17:36:18:284 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:18:288 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:18:299 Fuse/(5845:5845): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:36:18:303 Fuse/(5845:5845): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:36:18:307 Fuse/(5845:5845): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:36:18:313 Fuse/(5845:5845): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:36:18:320 Fuse/(5845:5845): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:36:18:322 Fuse/(5845:5845): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:36:18:323 Fuse/(5845:5845): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:36:18:325 Fuse/(5845:5845): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:36:18:326 Fuse/(5845:5845): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:36:18:328 Fuse/(5845:5845): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:36:18:329 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:24:704 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:27:746 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:27:754 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:27:759 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:27:762 Fuse/(5845:5845): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:36:27:767 Fuse/(5845:5845): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:36:27:769 Fuse/(5845:5845): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:36:27:776 Fuse/(5845:5845): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:36:27:778 Fuse/(5845:5845): Se quiere saber los atributos del path /.directory
+[TRACE] 17:36:27:779 Fuse/(5845:5845): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:36:27:782 Fuse/(5845:5845): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:36:27:798 Fuse/(5845:5845): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:36:27:799 Fuse/(5845:5845): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:36:27:801 Fuse/(5845:5845): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:36:27:802 Fuse/(5845:5845): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:36:27:804 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:27:809 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:27:881 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:34:271 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:34:274 Fuse/(5845:5845): Se quiere leer el directorio de path /Pokemons
+[TRACE] 17:36:34:276 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 17:36:34:277 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/002.txt
+[TRACE] 17:36:34:279 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/003.txt
+[TRACE] 17:36:34:282 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/004.txt
+[TRACE] 17:36:34:284 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/005.txt
+[TRACE] 17:36:34:286 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/006.txt
+[TRACE] 17:36:34:288 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/007.txt
+[TRACE] 17:36:34:293 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/008.txt
+[TRACE] 17:36:34:294 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/009.txt
+[TRACE] 17:36:34:298 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/010.txt
+[TRACE] 17:36:34:299 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/011.txt
+[TRACE] 17:36:34:302 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/012.txt
+[TRACE] 17:36:34:311 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/013.txt
+[TRACE] 17:36:34:317 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/014.txt
+[TRACE] 17:36:34:323 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/015.txt
+[TRACE] 17:36:34:324 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/016.txt
+[TRACE] 17:36:34:326 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/017.txt
+[TRACE] 17:36:34:328 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/018.txt
+[TRACE] 17:36:34:329 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/019.txt
+[TRACE] 17:36:34:331 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/020.txt
+[TRACE] 17:36:34:334 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/021.txt
+[TRACE] 17:36:34:337 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/022.txt
+[TRACE] 17:36:34:338 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/023.txt
+[TRACE] 17:36:34:340 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/024.txt
+[TRACE] 17:36:34:342 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/025.txt
+[TRACE] 17:36:34:344 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/026.txt
+[TRACE] 17:36:34:346 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/027.txt
+[TRACE] 17:36:34:348 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/028.txt
+[TRACE] 17:36:34:351 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/029.txt
+[TRACE] 17:36:34:359 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/030.txt
+[TRACE] 17:36:34:362 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/031.txt
+[TRACE] 17:36:34:365 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/032.txt
+[TRACE] 17:36:34:370 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/033.txt
+[TRACE] 17:36:34:376 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/034.txt
+[TRACE] 17:36:34:382 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/035.txt
+[TRACE] 17:36:34:388 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/036.txt
+[TRACE] 17:36:34:392 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/037.txt
+[TRACE] 17:36:34:396 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/038.txt
+[TRACE] 17:36:34:398 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/039.txt
+[TRACE] 17:36:34:401 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/040.txt
+[TRACE] 17:36:34:404 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/041.txt
+[TRACE] 17:36:34:407 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/042.txt
+[TRACE] 17:36:34:411 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/043.txt
+[TRACE] 17:36:34:413 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/044.txt
+[TRACE] 17:36:34:415 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/045.txt
+[TRACE] 17:36:34:416 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/046.txt
+[TRACE] 17:36:34:418 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/047.txt
+[TRACE] 17:36:34:420 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/048.txt
+[TRACE] 17:36:34:422 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/049.txt
+[TRACE] 17:36:34:423 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/050.txt
+[TRACE] 17:36:34:425 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/051.txt
+[TRACE] 17:36:34:426 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/052.txt
+[TRACE] 17:36:34:428 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/053.txt
+[TRACE] 17:36:34:429 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/054.txt
+[TRACE] 17:36:34:431 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/055.txt
+[TRACE] 17:36:34:434 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/056.txt
+[TRACE] 17:36:34:438 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/057.txt
+[TRACE] 17:36:34:445 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/058.txt
+[TRACE] 17:36:34:447 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/059.txt
+[TRACE] 17:36:34:449 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/060.txt
+[TRACE] 17:36:34:451 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/061.txt
+[TRACE] 17:36:34:455 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/062.txt
+[TRACE] 17:36:34:459 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/063.txt
+[TRACE] 17:36:34:461 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/064.txt
+[TRACE] 17:36:34:463 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/065.txt
+[TRACE] 17:36:34:465 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/066.txt
+[TRACE] 17:36:34:467 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/067.txt
+[TRACE] 17:36:34:469 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/068.txt
+[TRACE] 17:36:34:471 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/069.txt
+[TRACE] 17:36:34:472 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/070.txt
+[TRACE] 17:36:34:477 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/071.txt
+[TRACE] 17:36:34:481 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/072.txt
+[TRACE] 17:36:34:483 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/073.txt
+[TRACE] 17:36:34:485 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/074.txt
+[TRACE] 17:36:34:487 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/075.txt
+[TRACE] 17:36:34:488 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/076.txt
+[TRACE] 17:36:34:490 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/077.txt
+[TRACE] 17:36:34:497 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/.directory
+[TRACE] 17:36:34:499 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/078.txt
+[TRACE] 17:36:34:504 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/079.txt
+[TRACE] 17:36:34:512 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/080.txt
+[TRACE] 17:36:34:517 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/081.txt
+[TRACE] 17:36:34:520 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/082.txt
+[TRACE] 17:36:34:523 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:34:525 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/083.txt
+[TRACE] 17:36:34:530 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/084.txt
+[TRACE] 17:36:34:531 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:34:534 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/085.txt
+[TRACE] 17:36:34:540 Fuse/(5845:5845): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:36:34:541 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/086.txt
+[TRACE] 17:36:34:543 Fuse/(5845:5845): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:36:34:544 Fuse/(5845:5845): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:36:34:546 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/087.txt
+[TRACE] 17:36:34:548 Fuse/(5845:5845): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:36:34:549 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/088.txt
+[TRACE] 17:36:34:551 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/089.txt
+[TRACE] 17:36:34:553 Fuse/(5845:5845): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:36:34:555 Fuse/(5845:5845): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:36:34:556 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/090.txt
+[TRACE] 17:36:34:559 Fuse/(5845:5845): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:36:34:560 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/091.txt
+[TRACE] 17:36:34:566 Fuse/(5845:5845): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:36:34:573 Fuse/(5845:5845): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:36:34:575 Fuse/(5845:5845): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:36:34:577 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:34:581 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ499
+[TRACE] 17:36:34:582 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR499
+[TRACE] 17:36:34:590 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/092.txt
+[TRACE] 17:36:34:592 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/093.txt
+[TRACE] 17:36:34:593 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/094.txt
+[TRACE] 17:36:34:594 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/095.txt
+[TRACE] 17:36:34:597 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/096.txt
+[TRACE] 17:36:34:599 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/097.txt
+[TRACE] 17:36:34:601 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/098.txt
+[TRACE] 17:36:34:602 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/099.txt
+[TRACE] 17:36:34:608 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/100.txt
+[TRACE] 17:36:34:609 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/101.txt
+[TRACE] 17:36:34:611 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/102.txt
+[TRACE] 17:36:34:612 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/103.txt
+[TRACE] 17:36:34:613 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/104.txt
+[TRACE] 17:36:34:616 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/105.txt
+[TRACE] 17:36:34:617 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/106.txt
+[TRACE] 17:36:34:620 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/107.txt
+[TRACE] 17:36:34:624 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/108.txt
+[TRACE] 17:36:34:630 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/109.txt
+[TRACE] 17:36:34:637 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/110.txt
+[TRACE] 17:36:34:644 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/111.txt
+[TRACE] 17:36:34:646 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/112.txt
+[TRACE] 17:36:34:648 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/113.txt
+[TRACE] 17:36:34:650 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/114.txt
+[TRACE] 17:36:34:653 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/115.txt
+[TRACE] 17:36:34:656 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/116.txt
+[TRACE] 17:36:34:661 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/117.txt
+[TRACE] 17:36:34:663 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/118.txt
+[TRACE] 17:36:34:665 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/119.txt
+[TRACE] 17:36:34:668 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/120.txt
+[TRACE] 17:36:34:676 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/121.txt
+[TRACE] 17:36:34:680 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/122.txt
+[TRACE] 17:36:34:682 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/123.txt
+[TRACE] 17:36:34:684 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/124.txt
+[TRACE] 17:36:34:686 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/125.txt
+[TRACE] 17:36:34:692 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/126.txt
+[TRACE] 17:36:34:696 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/127.txt
+[TRACE] 17:36:34:710 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/128.txt
+[TRACE] 17:36:34:717 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/129.txt
+[TRACE] 17:36:34:720 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/130.txt
+[TRACE] 17:36:34:724 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/131.txt
+[TRACE] 17:36:34:727 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/132.txt
+[TRACE] 17:36:34:729 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/133.txt
+[TRACE] 17:36:34:733 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/134.txt
+[TRACE] 17:36:34:743 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:36:40:670 Fuse/(5845:5845): Se quiere saber los atributos del path /
+[TRACE] 17:36:40:677 Fuse/(5845:5845): Se quiere saber los atributos del path /.directory
+[TRACE] 17:36:40:690 Fuse/(5845:5845): Se quiere leer el directorio de path /
+[TRACE] 17:36:40:696 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:40:698 Fuse/(5845:5845): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:36:40:702 Fuse/(5845:5845): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:36:40:707 Fuse/(5845:5845): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:36:40:708 Fuse/(5845:5845): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:36:40:710 Fuse/(5845:5845): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:36:40:712 Fuse/(5845:5845): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:36:40:714 Fuse/(5845:5845): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:36:40:717 Fuse/(5845:5845): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:36:40:729 Fuse/(5845:5845): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:36:40:733 Fuse/(5845:5845): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:36:40:734 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:40:743 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:36:40:759 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:36:42:513 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:42:518 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:36:42:525 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:49:716 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:36:49:718 Fuse/(5845:5845): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:36:49:719 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:49:721 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-O4ZXPY
+[TRACE] 17:36:49:725 Fuse/(5845:5845): Se quiere crear el archivo /.goutputstream-O4ZXPY
+[TRACE] 17:36:49:736 Fuse/(5845:5845): Se quiere saber los atributos del path /.goutputstream-O4ZXPY
+[TRACE] 17:36:49:744 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:49:746 Fuse/(5845:5845): Se quiere crear el archivo /special.txt
+[TRACE] 17:36:49:749 Fuse/(5845:5845): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:36:49:753 Fuse/(5845:5845): Se quiere leer el archivo con path /Pokemons/special.txt,un size de 4096,desde el offset 0
+[TRACE] 17:36:54:807 Fuse/(5845:5845): Se quiere escribir el archivo con path /special.txt,un size de 3200,desde el offset 0
+[TRACE] 17:41:04:659 Fuse/(5983:5983): Se quiere saber los atributos del path /.Trash
+[TRACE] 17:41:04:669 Fuse/(5983:5983): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 17:41:04:671 Fuse/(5983:5983): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 17:41:04:676 Fuse/(5983:5983): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:41:04:680 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:689 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:41:04:699 Fuse/(5983:5983): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:41:04:701 Fuse/(5983:5983): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:41:04:709 Fuse/(5983:5983): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:41:04:711 Fuse/(5983:5983): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:41:04:716 Fuse/(5983:5983): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:41:04:717 Fuse/(5983:5983): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:41:04:722 Fuse/(5983:5983): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:41:04:733 Fuse/(5983:5983): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:41:04:734 Fuse/(5983:5983): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:41:04:737 Fuse/(5983:5983): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:41:04:739 Fuse/(5983:5983): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:41:04:749 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:04:767 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:04:773 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:04:780 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:785 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ780
+[TRACE] 17:41:04:787 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR780
+[TRACE] 17:41:04:789 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4780
+[TRACE] 17:41:04:796 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:800 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ983ô
+[TRACE] 17:41:04:804 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR983ô
+[TRACE] 17:41:04:808 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4983ô
+[TRACE] 17:41:04:813 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:822 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJout
+[TRACE] 17:41:04:830 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FRout
+[TRACE] 17:41:04:831 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4out
+[TRACE] 17:41:04:836 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:840 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:04:842 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:04:843 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:04:847 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:851 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:04:852 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:04:855 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:04:859 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:863 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJout)
+[TRACE] 17:41:04:864 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FRout)
+[TRACE] 17:41:04:870 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4out)
+[TRACE] 17:41:04:875 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:892 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ983¡
+[TRACE] 17:41:04:900 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR983¡
+[TRACE] 17:41:04:901 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4983¡
+[TRACE] 17:41:04:904 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:909 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ983·
+[TRACE] 17:41:04:912 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR983·
+[TRACE] 17:41:04:914 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4983·
+[TRACE] 17:41:04:918 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:925 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ918
+[TRACE] 17:41:04:929 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR918
+[TRACE] 17:41:04:937 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4918
+[TRACE] 17:41:04:941 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:952 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJwn
+[TRACE] 17:41:04:956 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FRwn
+[TRACE] 17:41:04:963 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4wn
+[TRACE] 17:41:04:966 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:973 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:04:974 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:04:979 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:04:983 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:987 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:04:989 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:04:993 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:04:996 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:04:999 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ983A
+[TRACE] 17:41:04:0 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR983A
+[TRACE] 17:41:04:6 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4983A
+[TRACE] 17:41:05:15 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:23 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ83)·
+[TRACE] 17:41:05:30 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR83)·
+[TRACE] 17:41:05:32 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O483)·
+[TRACE] 17:41:05:35 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:37 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ35 
+[TRACE] 17:41:05:39 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR35 
+[TRACE] 17:41:05:40 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O435 
+[TRACE] 17:41:05:43 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:45 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJwn
+[TRACE] 17:41:05:47 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FRwn
+[TRACE] 17:41:05:49 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4wn
+[TRACE] 17:41:05:52 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:54 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:05:56 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:05:65 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:05:67 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:70 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ
+[TRACE] 17:41:05:74 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR
+[TRACE] 17:41:05:76 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4
+[TRACE] 17:41:05:93 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:96 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ83)A
+[TRACE] 17:41:05:100 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR83)A
+[TRACE] 17:41:05:102 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O483)A
+[TRACE] 17:41:05:110 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:113 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ983·
+[TRACE] 17:41:05:116 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR983·
+[TRACE] 17:41:05:121 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4983·
+[TRACE] 17:41:05:131 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:05:133 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-WJ131
+[TRACE] 17:41:05:135 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-FR131
+[TRACE] 17:41:05:140 Fuse/(5983:5983): Se quiere saber los atributos del path /.goutputstream-O4131
+[TRACE] 17:41:05:149 Fuse/(5983:5983): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 17:41:05:153 Fuse/(5983:5983): Se quiere saber los atributos del path /
+[TRACE] 17:41:05:154 Fuse/(5983:5983): Se quiere saber los atributos del path /
+[TRACE] 17:41:11:169 Fuse/(5983:5983): Se quiere saber los atributos del path /
+[TRACE] 17:41:14:810 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:812 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:815 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:823 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:830 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:846 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:849 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:865 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:870 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:881 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:889 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:897 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:901 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:14:906 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:14:914 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:14:928 Fuse/(5983:5983): Se quiere saber los atributos del path /libselinux.so.1
+[TRACE] 17:41:14:933 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:935 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:943 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:946 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:948 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:962 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:964 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:972 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:14:974 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:980 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:996 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:998 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:14:999 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:14:4 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:11 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:15:15 Fuse/(5983:5983): Se quiere saber los atributos del path /libacl.so.1
+[TRACE] 17:41:15:18 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:21 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:24 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:26 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:35 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:42 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:57 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:61 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:71 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:75 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:77 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:80 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:82 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:84 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:87 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:15:89 Fuse/(5983:5983): Se quiere saber los atributos del path /libc.so.6
+[TRACE] 17:41:15:92 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:94 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:97 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:106 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:113 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:118 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:120 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:122 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:124 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:125 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:134 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:135 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:137 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:138 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:140 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:15:141 Fuse/(5983:5983): Se quiere saber los atributos del path /libpcre.so.3
+[TRACE] 17:41:15:149 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:152 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:153 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:155 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:157 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:158 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:160 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:162 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:164 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:166 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:168 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:170 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:171 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:174 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:191 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:15:194 Fuse/(5983:5983): Se quiere saber los atributos del path /libdl.so.2
+[TRACE] 17:41:15:196 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:198 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:199 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:201 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:203 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:204 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:210 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:214 Fuse/(5983:5983): Se quiere saber los atributos del path /tls
+[TRACE] 17:41:15:216 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:218 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:219 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:221 Fuse/(5983:5983): Se quiere saber los atributos del path /i686
+[TRACE] 17:41:15:226 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:228 Fuse/(5983:5983): Se quiere saber los atributos del path /sse2
+[TRACE] 17:41:15:231 Fuse/(5983:5983): Se quiere saber los atributos del path /cmov
+[TRACE] 17:41:15:234 Fuse/(5983:5983): Se quiere saber los atributos del path /libattr.so.1
+[TRACE] 17:41:15:244 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:15:249 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:41:15:252 Fuse/(5983:5983): Se quiere saber los atributos del path /Celadon City
+[TRACE] 17:41:15:254 Fuse/(5983:5983): Se quiere saber los atributos del path /README.txt
+[TRACE] 17:41:15:256 Fuse/(5983:5983): Se quiere saber los atributos del path /Cerulean City
+[TRACE] 17:41:15:266 Fuse/(5983:5983): Se quiere saber los atributos del path /Fuchsia City
+[TRACE] 17:41:15:268 Fuse/(5983:5983): Se quiere saber los atributos del path /Lavender Town
+[TRACE] 17:41:15:269 Fuse/(5983:5983): Se quiere saber los atributos del path /Pallet Town
+[TRACE] 17:41:15:271 Fuse/(5983:5983): Se quiere saber los atributos del path /Pewter City
+[TRACE] 17:41:15:272 Fuse/(5983:5983): Se quiere saber los atributos del path /Saffron City
+[TRACE] 17:41:15:274 Fuse/(5983:5983): Se quiere saber los atributos del path /Vermilion City
+[TRACE] 17:41:15:275 Fuse/(5983:5983): Se quiere saber los atributos del path /Viridian City
+[TRACE] 17:41:15:277 Fuse/(5983:5983): Se quiere saber los atributos del path /special.txt
+[TRACE] 17:41:37:453 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:37:461 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:37:508 Fuse/(5983:5983): Se quiere leer el directorio de path /
+[TRACE] 17:41:37:516 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:41:37:548 Fuse/(5983:5983): Se quiere saber los atributos del path /
+[TRACE] 17:41:39:467 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:477 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:479 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:480 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:482 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:487 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:488 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:493 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:497 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:508 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:510 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:516 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:524 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:527 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:532 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:534 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libselinux.so.1
+[TRACE] 17:41:39:538 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:540 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:542 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:543 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:545 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:548 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:550 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:552 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:561 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:570 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:574 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:575 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:581 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:582 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:583 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:586 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libacl.so.1
+[TRACE] 17:41:39:590 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:592 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:598 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:602 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:606 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:607 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:613 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:617 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:620 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:621 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:623 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:638 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:640 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:645 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:647 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:650 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libc.so.6
+[TRACE] 17:41:39:652 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:655 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:656 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:658 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:660 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:662 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:663 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:665 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:666 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:667 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:669 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:671 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:679 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:681 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:682 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:683 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libpcre.so.3
+[TRACE] 17:41:39:685 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:687 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:689 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:706 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:707 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:708 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:712 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:715 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:722 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:724 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:726 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:727 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:729 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:731 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:733 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:734 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libdl.so.2
+[TRACE] 17:41:39:736 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:737 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:740 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:743 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:744 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:746 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:756 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:759 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:39:765 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:768 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:777 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:779 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:39:781 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:783 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:39:788 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:39:789 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libattr.so.1
+[TRACE] 17:41:39:798 Fuse/(5983:5983): Se quiere leer el directorio de path /Pokemons
+[TRACE] 17:41:39:801 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 17:41:39:803 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/002.txt
+[TRACE] 17:41:39:805 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/003.txt
+[TRACE] 17:41:39:807 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/004.txt
+[TRACE] 17:41:39:809 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/005.txt
+[TRACE] 17:41:39:813 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/006.txt
+[TRACE] 17:41:39:814 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/007.txt
+[TRACE] 17:41:39:823 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/008.txt
+[TRACE] 17:41:39:826 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/009.txt
+[TRACE] 17:41:39:832 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/010.txt
+[TRACE] 17:41:39:836 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/011.txt
+[TRACE] 17:41:39:838 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/012.txt
+[TRACE] 17:41:39:840 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/013.txt
+[TRACE] 17:41:39:841 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/014.txt
+[TRACE] 17:41:39:843 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/015.txt
+[TRACE] 17:41:39:845 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/016.txt
+[TRACE] 17:41:39:852 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/017.txt
+[TRACE] 17:41:39:854 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/018.txt
+[TRACE] 17:41:39:856 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/019.txt
+[TRACE] 17:41:39:858 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/020.txt
+[TRACE] 17:41:39:860 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/021.txt
+[TRACE] 17:41:39:868 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/022.txt
+[TRACE] 17:41:39:870 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/023.txt
+[TRACE] 17:41:39:872 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/024.txt
+[TRACE] 17:41:39:873 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/025.txt
+[TRACE] 17:41:39:875 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/026.txt
+[TRACE] 17:41:39:876 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/027.txt
+[TRACE] 17:41:39:877 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/028.txt
+[TRACE] 17:41:39:879 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/029.txt
+[TRACE] 17:41:39:880 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/030.txt
+[TRACE] 17:41:39:883 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/031.txt
+[TRACE] 17:41:39:886 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/032.txt
+[TRACE] 17:41:39:891 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/033.txt
+[TRACE] 17:41:39:895 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/034.txt
+[TRACE] 17:41:39:905 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/035.txt
+[TRACE] 17:41:39:906 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/036.txt
+[TRACE] 17:41:39:908 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/037.txt
+[TRACE] 17:41:39:910 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/038.txt
+[TRACE] 17:41:39:912 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/039.txt
+[TRACE] 17:41:39:914 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/040.txt
+[TRACE] 17:41:39:915 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/041.txt
+[TRACE] 17:41:39:922 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/042.txt
+[TRACE] 17:41:39:925 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/043.txt
+[TRACE] 17:41:39:926 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/044.txt
+[TRACE] 17:41:39:928 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/045.txt
+[TRACE] 17:41:39:929 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/046.txt
+[TRACE] 17:41:39:931 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/047.txt
+[TRACE] 17:41:39:940 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/048.txt
+[TRACE] 17:41:39:942 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/049.txt
+[TRACE] 17:41:39:944 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/050.txt
+[TRACE] 17:41:39:947 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/051.txt
+[TRACE] 17:41:39:948 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/052.txt
+[TRACE] 17:41:39:951 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/053.txt
+[TRACE] 17:41:39:954 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/054.txt
+[TRACE] 17:41:39:963 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/055.txt
+[TRACE] 17:41:39:965 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/056.txt
+[TRACE] 17:41:39:967 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/057.txt
+[TRACE] 17:41:39:975 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/058.txt
+[TRACE] 17:41:39:978 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/059.txt
+[TRACE] 17:41:39:979 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/060.txt
+[TRACE] 17:41:39:981 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/061.txt
+[TRACE] 17:41:39:982 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/062.txt
+[TRACE] 17:41:39:984 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/063.txt
+[TRACE] 17:41:39:987 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/064.txt
+[TRACE] 17:41:39:989 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/065.txt
+[TRACE] 17:41:39:997 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/066.txt
+[TRACE] 17:41:39:0 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/067.txt
+[TRACE] 17:41:39:1 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/068.txt
+[TRACE] 17:41:39:3 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/069.txt
+[TRACE] 17:41:39:4 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/070.txt
+[TRACE] 17:41:40:12 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/071.txt
+[TRACE] 17:41:40:14 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/072.txt
+[TRACE] 17:41:40:19 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/073.txt
+[TRACE] 17:41:40:21 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/074.txt
+[TRACE] 17:41:40:26 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/075.txt
+[TRACE] 17:41:40:28 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/076.txt
+[TRACE] 17:41:40:30 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/077.txt
+[TRACE] 17:41:40:32 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/078.txt
+[TRACE] 17:41:40:33 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/079.txt
+[TRACE] 17:41:40:35 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/080.txt
+[TRACE] 17:41:40:36 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/081.txt
+[TRACE] 17:41:40:39 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/082.txt
+[TRACE] 17:41:40:47 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/083.txt
+[TRACE] 17:41:40:50 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/084.txt
+[TRACE] 17:41:40:51 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/085.txt
+[TRACE] 17:41:40:53 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/086.txt
+[TRACE] 17:41:40:56 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/087.txt
+[TRACE] 17:41:40:57 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/088.txt
+[TRACE] 17:41:40:59 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/089.txt
+[TRACE] 17:41:40:66 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/090.txt
+[TRACE] 17:41:40:68 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/091.txt
+[TRACE] 17:41:40:70 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/092.txt
+[TRACE] 17:41:40:72 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/093.txt
+[TRACE] 17:41:40:74 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/094.txt
+[TRACE] 17:41:40:75 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/095.txt
+[TRACE] 17:41:40:87 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/096.txt
+[TRACE] 17:41:40:96 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/097.txt
+[TRACE] 17:41:40:99 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/098.txt
+[TRACE] 17:41:40:101 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/099.txt
+[TRACE] 17:41:40:103 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/100.txt
+[TRACE] 17:41:40:105 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/101.txt
+[TRACE] 17:41:40:107 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/102.txt
+[TRACE] 17:41:40:109 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/103.txt
+[TRACE] 17:41:40:111 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/104.txt
+[TRACE] 17:41:40:118 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/105.txt
+[TRACE] 17:41:40:120 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/106.txt
+[TRACE] 17:41:40:122 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/107.txt
+[TRACE] 17:41:40:124 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/108.txt
+[TRACE] 17:41:40:125 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/109.txt
+[TRACE] 17:41:40:127 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/110.txt
+[TRACE] 17:41:40:129 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/111.txt
+[TRACE] 17:41:40:130 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/112.txt
+[TRACE] 17:41:40:132 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/113.txt
+[TRACE] 17:41:40:137 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/114.txt
+[TRACE] 17:41:40:139 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/115.txt
+[TRACE] 17:41:40:141 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/116.txt
+[TRACE] 17:41:40:143 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/117.txt
+[TRACE] 17:41:40:145 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/118.txt
+[TRACE] 17:41:40:155 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/119.txt
+[TRACE] 17:41:40:162 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/120.txt
+[TRACE] 17:41:40:164 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/121.txt
+[TRACE] 17:41:40:166 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/122.txt
+[TRACE] 17:41:40:168 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/123.txt
+[TRACE] 17:41:40:170 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/124.txt
+[TRACE] 17:41:40:172 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/125.txt
+[TRACE] 17:41:40:173 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/126.txt
+[TRACE] 17:41:40:175 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/127.txt
+[TRACE] 17:41:40:177 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/128.txt
+[TRACE] 17:41:40:179 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/129.txt
+[TRACE] 17:41:40:181 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/130.txt
+[TRACE] 17:41:40:182 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/131.txt
+[TRACE] 17:41:40:184 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/132.txt
+[TRACE] 17:41:40:185 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/133.txt
+[TRACE] 17:41:40:187 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/134.txt
+[TRACE] 17:41:40:188 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:41:58:780 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:41:58:790 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:792 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:793 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:804 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:806 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:807 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:808 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:809 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:814 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:816 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:820 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:824 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:833 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:844 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:846 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:58:848 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libncursesw.so.5
+[TRACE] 17:41:58:850 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:855 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:856 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:857 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:858 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:859 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:864 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:865 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:867 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:869 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:875 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:885 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:886 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:888 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:891 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:58:893 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libtinfo.so.5
+[TRACE] 17:41:58:896 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:899 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:906 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:908 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:914 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:918 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:920 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:922 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:928 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:934 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:935 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:938 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:940 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:942 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:943 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:58:945 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libc.so.6
+[TRACE] 17:41:58:947 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:949 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:950 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:952 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:954 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:955 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:956 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:970 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:41:58:976 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:980 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:982 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:984 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:41:58:986 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:987 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:41:58:988 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:41:58:990 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libdl.so.2
+[TRACE] 17:41:59:38 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:41:59:40 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:41:59:42 Fuse/(5983:5983): Se quiere leer el archivo con path /Pokemons/special.txt,un size de 4096,desde el offset 0
+[TRACE] 17:41:59:68 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/special.txt
+[TRACE] 17:42:15:595 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:600 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:609 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:611 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:614 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:623 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:634 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:639 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:649 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:650 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:652 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:654 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:656 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:657 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:660 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:42:15:662 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libncursesw.so.5
+[TRACE] 17:42:15:664 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:668 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:670 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:671 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:676 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:678 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:679 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:681 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:698 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:700 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:706 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:708 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:712 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:716 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:718 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:42:15:723 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libtinfo.so.5
+[TRACE] 17:42:15:726 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:731 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:736 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:738 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:739 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:742 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:744 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:746 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:747 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:750 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:758 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:765 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:767 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:773 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:778 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:42:15:779 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libc.so.6
+[TRACE] 17:42:15:781 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:783 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:785 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:786 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:788 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:790 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:793 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:795 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/tls
+[TRACE] 17:42:15:797 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:798 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:806 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:809 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/i686
+[TRACE] 17:42:15:811 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:814 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/sse2
+[TRACE] 17:42:15:817 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/cmov
+[TRACE] 17:42:15:829 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/libdl.so.2
+[TRACE] 17:42:15:898 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 17:42:15:900 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons
+[TRACE] 17:42:15:908 Fuse/(5983:5983): Se quiere leer el archivo con path /Pokemons/001.txt,un size de 4096,desde el offset 0
+[TRACE] 17:42:15:915 Fuse/(5983:5983): Se quiere saber los atributos del path /Pokemons/001.txt
+[TRACE] 08:05:45:830 Fuse/(9611:9611): Se quiere saber los atributos del path /.Trash
+[TRACE] 08:05:45:840 Fuse/(9611:9611): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 08:05:45:843 Fuse/(9611:9611): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 08:05:45:847 Fuse/(9611:9611): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 08:05:45:850 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:856 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:859 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:867 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:870 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:879 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:884 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:888 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:896 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:903 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:910 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:916 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:924 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:928 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:933 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:941 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:944 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:948 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:952 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:956 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:964 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:970 Fuse/(9611:9611): Se quiere leer el directorio de path /
+[TRACE] 08:05:45:973 Fuse/(9611:9611): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 08:05:45:4 Fuse/(9611:9611): Se quiere saber los atributos del path /
+[TRACE] 08:05:45:7 Fuse/(9611:9611): Se quiere saber los atributos del path /
+[TRACE] 08:09:59:747 Fuse/(9861:9861): Se quiere saber los atributos del path /.Trash
+[TRACE] 08:09:59:760 Fuse/(9861:9861): Se quiere saber los atributos del path /.Trash-1000
+[TRACE] 08:09:59:763 Fuse/(9861:9861): Se quiere saber los atributos del path /.xdg-volume-info
+[TRACE] 08:09:59:768 Fuse/(9861:9861): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 08:09:59:773 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:783 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:785 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:793 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:801 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:806 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:810 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:823 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:828 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:832 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:835 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:839 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:852 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:856 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:865 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:869 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:878 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:881 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:885 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:889 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:893 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:904 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:09:59:907 Fuse/(9861:9861): Se quiere saber los atributos del path /autorun.inf
+[TRACE] 08:09:59:928 Fuse/(9861:9861): Se quiere saber los atributos del path /
+[TRACE] 08:09:59:929 Fuse/(9861:9861): Se quiere saber los atributos del path /
+[TRACE] 08:10:33:684 Fuse/(9861:9861): Se quiere saber los atributos del path /.directory
+[TRACE] 08:10:33:697 Fuse/(9861:9861): Se quiere saber los atributos del path /
+[TRACE] 08:10:33:717 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:10:37:475 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:37:487 Fuse/(9861:9861): Se quiere crear el directorio /Ash
+[TRACE] 08:10:37:631 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:38:665 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:41:28 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:10:41:31 Fuse/(9861:9861): Se quiere crear el directorio /Red
+[TRACE] 08:10:41:33 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:10:42:61 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:10:43:20 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:43:60 Fuse/(9861:9861): Se quiere leer el directorio de path /Ash
+[TRACE] 08:10:43:101 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/.directory
+[TRACE] 08:10:43:170 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:10:43:205 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:43:212 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:10:50:780 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:50:785 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:10:50:805 Fuse/(9861:9861): Se quiere crear el archivo /Ash/holi.txt
+[TRACE] 08:10:50:807 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:10:51:837 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:51:843 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:10:52:863 Fuse/(9861:9861): Se quiere saber los atributos del path /
+[TRACE] 08:10:52:868 Fuse/(9861:9861): Se quiere saber los atributos del path /.directory
+[TRACE] 08:10:52:872 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:10:52:876 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:10:52:883 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:10:53:811 Fuse/(9861:9861): Se quiere leer el directorio de path /Red
+[TRACE] 08:10:53:818 Fuse/(9861:9861): Se quiere saber los atributos del path /Red/.directory
+[TRACE] 08:10:53:844 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:10:53:847 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:11:03:441 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:11:03:455 Fuse/(9861:9861): Se quiere saber los atributos del path /Red/holi.txt
+[TRACE] 08:11:03:469 Fuse/(9861:9861): Se quiere crear el archivo /Red/holi.txt
+[TRACE] 08:11:03:471 Fuse/(9861:9861): Se quiere saber los atributos del path /Red/holi.txt
+[TRACE] 08:11:04:491 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:11:04:501 Fuse/(9861:9861): Se quiere saber los atributos del path /Red/holi.txt
+[TRACE] 08:11:06:745 Fuse/(9861:9861): Se quiere saber los atributos del path /
+[TRACE] 08:11:06:748 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:11:06:751 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:06:754 Fuse/(9861:9861): Se quiere saber los atributos del path /.directory
+[TRACE] 08:11:06:762 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:11:07:852 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:07:863 Fuse/(9861:9861): Se quiere leer el directorio de path /Ash
+[TRACE] 08:11:07:868 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:07:883 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/.directory
+[TRACE] 08:11:07:903 Fuse/(9861:9861): Se quiere leer el directorio de path /
+[TRACE] 08:11:07:908 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:07:912 Fuse/(9861:9861): Se quiere saber los atributos del path /Red
+[TRACE] 08:11:10:221 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:10:227 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:11:130 Fuse/(9861:9861): Se quiere leer el archivo con path /Ash/holi.txt,un size de 4096,desde el offset 0
+[TRACE] 08:11:11:137 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:11:865 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:11:867 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:13:708 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash
+[TRACE] 08:11:13:716 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:13:892 Fuse/(9861:9861): Se quiere saber los atributos del path /Ash/holi.txt
+[TRACE] 08:11:42:160 Fuse/(9861:9861): Se quiere escribir el archivo con path /Ash/holi.txt,un size de 5,desde el offset 0

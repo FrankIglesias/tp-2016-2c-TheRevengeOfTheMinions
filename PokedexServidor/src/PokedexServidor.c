@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <commons/bitarray.h>
 #include <tiposDato.h>
 #include <sw_sockets.h>
 #include <log.h>
@@ -73,13 +72,13 @@ uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
 }
 char * tipoArchivo(int i) {
 	switch (tablaDeArchivos[i].estado) {
-	case (BORRADO):
+	case BORRADO:
 		return "BORRADO";
 		break;
-	case (ARCHIVO):
+	case ARCHIVO:
 		return "ARCHIVO";
 		break;
-	case (DIRECTORIO):
+	case DIRECTORIO:
 		return "DIRECTORIO";
 		break;
 	default:
@@ -89,13 +88,13 @@ char * tipoArchivo(int i) {
 uint32_t estadoEnum(uint16_t i) {
 	int aux = i;
 	switch (tablaDeArchivos[aux].estado) {
-	case (BORRADO):
+	case BORRADO:
 		return 0;
 		break;
-	case (ARCHIVO):
+	case ARCHIVO:
 		return 1;
 		break;
-	case (DIRECTORIO):
+	case DIRECTORIO:
 		return 2;
 		break;
 	default:
@@ -106,8 +105,7 @@ int buscarBloqueLibre() {
 	int i;
 	int aux;
 	for (i = 0; i < fileHeader.data_blocks; ++i) {
-		aux = bitarray_test_bit(bitmap, i);
-		if (aux == 0) {
+		if (bitarray_test_bit(bitmap, i) == 0) {
 			bitarray_set_bit(bitmap, i);
 			tablaDeAsignaciones[i] = -1;
 			return i;
@@ -179,16 +177,16 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 }
 int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 	int i;
-	if (strlen(nombre) < 17)
+	if (strlen(nombre) <= 17)
 		for (i = 0; i < 2048; i++) {
 			if (tablaDeArchivos[i].estado == BORRADO) {
 				tablaDeArchivos[i].bloqueInicial = -1;
+				tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
 				tablaDeArchivos[i].bloquePadre = padre;
 				tablaDeArchivos[i].estado = tipo;
-				tablaDeArchivos[i].fechaUltimaModif = 0; // Emmm fechas ?
+				tablaDeArchivos[i].fechaUltimaModif = time(NULL);
 				memcpy(tablaDeArchivos[i].nombreArchivo, nombre, 17);
 				tablaDeArchivos[i].tamanioArchivo = 0;
-				tablaDeAsignaciones[tablaDeArchivos[i].bloqueInicial] = -1;
 				return i;
 			}
 		}
@@ -276,7 +274,7 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 			tam = 0;
 		}
 	}
-	tablaDeArchivos[file].tamanioArchivo = strlen(buffer);// + offset;
+	tablaDeArchivos[file].tamanioArchivo = strlen(buffer); // + offset;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
@@ -563,13 +561,13 @@ void levantarHeader() {
 	log_trace(log, "Levantando Header");
 	memcpy(&fileHeader, data, sizeof(osadaHeader));
 	log_trace(log, "Identificador: %s", fileHeader.identificador);
-	log_trace(log, "Version:%d", fileHeader.version);
-	log_trace(log, "Fs_blocks:%u", fileHeader.fs_blocks);
-	log_trace(log, "Bitmap_blocks:%u", fileHeader.bitmap_blocks);
-	log_trace(log, "Tabla_de_archivos :1024");
-	log_trace(log, "Inicio de tabla de asignaciones:%u",
+	log_trace(log, "Version: %d", fileHeader.version);
+	log_trace(log, "Fs_blocks: %u", fileHeader.fs_blocks);
+	log_trace(log, "Bitmap_blocks: %u", fileHeader.bitmap_blocks);
+	log_trace(log, "Tabla_de_archivos: 1024");
+	log_trace(log, "Inicio de tabla de asignaciones: %u",
 			fileHeader.inicioTablaAsignaciones);
-	log_trace(log, "Data_blocks:%u", fileHeader.data_blocks);
+	log_trace(log, "Bloques de datos: %u", fileHeader.data_blocks);
 }
 
 uint32_t bitmapOcupados() {
@@ -590,14 +588,17 @@ void levantarOsada() {
 	log_trace(log, "Levantando osada");
 	levantarHeader();
 	int puntero = BLOCK_SIZE;
-
-	bitmap = malloc(fileHeader.bitmap_blocks * BLOCK_SIZE);
 	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
 	tablaDeAsignaciones = malloc(tamTAsignacion());
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
-
-	bitmap = bitarray_create(data + puntero,
-			fileHeader.bitmap_blocks * BLOCK_SIZE);
+	bitmap = bitarray_create_with_mode(data + BLOCK_SIZE,
+			fileHeader.bitmap_blocks * BLOCK_SIZE, LSB_FIRST);
+	int i, cont = 0;
+	for (i = 0; i < 100; i++) {
+		if (bitarray_test_bit(bitmap, i)==0)
+			cont++;
+	}
+	printf("Cantidad de bloqeus ocupados: %d\n",cont);
 	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(tablaDeArchivos, data + puntero, 1024 * BLOCK_SIZE);
 	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
@@ -607,10 +608,10 @@ void levantarOsada() {
 }
 
 int archivoDirectorio(int i) {
-	if (tablaDeArchivos[i].estado == ARCHIVO)
+	if (tablaDeArchivos[i].estado == ARCHIVO
+			|| tablaDeArchivos[i].estado == DIRECTORIO)
 		return 1;
-	if (tablaDeArchivos[i].estado == DIRECTORIO)
-		return 1;
+
 	return 0;
 }
 
@@ -633,21 +634,21 @@ void imprimirDirectoriosRecursivo(int archivo, int nivel) {
 }
 void mostrarTablaDeArchivos() {
 	int i;
-	log_trace(log, "%s|%s|%s|%s|%s", "Num", "nombre", "tipo", "padre",
-			"inicial");
+	log_trace(log, "Imprimiendo tabla de archivos");
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i))
-			log_trace(log, "%d|%s|%s|%d|%d", i,
-					tablaDeArchivos[i].nombreArchivo, tipoArchivo(i),
+			log_trace(log,
+					"%d|NOMBRE: %s|TIPO: %s|BLOQUE PADRE: %d|BLOQUE INICIAL: %d",
+					i, tablaDeArchivos[i].nombreArchivo, tipoArchivo(i),
 					tablaDeArchivos[i].bloquePadre,
 					tablaDeArchivos[i].bloqueInicial);
 	}
 
 }
 void mostrarTablaDeAsignacion() {
-	t_log * asignacion = log_create("asginacino.txt", "Osada", 1, 0);
+	t_log * asignacion = log_create("asignacion.txt", "Osada", 1, 0);
 	int i;
-	log_trace(asignacion, "%s|||%s        TABLA DE ASIGNACION", "ID", "SIG");
+	log_trace(asignacion, "ID|||SIG");
 	for (i = 0; i < tamTAsignacion(); i++) {
 		log_trace(asignacion, "%d|||%d", i, tablaDeAsignaciones[i]);
 	}
@@ -675,13 +676,12 @@ void mapearMemoria(char * nombreBin) {
 	struct stat s;
 	fstat(osadaFile, &s);
 	int size = s.st_size;
-	log_trace(log, "%d", size);
+	log_trace(log, "Tamaño del disco: %d Kb", size / 1024);
 	data = malloc(size);
 	if ((data = (char*) mmap(0, size, PROT_READ | PROT_WRITE,
 	MAP_SHARED, osadaFile, 0)) == -1)
 		log_trace(log, "la estamos cagando");
-
-	log_trace(log, "memoria mapeada");
+	log_trace(log, "Memoria mapeada");
 }
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
@@ -704,13 +704,13 @@ int main(int argc, void *argv[]) {
 	mapearMemoria(argv[2]);
 	levantarOsada();
 	sincronizarMemoria();
-	imprimirArbolDeDirectorios();
+//	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
-	free(log);
+	//free(log); log_destroy TODO
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
-	free(bitmap);
+// 	free(bitmap); BITMAP DESTROY TODO
 	return 0;
 }
