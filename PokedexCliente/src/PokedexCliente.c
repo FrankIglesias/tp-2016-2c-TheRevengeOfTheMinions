@@ -219,6 +219,7 @@ static int borrarArchivo(const char * path) {
 	free(respuesta);
 	return 0;
 }
+
 static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro que indica crear dispositivo o no o sea directorio
 
 	log_trace(log,"Se quiere crear el archivo %s",path);
@@ -294,10 +295,10 @@ static int escribirArchivo(const char * path, const char * buffer,
 		mensaje->protolo=ESCRIBIR;
 		mensaje->path=malloc(strlen(path)+1);
 		strcpy(mensaje->path,path);
-		mensaje->buffer=malloc(strlen(buffer)+1);
+		mensaje->buffer=malloc(size+1);
 		memcpy(mensaje->buffer,buffer,size+1); //Se escribe un tamaño [size] del buffer [buffer] recibido
 		mensaje->offset=offset;
-		mensaje->tamano=size+1;
+		mensaje->tamano=size;
 
 		//Envio el mensaje
 		enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);

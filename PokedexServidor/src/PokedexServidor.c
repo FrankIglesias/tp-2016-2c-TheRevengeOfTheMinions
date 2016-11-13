@@ -1,9 +1,3 @@
-/*
- ============================================================================
- Averiguar el formato de fechas
- ============================================================================
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -306,7 +300,7 @@ int borrar(char * path) {
 	int j;
 	int file = verificarSiExiste(path, ARCHIVO);
 	if (file != -1) {
-		while (tablaDeArchivos[file].bloqueInicial != 0) {
+		while (tablaDeArchivos[file].bloqueInicial != -1) {
 			j = tablaDeArchivos[file].bloqueInicial;
 			bitarray_clean_bit(bitmap, j);
 			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
