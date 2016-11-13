@@ -585,7 +585,7 @@ int tamTAsignacion() {
 }
 
 void levantarOsada() {
-	log_trace(log, "Levantando osada");
+	log_trace(log, "Levantando OSADA");
 	levantarHeader();
 	int puntero = BLOCK_SIZE;
 	tablaDeArchivos = malloc(1024 * BLOCK_SIZE);
@@ -593,12 +593,7 @@ void levantarOsada() {
 	bloquesDeDatos = malloc(fileHeader.data_blocks * BLOCK_SIZE);
 	bitmap = bitarray_create_with_mode(data + BLOCK_SIZE,
 			fileHeader.bitmap_blocks * BLOCK_SIZE, LSB_FIRST);
-	int i, cont = 0;
-	for (i = 0; i < 100; i++) {
-		if (bitarray_test_bit(bitmap, i)==0)
-			cont++;
-	}
-	printf("Cantidad de bloqeus ocupados: %d\n",cont);
+	log_trace(log, "Cantidad de bloques ocupados %d", bitmapOcupados());
 	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(tablaDeArchivos, data + puntero, 1024 * BLOCK_SIZE);
 	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
@@ -686,7 +681,7 @@ void mapearMemoria(char * nombreBin) {
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
 	int puntero = BLOCK_SIZE;
-	memcpy(data + BLOCK_SIZE, bitmap, fileHeader.bitmap_blocks * BLOCK_SIZE);
+	memcpy(data + BLOCK_SIZE, bitmap->bitarray, fileHeader.bitmap_blocks * BLOCK_SIZE);
 	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(data + puntero, tablaDeArchivos, 1024 * BLOCK_SIZE);
 	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
@@ -708,9 +703,9 @@ int main(int argc, void *argv[]) {
 	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
 	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
-	//free(log); log_destroy TODO
+	log_destroy(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
-// 	free(bitmap); BITMAP DESTROY TODO
+ 	bitarray_destroy(bitmap);
 	return 0;
 }
