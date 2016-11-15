@@ -803,12 +803,12 @@ void librerarPokemonesAtrapadosAlMorirOTerminarMapa(int socket) {
 			entrenador->simbolo);
 	log_trace(log, "LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON");
 	cargarMatrizDisponibles();
-	log_trace(log, "Se actualizo el mapa");
+	/*log_trace(log, "Se actualizo el mapa");
 	pthread_mutex_lock(&sem_mapas);
 	actualizarMapa();
 	pthread_mutex_unlock(&sem_mapas);
 	log_trace(log, "Se actualizo el mapa");
-	imprimirMatrizDisponibles(pokemonesDisponibles);
+	imprimirMatrizDisponibles(pokemonesDisponibles);*/
 
 }
 void removerEntrenadoresPorSocket(int socket) {
