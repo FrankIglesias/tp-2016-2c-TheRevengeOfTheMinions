@@ -97,7 +97,6 @@ uint32_t estadoEnum(uint16_t i) {
 }
 int buscarBloqueLibre() {
 	int i;
-	int aux;
 	for (i = 0; i < fileHeader.data_blocks; ++i) {
 		if (bitarray_test_bit(bitmap, i) == 0) {
 			bitarray_set_bit(bitmap, i);
@@ -145,7 +144,6 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 }
 int verificarSiExiste(char * path, osada_file_state tipo) {
 	char ** ruta = string_split(path, "/");
-	int i;
 	int j = 0;
 	uint16_t padre = DIRMONTAJE;
 	uint16_t file;
@@ -217,14 +215,14 @@ char * leerArchivo(char * path, int *aux) {
 	log_trace(log, "Lectura: %s", lectura);
 	return lectura;
 }
-int escribirArchivo(char * path, char * buffer, int offset) {
+int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s offset:%d", path, buffer,
 			offset);
 	int file = verificarSiExiste(path, ARCHIVO);
 	if (file == -1)
 		return -1;
 	int aux = 0;
-	int tam = strlen(buffer);
+	int tam = tamanio;
 	int puntero = 0; // Para saber el tamaño
 	if (tablaDeArchivos[file].bloqueInicial == -1)
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
@@ -268,7 +266,8 @@ int escribirArchivo(char * path, char * buffer, int offset) {
 			tam = 0;
 		}
 	}
-	tablaDeArchivos[file].tamanioArchivo += strlen(buffer); // + offset;
+
+	tablaDeArchivos[file].tamanioArchivo +=tamanio; // + offset;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
@@ -477,9 +476,10 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
+			if(mensaje->tamano<4096)
 			mensaje->buffer[mensaje->tamano]='\0';
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
-					mensaje->offset);
+					mensaje->offset, mensaje->tamano);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
 			mensaje->tamano = devolucion;
