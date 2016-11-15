@@ -56,7 +56,9 @@ int tienenElMismoNombre(char * nombre1, char * nombre2){
 	char * aux = malloc(18);
 	memcpy(aux,nombre1,17);
 	aux[17] = '\0';
-	return strcmp(aux,nombre2);
+	int auxRes =strcmp(aux,nombre2);
+	free(aux);
+	return auxRes;
 }
 uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
 		osada_file_state tipo) {
@@ -137,7 +139,7 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	char ** ruta = string_split(path, "/");
 	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
 		if (padre == tablaDeArchivos[j].bloquePadre
-				&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
+				&& (tienenElMismoNombre(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
 			padre = j;
 			i++;
@@ -166,7 +168,7 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
-				&& (strcmp(tablaDeArchivos[i].nombreArchivo, nombre) == 0)
+				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo, nombre) == 0)
 				&& (tablaDeArchivos[i].estado == tipo)) {
 			return 1;
 		}
@@ -334,7 +336,7 @@ int crearDir(char * path) {
 			for (j = 0; j < 2048; ++j) {
 				if ((tablaDeArchivos[j].bloquePadre == padre)
 						&& (tablaDeArchivos[j].estado == DIRECTORIO)
-						&& (strcmp(tablaDeArchivos[j].nombreArchivo, ruta[i])
+						&& (tienenElMismoNombre(tablaDeArchivos[j].nombreArchivo, ruta[i])
 								== 0)) {
 					padre = j;
 					i++;
