@@ -52,13 +52,19 @@ char * data;
 void limpiarNombre(int i) {
 	memset(tablaDeArchivos[i].nombreArchivo, 0, 17);
 }
+int tienenElMismoNombre(char * nombre1, char * nombre2){
+	char * aux = malloc(18);
+	memcpy(aux,nombre1,17);
+	aux[17] = '\0';
+	return strcmp(aux,nombre2);
+}
 uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
 		osada_file_state tipo) {
 	uint16_t i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == tipo)
-				&& (strcmp(tablaDeArchivos[i].nombreArchivo, nombre) == 0)) {
+				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo,nombre)== 0)) {
 			return i;
 		}
 	}
