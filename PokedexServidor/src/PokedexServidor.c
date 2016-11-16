@@ -52,11 +52,11 @@ char * data;
 void limpiarNombre(int i) {
 	memset(tablaDeArchivos[i].nombreArchivo, 0, 17);
 }
-int tienenElMismoNombre(char * nombre1, char * nombre2){
+int tienenElMismoNombre(char * nombre1, char * nombre2) {
 	char * aux = malloc(18);
-	memcpy(aux,nombre1,17);
+	memcpy(aux, nombre1, 17);
 	aux[17] = '\0';
-	int auxRes =strcmp(aux,nombre2);
+	int auxRes = strcmp(aux, nombre2);
 	free(aux);
 	return auxRes;
 }
@@ -66,7 +66,8 @@ uint16_t buscarIndiceArchivo(uint16_t padre, char * nombre,
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
 				&& (tablaDeArchivos[i].estado == tipo)
-				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo,nombre)== 0)) {
+				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo,
+						nombre) == 0)) {
 			return i;
 		}
 	}
@@ -139,15 +140,18 @@ uint16_t buscarAlPadre(char *path) { // Del ultimo directorio sirve Directorios
 	char ** ruta = string_split(path, "/");
 	for (j = 0; j < 2048 && ruta[i + 1]; j++) {
 		if (padre == tablaDeArchivos[j].bloquePadre
-				&& (tienenElMismoNombre(tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)
+				&& (tienenElMismoNombre(tablaDeArchivos[j].nombreArchivo,
+						ruta[i]) == 0)
 				&& tablaDeArchivos[j].estado == DIRECTORIO) {
 			padre = j;
 			i++;
 			j = 0;
 		}
 	}
-	if (ruta[i + 1])
+	if (ruta[i + 1]) {
+		log_error(log, "No existe el path");
 		return -2; // si es -1 es DIRMONTAJE
+	}
 	return padre;
 }
 int verificarSiExiste(char * path, osada_file_state tipo) {
@@ -157,8 +161,11 @@ int verificarSiExiste(char * path, osada_file_state tipo) {
 	uint16_t file;
 	while (ruta[j + 1]) {
 		file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
-		if (file == DIRMONTAJE)
+		if (file == DIRMONTAJE) {
+			log_error(log,
+					"Ya existe un elemento del mismo nombre en la carpeta");
 			return -1;
+		}
 		padre = file;
 		j++;
 	}
@@ -168,8 +175,8 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 	int i;
 	for (i = 0; i < 2048; i++) {
 		if ((padre == tablaDeArchivos[i].bloquePadre)
-				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo, nombre) == 0)
-				&& (tablaDeArchivos[i].estado == tipo)) {
+				&& (tienenElMismoNombre(tablaDeArchivos[i].nombreArchivo,
+						nombre) == 0) && (tablaDeArchivos[i].estado == tipo)) {
 			return 1;
 		}
 	}
@@ -177,7 +184,7 @@ int existeUnoIgual(uint16_t padre, char* nombre, osada_file_state tipo) {
 }
 int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 	int i;
-	if (strlen(nombre) <= 17)
+	if (strlen(nombre) <= 17) {
 		for (i = 0; i < 2048; i++) {
 			if (tablaDeArchivos[i].estado == BORRADO) {
 				tablaDeArchivos[i].bloqueInicial = -1;
@@ -190,6 +197,11 @@ int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 				return i;
 			}
 		}
+	}
+	if (17 <= strlen(nombre))
+		log_error(log, "EL nombre es muy largo");
+	else
+		log_error(log, "NO hay mas espacio en la tabla de archivo");
 	return -1;
 }
 
@@ -275,7 +287,7 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 		}
 	}
 
-	tablaDeArchivos[file].tamanioArchivo +=tamanio; // + offset;
+	tablaDeArchivos[file].tamanioArchivo += tamanio; // + offset;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
@@ -336,8 +348,8 @@ int crearDir(char * path) {
 			for (j = 0; j < 2048; ++j) {
 				if ((tablaDeArchivos[j].bloquePadre == padre)
 						&& (tablaDeArchivos[j].estado == DIRECTORIO)
-						&& (tienenElMismoNombre(tablaDeArchivos[j].nombreArchivo, ruta[i])
-								== 0)) {
+						&& (tienenElMismoNombre(
+								tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)) {
 					padre = j;
 					i++;
 					break;
@@ -467,8 +479,7 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	uint16_t devolucion16 = 1;
 	char * puntero;
 	int var;
-	if ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
-			!= NULL) { // no esta echa el envio
+	if ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket)) != NULL) { // no esta echa el envio
 		switch (mensaje->protolo) {
 		case LEER:
 			var = 0;
@@ -484,8 +495,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
-			if(mensaje->tamano<4096)
-			mensaje->buffer[mensaje->tamano]='\0';
+			if (mensaje->tamano < 4096)
+				mensaje->buffer[mensaje->tamano] = '\0';
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset, mensaje->tamano);
 			if (devolucion == -1)
@@ -557,7 +568,7 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->protolo = ERROR;
 		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
 		return 1;
-	}else{
+	} else {
 		return -1;
 	}
 }
@@ -686,7 +697,8 @@ void mapearMemoria(char * nombreBin) {
 void sincronizarMemoria() {
 	memcpy(data, &fileHeader, BLOCK_SIZE);
 	int puntero = BLOCK_SIZE;
-	memcpy(data + BLOCK_SIZE, bitmap->bitarray, fileHeader.bitmap_blocks * BLOCK_SIZE);
+	memcpy(data + BLOCK_SIZE, bitmap->bitarray,
+			fileHeader.bitmap_blocks * BLOCK_SIZE);
 	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
 	memcpy(data + puntero, tablaDeArchivos, 1024 * BLOCK_SIZE);
 	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
@@ -711,6 +723,6 @@ int main(int argc, void *argv[]) {
 	log_destroy(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
- 	bitarray_destroy(bitmap);
+	bitarray_destroy(bitmap);
 	return 0;
 }
