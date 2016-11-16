@@ -6534,3 +6534,19 @@
 [TRACE] 14:55:18:504 Mapa/(7618:7628): Se ha activado el planificador
 [TRACE] 14:55:18:805 Mapa/(7618:7628): Se ha activado el planificador
 [TRACE] 14:55:19:106 Mapa/(7618:7628): Se ha activado el planificador
+[TRACE] 13:46:15:964 Mapa/(2625:2625): Iniciando Mapa
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Nombre del mapa: PuebloPaleta
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Tiempo de checkeo de Deadlock: 10000
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Algoritmo  de batalla habilitado
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Algoritmo: RR
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Quantum: 3
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Retardo de planificacion 500
+[TRACE] 13:46:16:475 Mapa/(2625:2625): Puerto: 9044
+[TRACE] 13:46:35:803 Mapa/(2673:2673): Iniciando Mapa
+[TRACE] 13:46:37:867 Mapa/(2673:2673): Nombre del mapa: PuebloPaleta
+[TRACE] 13:46:39:482 Mapa/(2673:2673): Tiempo de checkeo de Deadlock: 10000
+[TRACE] 13:46:40:937 Mapa/(2673:2673): Algoritmo  de batalla habilitado
+[TRACE] 13:46:42:881 Mapa/(2673:2673): Algoritmo: RR
+[TRACE] 13:46:43:856 Mapa/(2673:2673): Quantum: 3
+[TRACE] 13:46:44:824 Mapa/(2673:2673): Retardo de planificacion 500
+[TRACE] 13:46:46:239 Mapa/(2673:2673): Puerto: 9044

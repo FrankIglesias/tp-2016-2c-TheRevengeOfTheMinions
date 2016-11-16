@@ -211,7 +211,7 @@ char * leerArchivo(char * path, int *aux) {
 			tablaDeArchivos[file].tamanioArchivo);
 	if (file == -1 && tablaDeArchivos[file].estado != ARCHIVO)
 		return NULL;
-	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1); // +1 para indicar fin de archivo
+	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo); // +1 para indicar fin de archivo
 	int bloqueSiguiente = tablaDeArchivos[file].bloqueInicial;
 	int puntero = 0;
 	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
@@ -441,7 +441,7 @@ char * readAttr(char *path, int *var) {
 			aux++;
 	}
 	lista = malloc(aux * 17);
-	log_trace(log, "%d", aux);
+//	log_trace(log, "%d", aux);
 	aux = 0;
 
 	for (i = 0; i < 2048; i++) {
@@ -455,7 +455,6 @@ char * readAttr(char *path, int *var) {
 	return lista;
 }
 int getAttr(char *path) {
-	log_debug(log, "getAttr: %s", path);
 	int j = 0;
 	uint16_t file;
 	char ** ruta = string_split(path, "/");
@@ -467,6 +466,7 @@ int getAttr(char *path) {
 		padre = file;
 		j++;
 	}
+	log_debug(log, "getAttr: %s", path);
 	file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
 	if (file == DIRMONTAJE)
 		file = buscarIndiceArchivo(padre, ruta[j], ARCHIVO);

@@ -116,6 +116,7 @@ void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
+	free(buffer);
 	return mensaje;
 }
 void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
@@ -132,6 +133,7 @@ void *deserializarMensaje_MAPA_ENTRENADOR(char * buffer, header header) {
 		mensaje->nombrePokemon[header.payload - sizeof(posicionMapa)
 				- sizeof(instruccion_t)] = '\0';
 	}
+	free(buffer);
 	return mensaje;
 }
 
@@ -214,21 +216,42 @@ void * (*fucionesSerializadoras[CLIENTE_SERVIDOR + 1])(void * data,
 		header * nuevoHeader) = {
 			serializar_ENTRENADOR_MAPA,serializar_MAPA_ENTRENADOR,serializar_CLIENTE_SERVIDOR_bidireccionl,serializar_CLIENTE_SERVIDOR_bidireccionl
 };
+
+int recibir(int socket, char* buffer, int total) {
+	int parcial = 0;
+	do {
+		if ((parcial += recv(socket, buffer + parcial, total - parcial, 0))
+				<= 0)
+			return -1;
+	} while (parcial < total);
+	return 1;
+}
+
+int enviar(int socket, char* buffer, int total) {
+	int parcial = 0;
+	do {
+		if ((parcial += send(socket, buffer + parcial, total - parcial, 0))
+				<= 0)
+			return -1;
+	} while (parcial < total);
+	return 1;
+}
+
 void enviarMensaje(mensaje_t mensaje, int socket, void *data) {
 	header nuevoHeader;
 	nuevoHeader.mensaje = mensaje;
 	char * buffer = fucionesSerializadoras[mensaje](data, &nuevoHeader);
-	send(socket, buffer, sizeof(header) + nuevoHeader.payload, 0);
+	enviar(socket, buffer, sizeof(header) + nuevoHeader.payload);
 	free(buffer);
 }
 void * recibirMensaje(int socket) {
 	header unheader;
 	void * mensaje;
-	if (recv(socket, &unheader, sizeof(header), 0) <= 0) {
+	if (recibir(socket,(void *) &unheader, sizeof(header)) <= 0) {
 		return NULL;
 	}
 	char * buffer = malloc(unheader.payload);
-	if (recv(socket, buffer, unheader.payload, 0) <= 0) {
+	if (recibir(socket, buffer, unheader.payload) <= 0) {
 		return NULL;
 	}
 	if (unheader.mensaje == MAPA_ENTRENADOR
