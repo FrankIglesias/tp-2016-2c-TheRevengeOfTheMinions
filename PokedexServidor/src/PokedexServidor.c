@@ -287,7 +287,7 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 		}
 	}
 
-	tablaDeArchivos[file].tamanioArchivo = tamanio; // + offset;
+	tablaDeArchivos[file].tamanioArchivo = tamanio  + offset;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
