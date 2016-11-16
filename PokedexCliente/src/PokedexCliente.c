@@ -17,8 +17,6 @@ char ipPokedexCliente;
 int puertoPokedexCliente;
 int socketParaServidor;
 
-char * ip = "127.0.0.1";
-int puerto = 6000;
 
 #define _FILE_OFFSET_BITS   64
 #define FUSE_USE_VERSION    26
@@ -415,10 +413,11 @@ static struct fuse_opt fuse_options[] = {
 int main(int argc, char *argv[]) {
 	 log = log_create("Log","Fuse",0,0);
 
-	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+
+	 struct fuse_args args = FUSE_ARGS_INIT(2, argv);
 
 	//Creo el socket cliente
-	socketParaServidor = crearSocketCliente(ip, puerto);
+	socketParaServidor = crearSocketCliente(argv[3], atoi(argv[4]));
 
 	// Limpio la estructura que va a contener los parametros
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
