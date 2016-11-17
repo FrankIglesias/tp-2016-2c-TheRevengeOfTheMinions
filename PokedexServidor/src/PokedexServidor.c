@@ -241,24 +241,10 @@ char * leerArchivo(char * path, int *aux) {
 	return lectura;
 }
 
-int deltaBuffer(int file, char * buffer, int tamanioNuevo) {
-	// No entre si el tamaño del file ya es 0
-	char * lectura = leerFile(file);
-	int i;
-	int tamanioIgual = 0;
-	int siguenIguales = 1;
-	for (i = 0; i < tamanioNuevo; i++) {
-		if (siguenIguales && lectura[i] == buffer[i])
-			tamanioIgual++;
-		else
-			siguenIguales = 0;
-	}
-	if (tablaDeArchivos[file].tamanioArchivo == tamanioNuevo)
-		return tablaDeArchivos[file].tamanioArchivo - tamanioIgual;
-	if (tablaDeArchivos[file].tamanioArchivo < tamanioNuevo)
-		return tamanioNuevo - tamanioIgual; // Agrego letras
-	return (tamanioNuevo - tamanioIgual)
-			- (tablaDeArchivos[file].tamanioArchivo - tamanioIgual); // quite letras
+int deltaBuffer(int file, int tamanioNuevo, int offset) {
+	if (tablaDeArchivos[file].tamanioArchivo == (tamanioNuevo + offset))
+		return 0;
+	return tamanioNuevo + offset - tablaDeArchivos[file].tamanioArchivo; // Agrego letras
 }
 
 int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
@@ -312,11 +298,17 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 			tam = 0;
 		}
 	}
-	if (tablaDeArchivos[file].tamanioArchivo != 0)
-		tablaDeArchivos[file].tamanioArchivo += deltaBuffer(file, buffer,
-				tamanio); // + offset;
-	else
+	if (tablaDeArchivos[file].tamanioArchivo == 0)
 		tablaDeArchivos[file].tamanioArchivo = tamanio;
+	else {
+		if (tamanio == 4096 && offset != 0) {
+			tablaDeArchivos[file].tamanioArchivo = offset + tamanio;
+		} else {
+			tablaDeArchivos[file].tamanioArchivo += deltaBuffer(file, tamanio,
+					offset); // + offset;
+		}
+	}
+
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
