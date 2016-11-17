@@ -311,8 +311,8 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
-			tablaDeArchivos[file].tamanioArchivo);
-	return tablaDeArchivos[file].tamanioArchivo;
+			puntero);
+	return puntero;
 }
 int crearArchivo(char * path) {
 	int i = 0;
@@ -516,8 +516,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
-			if (mensaje->tamano < 4096)
-				mensaje->buffer[mensaje->tamano] = '\0';
+			//if (mensaje->tamano < 4096)
+			//	mensaje->buffer[mensaje->tamano] = '\0';
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset, mensaje->tamano);
 			if (devolucion == -1)

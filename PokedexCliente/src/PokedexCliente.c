@@ -414,10 +414,10 @@ int main(int argc, char *argv[]) {
 	 log = log_create("Log","Fuse",0,0);
 
 
-	 struct fuse_args args = FUSE_ARGS_INIT(2, argv);
+	 struct fuse_args args = FUSE_ARGS_INIT(argc-2, argv);
 
 	//Creo el socket cliente
-	socketParaServidor = crearSocketCliente(argv[3], atoi(argv[4]));
+	socketParaServidor = crearSocketCliente(argv[argc-2], atoi(argv[argc-1]));
 
 	// Limpio la estructura que va a contener los parametros
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));

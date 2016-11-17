@@ -3927,3 +3927,648 @@ reintentos=0
 [TRACE] 16:03:07:337 Osada/(4632:4632): 248|NOMBRE: metadata.txt|TIPO: ARCHIVO|BLOQUE PADRE: 225|BLOQUE INICIAL: 2269
 [DEBUG] 16:04:50:4 Osada/(4632:4632): getAttr: /.Trash
 [DEBUG] 16:05:06:356 Osada/(4632:4632): getAttr: /.Trash-1000
+[TRACE] 17:28:32:385 Osada/(8985:8985): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:28:32:425 Osada/(8985:8985): Memoria mapeada
+[TRACE] 17:28:32:425 Osada/(8985:8985): Levantando OSADA
+[TRACE] 17:28:32:425 Osada/(8985:8985): Levantando Header
+[TRACE] 17:28:32:425 Osada/(8985:8985): Identificador: OsadaFS
+[TRACE] 17:28:32:425 Osada/(8985:8985): Version: 1
+[TRACE] 17:28:32:425 Osada/(8985:8985): Fs_blocks: 16384
+[TRACE] 17:28:32:425 Osada/(8985:8985): Bitmap_blocks: 32
+[TRACE] 17:28:32:425 Osada/(8985:8985): Tabla_de_archivos: 1024
+[TRACE] 17:28:32:425 Osada/(8985:8985): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:28:32:425 Osada/(8985:8985): Bloques de datos: 14369
+[TRACE] 17:28:32:425 Osada/(8985:8985): Cantidad de bloques ocupados 2015
+[TRACE] 17:28:32:425 Osada/(8985:8985): Mostrando arbol de directorio
+[TRACE] 17:28:32:425 Osada/(8985:8985): Imprimiendo tabla de archivos
+[DEBUG] 17:28:48:876 Osada/(8985:8985): getAttr: /.Trash
+[DEBUG] 17:28:48:876 Osada/(8985:8985): getAttr: /.Trash-1000
+[DEBUG] 17:28:48:876 Osada/(8985:8985): getAttr: /.xdg-volume-info
+[DEBUG] 17:28:48:876 Osada/(8985:8985): getAttr: /autorun.inf
+[DEBUG] 17:28:48:876 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:876 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:876 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:877 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:877 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:878 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:878 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:879 Osada/(8985:8985): readAttr: /
+[TRACE] 17:28:48:879 Osada/(8985:8985): 0
+[DEBUG] 17:28:48:879 Osada/(8985:8985): getAttr: /autorun.inf
+[DEBUG] 17:29:34:785 Osada/(8985:8985): getAttr: /pfile_4.test
+[TRACE] 17:29:43:992 Osada/(8985:8985): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:30:01:602 Osada/(8985:8985): getAttr: /pfile_4.test
+[DEBUG] 17:30:28:496 Osada/(8985:8985): getAttr: /pfile_3.test
+[INFO] 17:33:42:804 Osada/(8985:8985): Escribiendo en: /pfile_4.test ,contenido:{…	M¶C²?}‘Y|\AÒ›E•LFX$›P G/Ù° U5)¢ëmU*êæ„fCÅ8Þ
+Í*P%Nìunÿ¼žØm¾-¢èÐŽU%¸?<¥NÝ,ªW]Ï¥IDH² npNXž­CWìN“‘•nÉ¢ ÿçÆH,Ú-Œ°›üþ«UJ_¡ï®4€KÊïl5kïû³ÕCHaóã]òŽ²Øµny¤®$gx{ä°O
+«%€Emá8P?*Þñ9·¦§0JÃÞo*V‚¥:V‰§‹Ì‚Ð9c	‰¢3h”l:O…Ö.ô offset:0
+[TRACE] 17:33:42:809 Osada/(8985:8985): tamaÃ±o del archivo escrito 4096
+[TRACE] 17:34:17:965 Osada/(8985:8985): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:36:14:226 Osada/(8985:8985): getAttr: /.Trash
+[DEBUG] 17:36:14:226 Osada/(8985:8985): getAttr: /.Trash-1000
+[DEBUG] 17:36:14:226 Osada/(8985:8985): getAttr: /.xdg-volume-info
+[DEBUG] 17:36:14:226 Osada/(8985:8985): getAttr: /autorun.inf
+[DEBUG] 17:36:14:226 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:226 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:227 Osada/(8985:8985): getAttr: /pfile_4.test
+[DEBUG] 17:36:14:227 Osada/(8985:8985): getAttr: /pfile_3.test
+[DEBUG] 17:36:14:227 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:227 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:227 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:227 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:227 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:227 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:227 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:227 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:227 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:227 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:228 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:228 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:229 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:229 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:230 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:230 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:230 Osada/(8985:8985): readAttr: /
+[TRACE] 17:36:14:230 Osada/(8985:8985): 2
+[DEBUG] 17:36:14:230 Osada/(8985:8985): getAttr: /autorun.inf
+[TRACE] 17:37:01:883 Osada/(9189:9189): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:37:01:883 Osada/(9189:9189): Memoria mapeada
+[TRACE] 17:37:01:883 Osada/(9189:9189): Levantando OSADA
+[TRACE] 17:37:01:883 Osada/(9189:9189): Levantando Header
+[TRACE] 17:37:01:883 Osada/(9189:9189): Identificador: OsadaFS
+[TRACE] 17:37:01:883 Osada/(9189:9189): Version: 1
+[TRACE] 17:37:01:883 Osada/(9189:9189): Fs_blocks: 16384
+[TRACE] 17:37:01:883 Osada/(9189:9189): Bitmap_blocks: 32
+[TRACE] 17:37:01:883 Osada/(9189:9189): Tabla_de_archivos: 1024
+[TRACE] 17:37:01:884 Osada/(9189:9189): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:37:01:884 Osada/(9189:9189): Bloques de datos: 14369
+[TRACE] 17:37:01:884 Osada/(9189:9189): Cantidad de bloques ocupados 2015
+[TRACE] 17:37:01:885 Osada/(9189:9189): Mostrando arbol de directorio
+[TRACE] 17:37:01:885 Osada/(9189:9189): Imprimiendo tabla de archivos
+[DEBUG] 17:37:04:775 Osada/(9189:9189): getAttr: /.Trash
+[DEBUG] 17:37:04:776 Osada/(9189:9189): getAttr: /.Trash-1000
+[DEBUG] 17:37:04:776 Osada/(9189:9189): getAttr: /.xdg-volume-info
+[DEBUG] 17:37:04:776 Osada/(9189:9189): getAttr: /autorun.inf
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:776 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:776 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:777 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:777 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): readAttr: /
+[TRACE] 17:37:04:778 Osada/(9189:9189): 0
+[DEBUG] 17:37:04:778 Osada/(9189:9189): getAttr: /autorun.inf
+[DEBUG] 17:37:12:41 Osada/(9189:9189): getAttr: /pfile_4.test
+[TRACE] 17:37:12:41 Osada/(9189:9189): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:37:12:41 Osada/(9189:9189): getAttr: /pfile_4.test
+[DEBUG] 17:37:12:41 Osada/(9189:9189): getAttr: /pfile_3.test
+[TRACE] 17:37:12:42 Osada/(9189:9189): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:37:12:42 Osada/(9189:9189): getAttr: /pfile_3.test
+[DEBUG] 17:37:12:42 Osada/(9189:9189): getAttr: /pfile_2.test
+[TRACE] 17:37:35:353 Osada/(9247:9247): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:37:35:353 Osada/(9247:9247): Memoria mapeada
+[TRACE] 17:37:35:353 Osada/(9247:9247): Levantando OSADA
+[TRACE] 17:37:35:353 Osada/(9247:9247): Levantando Header
+[TRACE] 17:37:35:353 Osada/(9247:9247): Identificador: OsadaFS
+[TRACE] 17:37:35:353 Osada/(9247:9247): Version: 1
+[TRACE] 17:37:35:353 Osada/(9247:9247): Fs_blocks: 16384
+[TRACE] 17:37:35:353 Osada/(9247:9247): Bitmap_blocks: 32
+[TRACE] 17:37:35:353 Osada/(9247:9247): Tabla_de_archivos: 1024
+[TRACE] 17:37:35:353 Osada/(9247:9247): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:37:35:353 Osada/(9247:9247): Bloques de datos: 14369
+[TRACE] 17:37:35:353 Osada/(9247:9247): Cantidad de bloques ocupados 2015
+[TRACE] 17:37:35:353 Osada/(9247:9247): Mostrando arbol de directorio
+[TRACE] 17:37:35:353 Osada/(9247:9247): Imprimiendo tabla de archivos
+[DEBUG] 17:37:50:417 Osada/(9247:9247): getAttr: /.Trash
+[DEBUG] 17:37:51:353 Osada/(9247:9247): getAttr: /.Trash-1000
+[DEBUG] 17:37:51:905 Osada/(9247:9247): getAttr: /.xdg-volume-info
+[DEBUG] 17:37:53:25 Osada/(9247:9247): getAttr: /autorun.inf
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:25 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:25 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:26 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:26 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:27 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:27 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:27 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:27 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): readAttr: /
+[TRACE] 17:37:53:27 Osada/(9247:9247): 0
+[DEBUG] 17:37:53:27 Osada/(9247:9247): getAttr: /autorun.inf
+[DEBUG] 17:38:07:537 Osada/(9247:9247): getAttr: /pfile_4.test
+[TRACE] 17:38:12:336 Osada/(9247:9247): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:38:15:160 Osada/(9247:9247): getAttr: /pfile_4.test
+[DEBUG] 17:38:17:472 Osada/(9247:9247): getAttr: /pfile_3.test
+[TRACE] 17:38:22:256 Osada/(9247:9247): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 17:38:26:640 Osada/(9247:9247): getAttr: /pfile_4.test
+[TRACE] 17:43:07:650 Osada/(9505:9505): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:43:07:650 Osada/(9505:9505): Memoria mapeada
+[TRACE] 17:43:07:650 Osada/(9505:9505): Levantando OSADA
+[TRACE] 17:43:07:650 Osada/(9505:9505): Levantando Header
+[TRACE] 17:43:07:650 Osada/(9505:9505): Identificador: OsadaFS
+[TRACE] 17:43:07:650 Osada/(9505:9505): Version: 1
+[TRACE] 17:43:07:650 Osada/(9505:9505): Fs_blocks: 16384
+[TRACE] 17:43:07:650 Osada/(9505:9505): Bitmap_blocks: 32
+[TRACE] 17:43:07:650 Osada/(9505:9505): Tabla_de_archivos: 1024
+[TRACE] 17:43:07:650 Osada/(9505:9505): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:43:07:650 Osada/(9505:9505): Bloques de datos: 14369
+[TRACE] 17:43:07:650 Osada/(9505:9505): Cantidad de bloques ocupados 2015
+[TRACE] 17:43:07:651 Osada/(9505:9505): Mostrando arbol de directorio
+[DEBUG] 17:43:07:651 Osada/(9505:9505): pfile_4.test - ARCHIVO
+[DEBUG] 17:43:07:651 Osada/(9505:9505): pfile_3.test - ARCHIVO
+[TRACE] 17:43:07:651 Osada/(9505:9505): Imprimiendo tabla de archivos
+[TRACE] 17:43:07:651 Osada/(9505:9505): 0|NOMBRE: pfile_4.test|TIPO: ARCHIVO|BLOQUE PADRE: 65535|BLOQUE INICIAL: -1
+[TRACE] 17:43:07:651 Osada/(9505:9505): 1|NOMBRE: pfile_3.test|TIPO: ARCHIVO|BLOQUE PADRE: 65535|BLOQUE INICIAL: -1
+[TRACE] 17:43:42:977 Osada/(9628:9628): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:43:42:977 Osada/(9628:9628): Memoria mapeada
+[TRACE] 17:43:42:977 Osada/(9628:9628): Levantando OSADA
+[TRACE] 17:43:42:977 Osada/(9628:9628): Levantando Header
+[TRACE] 17:43:42:977 Osada/(9628:9628): Identificador: OsadaFS
+[TRACE] 17:43:42:977 Osada/(9628:9628): Version: 1
+[TRACE] 17:43:42:977 Osada/(9628:9628): Fs_blocks: 16384
+[TRACE] 17:43:42:977 Osada/(9628:9628): Bitmap_blocks: 32
+[TRACE] 17:43:42:977 Osada/(9628:9628): Tabla_de_archivos: 1024
+[TRACE] 17:43:42:977 Osada/(9628:9628): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:43:42:977 Osada/(9628:9628): Bloques de datos: 14369
+[TRACE] 17:43:42:977 Osada/(9628:9628): Cantidad de bloques ocupados 2015
+[TRACE] 17:43:42:978 Osada/(9628:9628): Mostrando arbol de directorio
+[TRACE] 17:43:42:978 Osada/(9628:9628): Imprimiendo tabla de archivos
+[DEBUG] 17:43:55:705 Osada/(9628:9628): getAttr: /.Trash
+[DEBUG] 17:43:55:706 Osada/(9628:9628): getAttr: /.Trash-1000
+[DEBUG] 17:43:55:706 Osada/(9628:9628): getAttr: /.xdg-volume-info
+[DEBUG] 17:43:55:706 Osada/(9628:9628): getAttr: /autorun.inf
+[DEBUG] 17:43:55:706 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:706 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:706 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:706 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:706 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:706 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:706 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:706 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:706 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:706 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:707 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:707 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:708 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:708 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:709 Osada/(9628:9628): readAttr: /
+[TRACE] 17:43:55:709 Osada/(9628:9628): 0
+[DEBUG] 17:43:55:709 Osada/(9628:9628): getAttr: /autorun.inf
+[DEBUG] 17:44:57:183 Osada/(9628:9628): getAttr: /.Trash
+[TRACE] 17:46:06:15 Osada/(9793:9793): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:46:06:15 Osada/(9793:9793): Memoria mapeada
+[TRACE] 17:46:06:15 Osada/(9793:9793): Levantando OSADA
+[TRACE] 17:46:06:15 Osada/(9793:9793): Levantando Header
+[TRACE] 17:46:06:15 Osada/(9793:9793): Identificador: OsadaFS
+[TRACE] 17:46:06:15 Osada/(9793:9793): Version: 1
+[TRACE] 17:46:06:15 Osada/(9793:9793): Fs_blocks: 16384
+[TRACE] 17:46:06:15 Osada/(9793:9793): Bitmap_blocks: 32
+[TRACE] 17:46:06:15 Osada/(9793:9793): Tabla_de_archivos: 1024
+[TRACE] 17:46:06:15 Osada/(9793:9793): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:46:06:15 Osada/(9793:9793): Bloques de datos: 14369
+[TRACE] 17:46:06:15 Osada/(9793:9793): Cantidad de bloques ocupados 2015
+[TRACE] 17:46:06:16 Osada/(9793:9793): Mostrando arbol de directorio
+[TRACE] 17:46:06:16 Osada/(9793:9793): Imprimiendo tabla de archivos
+[TRACE] 17:48:58:220 Osada/(9908:9908): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:48:58:220 Osada/(9908:9908): Memoria mapeada
+[TRACE] 17:48:58:220 Osada/(9908:9908): Levantando OSADA
+[TRACE] 17:48:58:220 Osada/(9908:9908): Levantando Header
+[TRACE] 17:48:58:220 Osada/(9908:9908): Identificador: OsadaFS
+[TRACE] 17:48:58:220 Osada/(9908:9908): Version: 1
+[TRACE] 17:48:58:220 Osada/(9908:9908): Fs_blocks: 16384
+[TRACE] 17:48:58:220 Osada/(9908:9908): Bitmap_blocks: 32
+[TRACE] 17:48:58:220 Osada/(9908:9908): Tabla_de_archivos: 1024
+[TRACE] 17:48:58:220 Osada/(9908:9908): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:48:58:220 Osada/(9908:9908): Bloques de datos: 14369
+[TRACE] 17:48:58:220 Osada/(9908:9908): Cantidad de bloques ocupados 2015
+[TRACE] 17:48:58:220 Osada/(9908:9908): Mostrando arbol de directorio
+[TRACE] 17:48:58:220 Osada/(9908:9908): Imprimiendo tabla de archivos
+[TRACE] 17:51:51:113 Osada/(9999:9999): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:51:51:113 Osada/(9999:9999): Memoria mapeada
+[TRACE] 17:51:51:113 Osada/(9999:9999): Levantando OSADA
+[TRACE] 17:51:51:113 Osada/(9999:9999): Levantando Header
+[TRACE] 17:51:51:113 Osada/(9999:9999): Identificador: OsadaFS
+[TRACE] 17:51:51:113 Osada/(9999:9999): Version: 1
+[TRACE] 17:51:51:113 Osada/(9999:9999): Fs_blocks: 16384
+[TRACE] 17:51:51:113 Osada/(9999:9999): Bitmap_blocks: 32
+[TRACE] 17:51:51:113 Osada/(9999:9999): Tabla_de_archivos: 1024
+[TRACE] 17:51:51:113 Osada/(9999:9999): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:51:51:113 Osada/(9999:9999): Bloques de datos: 14369
+[TRACE] 17:51:51:113 Osada/(9999:9999): Cantidad de bloques ocupados 2015
+[TRACE] 17:51:51:114 Osada/(9999:9999): Mostrando arbol de directorio
+[TRACE] 17:51:51:114 Osada/(9999:9999): Imprimiendo tabla de archivos
+[TRACE] 17:53:57:55 Osada/(10206:10206): TamaÃ±o del disco: 1024 Kb
+[TRACE] 17:53:57:55 Osada/(10206:10206): Memoria mapeada
+[TRACE] 17:53:57:55 Osada/(10206:10206): Levantando OSADA
+[TRACE] 17:53:57:55 Osada/(10206:10206): Levantando Header
+[TRACE] 17:53:57:55 Osada/(10206:10206): Identificador: OsadaFS
+[TRACE] 17:53:57:55 Osada/(10206:10206): Version: 1
+[TRACE] 17:53:57:55 Osada/(10206:10206): Fs_blocks: 16384
+[TRACE] 17:53:57:55 Osada/(10206:10206): Bitmap_blocks: 32
+[TRACE] 17:53:57:55 Osada/(10206:10206): Tabla_de_archivos: 1024
+[TRACE] 17:53:57:55 Osada/(10206:10206): Inicio de tabla de asignaciones: 1057
+[TRACE] 17:53:57:55 Osada/(10206:10206): Bloques de datos: 14369
+[TRACE] 17:53:57:55 Osada/(10206:10206): Cantidad de bloques ocupados 2015
+[TRACE] 17:53:57:55 Osada/(10206:10206): Mostrando arbol de directorio
+[TRACE] 17:53:57:55 Osada/(10206:10206): Imprimiendo tabla de archivos
+[DEBUG] 17:54:59:889 Osada/(10206:10206): getAttr: /.Trash
+[DEBUG] 17:54:59:889 Osada/(10206:10206): getAttr: /.Trash-1000
+[DEBUG] 17:54:59:889 Osada/(10206:10206): getAttr: /.xdg-volume-info
+[DEBUG] 17:54:59:889 Osada/(10206:10206): getAttr: /autorun.inf
+[DEBUG] 17:54:59:889 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:889 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:890 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:890 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:891 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:891 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:892 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:892 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:892 Osada/(10206:10206): readAttr: /
+[TRACE] 17:54:59:892 Osada/(10206:10206): 0
+[DEBUG] 17:54:59:892 Osada/(10206:10206): getAttr: /autorun.inf
+[DEBUG] 17:55:19:658 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:19:658 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:220 Osada/(10206:10206): getAttr: /.Trash
+[DEBUG] 17:55:56:220 Osada/(10206:10206): getAttr: /.Trash-1000
+[DEBUG] 17:55:56:220 Osada/(10206:10206): getAttr: /.xdg-volume-info
+[DEBUG] 17:55:56:220 Osada/(10206:10206): getAttr: /autorun.inf
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:221 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:221 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:222 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:222 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:223 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:223 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:223 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:223 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:223 Osada/(10206:10206): readAttr: /
+[TRACE] 17:55:56:223 Osada/(10206:10206): 0
+[DEBUG] 17:55:56:223 Osada/(10206:10206): getAttr: /autorun.inf
+[DEBUG] 17:56:05:395 Osada/(10206:10206): readAttr: /
+[TRACE] 17:56:05:395 Osada/(10206:10206): 0
+[TRACE] 18:27:29:617 Osada/(11959:11959): TamaÃ±o del disco: 1024 Kb
+[TRACE] 18:27:29:617 Osada/(11959:11959): Memoria mapeada
+[TRACE] 18:27:29:617 Osada/(11959:11959): Levantando OSADA
+[TRACE] 18:27:29:617 Osada/(11959:11959): Levantando Header
+[TRACE] 18:27:29:617 Osada/(11959:11959): Identificador: OsadaFS
+[TRACE] 18:27:29:617 Osada/(11959:11959): Version: 1
+[TRACE] 18:27:29:617 Osada/(11959:11959): Fs_blocks: 16384
+[TRACE] 18:27:29:617 Osada/(11959:11959): Bitmap_blocks: 32
+[TRACE] 18:27:29:617 Osada/(11959:11959): Tabla_de_archivos: 1024
+[TRACE] 18:27:29:617 Osada/(11959:11959): Inicio de tabla de asignaciones: 1057
+[TRACE] 18:27:29:617 Osada/(11959:11959): Bloques de datos: 14369
+[TRACE] 18:27:29:617 Osada/(11959:11959): Cantidad de bloques ocupados 2015
+[TRACE] 18:27:29:618 Osada/(11959:11959): Mostrando arbol de directorio
+[TRACE] 18:27:29:618 Osada/(11959:11959): Imprimiendo tabla de archivos
+[DEBUG] 18:27:47:419 Osada/(11959:11959): getAttr: /.Trash
+[DEBUG] 18:27:47:419 Osada/(11959:11959): getAttr: /.Trash-1000
+[DEBUG] 18:27:47:419 Osada/(11959:11959): getAttr: /.xdg-volume-info
+[DEBUG] 18:27:47:419 Osada/(11959:11959): getAttr: /autorun.inf
+[DEBUG] 18:27:47:419 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:419 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:419 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:419 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:419 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:419 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:420 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:420 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:421 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:421 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:422 Osada/(11959:11959): readAttr: /
+[TRACE] 18:27:47:422 Osada/(11959:11959): 0
+[DEBUG] 18:27:47:422 Osada/(11959:11959): getAttr: /autorun.inf
+[DEBUG] 18:28:41:288 Osada/(11959:11959): getAttr: /pfile_4.test
+[TRACE] 18:28:57:112 Osada/(11959:11959): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 18:28:57:112 Osada/(11959:11959): getAttr: /pfile_4.test
+[DEBUG] 18:28:57:113 Osada/(11959:11959): getAttr: /pfile_3.test
+[TRACE] 18:28:57:113 Osada/(11959:11959): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 18:28:57:113 Osada/(11959:11959): getAttr: /pfile_3.test
+[DEBUG] 18:28:59:320 Osada/(11959:11959): getAttr: /pfile_2.test
+[DEBUG] 18:28:59:320 Osada/(11959:11959): getAttr: /pfile_3.test
+[TRACE] 18:29:00:288 Osada/(11959:11959): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 18:29:00:288 Osada/(11959:11959): getAttr: /pfile_2.test
+[DEBUG] 18:31:49:365 Osada/(11959:11959): getAttr: /pfile_1.test
+[TRACE] 18:35:05:226 Osada/(12310:12310): TamaÃ±o del disco: 1024 Kb
+[TRACE] 18:35:05:226 Osada/(12310:12310): Memoria mapeada
+[TRACE] 18:35:05:226 Osada/(12310:12310): Levantando OSADA
+[TRACE] 18:35:05:226 Osada/(12310:12310): Levantando Header
+[TRACE] 18:35:05:226 Osada/(12310:12310): Identificador: OsadaFS
+[TRACE] 18:35:05:226 Osada/(12310:12310): Version: 1
+[TRACE] 18:35:05:226 Osada/(12310:12310): Fs_blocks: 16384
+[TRACE] 18:35:05:226 Osada/(12310:12310): Bitmap_blocks: 32
+[TRACE] 18:35:05:226 Osada/(12310:12310): Tabla_de_archivos: 1024
+[TRACE] 18:35:05:226 Osada/(12310:12310): Inicio de tabla de asignaciones: 1057
+[TRACE] 18:35:05:226 Osada/(12310:12310): Bloques de datos: 14369
+[TRACE] 18:35:05:227 Osada/(12310:12310): Cantidad de bloques ocupados 2015
+[TRACE] 18:35:05:227 Osada/(12310:12310): Mostrando arbol de directorio
+[TRACE] 18:35:05:227 Osada/(12310:12310): Imprimiendo tabla de archivos
+[DEBUG] 18:35:18:416 Osada/(12310:12310): getAttr: /.Trash
+[DEBUG] 18:35:18:416 Osada/(12310:12310): getAttr: /.Trash-1000
+[DEBUG] 18:35:18:416 Osada/(12310:12310): getAttr: /.xdg-volume-info
+[DEBUG] 18:35:18:416 Osada/(12310:12310): getAttr: /autorun.inf
+[DEBUG] 18:35:18:416 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:417 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:417 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:418 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:418 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:419 Osada/(12310:12310): readAttr: /
+[TRACE] 18:35:18:419 Osada/(12310:12310): 0
+[DEBUG] 18:35:18:419 Osada/(12310:12310): getAttr: /autorun.inf
+[DEBUG] 18:36:11:17 Osada/(12310:12310): getAttr: /pfile_4.test
+[TRACE] 18:36:11:17 Osada/(12310:12310): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 18:36:11:18 Osada/(12310:12310): getAttr: /pfile_4.test
+[DEBUG] 18:36:11:18 Osada/(12310:12310): getAttr: /pfile_3.test
+[TRACE] 18:36:11:18 Osada/(12310:12310): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 18:36:11:18 Osada/(12310:12310): getAttr: /pfile_3.test
