@@ -795,7 +795,7 @@ void librerarPokemonesAtrapadosAlMorirOTerminarMapa(int socket) {
 			dictionary_real_put(configuracion.diccionarioDePokeparadas,
 					letras[i], (void*) unaPoke);
 			pthread_mutex_unlock(&sem_config);
-			sumarRecurso(items, (char) letras[i]);
+			sumarRecurso(items, letras[i][0]);
 		}
 	}
 
