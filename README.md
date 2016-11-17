@@ -11,7 +11,7 @@ sudo apt-get install libncurses5-dev
 
 sudo apt-get install apt-file
 
-apt-file update
+sudo apt-file update
 
 <strong>Para pokedex Cliente:</strong>
 
