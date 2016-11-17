@@ -13,6 +13,12 @@ sudo apt-get install apt-file
 
 sudo apt-file update
 
+<strong>Para darle permiso de admin a fuse en putty </strong>
+
+sudo apt-get install sshfs <br></br>
+sudo modprobe fuse <br></br>
+sudo addgroup yourusername fuse <br></br>
+
 <strong>Para pokedex Cliente:</strong>
 
 -Linkearle como librerias "fuse" y "pthreads"
