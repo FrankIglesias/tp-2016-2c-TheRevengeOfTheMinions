@@ -1,6 +1,7 @@
 nombre=Ash
-simbolo=@
-hojaDeViaje=[PuebloPaleta]
-obj[PuebloPaleta]=[P,C]
-vidas=5
+simbolo=&
+hojaDeViaje=[Verde,Azul]
+obj[Verde]=[G,P,B]
+obj[Azul]=[]
+vidas=1
 reintentos=0

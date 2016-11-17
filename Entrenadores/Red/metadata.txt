@@ -1,6 +1,7 @@
 nombre=Red
-simbolo=#
-hojaDeViaje=[PuebloPaleta]
-obj[PuebloPaleta]=[C,P]
-vidas=5
+simbolo=@
+hojaDeViaje=[Verde,Azul]
+obj[Verde]=[P,B,G]
+obj[Azul]=[C,Z]
+vidas=1
 reintentos=0
