@@ -4775,3 +4775,26 @@
 [TRACE] 13:43:38:884 Mapa/(2511:2511): Quantum: 3
 [TRACE] 13:43:38:884 Mapa/(2511:2511): Retardo de planificacion 500
 [TRACE] 13:43:38:884 Mapa/(2511:2511): Puerto: 9044
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Iniciando Mapa
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Nombre del mapa: Verde
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Tiempo de checkeo de Deadlock: 50000
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Algoritmo  de batalla habilitado
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Algoritmo: RR
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Quantum: 3
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Retardo de planificacion 500
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Puerto: 9044
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Posicion de la pokenest 2 ||3
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Id de la pokenest B
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Pokemon nombre Bulbasaur001.dat, nivel: 10
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Nombre de la nueva pokenest Golduck
+[TRACE] 17:04:38:445 Mapa/(4101:4101): Posicion de la pokenest 30 ||10
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Id de la pokenest G
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Nombre de la nueva pokenest Pikachu
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Posicion de la pokenest 7 ||8
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Id de la pokenest P
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo para Entrenadores
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo de Deadlock
+[TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo planificador
