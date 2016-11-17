@@ -204,13 +204,7 @@ int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 		log_error(log, "NO hay mas espacio en la tabla de archivo");
 	return -1;
 }
-
-char * leerArchivo(char * path, int *aux) {
-	int file = verificarSiExiste(path, ARCHIVO);
-	log_info(log, "Se va a leer el archivo: %s Tamaño: %u", path,
-			tablaDeArchivos[file].tamanioArchivo);
-	if (file == -1 && tablaDeArchivos[file].estado != ARCHIVO)
-		return NULL;
+char * leerFile(int file) {
 	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1); // +1 para indicar fin de archivo
 	int bloqueSiguiente = tablaDeArchivos[file].bloqueInicial;
 	int puntero = 0;
@@ -230,11 +224,43 @@ char * leerArchivo(char * path, int *aux) {
 			puntero += tablaDeArchivos[file].tamanioArchivo - puntero;
 		}
 	}
-	lectura[puntero] = '\0';
-	*aux = puntero;
+	lectura[tablaDeArchivos[file].tamanioArchivo] = '\0';
+	return lectura;
+}
+
+char * leerArchivo(char * path, int *aux) {
+	int file = verificarSiExiste(path, ARCHIVO);
+	log_info(log, "Se va a leer el archivo: %s Tamaño: %u", path,
+			tablaDeArchivos[file].tamanioArchivo);
+	if (file == -1 && tablaDeArchivos[file].estado != ARCHIVO)
+		return NULL;
+	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1); // +1 para indicar fin de archivo
+	lectura = leerFile(file);
+	*aux = tablaDeArchivos[file].tamanioArchivo;
 	log_trace(log, "Lectura: %s", lectura);
 	return lectura;
 }
+
+int deltaBuffer(int file, char * buffer, int tamanioNuevo) {
+	// No entre si el tamaño del file ya es 0
+	char * lectura = leerFile(file);
+	int i;
+	int tamanioIgual = 0;
+	int siguenIguales = 1;
+	for (i = 0; i < tamanioNuevo; i++) {
+		if (siguenIguales && lectura[i] == buffer[i])
+			tamanioIgual++;
+		else
+			siguenIguales = 0;
+	}
+	if (tablaDeArchivos[file].tamanioArchivo == tamanioNuevo)
+		return tablaDeArchivos[file].tamanioArchivo - tamanioIgual;
+	if (tablaDeArchivos[file].tamanioArchivo < tamanioNuevo)
+		return tamanioNuevo - tamanioIgual; // Agrego letras
+	return (tamanioNuevo - tamanioIgual)
+			- (tablaDeArchivos[file].tamanioArchivo - tamanioIgual); // quite letras
+}
+
 int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s offset:%d", path, buffer,
 			offset);
@@ -286,8 +312,11 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 			tam = 0;
 		}
 	}
-
-	tablaDeArchivos[file].tamanioArchivo += tamanio; // + offset;
+	if (tablaDeArchivos[file].tamanioArchivo != 0)
+		tablaDeArchivos[file].tamanioArchivo += deltaBuffer(file, buffer,
+				tamanio); // + offset;
+	else
+		tablaDeArchivos[file].tamanioArchivo = tamanio;
 	sincronizarMemoria();
 	log_trace(log, "tamaño del archivo escrito %u",
 			tablaDeArchivos[file].tamanioArchivo);
