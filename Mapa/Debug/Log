@@ -4798,3 +4798,1516 @@
 [TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo para Entrenadores
 [TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo de Deadlock
 [TRACE] 17:04:38:446 Mapa/(4101:4101): Se crea hilo planificador
+[TRACE] 17:30:01:396 Mapa/(5064:5064): Iniciando Mapa
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Nombre del mapa: Verde
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Tiempo de checkeo de Deadlock: 50000
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Algoritmo  de batalla habilitado
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Algoritmo: RR
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Quantum: 3
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Retardo de planificacion 500
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Puerto: 9044
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Posicion de la pokenest 2 ||3
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Id de la pokenest B
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Pokemon nombre Bulbasaur001.dat, nivel: 10
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Nombre de la nueva pokenest Golduck
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Posicion de la pokenest 30 ||10
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Id de la pokenest G
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Nombre de la nueva pokenest Raichu
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Posicion de la pokenest 10 ||4
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Id de la pokenest R
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Pokemon nombre Raichu001.dat, nivel: 10
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Nombre de la nueva pokenest Pikachu
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Posicion de la pokenest 7 ||8
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Id de la pokenest P
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Se crea hilo para Entrenadores
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Se crea hilo de Deadlock
+[TRACE] 17:30:01:397 Mapa/(5064:5064): Se crea hilo planificador
+[TRACE] 17:33:08:98 Mapa/(5064:5065): Entrenador & agregado a la lista de entrenadores
+[TRACE] 17:33:08:98 Mapa/(5064:5065): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:33:08:98 Mapa/(5064:5065): Entrenador  & agregado a la lista de ready
+[TRACE] 17:33:08:98 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:08:98 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:08:98 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:08:98 Mapa/(5064:5067): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:33:08:98 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:08:98 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:08:598 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:08:599 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:08:599 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:08:599 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:08:599 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:09:99 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:09:99 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:09:99 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:09:99 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:09:99 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:09:99 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:09:99 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:09:600 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:09:600 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:09:600 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:09:600 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:09:600 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:10:100 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:10:100 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:10:100 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:10:101 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:10:101 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:10:601 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:10:601 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:10:601 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:10:602 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:10:602 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:10:602 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:10:602 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:11:102 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:11:102 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:11:102 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:11:102 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:11:102 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:11:603 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:11:603 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:11:603 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:11:603 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:11:603 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:12:103 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:12:103 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:12:103 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:12:104 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:12:104 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:12:104 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:12:104 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:12:604 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:12:605 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:12:605 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:12:605 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:12:605 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:13:105 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:13:105 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:13:105 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:13:105 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:13:105 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:13:606 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:13:606 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:13:606 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:13:606 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:13:606 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:13:606 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:13:606 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:14:106 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:14:106 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:14:106 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:14:107 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:14:107 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:14:607 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:14:607 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:14:607 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:14:607 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:14:607 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:15:107 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:15:107 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:15:107 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:15:107 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:15:107 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:15:108 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:15:108 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:15:608 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:15:608 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:15:608 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:15:608 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:15:608 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:16:109 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:16:109 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:16:109 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:16:109 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:16:109 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:16:610 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:16:610 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:16:610 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:16:610 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:16:610 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:16:610 Mapa/(5064:5065): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:33:16:610 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:17:110 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:17:110 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:17:110 Mapa/(5064:5067): La accion a realizar es: MOVE_UP
+[TRACE] 17:33:17:111 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:17:111 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:17:611 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:17:611 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:17:611 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:17:611 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:17:611 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:18:111 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:18:111 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:18:111 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:18:111 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:18:112 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:18:112 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:18:112 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:18:612 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:18:612 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:18:613 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:18:613 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:18:613 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:19:113 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:19:113 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:19:113 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:19:113 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:19:113 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:19:613 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:19:613 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:19:613 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:19:614 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:19:614 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:19:614 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:19:614 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:20:114 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:20:114 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:20:114 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:20:114 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:20:114 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:20:615 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:20:615 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:20:615 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:20:615 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:20:615 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:21:115 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:21:115 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:21:115 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:21:115 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:21:115 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:21:116 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:21:116 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:21:616 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:21:616 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:21:616 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:21:616 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:21:616 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:22:116 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:22:117 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:22:117 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:22:117 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:22:117 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:22:617 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:22:617 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:22:617 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:22:617 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:22:617 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:22:618 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:22:618 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:23:118 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:23:118 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:23:118 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:23:118 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:23:118 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:23:619 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:23:619 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:23:619 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:23:619 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:23:619 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:24:119 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:24:119 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:24:119 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:24:120 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:24:120 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:24:120 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:24:120 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:24:621 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:24:621 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:24:621 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:24:621 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:24:621 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:25:121 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:25:121 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:25:121 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:25:121 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:25:121 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:25:622 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:25:622 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:25:622 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:25:622 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:25:622 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:25:622 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:25:622 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:26:122 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:26:122 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:26:122 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:26:123 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:26:123 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:26:623 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:26:623 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:26:623 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:26:623 Mapa/(5064:5065): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:33:26:623 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:27:123 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:27:123 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:27:123 Mapa/(5064:5067): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:33:27:123 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:27:123 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:27:124 Mapa/(5064:5065): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:33:27:124 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:27:624 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:27:624 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:27:624 Mapa/(5064:5067): La accion a realizar es: ATRAPAR
+[TRACE] 17:33:27:624 Mapa/(5064:5067): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:33:27:624 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:27:630 Mapa/(5064:5065): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:33:27:630 Mapa/(5064:5065): Entrenador  & agregado a la lista de ready
+[TRACE] 17:33:28:125 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:28:125 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:28:126 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:28:126 Mapa/(5064:5067): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:33:28:126 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:28:126 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:28:628 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:28:628 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:28:628 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:28:628 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:28:628 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:29:128 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:29:129 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:29:129 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:29:129 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:29:129 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:29:129 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:29:129 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:29:629 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:29:629 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:29:629 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:29:630 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:29:630 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:30:130 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:30:130 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:30:130 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:30:131 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:30:131 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:30:631 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:30:631 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:30:631 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:30:631 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:30:631 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:30:632 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:30:632 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:31:132 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:31:132 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:31:132 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:31:132 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:31:132 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:31:632 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:31:632 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:31:632 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:31:632 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:31:633 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:32:133 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:32:133 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:32:133 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:32:133 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:32:133 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:32:133 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:32:133 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:32:634 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:32:634 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:32:634 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:32:635 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:32:635 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:33:135 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:33:135 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:33:135 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:33:135 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:33:135 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:33:636 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:33:636 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:33:636 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:33:636 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:33:636 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:33:637 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:33:637 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:34:137 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:34:137 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:34:137 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:34:138 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:34:138 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:34:638 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:34:638 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:34:638 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:34:638 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:34:638 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:35:138 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:35:138 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:35:138 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:35:138 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:35:138 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:35:139 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:35:139 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:35:639 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:35:639 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:35:639 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:35:639 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:35:639 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:36:140 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:36:140 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:36:140 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:36:141 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:36:141 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:36:641 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:36:641 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:36:641 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:36:641 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:36:641 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:36:642 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:36:642 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:37:142 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:37:142 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:37:142 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:37:142 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:37:142 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:37:642 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:37:642 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:37:642 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:37:643 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:37:643 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:38:143 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:38:143 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:38:143 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:38:144 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:38:144 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:38:144 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:38:144 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:38:644 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:38:644 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:38:644 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:38:644 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:38:645 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:39:145 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:39:145 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:39:145 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:39:145 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:39:145 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:39:646 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:39:646 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:39:646 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:39:646 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:39:646 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:39:646 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:39:646 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:40:147 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:40:147 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:40:147 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:40:147 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:40:147 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:40:648 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:40:648 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:40:648 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:40:648 Mapa/(5064:5065): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:33:40:648 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:41:149 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:41:149 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:41:149 Mapa/(5064:5067): La accion a realizar es: ATRAPAR
+[TRACE] 17:33:41:149 Mapa/(5064:5067): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:33:41:149 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:41:152 Mapa/(5064:5065): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:33:41:152 Mapa/(5064:5065): Entrenador  & agregado a la lista de ready
+[TRACE] 17:33:41:649 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:41:649 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:41:649 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:41:649 Mapa/(5064:5067): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:33:41:650 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:41:650 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:42:150 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:42:150 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:42:150 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:42:150 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:42:150 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:42:650 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:42:650 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:42:650 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:42:650 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:42:650 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:42:651 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:42:651 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:43:151 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:43:151 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:43:151 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:43:151 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:43:151 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:43:652 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:43:652 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:43:652 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:43:652 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:43:652 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:44:153 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:44:153 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:44:153 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:44:153 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:44:153 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:44:153 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:44:153 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:44:653 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:44:653 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:44:653 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:44:653 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:44:653 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:45:153 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:45:153 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:45:154 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:45:154 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:45:154 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:45:654 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:45:654 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:45:654 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:45:654 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:45:654 Mapa/(5064:5067): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:33:45:655 Mapa/(5064:5065): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:33:45:655 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:46:155 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:46:155 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:46:156 Mapa/(5064:5067): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:33:46:156 Mapa/(5064:5065): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:33:46:156 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:46:656 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:46:656 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:46:656 Mapa/(5064:5067): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:33:46:656 Mapa/(5064:5065): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:33:46:656 Mapa/(5064:5065): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:33:47:157 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:47:157 Mapa/(5064:5067): Entrenador a atender: &
+[TRACE] 17:33:47:157 Mapa/(5064:5067): La accion a realizar es: ATRAPAR
+[TRACE] 17:33:47:157 Mapa/(5064:5067): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:33:47:157 Mapa/(5064:5067): Fin de quantum para &
+[TRACE] 17:33:47:161 Mapa/(5064:5065): LOS POKEMONES DEL ENTRENADOR & FUERON LIBERADOS
+[TRACE] 17:33:47:161 Mapa/(5064:5065): LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON
+[TRACE] 17:33:47:161 Mapa/(5064:5065): SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO
+[TRACE] 17:33:47:161 Mapa/(5064:5065): LOS POKEMONES DISPONIBLES QUEDARON
+[TRACE] 17:33:47:658 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:48:159 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:48:660 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:49:160 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:49:660 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:50:161 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:50:662 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:51:163 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:51:664 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:52:165 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:52:665 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:53:165 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:53:666 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:54:166 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:54:667 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:55:168 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:55:669 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:56:169 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:56:669 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:57:170 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:57:671 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:58:172 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:58:672 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:33:59:173 Mapa/(5064:5067): Se ha activado el planificador
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Iniciando Mapa
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Nombre del mapa: Verde
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Tiempo de checkeo de Deadlock: 50000
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Algoritmo  de batalla habilitado
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Algoritmo: RR
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Quantum: 3
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Retardo de planificacion 500
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Puerto: 9044
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Posicion de la pokenest 2 ||3
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Id de la pokenest B
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Pokemon nombre Bulbasaur001.dat, nivel: 10
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Nombre de la nueva pokenest Golduck
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Posicion de la pokenest 30 ||10
+[TRACE] 17:37:47:181 Mapa/(5206:5206): Id de la pokenest G
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Nombre de la nueva pokenest Raichu
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Posicion de la pokenest 10 ||4
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Id de la pokenest R
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Pokemon nombre Raichu001.dat, nivel: 10
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Nombre de la nueva pokenest Pikachu
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Posicion de la pokenest 7 ||8
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Id de la pokenest P
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Se crea hilo para Entrenadores
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Se crea hilo de Deadlock
+[TRACE] 17:37:47:182 Mapa/(5206:5206): Se crea hilo planificador
+[TRACE] 17:37:50:349 Mapa/(5206:5207): Entrenador & agregado a la lista de entrenadores
+[TRACE] 17:37:50:349 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:37:50:349 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:37:50:349 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:50:349 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:50:349 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:50:349 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:37:50:349 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:50:349 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:50:849 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:50:850 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:50:850 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:50:850 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:50:850 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:51:351 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:51:351 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:51:351 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:51:351 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:51:351 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:51:351 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:51:351 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:51:852 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:51:852 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:51:852 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:51:852 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:51:852 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:52:353 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:52:353 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:52:353 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:52:353 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:52:353 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:52:853 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:52:853 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:52:853 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:52:853 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:52:853 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:52:853 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:52:853 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:53:354 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:53:354 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:53:354 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:53:354 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:53:354 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:53:854 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:53:854 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:53:854 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:53:855 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:53:855 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:54:356 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:54:356 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:54:356 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:54:356 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:54:356 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:54:356 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:54:356 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:54:856 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:54:856 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:54:856 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:54:857 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:54:857 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:55:357 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:55:357 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:55:357 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:55:357 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:55:357 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:55:857 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:55:857 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:55:858 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:55:858 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:55:858 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:55:858 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:55:858 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:56:358 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:56:358 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:56:358 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:56:358 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:56:358 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:56:858 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:56:858 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:56:858 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:56:859 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:56:859 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:57:359 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:57:359 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:57:359 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:57:359 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:57:359 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:57:361 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:57:361 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:57:860 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:57:860 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:57:860 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:57:860 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:57:860 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:58:361 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:58:361 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:58:361 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:58:361 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:58:361 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:58:862 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:58:862 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:58:862 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:58:862 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:37:58:862 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:37:58:863 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:37:58:863 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:59:363 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:59:363 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:59:363 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:37:59:363 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:59:363 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:37:59:863 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:37:59:863 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:37:59:863 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:37:59:863 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:37:59:863 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:00:364 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:00:364 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:00:364 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:00:364 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:00:364 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:00:364 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:00:364 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:00:865 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:00:865 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:00:865 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:00:865 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:00:865 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:01:366 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:01:366 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:01:366 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:01:366 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:01:366 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:01:866 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:01:866 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:01:866 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:01:866 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:01:866 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:01:866 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:01:867 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:02:367 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:02:367 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:02:367 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:02:368 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:02:368 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:02:868 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:02:869 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:02:869 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:02:869 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:02:869 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:03:369 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:03:369 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:03:369 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:03:369 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:03:369 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:03:369 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:03:369 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:03:870 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:03:870 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:03:870 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:03:870 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:03:870 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:04:371 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:04:371 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:04:371 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:04:371 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:04:371 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:04:872 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:04:872 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:04:872 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:04:872 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:04:872 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:04:872 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:04:872 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:05:372 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:05:373 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:05:373 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:05:373 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:05:373 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:05:873 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:05:873 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:05:873 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:05:873 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:05:873 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:06:373 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:06:373 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:06:373 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:06:374 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:06:374 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:06:374 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:06:374 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:06:874 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:06:874 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:06:874 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:06:874 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:06:874 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:07:374 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:07:374 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:07:374 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:07:375 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:07:375 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:07:875 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:07:875 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:07:875 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:07:876 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:07:876 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:07:876 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:07:876 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:08:376 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:08:376 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:08:376 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:08:376 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:08:376 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:08:877 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:08:877 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:08:877 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:08:877 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:38:08:877 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:09:377 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:09:377 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:09:377 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:38:09:377 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:09:377 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:09:378 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:38:09:378 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:09:878 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:09:878 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:09:878 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:38:09:878 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:38:09:878 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:09:881 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:38:09:881 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:38:10:379 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:10:379 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:10:379 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:10:379 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:38:10:379 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:10:379 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:10:880 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:10:880 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:10:880 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:10:880 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:10:880 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:11:380 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:11:380 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:11:380 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:11:380 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:11:380 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:11:380 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:11:380 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:11:881 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:11:881 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:11:881 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:11:881 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:11:881 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:12:381 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:12:381 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:12:381 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:12:382 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:12:382 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:12:882 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:12:882 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:12:882 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:12:882 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:12:883 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:12:883 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:12:883 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:13:383 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:13:383 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:13:383 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:13:383 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:13:383 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:13:883 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:13:883 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:13:883 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:13:883 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:13:883 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:14:384 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:14:384 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:14:384 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:14:384 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:14:384 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:14:384 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:14:384 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:14:885 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:14:885 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:14:885 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:14:885 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:14:885 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:15:386 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:15:386 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:15:386 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:15:386 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:15:386 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:15:886 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:15:886 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:15:886 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:15:886 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:15:886 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:15:887 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:15:887 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:16:387 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:16:387 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:16:387 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:16:388 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:16:388 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:16:888 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:16:888 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:16:888 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:16:888 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:16:888 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:17:388 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:17:388 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:17:388 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:17:388 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:17:388 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:17:389 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:17:389 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:17:889 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:17:889 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:17:889 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:17:889 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:17:889 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:18:390 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:18:390 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:18:390 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:18:391 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:18:391 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:18:891 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:18:891 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:18:891 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:18:891 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:18:891 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:18:891 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:18:891 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:19:392 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:19:392 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:19:392 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:19:392 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:19:392 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:19:892 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:19:892 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:19:892 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:19:892 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:19:893 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:20:393 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:20:393 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:20:393 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:20:393 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:20:393 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:20:393 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:20:393 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:20:894 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:20:894 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:20:894 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:20:894 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:20:894 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:21:395 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:21:395 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:21:395 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:21:395 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:21:395 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:21:895 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:21:895 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:21:895 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:21:895 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:21:895 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:21:895 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:21:895 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:22:396 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:22:396 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:22:396 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:22:397 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:22:397 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:22:897 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:22:897 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:22:897 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:22:897 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:38:22:897 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:23:397 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:23:397 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:23:397 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:38:23:397 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:38:23:397 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:23:402 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:38:23:402 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:38:23:898 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:23:898 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:23:898 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:23:898 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:38:23:898 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:23:898 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:24:399 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:24:399 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:24:399 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:24:399 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:24:399 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:24:899 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:24:899 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:24:899 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:24:899 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:24:899 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:24:899 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:24:899 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:25:400 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:25:400 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:25:400 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:25:400 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:25:400 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:25:901 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:25:901 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:25:901 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:25:901 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:25:901 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:26:401 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:26:401 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:26:401 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:26:402 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:26:402 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:26:402 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:26:402 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:26:902 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:26:902 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:26:902 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:26:902 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:26:902 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:27:403 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:27:403 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:27:403 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:27:404 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:27:404 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:27:904 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:27:904 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:27:904 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:27:905 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:27:905 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:38:27:905 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:38:27:905 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:28:405 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:28:405 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:28:405 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:38:28:406 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:38:28:406 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:28:906 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:28:906 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:28:906 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:38:28:906 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:38:28:906 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:38:29:407 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:29:407 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:38:29:407 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:38:29:407 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:38:29:407 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:38:29:410 Mapa/(5206:5207): LOS POKEMONES DEL ENTRENADOR & FUERON LIBERADOS
+[TRACE] 17:38:29:410 Mapa/(5206:5207): LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON
+[TRACE] 17:38:29:410 Mapa/(5206:5207): SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO
+[TRACE] 17:38:29:410 Mapa/(5206:5207): LOS POKEMONES DISPONIBLES QUEDARON
+[TRACE] 17:38:29:908 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:30:408 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:30:909 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:31:409 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:31:910 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:32:411 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:32:912 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:33:412 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:33:913 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:34:414 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:34:915 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:35:415 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:35:916 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:36:416 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:36:917 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:37:417 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:37:917 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:38:418 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:38:919 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:39:419 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:39:920 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:40:421 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:40:922 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:38:41:422 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:44:695 Mapa/(5206:5207): Entrenador & agregado a la lista de entrenadores
+[TRACE] 17:43:44:696 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:43:44:696 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:43:44:696 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:44:696 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:44:696 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:44:696 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:43:44:696 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:44:696 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:45:196 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:45:196 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:45:196 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:45:197 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:45:197 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:45:697 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:45:697 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:45:697 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:45:697 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:45:697 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:45:698 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:45:698 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:46:198 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:46:198 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:46:198 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:46:198 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:46:198 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:46:699 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:46:699 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:46:699 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:46:699 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:46:699 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:47:200 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:47:200 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:47:200 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:47:200 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:47:200 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:47:200 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:47:200 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:47:700 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:47:700 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:47:700 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:47:701 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:47:701 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:48:201 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:48:201 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:48:201 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:48:201 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:48:201 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:48:702 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:48:702 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:48:702 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:48:702 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:48:702 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:48:702 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:48:702 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:49:202 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:49:202 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:49:202 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:49:203 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:49:203 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:49:703 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:49:703 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:49:703 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:49:704 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:49:704 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:50:204 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:50:204 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:50:204 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:50:204 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:50:204 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:50:204 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:50:204 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:50:704 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:50:704 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:50:704 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:50:705 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:50:705 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:51:204 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:51:205 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:51:205 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:51:205 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:51:205 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:51:705 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:51:705 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:51:705 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:51:705 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:51:705 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:51:706 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:51:706 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:52:206 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:52:206 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:52:206 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:52:206 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:52:206 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:52:707 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:52:707 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:52:707 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:52:707 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:52:707 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:53:207 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:53:207 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:53:208 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:53:208 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:53:208 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:53:208 Mapa/(5206:5207): Mensaje MOVE_UP recibido de entrenador &
+[TRACE] 17:43:53:208 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:53:708 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:53:708 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:53:708 Mapa/(5206:5209): La accion a realizar es: MOVE_UP
+[TRACE] 17:43:53:708 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:53:708 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:54:209 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:54:209 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:54:209 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:54:209 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:54:209 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:54:709 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:54:709 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:54:709 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:54:709 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:54:709 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:54:710 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:54:710 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:55:210 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:55:210 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:55:210 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:55:210 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:55:210 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:55:710 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:55:710 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:55:710 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:55:710 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:55:710 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:56:211 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:56:211 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:56:211 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:56:211 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:56:211 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:56:211 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:56:211 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:56:712 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:56:712 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:56:712 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:56:712 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:56:712 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:57:213 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:57:213 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:57:213 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:57:213 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:57:213 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:57:714 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:57:714 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:57:714 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:57:714 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:57:714 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:57:714 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:57:714 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:58:215 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:58:215 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:58:215 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:58:215 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:58:215 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:58:716 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:58:716 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:58:716 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:58:716 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:58:716 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:59:216 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:59:216 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:59:216 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:59:217 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:43:59:217 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:43:59:217 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:59:217 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:43:59:717 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:43:59:717 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:43:59:717 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:43:59:718 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:43:59:718 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:00:217 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:00:217 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:00:217 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:00:218 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:00:218 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:00:718 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:00:718 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:00:718 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:00:718 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:00:718 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:00:718 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:00:718 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:01:219 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:01:219 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:01:219 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:01:219 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:01:219 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:01:720 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:01:720 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:01:720 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:01:720 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:01:720 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:02:220 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:02:220 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:02:220 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:02:220 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:02:220 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:02:221 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:02:221 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:02:721 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:02:721 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:02:721 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:02:721 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:02:721 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:03:222 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:03:222 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:03:222 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:03:222 Mapa/(5206:5207): Mensaje MOVE_RIGHT recibido de entrenador &
+[TRACE] 17:44:03:222 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:03:722 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:03:722 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:03:722 Mapa/(5206:5209): La accion a realizar es: MOVE_RIGHT
+[TRACE] 17:44:03:723 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:03:723 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:03:723 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:44:03:723 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:04:223 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:04:223 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:04:223 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:44:04:223 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:44:04:223 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:04:226 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:44:04:226 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:44:04:724 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:04:724 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:04:724 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:04:724 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:44:04:725 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:04:725 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:05:225 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:05:225 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:05:225 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:05:225 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:05:225 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:05:725 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:05:725 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:05:725 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:05:726 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:05:726 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:05:726 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:05:726 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:06:226 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:06:226 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:06:226 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:06:226 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:06:226 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:06:727 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:06:727 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:06:727 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:06:727 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:06:728 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:07:228 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:07:228 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:07:228 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:07:228 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:07:228 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:07:228 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:07:228 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:07:729 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:07:729 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:07:729 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:07:729 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:07:729 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:08:230 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:08:230 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:08:230 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:08:230 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:08:230 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:08:730 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:08:730 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:08:730 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:08:730 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:08:730 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:08:730 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:08:730 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:09:231 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:09:231 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:09:231 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:09:231 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:09:231 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:09:731 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:09:731 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:09:731 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:09:732 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:09:732 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:10:232 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:10:232 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:10:232 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:10:232 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:10:232 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:10:233 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:10:233 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:10:733 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:10:733 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:10:733 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:10:733 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:10:733 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:11:234 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:11:234 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:11:234 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:11:234 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:11:235 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:11:734 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:11:735 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:11:735 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:11:735 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:11:735 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:11:735 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:11:735 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:12:235 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:12:235 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:12:235 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:12:236 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:12:236 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:12:736 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:12:736 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:12:736 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:12:736 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:12:736 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:13:236 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:13:237 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:13:237 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:13:237 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:13:237 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:13:237 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:13:237 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:13:738 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:13:738 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:13:738 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:13:738 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:13:738 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:14:239 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:14:239 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:14:239 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:14:239 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:14:239 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:14:739 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:14:739 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:14:739 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:14:739 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:14:739 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:14:740 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:14:740 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:15:239 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:15:239 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:15:239 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:15:240 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:15:240 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:15:741 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:15:741 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:15:741 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:15:741 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:15:741 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:16:241 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:16:241 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:16:241 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:16:241 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:16:241 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:16:241 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:16:241 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:16:742 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:16:742 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:16:742 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:16:742 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:16:742 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:17:243 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:17:243 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:17:243 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:17:243 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:44:17:243 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:17:743 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:17:743 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:17:743 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:44:17:743 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:44:17:744 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:17:747 Mapa/(5206:5207): Mensaje PROXIMAPOKENEST recibido de entrenador &
+[TRACE] 17:44:17:747 Mapa/(5206:5207): Entrenador  & agregado a la lista de ready
+[TRACE] 17:44:18:244 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:18:244 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:18:244 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:18:244 Mapa/(5206:5209): La accion a realizar es: PROXIMAPOKENEST
+[TRACE] 17:44:18:244 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:18:244 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:18:744 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:18:744 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:18:744 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:18:744 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:18:744 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:19:245 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:19:245 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:19:245 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:19:245 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:19:246 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:19:246 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:19:246 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:19:747 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:19:747 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:19:747 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:19:747 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:19:747 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:20:248 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:20:248 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:20:248 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:20:248 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:20:248 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:20:749 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:20:749 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:20:749 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:20:749 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:20:749 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:20:749 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:20:749 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:21:249 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:21:249 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:21:249 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:21:250 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:21:250 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:21:750 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:21:750 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:21:750 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:21:750 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:21:750 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:22:251 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:22:251 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:22:251 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:22:251 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:22:251 Mapa/(5206:5209): Se obtuvo de la lista de entrenadores el entrenador: &
+[TRACE] 17:44:22:252 Mapa/(5206:5207): Mensaje MOVE_LEFT recibido de entrenador &
+[TRACE] 17:44:22:252 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:22:752 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:22:752 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:22:752 Mapa/(5206:5209): La accion a realizar es: MOVE_LEFT
+[TRACE] 17:44:22:752 Mapa/(5206:5207): Mensaje MOVE_DOWN recibido de entrenador &
+[TRACE] 17:44:22:752 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:23:253 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:23:253 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:23:253 Mapa/(5206:5209): La accion a realizar es: MOVE_DOWN
+[TRACE] 17:44:23:253 Mapa/(5206:5207): Mensaje ATRAPAR recibido de entrenador &
+[TRACE] 17:44:23:253 Mapa/(5206:5207): El entrenador & esta siendo actualmente planificado
+[TRACE] 17:44:23:753 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:23:753 Mapa/(5206:5209): Entrenador a atender: &
+[TRACE] 17:44:23:753 Mapa/(5206:5209): La accion a realizar es: ATRAPAR
+[TRACE] 17:44:23:753 Mapa/(5206:5209): EL SISTEMA LE ENTREGA AL ENTRENADOR & EL POKEMON SOLICITADO
+[TRACE] 17:44:23:753 Mapa/(5206:5209): Fin de quantum para &
+[TRACE] 17:44:23:758 Mapa/(5206:5207): LOS POKEMONES DEL ENTRENADOR & FUERON LIBERADOS
+[TRACE] 17:44:23:758 Mapa/(5206:5207): LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON
+[TRACE] 17:44:23:758 Mapa/(5206:5207): SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO
+[TRACE] 17:44:23:758 Mapa/(5206:5207): LOS POKEMONES DISPONIBLES QUEDARON
+[TRACE] 17:44:24:254 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:24:754 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:25:255 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:25:756 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:26:257 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:26:758 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:27:258 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:27:759 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:28:259 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:28:760 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:29:261 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:29:761 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:30:262 Mapa/(5206:5209): Se ha activado el planificador
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Iniciando Mapa
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Nombre del mapa: Verde
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Tiempo de checkeo de Deadlock: 50000
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Algoritmo  de batalla habilitado
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Algoritmo: RR
+[TRACE] 17:44:32:694 Mapa/(5288:5288): Quantum: 3
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Retardo de planificacion 500
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Puerto: 9044
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Posicion de la pokenest 2 ||3
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Id de la pokenest B
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Pokemon nombre Bulbasaur001.dat, nivel: 10
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Nombre de la nueva pokenest Golduck
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Posicion de la pokenest 30 ||10
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Id de la pokenest G
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Nombre de la nueva pokenest Raichu
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Posicion de la pokenest 10 ||4
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Id de la pokenest R
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Pokemon nombre Raichu001.dat, nivel: 10
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Nombre de la nueva pokenest Pikachu
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Posicion de la pokenest 7 ||8
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Id de la pokenest P
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Se crea hilo para Entrenadores
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Se crea hilo de Deadlock
+[TRACE] 17:44:32:695 Mapa/(5288:5288): Se crea hilo planificador
