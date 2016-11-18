@@ -263,7 +263,7 @@ int deltaBuffer(int file, int tamanioNuevo, int offset) {
 			bloqueActual = tablaDeAsignaciones[bloqueActual];
 		}
 	}
-	return tamanioNuevo + offset - tablaDeArchivos[file].tamanioArchivo; // Agrego letras
+	return tamanoArchivoNuevo - tablaDeArchivos[file].tamanioArchivo; // Agrego letras
 }
 
 int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
@@ -325,11 +325,11 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 		} else {
 			tablaDeArchivos[file].tamanioArchivo += deltaBuffer(file, tamanio,
 					offset); // + offset;
+			log_trace(log, "tamaño del archivo %u", tablaDeArchivos[file].tamanioArchivo);
 		}
 	}
 
 	sincronizarMemoria();
-	log_trace(log, "tamaño del archivo escrito %u", puntero);
 	return puntero;
 }
 int crearArchivo(char * path) {
@@ -483,7 +483,6 @@ char * readAttr(char *path, int *var) {
 			aux++;
 	}
 	lista = malloc(aux * 17);
-	log_trace(log, "%d", aux);
 	aux = 0;
 
 	for (i = 0; i < 2048; i++) {
@@ -510,8 +509,9 @@ int getAttr(char *path) {
 		j++;
 	}
 	file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
-	if (file == DIRMONTAJE)
+	if (file == DIRMONTAJE) {
 		file = buscarIndiceArchivo(padre, ruta[j], ARCHIVO);
+	}
 	return file;
 }
 
@@ -604,8 +604,9 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 					mensaje->tamano =
 							tablaDeArchivos[devolucion16].tamanioArchivo;
 					devolucion16 = 1;
-				} else
+				} else {
 					mensaje->protolo = ERROR;
+				}
 			} else {
 				mensaje->tipoArchivo = 2;
 				devolucion16 = 1;

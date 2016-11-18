@@ -171,7 +171,7 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		memcpy(buffer + pasaje, mensaje->path, mensaje->path_payload);
 		pasaje += mensaje->path_payload;
 	}
-	if (mensaje->tamano > 0 && mensaje->protolo != ERROR) {
+	if (mensaje->tamano > 0 && mensaje->protolo != ERROR && mensaje->protolo != SGETATTR) {
 		memcpy(buffer + pasaje, mensaje->buffer, mensaje->tamano);
 	}
 	return buffer;
