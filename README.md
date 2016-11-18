@@ -17,8 +17,9 @@ sudo apt-file update
 
 sudo apt-get install sshfs <br></br>
 sudo modprobe fuse <br></br>
-sudo addgroup yourusername fuse <br></br>
-
+sudo addgroup utnso fuse <br></br>
+<strong> Para copiar archivos en red</strong>
+scp -rpC /git/tp-2016-2c-TheRevengeOfTheMinions ip:/home/utnso/git/
 <strong>Para pokedex Cliente:</strong>
 
 -Linkearle como librerias "fuse" y "pthreads"
