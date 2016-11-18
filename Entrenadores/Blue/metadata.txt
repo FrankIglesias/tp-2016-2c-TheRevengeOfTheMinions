@@ -1,7 +1,7 @@
 nombre=Blue
 simbolo=$
-hojaDeViaje=[Azul,Verde]
-obj[Azul]=[Z]
-obj[Verde]=[R]
+hojaDeViaje=[Verde,Roja]
+obj[Verde]=[G]
+obj[Roja]=[P,H]
 vidas=1
 reintentos=0

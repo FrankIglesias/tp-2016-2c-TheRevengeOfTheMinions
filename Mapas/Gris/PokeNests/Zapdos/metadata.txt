@@ -1,0 +1,3 @@
+Tipo=Hierba
+Posicion=4;4
+Identificador=Z

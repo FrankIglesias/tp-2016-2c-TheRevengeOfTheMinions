@@ -2,6 +2,6 @@ TiempoChequeoDeadlock=50000
 Batalla=1
 algoritmo=SRDF
 quantum=3
-retardo=2000
+retardo=600
 IP=127.0.0.1
 Puerto=9044

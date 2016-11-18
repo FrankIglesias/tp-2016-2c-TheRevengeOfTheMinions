@@ -4,4 +4,4 @@ algoritmo=SRDF
 quantum=3
 retardo=3000
 IP=127.0.0.1
-Puerto=9035
+Puerto=9037

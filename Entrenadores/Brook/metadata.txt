@@ -1,0 +1,7 @@
+nombre=Brock
+simbolo=%
+hojaDeViaje=[Verde,Gris]
+obj[Verde]=[R]
+obj[Gris]=[G]
+vidas=5
+reintentos=0
