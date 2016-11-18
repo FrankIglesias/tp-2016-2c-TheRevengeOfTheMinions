@@ -254,9 +254,9 @@ void detectarDeadLock() {
 	entrenadorPokemon* entrenadorPerdedor;
 	entrenadorPokemon* segundoEntrenador;
 	t_pokemon* pokemonGanador;
-	pthread_mutex_lock(&sem_listaDeEntrenadores);
+//	pthread_mutex_lock(&sem_listaDeEntrenadores);
 	int cantEntrenadores = list_size(listaDeEntrenadores);
-	pthread_mutex_unlock(&sem_listaDeEntrenadores);
+//	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 	int pokemonesPorEntrenador[cantEntrenadores][cantDePokenests];
 	int pokemonAAtraparPorEntrenador[cantEntrenadores][cantDePokenests + 1];
 
@@ -264,9 +264,9 @@ void detectarDeadLock() {
 	int j = 0;
 	for (i = 0; i < cantEntrenadores; i++) {
 		entrenadorPokemon* unEntrenador;
-		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		//	pthread_mutex_lock(&sem_listaDeEntrenadores);
 		unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores, i);
-		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		//	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		t_list* valor;
 		for (j = 0; j < cantDePokenests; j++) {
 			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
@@ -391,17 +391,17 @@ void detectarDeadLock() {
 		do {
 			i++;
 		} while (pokemonAAtraparPorEntrenador[i][cantDePokenests] != -1);
-		pthread_mutex_lock(&sem_listaDeEntrenadores);
+		//pthread_mutex_lock(&sem_listaDeEntrenadores);
 		entrenadorPerdedor = (entrenadorPokemon*) list_get(listaDeEntrenadores,
 				i);
-		pthread_mutex_unlock(&sem_listaDeEntrenadores);
+		//pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		int l;
 		for (l = i + 1; l < cantBloqueados; l++) {
 			if (pokemonAAtraparPorEntrenador[l][cantDePokenests] == -1) {
-				pthread_mutex_lock(&sem_listaDeEntrenadores);
+				//	pthread_mutex_lock(&sem_listaDeEntrenadores);
 				segundoEntrenador = (entrenadorPokemon*) list_get(
 						listaDeEntrenadores, l);
-				pthread_mutex_unlock(&sem_listaDeEntrenadores);
+				//	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 				entrenadorPerdedor = lucharEntreDosEntrenadoresYObtenerPerdedor(
 						entrenadorPerdedor, segundoEntrenador);
 			}
@@ -462,10 +462,10 @@ void detectarDeadLock() {
 				"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON");
 		entrenadorPokemon* unEntrenador;
 		for (i = 0; i < cantEntrenadores; i++) {
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
+			//		pthread_mutex_lock(&sem_listaDeEntrenadores);
 			unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores,
 					i);
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+			//	pthread_mutex_unlock(&sem_listaDeEntrenadores);
 			log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
 
 		}
@@ -518,7 +518,9 @@ void atenderDeadLock(void) {
 		int aux = configuracion.tiempoDeChequeoDeDeadLock;
 		pthread_mutex_unlock(&sem_config);
 		usleep(aux);
+		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 		detectarDeadLock();
+		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 	}
 }
 posicionMapa posicionDeUnaPokeNestSegunNombre(char pokeNest) {
@@ -577,7 +579,15 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 		log_trace(log, "SE AGREGA AL ENTRENADOR %c A LA LISTA DE BLOQUEADOS",
 				unEntrenador->simbolo);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-		list_add(listaDeEntrenadoresBloqueados, unEntrenador);
+		int flag = 0;
+		void buscarEntrenador(entrenadorPokemon * entrenador) {
+			if (entrenador->simbolo == unEntrenador->simbolo)
+				flag = 1;
+		}
+
+		list_iterate(listaDeEntrenadoresBloqueados, buscarEntrenador);
+		if (!flag)
+			list_add(listaDeEntrenadoresBloqueados, unEntrenador);
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 		if (list_size(listaDeEntrenadoresBloqueados) > 1)
 			sem_post(&bloqueados_semaphore);
@@ -629,6 +639,7 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		}
 		list_remove_by_condition(listaDeReady, tieneElMismoSocket);
 		quantum = 0;
+
 		break;
 	}
 	pthread_mutex_lock(&sem_mapas);
@@ -716,7 +727,7 @@ void planificador() {
 			realizarAccion(entrenador);
 			if (quantum <= 0) {
 				entrenador->tiempo = time(NULL);
-				log_trace(log, "Fin de quantum para %c", entrenador->simbolo);
+				log_trace(log, "Fin de quantum");
 
 				replanificar();
 				if (ID != NULL)
@@ -803,17 +814,18 @@ void removerEntrenadoresPorSocket(int socket) {
 		} else
 			return false;
 	}
-
+	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
+	list_remove_all_by_condition(listaDeEntrenadoresBloqueados,
+			tieneElMismoSocket);
+	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 	pthread_mutex_lock(&sem_listaDeEntrenadores);
 	abastecerAEntrenadoresBloqueados();
-	list_remove_by_condition(listaDeEntrenadores, tieneElMismoSocket);
+	list_remove_all_by_condition(listaDeEntrenadores, tieneElMismoSocket);
 	pthread_mutex_unlock(&sem_listaDeEntrenadores);
+
 	pthread_mutex_lock(&sem_listaDeReady);
-	list_remove_by_condition(listaDeReady, tieneElMismoSocket);
-	pthread_mutex_lock(&sem_listaDeReady);
-	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-	list_remove_by_condition(listaDeEntrenadoresBloqueados, tieneElMismoSocket);
-	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+	list_remove_all_by_condition(listaDeReady, tieneElMismoSocket);
+	pthread_mutex_unlock(&sem_listaDeReady);
 
 	pthread_mutex_lock(&sem_mapas);
 	BorrarItem(items, simbolo);
@@ -863,12 +875,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	//nivel_gui_inicializar();
-	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-	///		&configuracion.posicionMaxima.posiciony);
+	nivel_gui_inicializar();
+	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);

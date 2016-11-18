@@ -1,0 +1,7 @@
+nombre=Gary
+simbolo=#
+hojaDeViaje=[Verde,Azul]
+obj[Verde]=[B,P,G]
+obj[Azul]=[C]
+vidas=1
+reintentos=0

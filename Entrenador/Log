@@ -1,0 +1,154 @@
+[TRACE] 01:05:19:584 Blue/(5076:5076): InicializarConfiguracion
+[TRACE] 01:05:19:592 Blue/(5076:5076): verificarConfiguracion
+[TRACE] 01:05:19:594 Blue/(5076:5076): Nombre Entrenador: Blue
+[TRACE] 01:05:19:596 Blue/(5076:5076): Simbolo: ¸
+[TRACE] 01:05:19:597 Blue/(5076:5076): Vidas : 1
+[TRACE] 01:05:19:597 Blue/(5076:5076): Reintentos: 0
+[TRACE] 01:05:19:607 Blue/(5076:5076): Se cargaron todas las propiedades
+[TRACE] 01:05:19:609 Blue/(5076:5076):  Se va a conectar al PUERTO:  9035 y al IP: 127.0.0.1
+[TRACE] 01:05:19:622 Blue/(5076:5076): MAPA: Azul POKEMON: Z
+[TRACE] 01:05:19:626 Blue/(5076:5076): La posicion del pokemon a atrapar es: 2 || 3
+[TRACE] 01:05:19:627 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:20:129 Blue/(5076:5076): Se va a mover hacia MOVE_UP
+[TRACE] 01:05:20:633 Blue/(5076:5076): Se va a mover hacia MOVE_UP
+[TRACE] 01:05:21:137 Blue/(5076:5076): Se va a mover hacia ATRAPAR
+[TRACE] 01:05:21:727 Blue/(5076:5076):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:05:21:732 Blue/(5076:5076): MAPA: Verde POKEMON: R
+[TRACE] 01:05:21:736 Blue/(5076:5076): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:05:21:736 Blue/(5076:5076): Se va a mover hacia MOVE_UP
+[TRACE] 01:05:22:237 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:22:740 Blue/(5076:5076): Se va a mover hacia MOVE_UP
+[TRACE] 01:05:23:243 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:23:745 Blue/(5076:5076): Se va a mover hacia MOVE_UP
+[TRACE] 01:05:24:251 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:24:777 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:25:280 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:25:783 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:26:286 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:26:788 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:27:294 Blue/(5076:5076): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:05:27:807 Blue/(5076:5076): Se va a mover hacia ATRAPAR
+[TRACE] 01:05:28:386 Blue/(5076:5076): Juego finalizado
+[TRACE] 01:07:02:846 Blue/(5154:5154): InicializarConfiguracion
+[TRACE] 01:07:02:847 Blue/(5154:5154): verificarConfiguracion
+[TRACE] 01:07:02:847 Blue/(5154:5154): Nombre Entrenador: Blue
+[TRACE] 01:07:02:848 Blue/(5154:5154): Simbolo: ¸
+[TRACE] 01:07:02:848 Blue/(5154:5154): Vidas : 1
+[TRACE] 01:07:02:848 Blue/(5154:5154): Reintentos: 0
+[TRACE] 01:07:02:849 Blue/(5154:5154): Se cargaron todas las propiedades
+[TRACE] 01:07:02:851 Blue/(5154:5154):  Se va a conectar al PUERTO:  9035 y al IP: 127.0.0.1
+[TRACE] 01:07:02:855 Blue/(5154:5154): MAPA: Azul POKEMON: Z
+[TRACE] 01:07:02:857 Blue/(5154:5154): La posicion del pokemon a atrapar es: 2 || 3
+[TRACE] 01:07:02:857 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:03:359 Blue/(5154:5154): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:03:862 Blue/(5154:5154): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:04:370 Blue/(5154:5154): Se va a mover hacia ATRAPAR
+[TRACE] 01:07:04:948 Blue/(5154:5154):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:07:04:954 Blue/(5154:5154): MAPA: Verde POKEMON: R
+[TRACE] 01:07:04:958 Blue/(5154:5154): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:07:04:959 Blue/(5154:5154): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:05:461 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:05:967 Blue/(5154:5154): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:06:477 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:06:990 Blue/(5154:5154): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:07:496 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:08:9 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:08:510 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:09:13 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:09:517 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:10:27 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:10:528 Blue/(5154:5154): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:11:33 Blue/(5154:5154): Se va a mover hacia ATRAPAR
+[TRACE] 01:07:11:616 Blue/(5154:5154): Juego finalizado
+[TRACE] 01:07:41:926 Blue/(5228:5228): InicializarConfiguracion
+[TRACE] 01:07:41:926 Blue/(5228:5228): verificarConfiguracion
+[TRACE] 01:07:41:927 Blue/(5228:5228): Nombre Entrenador: Blue
+[TRACE] 01:07:41:927 Blue/(5228:5228): Simbolo: ¸
+[TRACE] 01:07:41:927 Blue/(5228:5228): Vidas : 1
+[TRACE] 01:07:41:928 Blue/(5228:5228): Reintentos: 0
+[TRACE] 01:07:41:929 Blue/(5228:5228): Se cargaron todas las propiedades
+[TRACE] 01:07:43:610 Blue/(5228:5228):  Se va a conectar al PUERTO:  9035 y al IP: 127.0.0.1
+[TRACE] 01:07:43:612 Blue/(5228:5228): MAPA: Azul POKEMON: Z
+[TRACE] 01:07:43:614 Blue/(5228:5228): La posicion del pokemon a atrapar es: 2 || 3
+[TRACE] 01:07:43:615 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:07:44:116 Blue/(5228:5228): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:44:623 Blue/(5228:5228): Se va a mover hacia MOVE_UP
+[TRACE] 01:07:45:127 Blue/(5228:5228): Se va a mover hacia ATRAPAR
+[TRACE] 01:08:01:630 Blue/(5228:5228):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:08:17:511 Blue/(5228:5228): MAPA: Verde POKEMON: R
+[TRACE] 01:08:45:488 Blue/(5228:5228): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:08:48:177 Blue/(5228:5228): Se va a mover hacia MOVE_UP
+[TRACE] 01:09:11:743 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:14:806 Blue/(5228:5228): Se va a mover hacia MOVE_UP
+[TRACE] 01:09:14:807 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:14:808 Blue/(5228:5228): Se va a mover hacia MOVE_UP
+[TRACE] 01:09:15:309 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:15:813 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:16:318 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:16:822 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:17:326 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:17:830 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:18:335 Blue/(5228:5228): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:09:18:837 Blue/(5228:5228): Se va a mover hacia ATRAPAR
+[TRACE] 01:09:19:397 Blue/(5228:5228): Juego finalizado
+[TRACE] 01:10:13:850 Blue/(5354:5354): InicializarConfiguracion
+[TRACE] 01:10:13:851 Blue/(5354:5354): verificarConfiguracion
+[TRACE] 01:10:13:851 Blue/(5354:5354): Nombre Entrenador: Blue
+[TRACE] 01:10:13:852 Blue/(5354:5354): Simbolo: ¸
+[TRACE] 01:10:13:853 Blue/(5354:5354): Vidas : 1
+[TRACE] 01:10:13:853 Blue/(5354:5354): Reintentos: 0
+[TRACE] 01:10:13:855 Blue/(5354:5354): Se cargaron todas las propiedades
+[TRACE] 01:10:15:103 Blue/(5354:5354):  Se va a conectar al PUERTO:  9035 y al IP: 127.0.0.1
+[TRACE] 01:10:15:106 Blue/(5354:5354): MAPA: Azul POKEMON: Z
+[TRACE] 01:10:15:108 Blue/(5354:5354): La posicion del pokemon a atrapar es: 2 || 3
+[TRACE] 01:10:15:110 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:15:609 Blue/(5354:5354): Se va a mover hacia MOVE_UP
+[TRACE] 01:10:16:117 Blue/(5354:5354): Se va a mover hacia MOVE_UP
+[TRACE] 01:10:16:636 Blue/(5354:5354): Se va a mover hacia ATRAPAR
+[TRACE] 01:10:26:178 Blue/(5354:5354):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:10:40:397 Blue/(5354:5354): MAPA: Verde POKEMON: R
+[TRACE] 01:10:40:402 Blue/(5354:5354): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:10:40:406 Blue/(5354:5354): Se va a mover hacia MOVE_UP
+[TRACE] 01:10:40:908 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:41:413 Blue/(5354:5354): Se va a mover hacia MOVE_UP
+[TRACE] 01:10:41:927 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:42:436 Blue/(5354:5354): Se va a mover hacia MOVE_UP
+[TRACE] 01:10:42:943 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:43:454 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:43:963 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:44:468 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:44:972 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:45:478 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:45:993 Blue/(5354:5354): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:10:46:495 Blue/(5354:5354): Se va a mover hacia ATRAPAR
+[TRACE] 02:18:45:299 Blue/(2707:2707): InicializarConfiguracion
+[TRACE] 02:18:45:321 Blue/(2707:2707): verificarConfiguracion
+[TRACE] 02:18:45:321 Blue/(2707:2707): Nombre Entrenador: Blue
+[TRACE] 02:18:45:321 Blue/(2707:2707): Simbolo: ¸
+[TRACE] 02:18:45:321 Blue/(2707:2707): Vidas : 1
+[TRACE] 02:18:45:321 Blue/(2707:2707): Reintentos: 0
+[TRACE] 02:18:45:321 Blue/(2707:2707): Se cargaron todas las propiedades
+[TRACE] 02:18:45:322 Blue/(2707:2707):  Se va a conectar al PUERTO:  9035 y al IP: 127.0.0.1
+[TRACE] 02:18:45:324 Blue/(2707:2707): MAPA: Azul POKEMON: Z
+[TRACE] 02:18:45:329 Blue/(2707:2707): La posicion del pokemon a atrapar es: 2 || 3
+[TRACE] 02:18:45:329 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:45:830 Blue/(2707:2707): Se va a mover hacia MOVE_UP
+[TRACE] 02:18:46:337 Blue/(2707:2707): Se va a mover hacia MOVE_UP
+[TRACE] 02:18:46:839 Blue/(2707:2707): Se va a mover hacia ATRAPAR
+[TRACE] 02:18:47:413 Blue/(2707:2707):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 02:18:47:421 Blue/(2707:2707): MAPA: Verde POKEMON: R
+[TRACE] 02:18:47:423 Blue/(2707:2707): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 02:18:47:423 Blue/(2707:2707): Se va a mover hacia MOVE_UP
+[TRACE] 02:18:47:924 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:48:426 Blue/(2707:2707): Se va a mover hacia MOVE_UP
+[TRACE] 02:18:48:931 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:49:438 Blue/(2707:2707): Se va a mover hacia MOVE_UP
+[TRACE] 02:18:49:943 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:50:448 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:50:950 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:51:452 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:51:954 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:52:456 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:52:961 Blue/(2707:2707): Se va a mover hacia MOVE_RIGHT
+[TRACE] 02:18:53:464 Blue/(2707:2707): Se va a mover hacia ATRAPAR
+[TRACE] 02:18:54:26 Blue/(2707:2707): Juego finalizado

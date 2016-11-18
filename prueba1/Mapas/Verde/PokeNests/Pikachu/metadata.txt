@@ -1,0 +1,3 @@
+Tipo=Electrico
+Posicion=7;8
+Identificador=P
