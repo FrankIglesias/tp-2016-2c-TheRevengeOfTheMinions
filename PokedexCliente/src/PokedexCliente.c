@@ -9,7 +9,7 @@
 #include <sys/socket.h>
 #include <tiposDato.h>
 #include <sw_sockets.c>
-#include <commons/collections/list.h>
+#include <collections/list.h>
 #include <log.h>
 
 t_log * log;
@@ -242,6 +242,10 @@ static int crearArchivo(const char * path, mode_t modo, dev_t unNumero) { //Nro 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
 		return -1;
+	}else if (respuesta->protolo == ERROREDQUOT){
+		return EDQUOT;
+	}else if (respuesta->protolo==ERRORENAMETOOLONG){
+		return ENAMETOOLONG;
 	}
 
 	free(mensaje->buffer);
@@ -273,6 +277,10 @@ static int crearDirectorio(const char * path, mode_t modo) {
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
 		return -1;
+	}else if (respuesta->protolo == ERROREDQUOT){
+		return EDQUOT;
+	}else if (respuesta->protolo==ERRORENAMETOOLONG){
+		return ENAMETOOLONG;
 	}
 
 	free(mensaje->buffer);
@@ -307,6 +315,8 @@ static int escribirArchivo(const char * path, const char * buffer,
 
 		if (respuesta->protolo==ERROR){
 			return -1;
+		}else if (respuesta->protolo==ERRORESPACIO){
+			return EFBIG;
 		}
 
 	free(mensaje->buffer);
@@ -372,6 +382,8 @@ static int renombrarArchivo(const char * nombreViejo, const char * nombreNuevo) 
 	//Si no hubo errores retorno 0, caso contrario -1
 	if(respuesta->protolo==ERROR){
 		return -1;
+	}else if (respuesta->protolo==ERRORENAMETOOLONG){
+		return ENAMETOOLONG;
 	}
 
 	free(mensaje->buffer);

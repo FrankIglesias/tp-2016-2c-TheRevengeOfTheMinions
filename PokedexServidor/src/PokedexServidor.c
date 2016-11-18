@@ -198,11 +198,12 @@ int ingresarEnLaTArchivos(uint16_t padre, char *nombre, osada_file_state tipo) {
 			}
 		}
 	}
-	if (17 <= strlen(nombre))
+	if (17 <= strlen(nombre)) {
 		log_error(log, "EL nombre es muy largo");
-	else
+		return -3;
+	} else
 		log_error(log, "NO hay mas espacio en la tabla de archivo");
-	return -1;
+	return -2;
 }
 char * leerFile(int file) {
 	char * lectura = malloc(tablaDeArchivos[file].tamanioArchivo + 1); // +1 para indicar fin de archivo
@@ -242,8 +243,26 @@ char * leerArchivo(char * path, int *aux) {
 }
 
 int deltaBuffer(int file, int tamanioNuevo, int offset) {
+	int i;
+	int tamanoArchivoNuevo = tamanioNuevo + offset;
+	int puntero = 0;
+	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
 	if (tablaDeArchivos[file].tamanioArchivo == (tamanioNuevo + offset))
 		return 0;
+	if (tamanoArchivoNuevo < tablaDeArchivos[file].tamanioArchivo) {
+		for (i = 0; i < tablaDeArchivos[file].tamanioArchivo; i++) {
+			if (puntero < tamanoArchivoNuevo) {
+				bloqueActual = tablaDeAsignaciones[bloqueActual];
+				puntero += BLOCK_SIZE;
+			}
+		}
+
+		while (bloqueActual != -1) {
+			bitarray_clean_bit(bitmap, bloqueActual);
+			tablaDeAsignaciones[bloqueActual] = -1;
+			bloqueActual = tablaDeAsignaciones[bloqueActual];
+		}
+	}
 	return tamanioNuevo + offset - tablaDeArchivos[file].tamanioArchivo; // Agrego letras
 }
 
@@ -262,7 +281,7 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	while (offset != puntero) {
 		if (tablaDeAsignaciones[bloqueActual] == -1) {
 			if (asignarBloqueLibre(bloqueActual) == -1)
-				return -1;
+				return -4;
 		}
 		if ((offset - puntero) > BLOCK_SIZE) {
 			puntero += BLOCK_SIZE;
@@ -310,8 +329,7 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	}
 
 	sincronizarMemoria();
-	log_trace(log, "tamaño del archivo escrito %u",
-			puntero);
+	log_trace(log, "tamaño del archivo escrito %u", puntero);
 	return puntero;
 }
 int crearArchivo(char * path) {
@@ -330,10 +348,11 @@ int crearArchivo(char * path) {
 	if (existeUnoIgual(padre, ruta[j], ARCHIVO))
 		return -1;
 	i = ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
-	log_trace(log, "se ha creado un archivo en el bloque: %u, padre: %u",
-			tablaDeArchivos[i].bloqueInicial, padre);
+	if (i > 0)
+		log_trace(log, "se ha creado un archivo en el bloque: %u, padre: %u",
+				tablaDeArchivos[i].bloqueInicial, padre);
 	sincronizarMemoria();
-	return 1;
+	return i;
 }
 int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
@@ -382,7 +401,7 @@ int crearDir(char * path) {
 		return -1;
 	i = ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
 	sincronizarMemoria();
-	return 1;
+	return i;
 }
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
@@ -420,6 +439,8 @@ int renombrar(char * path, char * path2) {
 			while (ruta[i + 1]) { // busco nombre del archivo
 				i++;
 			}
+			if (strlen(path[i]) > 17)
+				return -3;
 			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
 				limpiarNombre(file);
 				memcpy(&tablaDeArchivos[file].nombreArchivo, ruta[i],
@@ -516,24 +537,32 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = var;
 			break;
 		case ESCRIBIR:
-			//if (mensaje->tamano < 4096)
-			//	mensaje->buffer[mensaje->tamano] = '\0';
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset, mensaje->tamano);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
+			if (devolucion == -4)
+				mensaje->protolo = ERRORESPACIO;
 			mensaje->tamano = devolucion;
 			break;
 		case CREAR:
 			devolucion = crearArchivo(mensaje->path);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
+			if (devolucion == -2)
+				mensaje->protolo = ERROREDQUOT;
+			if (devolucion == -3)
+				mensaje->protolo = ERRORENAMETOOLONG;
 			mensaje->tamano = 0;
 			break;
 		case CREARDIR:
 			devolucion = crearDir(mensaje->path);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
+			if (devolucion == -2)
+				mensaje->protolo = ERROREDQUOT;
+			if (devolucion == -3)
+				mensaje->protolo = ERRORENAMETOOLONG;
 			mensaje->tamano = 0;
 			break;
 		case BORRAR:
@@ -552,6 +581,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			devolucion = renombrar(mensaje->path, mensaje->buffer);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
+			if (devolucion == -3)
+				mensaje->protolo = ERRORENAMETOOLONG;
 			mensaje->tamano = 0;
 			break;
 		case LEERDIR:
