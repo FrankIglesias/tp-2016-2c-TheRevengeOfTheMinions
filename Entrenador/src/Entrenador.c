@@ -65,7 +65,7 @@ void subirVida(void) {
 }
 void restarVida(char* motivo) {
 	config.vidas--;
-
+	close(socketCliente);
 	log_trace(log, "Motivo de muerte: %s ", motivo);
 
 	char* rutaDeLosPokemones = malloc(256);
@@ -83,12 +83,10 @@ void restarVida(char* motivo) {
 		scanf("%d", &opc);
 
 		if (opc) {
-			close(socketCliente);
+
 			reintentar();
-		} else
-			close(socketCliente);
+		}
 	} else if (config.vidas >= 1) {
-		close(socketCliente);
 		jugar();
 	}
 
@@ -246,6 +244,7 @@ void actualizarPosicion(instruccion_t protocolo) {
 	}
 }
 void finDeJuego(void) {
+	log_trace(log, "Juego finalizado");
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
 			"/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
@@ -288,13 +287,15 @@ void jugar(void) {
 		for (pokemonesAtrapados = 0; pokemonesAtrapados < cantidadDePokemones;
 				pokemonesAtrapados++) {
 			mensajeAEnviar.protocolo = PROXIMAPOKENEST;
-			mensajeAEnviar.simbolo = (char) list_get(unObjetivo->pokemones, pokemonesAtrapados);
+			mensajeAEnviar.simbolo = (char) list_get(unObjetivo->pokemones,
+					pokemonesAtrapados);
 			log_trace(log, "MAPA: %s POKEMON: %c", unObjetivo->nombreDelMapa,
 					mensajeAEnviar.simbolo);
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 					(void *) &mensajeAEnviar);
 			if ((mensajeARecibir = (mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 					socketCliente)) == NULL) {
+				log_trace(log, "Socket de mapa caido");
 				finDeJuego();
 			}
 			posicionDeLaPokeNest.posicionx =
@@ -315,16 +316,18 @@ void jugar(void) {
 				if ((mensajeARecibir =
 						(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 								socketCliente)) == NULL) {
+					log_trace(log, "Socket de mapa caido");
 					finDeJuego();
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
-					char * comando  = string_from_format(
-							"cp \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir de Bill\"",
-							unObjetivo->nombreDelMapa,
-							obtenerNombreDelPokemonRecibido(
-									mensajeARecibir->nombrePokemon),
-							mensajeARecibir->nombrePokemon,
-							config.nombreDelEntrenador);
+					char * comando =
+							string_from_format(
+									"cp \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir de Bill\"",
+									unObjetivo->nombreDelMapa,
+									obtenerNombreDelPokemonRecibido(
+											mensajeARecibir->nombrePokemon),
+									mensajeARecibir->nombrePokemon,
+									config.nombreDelEntrenador);
 					system(comando);
 				}
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
@@ -333,21 +336,21 @@ void jugar(void) {
 				if (mensajeARecibir->protocolo == OK) {
 					actualizarPosicion(mensajeAEnviar.protocolo);
 				}
-				if(mensajeARecibir->protocolo == MORIR){
+				if (mensajeARecibir->protocolo == MORIR) {
+					log_trace(log, "Acabo de morir en batalla");
 					close(socketCliente);
-					exit(1);
+					restarVida("Muerte por deadlock");
 				}
-				if(mensajeARecibir->protocolo == POKEMON)
-				{
-					if(pokemonesAtrapados == cantidadDePokemones-1)
-											close(socketCliente);
+				if (mensajeARecibir->protocolo == POKEMON) {
+					if (pokemonesAtrapados == cantidadDePokemones - 1)
+						close(socketCliente);
 				}
 				free(mensajeARecibir);
 			}
 		}
 
 	}
-
+	finDeJuego();
 }
 
 int main(int argc, char * argv[]) {
