@@ -109,7 +109,7 @@ void reintentar() {
 	config.reintentos++;
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
-			"/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
+			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir\ de\ Bill",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
@@ -247,7 +247,7 @@ void finDeJuego(void) {
 	log_trace(log, "Juego finalizado");
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
-			"/home/yami/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
+			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);

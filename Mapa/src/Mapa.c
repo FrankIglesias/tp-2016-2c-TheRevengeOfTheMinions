@@ -543,7 +543,6 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 		pokemon* unPoke = (pokemon*) list_get(unaPoke->listaDePokemones, 0);
 		if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
 				charToString(unEntrenador->proximoPokemon))) {
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
 			t_list* unaLista = (t_list*) dictionary_get(
 					unEntrenador->pokemonesAtrapados,
 					charToString(unEntrenador->proximoPokemon));
@@ -552,17 +551,14 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 			dictionary_real_put(unEntrenador->pokemonesAtrapados,
 					charToString(unEntrenador->proximoPokemon),
 					(void*) unaLista);
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
+
 		} else {
 			t_list* nuevaLista = list_create();
 			list_add(nuevaLista, (void*) unPoke);
-			pthread_mutex_lock(&sem_listaDeEntrenadores);
 			dictionary_put(unEntrenador->pokemonesAtrapados,
 					charToString(unEntrenador->proximoPokemon),
 					(void*) nuevaLista);
-			pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		}
-		//unaPoke->cantidad -= 1;
 		pthread_mutex_lock(&sem_config);
 		list_remove(unaPoke->listaDePokemones, 0);
 		pthread_mutex_unlock(&sem_config);
@@ -624,15 +620,14 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 		break;
 	case ATRAPAR:
+		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		abastecerEntrenador(unEntrenador);
-
-		pthread_mutex_lock(&sem_listaDeReady);
+		pthread_mutex_unlock(&sem_listaDeEntrenadores);
 		bool tieneElMismoSocket(void *data) {
 			entrenadorPokemon * unE = (entrenadorPokemon*) data;
 			return unE->socket == unEntrenador->socket;
 		}
 		list_remove_by_condition(listaDeReady, tieneElMismoSocket);
-		pthread_mutex_unlock(&sem_listaDeReady);
 		quantum = 0;
 		break;
 	}
@@ -702,6 +697,7 @@ void planificador() {
 		pthread_mutex_unlock(&sem_config);
 		usleep(aux * 1000);
 		sem_wait(&semaphore_listos);
+		pthread_mutex_lock(&sem_listaDeReady);
 		log_trace(log, "Se ha activado el planificador");
 
 		entrenadorPokemon * entrenador;
@@ -716,20 +712,19 @@ void planificador() {
 
 			entrenador = (entrenadorPokemon *) list_find(listaDeReady,
 					tieneMismoId);
-			pthread_mutex_unlock(&sem_listaDeReady);
 			log_trace(log, "Entrenador a atender: %c", entrenador->simbolo);
 			realizarAccion(entrenador);
 			if (quantum <= 0) {
 				entrenador->tiempo = time(NULL);
 				log_trace(log, "Fin de quantum para %c", entrenador->simbolo);
-				pthread_mutex_lock(&sem_listaDeReady);
+
 				replanificar();
-				pthread_mutex_unlock(&sem_listaDeReady);
 				if (ID != NULL)
 					sem_post(&semaphore_listos);
 
 			}
 		}
+		pthread_mutex_unlock(&sem_listaDeReady);
 	}
 }
 void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
@@ -808,9 +803,18 @@ void removerEntrenadoresPorSocket(int socket) {
 		} else
 			return false;
 	}
+
+	pthread_mutex_lock(&sem_listaDeEntrenadores);
+	abastecerAEntrenadoresBloqueados();
 	list_remove_by_condition(listaDeEntrenadores, tieneElMismoSocket);
+	pthread_mutex_unlock(&sem_listaDeEntrenadores);
+	pthread_mutex_lock(&sem_listaDeReady);
 	list_remove_by_condition(listaDeReady, tieneElMismoSocket);
+	pthread_mutex_lock(&sem_listaDeReady);
+	pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 	list_remove_by_condition(listaDeEntrenadoresBloqueados, tieneElMismoSocket);
+	pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
+
 	pthread_mutex_lock(&sem_mapas);
 	BorrarItem(items, simbolo);
 	if (ID == simbolo) {
@@ -826,16 +830,8 @@ int recibirMensajesEntrenadores(int socket) {
 		log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
 		log_trace(log, "LOS POKEMONES DISPONIBLES QUEDARON");
 		cargarMatrizDisponibles();
-		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
-		pthread_mutex_lock(&sem_listaDeReady);
-		pthread_mutex_lock(&sem_ejecutandoID);
-		pthread_mutex_lock(&sem_listaDeEntrenadores);
 		removerEntrenadoresPorSocket(socket);
-		pthread_mutex_unlock(&sem_listaDeEntrenadores);
-		pthread_mutex_unlock(&sem_ejecutandoID);
-		pthread_mutex_unlock(&sem_listaDeReady);
-		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
-		abastecerAEntrenadoresBloqueados();
+
 		return -1;
 	} else {
 		atenderClienteEntrenadores(socket, mensaje);
@@ -867,12 +863,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	nivel_gui_inicializar();
-	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-			&configuracion.posicionMaxima.posiciony);
+	//nivel_gui_inicializar();
+	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+	///		&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
