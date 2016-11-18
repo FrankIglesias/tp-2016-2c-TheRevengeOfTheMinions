@@ -26,7 +26,7 @@ endif
 all: Entrenador
 
 dependents:
-	-cd /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug && $(MAKE) clean all
+	-cd /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug && $(MAKE) all
 
 # Tool invocations
 Entrenador: $(OBJS) $(USER_OBJS) /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug/liblibrerias-sw.so
