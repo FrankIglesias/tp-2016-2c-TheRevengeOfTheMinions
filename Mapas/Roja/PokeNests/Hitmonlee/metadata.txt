@@ -1,0 +1,3 @@
+Tipo=NoTipoGato
+Posicion=8;5
+Identificador=H
