@@ -483,7 +483,7 @@ void detectarDeadLock() {
 
 		return;
 	} else {
-		if (pudoAnalizar == cantEntrenadores-noTieneAsignados) {
+		if (pudoAnalizar == cantEntrenadores - noTieneAsignados) {
 			//log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 			return;
 		} else {
@@ -526,6 +526,8 @@ void atenderDeadLock(void) {
 		usleep(aux);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 		detectarDeadLock();
+		if (list_size(listaDeEntrenadoresBloqueados) > 0)
+			sem_post(&sem_listaDeEntrenadoresBloqueados);
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 	}
 }
@@ -887,12 +889,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 //);
 }
 void actualizarMapa() {
-	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	//nivel_gui_inicializar();
-	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-		//	&configuracion.posicionMaxima.posiciony);
+	nivel_gui_inicializar();
+	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
