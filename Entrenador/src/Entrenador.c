@@ -120,12 +120,11 @@ void reintentar() {
 	jugar();
 
 }
+
 void borrarArchivosDeUnDirectorio(char* ruta) {
 
 	char* comando = malloc(256);
-	sprintf(comando,
-			"exec rm -rf %s/*",
-			ruta);
+	sprintf(comando, "rm -rf %s/*", ruta);
 
 	system(comando);
 
@@ -377,5 +376,3 @@ int main(int argc, char * argv[]) {
 	jugar();
 	return 0;
 }
-
-
