@@ -1,5 +1,5 @@
 #!/bin/bash
-cd so-commons-library/
+cd so-commons-library
 sudo make install
 cd ..
 sudo apt-get install libncurses5-dev
