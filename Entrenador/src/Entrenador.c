@@ -267,6 +267,9 @@ void jugar(void) {
 	mensaje_MAPA_ENTRENADOR * mensajeARecibir;
 	int cantidadDeObjetivos = list_size(config.hojaDeViaje);
 	int i;
+
+	char * nombreMapa = malloc(50);
+
 	for (i = 0; i < cantidadDeObjetivos; i++) {
 		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
 		char * rutaDelMetadataDelMapa =
@@ -275,11 +278,15 @@ void jugar(void) {
 						unObjetivo->nombreDelMapa);
 		t_config * configAux = config_create(rutaDelMetadataDelMapa);
 
+
+
 		char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
 		int puertoMapa = config_get_int_value(configAux, "Puerto");
 		config_destroy(configAux);
 		log_trace(log, " Se va a conectar al PUERTO:  %d y al IP: %s",
 				puertoMapa, ipMapa);
+
+
 		socketCliente = crearSocketCliente(ipMapa, puertoMapa);
 		free(ipMapa);
 		mensajeAEnviar.protocolo = HANDSHAKE;
@@ -325,6 +332,7 @@ void jugar(void) {
 					finDeJuego();
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
+					nombreMapa = unObjetivo->nombreDelMapa;
 					char * comando =
 							string_from_format(
 									"cp \"/home/utnso/montaje/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill\"",
@@ -334,15 +342,6 @@ void jugar(void) {
 									mensajeARecibir->nombrePokemon,
 									config.nombreDelEntrenador);
 					system(comando);
-
-					char * comando2 =
-												string_from_format(
-														"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s.jpg\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
-														unObjetivo->nombreDelMapa,
-														unObjetivo->nombreDelMapa,
-														config.nombreDelEntrenador);
-
-					system(comando2);
 				}
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
 					pokemonNoAtrapado = false;
@@ -363,7 +362,20 @@ void jugar(void) {
 			}
 		}
 
+
+		char * comando2 =
+		string_from_format(
+		"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s.jpg\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
+		nombreMapa,
+		nombreMapa,
+		config.nombreDelEntrenador);
+
+		system(comando2);
+		free(nombreMapa);
+
 	}
+
+
 	finDeJuego();
 }
 
