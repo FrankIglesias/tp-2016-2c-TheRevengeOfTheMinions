@@ -89,15 +89,6 @@ char **letras;
 char *punteritoAChar;
 int *pokemonesDisponibles = NULL;
 
-int contienePuntos(char * algo) {
-	int i;
-	for (i = 0; i < strlen(algo); i++) {
-		if (algo[i] == ".")
-			return 1;
-	}
-	return 0;
-}
-
 void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 		void (*funcionArchivo(char *ruta))) {
 	DIR *dip;
@@ -107,17 +98,18 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 	}
 	while ((dit = readdir(dip)) != NULL) {
 
-		if (!(strcmp(dit->d_name,"..")==0||strcmp(dit->d_name,".")==0)){
-			char * aux = malloc(strlen(ruta) + 1 + strlen(dit->d_name));
+		if (!(strcmp(dit->d_name, "..") == 0 || strcmp(dit->d_name, ".") == 0)) {
+			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (!contienePuntos(aux)) {
+			if (dit->d_type == 4) {
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
-			} else {
+			} else if (dit->d_type == 8) {
 				funcionArchivo(aux);
 			}
+			aux = malloc(2);
 			free(aux);
 		}
 
@@ -146,10 +138,10 @@ bool tienePokemonesAsignados(entrenadorPokemon * unEntrenador) {
 
 void funcionArchivosPokenest(char * ruta) {
 	char **rutaParseada = string_split(ruta, "/");
-	int i;
-	while (rutaParseada[i + 1]) {
-		i++;
-	}
+	int i=0;
+		while (rutaParseada[i + 1]) {
+			i++;
+		}
 	if (string_ends_with(rutaParseada[i], ".dat")) {
 		t_config * config = config_create(ruta);
 		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
@@ -158,7 +150,7 @@ void funcionArchivosPokenest(char * ruta) {
 		char * letra_a_buscar;
 		void obtenerPokeparada(char * key, void * data) {
 			pokenest * aux = (pokenest *) data;
-			if (strcmp(aux->nombrePokemon, rutaParseada[i - 1]) == 0) {
+			if (strcmp(aux->nombrePokemon, rutaParseada[i-1]) == 0) {
 				letra_a_buscar = key;
 			}
 		}
@@ -167,36 +159,34 @@ void funcionArchivosPokenest(char * ruta) {
 		pokenest * unaPokenest = (pokenest *) dictionary_get(
 				configuracion.diccionarioDePokeparadas, letra_a_buscar);
 		list_add_in_index(unaPokenest->listaDePokemones, 0, nuevoPokemon);
-		//log_trace(log, "Pokemon nombre %s, nivel: %d",
-		//	nuevoPokemon->nombreDelFichero, nuevoPokemon->nivel);
+		log_trace(log, "Pokemon nombre %s, nivel: %d",
+			nuevoPokemon->nombreDelFichero, nuevoPokemon->nivel);
 		sumarRecurso(items, letra_a_buscar[0]);
 	}
 
 }
 void funcionDirectoriosPokenest(char * ruta) {
-	char * rutaAux = string_duplicate(ruta);
-	string_append(&rutaAux, "metadata.txt");
+
+	char * rutaAux = malloc(strlen(ruta) + strlen("metadata.txt")+1);
+	strcpy(rutaAux,ruta);
+	strcat(rutaAux, "metadata.txt");
 	t_config * config = config_create(rutaAux);
 	pokenest * nuevaPokenest = malloc(sizeof(pokenest));
 	char * string = config_get_string_value(config, "Posicion");
 	char ** posiciones = string_split(string, ";");
 	char ** nombrePokenest = string_split(rutaAux, "/");
-	int i;
-	while (nombrePokenest[i + 1]) {
-		i++;
-	}
-	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[i - 1]);
-	/*	//log_trace(log, "Nombre de la nueva pokenest %s",
-	 nuevaPokenest->nombrePokemon);-*/
+	int i = 0;
+		while (nombrePokenest[i + 1]) {
+			i++;
+		}
+	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[i-1]);
+	log_trace(log, "Nombre de la nueva pokenest %s",
+	nuevaPokenest->nombrePokemon);
 	nuevaPokenest->posicion.posicionx = atoi(posiciones[0]);
 	nuevaPokenest->posicion.posiciony = atoi(posiciones[1]);
-	/*	//log_trace(log, "Posicion de la pokenest %d ||%d",
-	 nuevaPokenest->posicion.posicionx,
-	 nuevaPokenest->posicion.posiciony);*/
 	nuevaPokenest->listaDePokemones = list_create();
 	nuevaPokenest->id =
 			strdup(config_get_string_value(config, "Identificador"))[0];
-	//log_trace(log, "Id de la pokenest %c", nuevaPokenest->id);
 	letras[indexLetras] = config_get_string_value(config, "Identificador");
 	cantDePokenests++;
 	indexLetras++;
@@ -210,7 +200,8 @@ void funcionDirectoriosPokenest(char * ruta) {
 void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	recorrerDirectorios(
-			string_from_format("/home/utnso/montaje/Mapas/%s/PokeNests/",
+			string_from_format(
+					"/home/utnso/montaje/Mapas/%s/PokeNests/",
 					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
 			funcionArchivosPokenest);
 }
@@ -241,9 +232,10 @@ void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
 }
 void cargarConfiguracion(void) {
 	t_config * config;
-	char * rutaDeConfigs = string_from_format(
-			"/home/utnso/montaje/Mapas/%s/metadata.txt",
-			configuracion.nombreDelMapa);
+	char * rutaDeConfigs =
+			string_from_format(
+					"/home/utnso/montaje/Mapas/%s/metadata.txt",
+					configuracion.nombreDelMapa);
 	//log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
 	configuracion.tiempoDeChequeoDeDeadLock = config_get_int_value(config,
@@ -266,7 +258,7 @@ void cargarConfiguracion(void) {
 
 	configuracion.puerto = strdup(config_get_string_value(config, "Puerto"));
 	//log_trace(log, "Puerto: %s", configuracion.puerto);
-	cargarPokeNests();
+
 
 }
 void detectarDeadLock() {
@@ -913,7 +905,7 @@ void actualizarMapa() {
 void iniciarMapa() {
 	nivel_gui_inicializar();
 	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-			&configuracion.posicionMaxima.posiciony);
+		&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
@@ -930,7 +922,6 @@ void iniciarDatos() {
 	listaDeReady = list_create();
 	items = list_create();
 	letras = realloc((void*) punteritoAChar, sizeof(char*));
-//log_trace(log, "Iniciando Mapa");
 	iniciarMapa();
 }
 void liberarDatos() {
@@ -967,13 +958,14 @@ int main(int arc, char * argv[]) {
 	configuracion.nombreDelMapa = string_duplicate(argv[1]);
 	iniciarDatos();
 	cargarConfiguracion();
+	cargarPokeNests();
 	signal(SIGPIPE, funcionNULL);
 	signal(SIGUSR2, cargarConfiguracion);
-//log_trace(log, "Se crea hilo para Entrenadores");
+	log_trace(log, "Se crea hilo para Entrenadores");
 	crearHiloAtenderEntrenadores();
-//log_trace(log, "Se crea hilo de Deadlock");
+	log_trace(log, "Se crea hilo de Deadlock");
 	crearHiloParaDeadlock();
-//log_trace(log, "Se crea hilo planificador");
+	log_trace(log, "Se crea hilo planificador");
 	crearHiloPlanificador();
 	actualizarMapa();
 	pthread_join(hiloPlanificador, NULL);

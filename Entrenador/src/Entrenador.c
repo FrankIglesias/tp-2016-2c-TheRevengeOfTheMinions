@@ -338,7 +338,7 @@ void jugar(void) {
 
 					char * comando2 =
 												string_from_format(
-														"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
+														"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s.jpg\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
 														unObjetivo->nombreDelMapa,
 														unObjetivo->nombreDelMapa,
 														config.nombreDelEntrenador);
