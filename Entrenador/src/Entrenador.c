@@ -70,9 +70,18 @@ void restarVida(char* motivo) {
 
 	char* rutaDeLosPokemones = malloc(256);
 	sprintf(rutaDeLosPokemones,
-			"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill",
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
+	free(rutaDeLosPokemones);
+
+	char* rutaDeLasMedallas = malloc(256);
+		sprintf(rutaDeLasMedallas,
+				"/home/utnso/montaje/Entrenadores/%s/Medallas",
+				config.nombreDelEntrenador);
+		borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
+	free(rutaDeLasMedallas);
+
 
 	if (config.vidas < 1) {
 		log_trace(log, "Desea reintentar?\n");
@@ -107,12 +116,6 @@ void restarVidaPorComando(void) {
 void reintentar() {
 
 	config.reintentos++;
-	char* rutaDeLasMedallas = malloc(256);
-	sprintf(rutaDeLasMedallas,
-			"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill",
-			config.nombreDelEntrenador);
-	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
-	free(rutaDeLasMedallas);
 	levantarHojaDeViaje();
 	jugar();
 
@@ -143,8 +146,7 @@ int verificarConfiguracion(t_config *configuracion) {
 	if (!config_has_property(configuracion, "simbolo"))
 		log_error(log, "No existe SIMBOLO en la configuracion");
 	if (!config_has_property(configuracion, "hojaDeViaje"))
-		log_error(log, "No ex"
-				"iste HOJA_DE_VIAJE en la configuracion");
+		log_error(log, "No existe HOJA_DE_VIAJE en la configuracion");
 	if (!config_has_property(configuracion, "vidas"))
 		log_error(log, "No existe VIDAS en la configuracion");
 	if (!config_has_property(configuracion, "reintentos"))
@@ -241,6 +243,14 @@ void actualizarPosicion(instruccion_t protocolo) {
 }
 void finDeJuego(void) {
 	log_trace(log, "Juego finalizado");
+
+	char* rutaDeLosPokemones = malloc(256);
+	sprintf(rutaDeLosPokemones,
+				"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
+				config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
+	free(rutaDeLosPokemones);
+
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
 			"/home/utnso/montaje/Entrenadores/%s/Medallas",
@@ -318,13 +328,22 @@ void jugar(void) {
 				if (mensajeARecibir->protocolo == POKEMON) {
 					char * comando =
 							string_from_format(
-									"cp \"/home/utnso/montaje/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill\"",
+									"cp \"/home/utnso/montaje/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill\"",
 									unObjetivo->nombreDelMapa,
 									obtenerNombreDelPokemonRecibido(
 											mensajeARecibir->nombrePokemon),
 									mensajeARecibir->nombrePokemon,
 									config.nombreDelEntrenador);
 					system(comando);
+
+					char * comando2 =
+												string_from_format(
+														"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
+														unObjetivo->nombreDelMapa,
+														unObjetivo->nombreDelMapa,
+														config.nombreDelEntrenador);
+
+					system(comando2);
 				}
 				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
 					pokemonNoAtrapado = false;
