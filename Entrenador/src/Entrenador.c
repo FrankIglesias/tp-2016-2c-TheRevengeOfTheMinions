@@ -124,7 +124,7 @@ void reintentar() {
 void borrarArchivosDeUnDirectorio(char* ruta) {
 
 	char* comando = malloc(256);
-	sprintf(comando, "rm -rf %s/*", ruta);
+	sprintf(comando, "rm -rf \"%s/\"*", ruta);
 
 	system(comando);
 
