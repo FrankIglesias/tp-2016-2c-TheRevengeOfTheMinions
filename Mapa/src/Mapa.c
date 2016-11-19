@@ -858,13 +858,13 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 			entrenador->simbolo);
 }
 void actualizarMapa() {
-	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 
 }
 void iniciarMapa() {
-	nivel_gui_inicializar();
-	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-		&configuracion.posicionMaxima.posiciony);
+	//nivel_gui_inicializar();
+	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+		//&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
