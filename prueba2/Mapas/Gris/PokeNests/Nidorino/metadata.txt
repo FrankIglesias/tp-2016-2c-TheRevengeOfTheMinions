@@ -1,0 +1,3 @@
+Tipo=POISON
+Posicion=10;10
+Identificador=N

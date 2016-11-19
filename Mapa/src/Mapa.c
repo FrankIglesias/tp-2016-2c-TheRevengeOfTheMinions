@@ -102,11 +102,11 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (dit->d_type == 4) {
+			if (aux[strlen(aux) - 4] != '.') {
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
-			} else if (dit->d_type == 8) {
+			} else {
 				funcionArchivo(aux);
 			}
 			aux = malloc(2);
@@ -441,7 +441,7 @@ void detectarDeadLock() {
 	int noDeseaAtraparPokemones = 0;
 	int w;
 	int o;
-	int fuisteVos=0;
+	int fuisteVos = 0;
 	int total = 0;
 	int filaDeNecesidad[cantDePokenests];
 	int filaDeAsignados[cantDePokenests];
@@ -461,7 +461,7 @@ void detectarDeadLock() {
 					pokemonesDisponibles[j] += filaDeAsignados[j];
 				}
 				i = 0;
-				noPudoAnalizar=0;
+				noPudoAnalizar = 0;
 				noDeseaAtraparPokemones++;
 			} else {
 				if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
@@ -471,11 +471,11 @@ void detectarDeadLock() {
 					}
 					pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
 					i = 0;
-					noPudoAnalizar=0;
+					noPudoAnalizar = 0;
 				} else {
 					pokemonAAtraparPorEntrenador[i][cantDePokenests] = -1;
 					noPudoAnalizar++;
-					fuisteVos=i;
+					fuisteVos = i;
 				}
 			}
 			total++;
@@ -485,15 +485,13 @@ void detectarDeadLock() {
 		log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 		return;
 	} else if (noPudoAnalizar == 1 && cantEntrenadores == 1) {
-		log_trace(log, "ERROR, NO PUEDE HABER SOLO UN ENTRENADOR EN DEADLOCK2");
-		abastecerEntrenador((entrenadorPokemon*) list_get(listaDeEntrenadoresBloqueados, fuisteVos));
-
+		entrenadorPokemon* fuisteTu = (entrenadorPokemon*) list_get(
+				listaDeEntrenadoresBloqueados, fuisteVos);
+		abastecerEntrenador(fuisteTu);
 		list_remove(listaDeEntrenadoresBloqueados, fuisteVos);
-
-				//log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
-				//log_trace(log, "LOS POKEMONES DISPONIBLES QUEDARON");
-		//sumarRecurso(items, letras[i][0]);
-				cargarMatrizDisponibles();
+		BorrarItem(items, fuisteTu->simbolo);
+		actualizarMapa();
+		cargarMatrizDisponibles();
 
 		return;
 	}
@@ -527,9 +525,8 @@ void detectarDeadLock() {
 			return;
 		}
 
-		}
 	}
-
+}
 
 void atenderDeadLock(void) {
 	while (1) {
