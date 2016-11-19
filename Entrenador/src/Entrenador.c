@@ -70,7 +70,7 @@ void restarVida(char* motivo) {
 
 	char* rutaDeLosPokemones = malloc(256);
 	sprintf(rutaDeLosPokemones,
-			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/DirDeBill",
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
 
@@ -109,7 +109,7 @@ void reintentar() {
 	config.reintentos++;
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
-			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir\ de\ Bill",
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
@@ -119,16 +119,12 @@ void reintentar() {
 }
 void borrarArchivosDeUnDirectorio(char* ruta) {
 
-	DIR *pathCarpeta = opendir(ruta);
-	struct dirent *archSig;
-	char path[256];
+	char* comando = malloc(256);
+	sprintf(comando,
+			"exec rm -rf %s/*",
+			ruta);
 
-	while ((archSig = readdir(pathCarpeta)) != NULL) {
-		// contruye el path para cada archivo a eliminar
-		sprintf(path, "%s/%s", ruta, archSig->d_name);
-		remove(path);
-	}
-	closedir(pathCarpeta);
+	system(comando);
 
 }
 
@@ -220,7 +216,7 @@ void iniciarDatos(char * nombreEntrenador) {
 	configuracion =
 			config_create(
 					string_from_format(
-							"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/metadata.txt",
+							"/home/utnso/montaje/Entrenadores/%s/metadata.txt",
 							nombreEntrenador));
 }
 
@@ -247,7 +243,7 @@ void finDeJuego(void) {
 	log_trace(log, "Juego finalizado");
 	char* rutaDeLasMedallas = malloc(256);
 	sprintf(rutaDeLasMedallas,
-			"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Medallas",
+			"/home/utnso/montaje/Entrenadores/%s/Medallas",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
@@ -266,7 +262,7 @@ void jugar(void) {
 		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
 		char * rutaDelMetadataDelMapa =
 				string_from_format(
-						"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+						"/home/utnso/montaje/Mapas/%s/metadata.txt",
 						unObjetivo->nombreDelMapa);
 		t_config * configAux = config_create(rutaDelMetadataDelMapa);
 
@@ -322,7 +318,7 @@ void jugar(void) {
 				if (mensajeARecibir->protocolo == POKEMON) {
 					char * comando =
 							string_from_format(
-									"cp \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Entrenadores/%s/Dir de Bill\"",
+									"cp \"/home/utnso/montaje/Mapas/%s/PokeNests/%s/%s\" \"/home/utnso/montaje/Entrenadores/%s/Dir\ De\ Bill\"",
 									unObjetivo->nombreDelMapa,
 									obtenerNombreDelPokemonRecibido(
 											mensajeARecibir->nombrePokemon),
@@ -358,6 +354,7 @@ int main(int argc, char * argv[]) {
 	cargarConfiguracion(configuracion);
 	signal(SIGUSR1, subirVida);
 	signal(SIGTERM, restarVidaPorSignal);
+	signal(SIGINT, restarVidaPorSignal);
 	jugar();
 	return 0;
 }

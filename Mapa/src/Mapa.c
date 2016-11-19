@@ -89,6 +89,15 @@ char **letras;
 char *punteritoAChar;
 int *pokemonesDisponibles = NULL;
 
+int contienePuntos(char * algo) {
+	int i;
+	for (i = 0; i < strlen(algo); i++) {
+		if (algo[i] == ".")
+			return 1;
+	}
+	return 0;
+}
+
 void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 		void (*funcionArchivo(char *ruta))) {
 	DIR *dip;
@@ -98,7 +107,7 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 	}
 	while ((dit = readdir(dip)) != NULL) {
 
-		if (!(strcmp(dit->d_name, "..") == 0 || strcmp(dit->d_name, ".") == 0)) {
+		if (contienePuntos(dit->d_name)) {
 			char * aux = malloc(strlen(ruta) + 1 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
@@ -119,7 +128,11 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 }
 char * obtenerNombreDelPokemon(char * ruta) {
 	char ** separados = string_split(ruta, "/");
-	return separados[8];
+	int i;
+	while (separados[i + 1]) {
+		i++;
+	}
+	return separados[i];
 }
 char * charToString(char letra) {
 	char * string = malloc(2);
@@ -133,15 +146,19 @@ bool tienePokemonesAsignados(entrenadorPokemon * unEntrenador) {
 
 void funcionArchivosPokenest(char * ruta) {
 	char **rutaParseada = string_split(ruta, "/");
-	if (string_ends_with(rutaParseada[8], ".dat")) {
+	int i;
+	while (rutaParseada[i + 1]) {
+		i++;
+	}
+	if (string_ends_with(rutaParseada[i], ".dat")) {
 		t_config * config = config_create(ruta);
 		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
 		nuevoPokemon->nivel = config_get_int_value(config, "Nivel");
-		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[8]);
+		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[i]);
 		char * letra_a_buscar;
 		void obtenerPokeparada(char * key, void * data) {
 			pokenest * aux = (pokenest *) data;
-			if (strcmp(aux->nombrePokemon, rutaParseada[7]) == 0) {
+			if (strcmp(aux->nombrePokemon, rutaParseada[i-1]) == 0) {
 				letra_a_buscar = key;
 			}
 		}
@@ -164,7 +181,11 @@ void funcionDirectoriosPokenest(char * ruta) {
 	char * string = config_get_string_value(config, "Posicion");
 	char ** posiciones = string_split(string, ";");
 	char ** nombrePokenest = string_split(rutaAux, "/");
-	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[7]);
+	int i;
+	while (nombrePokenest[i + 1]) {
+		i++;
+	}
+	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[i-1]);
 	/*	//log_trace(log, "Nombre de la nueva pokenest %s",
 	 nuevaPokenest->nombrePokemon);-*/
 	nuevaPokenest->posicion.posicionx = atoi(posiciones[0]);
@@ -190,7 +211,7 @@ void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	recorrerDirectorios(
 			string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/",
+					"/home/utnso/montaje/Mapas/%s/PokeNests/",
 					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
 			funcionArchivosPokenest);
 }
@@ -223,7 +244,7 @@ void cargarConfiguracion(void) {
 	t_config * config;
 	char * rutaDeConfigs =
 			string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+					"/home/utnso/montaje/Mapas/%s/metadata.txt",
 					configuracion.nombreDelMapa);
 	//log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
