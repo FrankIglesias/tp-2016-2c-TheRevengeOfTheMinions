@@ -107,11 +107,11 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 	}
 	while ((dit = readdir(dip)) != NULL) {
 
-		if (contienePuntos(dit->d_name)) {
+		if (!(strcmp(dit->d_name,"..")==0||strcmp(dit->d_name,".")==0)){
 			char * aux = malloc(strlen(ruta) + 1 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (aux[strlen(aux) - 4] != '.') {
+			if (!contienePuntos(aux)) {
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
