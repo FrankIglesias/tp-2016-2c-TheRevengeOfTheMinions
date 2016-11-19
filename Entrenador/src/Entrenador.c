@@ -351,7 +351,6 @@ void jugar(void) {
 				}
 				if (mensajeARecibir->protocolo == MORIR) {
 					log_trace(log, "Acabo de morir en batalla");
-					close(socketCliente);
 					restarVida("Muerte por deadlock");
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
