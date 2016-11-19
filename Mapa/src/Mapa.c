@@ -111,11 +111,11 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 			char * aux = malloc(strlen(ruta) + 1 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (dit->d_type == 4) {
+			if (aux[strlen(aux) - 4] != '.') {
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
-			} else if (dit->d_type == 8) {
+			} else {
 				funcionArchivo(aux);
 			}
 			free(aux);
@@ -158,7 +158,7 @@ void funcionArchivosPokenest(char * ruta) {
 		char * letra_a_buscar;
 		void obtenerPokeparada(char * key, void * data) {
 			pokenest * aux = (pokenest *) data;
-			if (strcmp(aux->nombrePokemon, rutaParseada[i-1]) == 0) {
+			if (strcmp(aux->nombrePokemon, rutaParseada[i - 1]) == 0) {
 				letra_a_buscar = key;
 			}
 		}
@@ -185,7 +185,7 @@ void funcionDirectoriosPokenest(char * ruta) {
 	while (nombrePokenest[i + 1]) {
 		i++;
 	}
-	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[i-1]);
+	nuevaPokenest->nombrePokemon = string_duplicate(nombrePokenest[i - 1]);
 	/*	//log_trace(log, "Nombre de la nueva pokenest %s",
 	 nuevaPokenest->nombrePokemon);-*/
 	nuevaPokenest->posicion.posicionx = atoi(posiciones[0]);
@@ -210,8 +210,7 @@ void funcionDirectoriosPokenest(char * ruta) {
 void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	recorrerDirectorios(
-			string_from_format(
-					"/home/utnso/montaje/Mapas/%s/PokeNests/",
+			string_from_format("/home/utnso/montaje/Mapas/%s/PokeNests/",
 					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
 			funcionArchivosPokenest);
 }
@@ -242,10 +241,9 @@ void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
 }
 void cargarConfiguracion(void) {
 	t_config * config;
-	char * rutaDeConfigs =
-			string_from_format(
-					"/home/utnso/montaje/Mapas/%s/metadata.txt",
-					configuracion.nombreDelMapa);
+	char * rutaDeConfigs = string_from_format(
+			"/home/utnso/montaje/Mapas/%s/metadata.txt",
+			configuracion.nombreDelMapa);
 	//log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
 	configuracion.tiempoDeChequeoDeDeadLock = config_get_int_value(config,
