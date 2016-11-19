@@ -102,11 +102,11 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (dit->d_type == 4) {
+			if (aux[strlen(aux)-4]!='.') {
 				strcat(aux, "/");
 				funcionCarpeta(aux);
 				recorrerDirectorios(aux, funcionCarpeta, funcionArchivo);
-			} else if (dit->d_type == 8) {
+			} else {
 				funcionArchivo(aux);
 			}
 			aux = malloc(2);
@@ -120,7 +120,7 @@ void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 }
 char * obtenerNombreDelPokemon(char * ruta) {
 	char ** separados = string_split(ruta, "/");
-	int i;
+	int i = 0;
 	while (separados[i + 1]) {
 		i++;
 	}
@@ -472,7 +472,7 @@ void detectarDeadLock() {
 			}
 		}
 	}
-	if (noPudoAnalizar == cantEntrenadores-noDeseaAtraparPokemones) {
+	if (noPudoAnalizar == cantEntrenadores - noDeseaAtraparPokemones) {
 
 		log_trace(log,
 				"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON");
@@ -486,10 +486,10 @@ void detectarDeadLock() {
 
 		}
 
-			mensaje_MAPA_ENTRENADOR mensaje;
-			mensaje.protocolo = MORIR;
-			enviarMensaje(MAPA_ENTRENADOR, entrenadorPerdedor->socket,
-					(void *) &mensaje);
+		mensaje_MAPA_ENTRENADOR mensaje;
+		mensaje.protocolo = MORIR;
+		enviarMensaje(MAPA_ENTRENADOR, entrenadorPerdedor->socket,
+				(void *) &mensaje);
 		return;
 	} else {
 		if (pudoAnalizar == cantEntrenadores - noDeseaAtraparPokemones) {
@@ -895,12 +895,12 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 //);
 }
 void actualizarMapa() {
-	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-//	nivel_gui_inicializar();
-	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-//	&configuracion.posicionMaxima.posiciony);
+	nivel_gui_inicializar();
+	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
 	log = log_create("Log", "Mapa", 0, 0);
