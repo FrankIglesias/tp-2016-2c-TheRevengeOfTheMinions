@@ -326,7 +326,8 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 		} else {
 			tablaDeArchivos[file].tamanioArchivo += deltaBuffer(file, tamanio,
 					offset); // + offset;
-			log_trace(log, "tamaño del archivo %u", tablaDeArchivos[file].tamanioArchivo);
+			log_trace(log, "tamaño del archivo %u",
+					tablaDeArchivos[file].tamanioArchivo);
 		}
 	}
 
@@ -440,7 +441,7 @@ int renombrar(char * path, char * path2) {
 			while (ruta[i + 1]) { // busco nombre del archivo
 				i++;
 			}
-			if (strlen(path[i]) > 17)
+			if (strlen(ruta[i]) > 17)
 				return -3;
 			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
 				limpiarNombre(file);
@@ -701,12 +702,17 @@ void mostrarTablaDeArchivos() {
 	int i;
 	log_trace(log, "Imprimiendo tabla de archivos");
 	for (i = 0; i < 2048; i++) {
-		if (archivoDirectorio(i))
+		if (archivoDirectorio(i)) {
+			if (strcmp(tablaDeArchivos[i].nombreArchivo,"metadata")==0) {
+				memcpy(tablaDeArchivos[i].nombreArchivo, "metadata.txt",
+						strlen("metadata.txt"));
+			}
 			log_trace(log,
 					"%d|NOMBRE: %s|TIPO: %s|BLOQUE PADRE: %d|BLOQUE INICIAL: %d",
 					i, tablaDeArchivos[i].nombreArchivo, tipoArchivo(i),
 					tablaDeArchivos[i].bloquePadre,
 					tablaDeArchivos[i].bloqueInicial);
+		}
 	}
 
 }
