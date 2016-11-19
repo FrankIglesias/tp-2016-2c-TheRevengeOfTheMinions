@@ -284,7 +284,7 @@ void detectarDeadLock() {
 					letras[j])) {
 				valor = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
-				//log_trace(log, "EL TAMANIO DE LA LITA ES %d", list_size(valor));
+				log_trace(log, "EL TAMANIO DE LA LITA ES %d", list_size(valor));
 				pokemonesPorEntrenador[i][j] = list_size(valor);
 			} else {
 				pokemonesPorEntrenador[i][j] = 0;
@@ -417,10 +417,9 @@ void detectarDeadLock() {
 						entrenadorPerdedor, segundoEntrenador);
 			}
 		}
-		//log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c",
-		//entrenadorPerdedor->simbolo
-		//);
-		//log_trace(log, "EL ENTRENADOR %c MORIRA", entrenadorPerdedor->simbolo);
+		log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c. MORIRA",
+		entrenadorPerdedor->simbolo
+		);
 		return entrenadorPerdedor;
 
 	}
@@ -472,16 +471,16 @@ void detectarDeadLock() {
 	}
 
 	if (noPudoAnalizar == cantEntrenadores) {
-		//log_trace(log,
-		//	"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON"
-		//	);
+		log_trace(log,
+			"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON"
+			);
 		entrenadorPokemon* unEntrenador;
 		for (i = 0; i < cantEntrenadores; i++) {
 			//		pthread_mutex_lock(&sem_listaDeEntrenadores);
 			unEntrenador = (entrenadorPokemon*) list_get(listaDeEntrenadores,
 					i);
 			//	pthread_mutex_unlock(&sem_listaDeEntrenadores);
-			//log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
+			log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
 
 		}
 
@@ -495,31 +494,31 @@ void detectarDeadLock() {
 		return;
 	} else {
 		if (pudoAnalizar == cantEntrenadores - noTieneAsignados) {
-			//log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
+			log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 			return;
 		} else {
 			if (noPudoAnalizar == 1) {
-				//log_trace(log,
-				//	"ERROR, NO PUEDE HABER SOLO UN ENTRENADOR EN DEADLOCK"
-				//	);
+				log_trace(log,
+					"ERROR, NO PUEDE HABER SOLO UN ENTRENADOR EN DEADLOCK"
+					);
 				return;
 			} else {
 				int cantidadDeBloqueados = 0;
 				entrenadorPokemon* unEntrenador;
-				//log_trace(log,
-				//	"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON"
-				//	);
+				log_trace(log,
+					"SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS SON"
+					);
 				for (i = 0; i < cantEntrenadores; i++) {
 					if (pokemonAAtraparPorEntrenador[i][cantDePokenests]
 							== -1) {
 						unEntrenador = (entrenadorPokemon*) list_get(
 								listaDeEntrenadoresBloqueados, i);
 						cantidadDeBloqueados++;
-						//log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
+						log_trace(log, "ENTRENADOR %c", unEntrenador->simbolo);
 					}
 				}
 
-				//log_trace(log, "LOS ENTRENADORES QUE NO ESTAN EN DEADLOCK SON");
+				log_trace(log, "LOS ENTRENADORES QUE NO ESTAN EN DEADLOCK SON");
 				entrenadorPokemon* entrenadorPerdedor =
 						(entrenadorPokemon*) recorrerListaDeEntrenadoresYPelear(
 								cantEntrenadores);
