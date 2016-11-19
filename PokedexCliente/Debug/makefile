@@ -26,7 +26,7 @@ endif
 all: PokedexCliente
 
 dependents:
-	-cd /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug && $(MAKE) all
+	-cd /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug && $(MAKE) clean all
 
 # Tool invocations
 PokedexCliente: $(OBJS) $(USER_OBJS) /home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/librerias-sw/Debug/liblibrerias-sw.so
