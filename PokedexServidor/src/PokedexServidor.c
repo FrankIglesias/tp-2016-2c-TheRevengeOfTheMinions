@@ -256,7 +256,6 @@ int deltaBuffer(int file, int tamanioNuevo, int offset) {
 				puntero += BLOCK_SIZE;
 			}
 		}
-
 		while (bloqueActual != -1) {
 			bitarray_clean_bit(bitmap, bloqueActual);
 			tablaDeAsignaciones[bloqueActual] = -1;
@@ -277,6 +276,8 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	int puntero = 0; // Para saber el tamaño
 	if (tablaDeArchivos[file].bloqueInicial == -1)
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
+	if (tablaDeArchivos[file].bloqueInicial == -1)
+		return -4;
 	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
 	while (offset != puntero) {
 		if (tablaDeAsignaciones[bloqueActual] == -1) {

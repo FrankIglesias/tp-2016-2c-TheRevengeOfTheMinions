@@ -179,12 +179,11 @@ static int leerArchivo(const char * path, char *buffer, size_t size,
 		//buffer[respuesta->tamano] ='\0';
 	}
 
-	int leidos=respuesta->tamano;
 	free(mensaje->buffer);
 	free(mensaje->path);
 	free(mensaje);
 	free(respuesta);
-	return leidos; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
+	return size; //La funcion debe retornar lo que se lea realmente. Esto lo determina el servidor.
 
 }
 
