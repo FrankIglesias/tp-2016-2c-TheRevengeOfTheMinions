@@ -290,12 +290,18 @@ void detectarDeadLock() {
 				pokemonesPorEntrenador[i][j] = 0;
 
 			}
+			if(unEntrenador->accionARealizar != ATRAPAR)
+						{
+							pokemonAAtraparPorEntrenador[i][j] = 0;   // FALTA CHEQUEAR POR QUE NO LO TOMA
+						}
+				else
+				{
 			if (strcmp(charToString(unEntrenador->proximoPokemon), letras[j])
 					== 0)
 				pokemonAAtraparPorEntrenador[i][j] = 1;
 			else
 				pokemonAAtraparPorEntrenador[i][j] = 0;
-
+				}
 		}
 
 	}
@@ -424,11 +430,11 @@ void detectarDeadLock() {
 
 	}
 
-	bool noTienePokemonesAsignados(int filaDeAsignados[cantDePokenests]) {
+	bool noDeseaAtraparPokemon(int filaDeNecesidad[cantDePokenests]) {
 		int contador = 0;
 		int i;
 		for (i = 0; i < cantDePokenests; i++) {
-			if (filaDeAsignados[i] == 0)
+			if (filaDeNecesidad[i] == 0)
 				contador++;
 		}
 		return (contador == cantDePokenests);
@@ -436,7 +442,7 @@ void detectarDeadLock() {
 	int k;
 	int noPudoAnalizar = 0;
 	int pudoAnalizar = 0;
-	int noTieneAsignados = 0;
+	int noDeseaAtraparPokemones = 0;
 	int w;
 	int o;
 	int filaDeNecesidad[cantDePokenests];
@@ -450,9 +456,12 @@ void detectarDeadLock() {
 				filaDeNecesidad[w] = pokemonAAtraparPorEntrenador[i][w];
 				filaDeAsignados[w] = pokemonesPorEntrenador[i][w];
 			}
-			if (noTienePokemonesAsignados(filaDeAsignados)) {
+			if (noDeseaAtraparPokemon(filaDeNecesidad)) {
 				pokemonAAtraparPorEntrenador[i][cantDePokenests] = 0;
-				noTieneAsignados++;
+				for (j = 0; j < cantDePokenests; j++) {
+					pokemonesDisponibles[j] += pokemonesPorEntrenador[i][j];
+									}
+				noDeseaAtraparPokemones++;
 				i = 0;
 			} else {
 				if (puedoRestar(pokemonesDisponibles, filaDeNecesidad)) {
@@ -493,7 +502,7 @@ void detectarDeadLock() {
 
 		return;
 	} else {
-		if (pudoAnalizar == cantEntrenadores - noTieneAsignados) {
+		if (pudoAnalizar == cantEntrenadores - noDeseaAtraparPokemones) {
 			log_trace(log, "FELICITACIONES, NO HUBO DEADLOCK");
 			return;
 		} else {
@@ -899,15 +908,15 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 //);
 }
 void actualizarMapa() {
-	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
+	//nivel_gui_dibujar(items, configuracion.nombreDelMapa);
 }
 void iniciarMapa() {
-	nivel_gui_inicializar();
-	nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
-		&configuracion.posicionMaxima.posiciony);
+	//nivel_gui_inicializar();
+	//nivel_gui_get_area_nivel(&configuracion.posicionMaxima.posicionx,
+	//	&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
-	log = log_create("Log", "Mapa", 0, 0);
+	log = log_create("Log", "Mapa", 1, 0);
 	listaDeEntrenadores = list_create();
 	sem_init(&bloqueados_semaphore, 0, 0);
 	sem_init(&semaphore_listos, 0, 0);
