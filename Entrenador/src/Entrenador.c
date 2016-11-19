@@ -328,7 +328,6 @@ void jugar(void) {
 				if ((mensajeARecibir =
 						(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 								socketCliente)) == NULL) {
-					log_trace(log, "Socket de mapa caido");
 					finDeJuego();
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
