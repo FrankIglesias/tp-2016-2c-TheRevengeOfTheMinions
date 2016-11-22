@@ -281,7 +281,7 @@ void detectarDeadLock() {
 					letras[j])) {
 				valor = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
-				log_trace(log, "EL TAMANIO DE LA LITA ES %d", list_size(valor));
+				log_trace(log, "EL TAMANIO DE LA LISTA ES %d", list_size(valor));
 				pokemonesPorEntrenador[i][j] = list_size(valor);
 			} else {
 				pokemonesPorEntrenador[i][j] = 0;
