@@ -151,6 +151,8 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		mensaje->path_payload = strlen(mensaje->path);
 	} else if (mensaje->protolo == SGETATTR) {
 		mensaje->path_payload = strlen(mensaje->path);
+	} else if (mensaje->protolo == TRUNCAR) {
+		mensaje->path_payload = strlen(mensaje->path);
 	} else if (mensaje->protolo != ERROR) {
 		mensaje->path_payload = strlen(mensaje->path);
 		mensaje->tamano = strlen(mensaje->buffer);
