@@ -326,8 +326,35 @@ static int escribirArchivo(const char * path, const char * buffer,
 }
 
 int remote_truncate(const char * path, off_t offset) {
-// funcion dummy para que no se queje de "function not implemented"
-return 0;
+
+	log_trace(log,"Se quiere truncar el archivo %s",path);
+
+	if (offset < 0){
+		return EINVAL;
+	}
+
+	//Creo el mensaje
+	mensaje_t tipoMensaje = CLIENTE_SERVIDOR;
+	mensaje_CLIENTE_SERVIDOR * mensaje=malloc(sizeof(mensaje_CLIENTE_SERVIDOR));
+	mensaje->protolo=TRUNCAR;
+	mensaje->path=malloc(strlen(path)+1);
+	strcpy(mensaje->path,path);
+	mensaje->tamano=offset;
+
+	//Envio el mensaje
+	enviarMensaje(tipoMensaje,socketParaServidor,(void *) mensaje);
+
+	//Recibo el mensaje, casteando lo que me devuelve recibirMensaje a una estructura entendible
+	mensaje_CLIENTE_SERVIDOR * respuesta = malloc (sizeof(mensaje_CLIENTE_SERVIDOR));
+	respuesta =(mensaje_CLIENTE_SERVIDOR*) recibirMensaje(socketParaServidor);
+
+	if (respuesta->protolo==ERROR){
+		return -1;
+	}else if (respuesta->protolo==ERRORESPACIO){
+		return EFBIG;
+	}
+
+	return 0;
 }
 
 static int borrarDirectorio(const char * path) { //EL DIRECTORIO DEBE ESTAR VACIO PARA BORRARSE
