@@ -12,10 +12,13 @@
 #include <bitarray.h>
 #include <collections/list.h>
 #include <time.h>
+#include <pthread.h>
 
 #define BLOCK_SIZE 64
 #define DIRMONTAJE 65535
-
+pthread_mutex_t sem_tablaDeArchivos;
+pthread_mutex_t sem_bitarray;
+pthread_mutex_t sem_memory;
 typedef enum
 	__attribute__((packed)) {
 		BORRADO = '\0', ARCHIVO = '\1', DIRECTORIO = '\2',
@@ -211,17 +214,21 @@ char * leerFile(int file) {
 	int puntero = 0;
 	while (puntero != tablaDeArchivos[file].tamanioArchivo) {
 		if ((tablaDeArchivos[file].tamanioArchivo - puntero) > BLOCK_SIZE) {
+			pthread_mutex_lock(&sem_memory);
 			memcpy(lectura + puntero,
 					bloquesDeDatos + (BLOCK_SIZE * bloqueSiguiente),
 					BLOCK_SIZE);
+			pthread_mutex_unlock(&sem_memory);
 			puntero += BLOCK_SIZE;
 			bloqueSiguiente = tablaDeAsignaciones[bloqueSiguiente];
 			if (bloqueSiguiente == -1)
 				break;
 		} else {
+			pthread_mutex_lock(&sem_memory);
 			memcpy(lectura + puntero,
 					bloquesDeDatos + (BLOCK_SIZE * bloqueSiguiente),
 					tablaDeArchivos[file].tamanioArchivo - puntero);
+			pthread_mutex_unlock(&sem_memory);
 			puntero += tablaDeArchivos[file].tamanioArchivo - puntero;
 		}
 	}
@@ -230,7 +237,9 @@ char * leerFile(int file) {
 }
 
 char * leerArchivo(char * path, int *aux) {
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	log_info(log, "Se va a leer el archivo: %s Tamaño: %u", path,
 			tablaDeArchivos[file].tamanioArchivo);
 	if (file == -1 && tablaDeArchivos[file].estado != ARCHIVO)
@@ -257,7 +266,9 @@ int deltaBuffer(int file, int tamanioNuevo, int offset) {
 			}
 		}
 		while (bloqueActual != -1) {
+			pthread_mutex_lock(&sem_bitarray);
 			bitarray_clean_bit(bitmap, bloqueActual);
+			pthread_mutex_unlock(&sem_bitarray);
 			tablaDeAsignaciones[bloqueActual] = -1;
 			bloqueActual = tablaDeAsignaciones[bloqueActual];
 		}
@@ -268,22 +279,31 @@ int deltaBuffer(int file, int tamanioNuevo, int offset) {
 int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	log_info(log, "Escribiendo en: %s ,contenido:%s offset:%d", path, buffer,
 			offset);
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	if (file == -1)
 		return -1;
 	int aux = 0;
 	int tam = tamanio;
 	int puntero = 0; // Para saber el tamaño
-	if (tablaDeArchivos[file].bloqueInicial == -1)
+	if (tablaDeArchivos[file].bloqueInicial == -1) {
+		pthread_mutex_lock(&sem_bitarray);
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
+		pthread_mutex_unlock(&sem_bitarray);
+	}
 	if (tablaDeArchivos[file].bloqueInicial == -1)
 		return -4;
 	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
 	while (offset != puntero) {
+		pthread_mutex_lock(&sem_bitarray);
 		if (tablaDeAsignaciones[bloqueActual] == -1) {
-			if (asignarBloqueLibre(bloqueActual) == -1)
+			if (asignarBloqueLibre(bloqueActual) == -1) {
+				pthread_mutex_unlock(&sem_bitarray);
 				return -4;
+			}
 		}
+		pthread_mutex_unlock(&sem_bitarray);
 		if ((offset - puntero) > BLOCK_SIZE) {
 			puntero += BLOCK_SIZE;
 		} else {
@@ -294,30 +314,42 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 	}
 	puntero = 0;
 	if (tam < (BLOCK_SIZE - aux)) {
+		pthread_mutex_lock(&sem_memory);
 		memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual) + aux, buffer, tam);
+		pthread_mutex_unlock(&sem_memory);
 		tam = 0;
 	}
 	while (tam != 0) {
 		if (tam > BLOCK_SIZE) {
+			pthread_mutex_lock(&sem_memory);
 			memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual),
 					buffer + puntero,
 					BLOCK_SIZE);
+			pthread_mutex_unlock(&sem_memory);
 			puntero += BLOCK_SIZE;
 			tam -= BLOCK_SIZE;
+
 			if (tablaDeAsignaciones[bloqueActual] == -1) {
+				pthread_mutex_lock(&sem_bitarray);
 				if (asignarBloqueLibre(bloqueActual) == -1) {
 					tam = 0;
+					pthread_mutex_unlock(&sem_bitarray);
 					break;
 				}
+				pthread_mutex_unlock(&sem_bitarray);
 			}
 			bloqueActual = tablaDeAsignaciones[bloqueActual];
 		} else {
+			pthread_mutex_lock(&sem_memory);
 			memcpy(bloquesDeDatos + (BLOCK_SIZE * bloqueActual),
 					buffer + puntero, tam);
+			pthread_mutex_unlock(&sem_memory);
 			puntero += tam;
 			tam = 0;
 		}
 	}
+
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	if (tablaDeArchivos[file].tamanioArchivo == 0)
 		tablaDeArchivos[file].tamanioArchivo = tamanio;
 	else {
@@ -330,7 +362,7 @@ int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
 					tablaDeArchivos[file].tamanioArchivo);
 		}
 	}
-
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	sincronizarMemoria();
 	return puntero;
 }
@@ -339,7 +371,9 @@ int crearArchivo(char * path) {
 	int j = 0;
 	uint16_t padre = DIRMONTAJE;
 	if (path != "/") {
+		pthread_mutex_lock(&sem_tablaDeArchivos);
 		padre = buscarAlPadre(path);
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
 	}
 	if (padre == -2)
 		return -1;
@@ -347,9 +381,13 @@ int crearArchivo(char * path) {
 	while (ruta[j + 1]) { // BUSCO EL NOMBRE
 		j++;
 	}
-	if (existeUnoIgual(padre, ruta[j], ARCHIVO))
+	pthread_mutex_lock(&sem_tablaDeArchivos);
+	if (existeUnoIgual(padre, ruta[j], ARCHIVO)) {
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
 		return -1;
+	}
 	i = ingresarEnLaTArchivos(padre, ruta[j], ARCHIVO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	if (i > 0)
 		log_trace(log, "se ha creado un archivo en el bloque: %u, padre: %u",
 				tablaDeArchivos[i].bloqueInicial, padre);
@@ -359,24 +397,32 @@ int crearArchivo(char * path) {
 int borrar(char * path) {
 	log_trace(log, "Borrar archivo  %s", path);
 	int j;
+
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
 	if (file != -1) {
 		while (tablaDeArchivos[file].bloqueInicial != -1) {
 			j = tablaDeArchivos[file].bloqueInicial;
+			pthread_mutex_lock(&sem_bitarray);
 			bitarray_clean_bit(bitmap, j);
 			tablaDeArchivos[file].bloqueInicial = tablaDeAsignaciones[j];
 			tablaDeAsignaciones[j] = -1;
+			pthread_mutex_unlock(&sem_bitarray);
 		}
+
 		limpiarNombre(file);
+
 		tablaDeArchivos[file].bloqueInicial = -1;
 		tablaDeArchivos[file].bloquePadre = -1;
 		tablaDeArchivos[file].estado = BORRADO;
 		tablaDeArchivos[file].tamanioArchivo = 0;
-		log_trace(log, "Se ah borrado el archivo: %s",
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
+		log_trace(log, "Se ha borrado el archivo: %s",
 				tablaDeArchivos[file].nombreArchivo);
 		sincronizarMemoria();
 		return 1;
 	}
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	return -1;
 }
 int crearDir(char * path) {
@@ -385,6 +431,7 @@ int crearDir(char * path) {
 	int i = 0;
 	int j = 0;
 	uint16_t padre = DIRMONTAJE;
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	if (path != "/" && (ruta[i + 1])) {
 		while (ruta[i + 1]) {
 			for (j = 0; j < 2048; ++j) {
@@ -394,31 +441,44 @@ int crearDir(char * path) {
 								tablaDeArchivos[j].nombreArchivo, ruta[i]) == 0)) {
 					padre = j;
 					i++;
+
 					break;
 				}
 			}
 		}
+
 	}
-	if (existeUnoIgual(padre, ruta[i], DIRECTORIO))
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
+	pthread_mutex_lock(&sem_tablaDeArchivos);
+	if (existeUnoIgual(padre, ruta[i], DIRECTORIO)) {
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
+
 		return -1;
+	}
 	i = ingresarEnLaTArchivos(padre, ruta[i], DIRECTORIO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	sincronizarMemoria();
 	return i;
 }
 int borrarDir(char * path) {
 	log_info(log, "borrando directorio: %s", path);
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, DIRECTORIO);
+
 	int j;
 	if (file != -1) {
 		for (j = 0; j < 2048; j++) {
 			if (archivoDirectorio(j)
 					&& tablaDeArchivos[j].bloquePadre == file) {
 				log_error(log, "TIene archivos adentro no puede ser borrado");
+				pthread_mutex_unlock(&sem_tablaDeArchivos);
 				return -1;
 			}
 		}
 	}
 	limpiarNombre(file);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
+
 	tablaDeArchivos[file].bloqueInicial = -1;
 	tablaDeArchivos[file].bloquePadre = -1;
 	tablaDeArchivos[file].estado = BORRADO;
@@ -429,20 +489,28 @@ int borrarDir(char * path) {
 int renombrar(char * path, char * path2) {
 	log_info(log, "Renombrando: %s por %s", path, path2);
 	uint16_t menosDos = -2;
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	uint16_t file = verificarSiExiste(path, ARCHIVO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	uint16_t padre = -2;
 	int i = 0;
 	char ** ruta = string_split(path2, "/");
-	if (file == DIRMONTAJE)
+	if (file == DIRMONTAJE) {
+		pthread_mutex_lock(&sem_tablaDeArchivos);
 		file = verificarSiExiste(path, DIRECTORIO);
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
+	}
 	if (file != DIRMONTAJE) {
+		pthread_mutex_lock(&sem_tablaDeArchivos);
 		padre = buscarAlPadre(path2);
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
 		if (padre != menosDos) {
 			while (ruta[i + 1]) { // busco nombre del archivo
 				i++;
 			}
 			if (strlen(ruta[i]) > 17)
 				return -3;
+			pthread_mutex_lock(&sem_tablaDeArchivos);
 			if (!existeUnoIgual(padre, ruta[i], tablaDeArchivos[file].estado)) {
 				limpiarNombre(file);
 				memcpy(&tablaDeArchivos[file].nombreArchivo, ruta[i],
@@ -450,6 +518,7 @@ int renombrar(char * path, char * path2) {
 				tablaDeArchivos[file].nombreArchivo[strlen(ruta[i])] = '\0';
 				tablaDeArchivos[file].bloquePadre = padre;
 				sincronizarMemoria();
+				pthread_mutex_unlock(&sem_tablaDeArchivos);
 				return 1;
 			} else {
 				log_error(log, "Ya existe un archivo con el mismo nombre");
@@ -461,6 +530,7 @@ int renombrar(char * path, char * path2) {
 	} else {
 		log_error(log, "NO existe el archivo");
 	}
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	sincronizarMemoria();
 	return -1;
 }
@@ -474,26 +544,32 @@ char * readAttr(char *path, int *var) {
 	if (strcmp(path, "/") != 0) {
 		char ** ruta = string_split(path, "/");
 		while (ruta[j]) {
+			pthread_mutex_lock(&sem_tablaDeArchivos);
 			file = buscarIndiceArchivo(file, ruta[j], DIRECTORIO);
+			pthread_mutex_unlock(&sem_tablaDeArchivos);
 			if (file == DIRMONTAJE)
 				return NULL;
 			j++;
 		}
 	}
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	for (i = 0; i < 2048; i++) {
 		if ((file == tablaDeArchivos[i].bloquePadre) && (archivoDirectorio(i)))
 			aux++;
 	}
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	lista = malloc(aux * 17);
 	aux = 0;
-
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	for (i = 0; i < 2048; i++) {
 		if ((file == tablaDeArchivos[i].bloquePadre)
 				&& (archivoDirectorio(i))) {
 			memcpy(lista + (aux * 17), tablaDeArchivos[i].nombreArchivo, 17);
 			aux++;
 		}
+
 	}
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	*var = aux;
 	return lista;
 }
@@ -504,15 +580,21 @@ int getAttr(char *path) {
 	char ** ruta = string_split(path, "/");
 	uint16_t padre = DIRMONTAJE;
 	while (ruta[j + 1]) {
+		pthread_mutex_lock(&sem_tablaDeArchivos);
 		file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
 		if (file == -1)
 			return -1;
 		padre = file;
 		j++;
 	}
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	file = buscarIndiceArchivo(padre, ruta[j], DIRECTORIO);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	if (file == DIRMONTAJE) {
+		pthread_mutex_lock(&sem_tablaDeArchivos);
 		file = buscarIndiceArchivo(padre, ruta[j], ARCHIVO);
+		pthread_mutex_unlock(&sem_tablaDeArchivos);
 	}
 	return file;
 }
@@ -535,19 +617,22 @@ int truncar(char * path, int tamanio) {
 		bloqueActual = tablaDeAsignaciones[bloqueActual];
 	}
 	tablaDeArchivos[file].tamanioArchivo = tamanio;
-	log_trace(log, "Se quizo truncar el archivo %s al tamaño %u",
-			path,tablaDeArchivos[file].tamanioArchivo);
+	log_trace(log, "Se quizo truncar el archivo %s al tamaño %u", path,
+			tablaDeArchivos[file].tamanioArchivo);
 
 	sincronizarMemoria();
 	return 0;
 }
-int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
+
+int atenderPeticiones(int * aux) {
+	int socket = aux;
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
 	uint16_t devolucion16 = 1;
 	char * puntero;
 	int var;
-	if ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket)) != NULL) { // no esta echa el envio
+	while ((mensaje = (mensaje_CLIENTE_SERVIDOR *) recibirMensaje(socket))
+			!= NULL) {
 		switch (mensaje->protolo) {
 		case LEER:
 			var = 0;
@@ -561,8 +646,10 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->protolo = SLEER;
 			}
 			mensaje->tamano = var;
+
 			break;
 		case ESCRIBIR:
+
 			devolucion = escribirArchivo(mensaje->path, mensaje->buffer,
 					mensaje->offset, mensaje->tamano);
 			if (devolucion == -1)
@@ -570,6 +657,7 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			if (devolucion == -4)
 				mensaje->protolo = ERRORESPACIO;
 			mensaje->tamano = devolucion;
+
 			break;
 		case CREAR:
 			devolucion = crearArchivo(mensaje->path);
@@ -581,6 +669,14 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->protolo = ERRORENAMETOOLONG;
 			mensaje->tamano = 0;
 			break;
+		case TRUNCAR:
+
+			if (truncar(mensaje->path, mensaje->tamano) == -4) {
+				mensaje->protolo = ERRORESPACIO;
+			}
+
+			break;
+
 		case CREARDIR:
 			devolucion = crearDir(mensaje->path);
 			if (devolucion == -1)
@@ -604,8 +700,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = 0;
 			break;
 		case RENOMBRAR:
-			mensaje->path[mensaje->path_payload]='\0';
-			mensaje->buffer[mensaje->tamano]='\0';
+			mensaje->path[mensaje->path_payload] = '\0';
+			mensaje->buffer[mensaje->tamano] = '\0';
 			devolucion = renombrar(mensaje->path, mensaje->buffer);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -640,13 +736,6 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				devolucion16 = 1;
 			}
 			break;
-		case TRUNCAR:
-
-			if (truncar(mensaje->path, mensaje->tamano) == -4) {
-				mensaje->protolo = ERRORESPACIO;
-			}
-
-			break;
 		default:
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -655,12 +744,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 		if (devolucion == -1)
 			mensaje->protolo = ERROR;
 		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
-		return 1;
-	} else {
-		return -1;
 	}
 }
-
 void levantarHeader() {
 	log_trace(log, "Levantando Header");
 	memcpy(&fileHeader, data, sizeof(osadaHeader));
@@ -788,6 +873,7 @@ void mapearMemoria(char * nombreBin) {
 	log_trace(log, "Memoria mapeada");
 }
 void sincronizarMemoria() {
+	pthread_mutex_lock(&sem_memory);
 	memcpy(data, &fileHeader, BLOCK_SIZE);
 	int puntero = BLOCK_SIZE;
 	memcpy(data + BLOCK_SIZE, bitmap->bitarray,
@@ -798,6 +884,7 @@ void sincronizarMemoria() {
 	memcpy(data + puntero, tablaDeAsignaciones, tamTAsignacion());
 	puntero = (fileHeader.fs_blocks - fileHeader.data_blocks) * BLOCK_SIZE;
 	memcpy(data + puntero, bloquesDeDatos, fileHeader.data_blocks * BLOCK_SIZE);
+	pthread_mutex_unlock(&sem_memory);
 }
 
 void funcionAceptar() {
@@ -812,7 +899,19 @@ int main(int argc, void *argv[]) {
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
 //	mostrarTablaDeAsignacion();
-	theMinionsRevengeSelect(argv[1], funcionAceptar, atenderPeticiones);
+	pthread_mutex_init(&sem_bitarray, NULL);
+	pthread_mutex_init(&sem_memory, NULL);
+	pthread_mutex_init(&sem_tablaDeArchivos, NULL);
+	int listener = crearSocketServidor(argv[1]);
+	while (1) {
+
+		struct sockaddr_storage remoteaddr;
+		socklen_t addrlen;
+		addrlen = sizeof remoteaddr;
+		int newfd = accept(listener, (struct sockaddr *) &remoteaddr, &addrlen);
+		pthread_t hiloCliente;
+		pthread_create(&hiloCliente, NULL, atenderPeticiones, (void *) newfd);
+	}
 	log_destroy(log);
 	free(tablaDeArchivos);
 	free(tablaDeAsignaciones);
