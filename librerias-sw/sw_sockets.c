@@ -156,6 +156,9 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 	} else if (mensaje->protolo != ERROR) {
 		mensaje->path_payload = strlen(mensaje->path);
 		mensaje->tamano = strlen(mensaje->buffer);
+	} else if (mensaje->protolo == RENOMBRAR) {
+		mensaje->path_payload = strlen(mensaje->path);
+		mensaje->tamano = strlen(mensaje->buffer);
 	} else {
 		mensaje->path_payload = 0;
 		mensaje->tamano = 0;
@@ -173,7 +176,8 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 		memcpy(buffer + pasaje, mensaje->path, mensaje->path_payload);
 		pasaje += mensaje->path_payload;
 	}
-	if (mensaje->tamano > 0 && mensaje->protolo != ERROR && mensaje->protolo != SGETATTR) {
+	if (mensaje->tamano > 0 && mensaje->protolo != ERROR
+			&& mensaje->protolo != SGETATTR) {
 		memcpy(buffer + pasaje, mensaje->buffer, mensaje->tamano);
 	}
 	return buffer;
@@ -249,7 +253,7 @@ void enviarMensaje(mensaje_t mensaje, int socket, void *data) {
 void * recibirMensaje(int socket) {
 	header unheader;
 	void * mensaje;
-	if (recibir(socket,(void *) &unheader, sizeof(header)) <= 0) {
+	if (recibir(socket, (void *) &unheader, sizeof(header)) <= 0) {
 		return NULL;
 	}
 	char * buffer = malloc(unheader.payload);

@@ -516,7 +516,31 @@ int getAttr(char *path) {
 	}
 	return file;
 }
+int truncar(char * path, int tamanio) {
+	int file = verificarSiExiste(path, ARCHIVO);
+	if (file == -1)
+		return -1;
+	if (tablaDeArchivos[file].bloqueInicial == -1)
+		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
+	if (tablaDeArchivos[file].bloqueInicial == -1)
+		return -4;
+	int puntero = tamanio / BLOCK_SIZE;
+	if (tamanio % BLOCK_SIZE != 0)
+		puntero++;
+	int bloqueActual = tablaDeArchivos[file].bloqueInicial;
+	int i;
+	for (i = 0; i < puntero; i++) {
+		if (asignarBloqueLibre(bloqueActual) == -1)
+			return -4;
+		bloqueActual = tablaDeAsignaciones[bloqueActual];
+	}
+	tablaDeArchivos[file].tamanioArchivo = tamanio;
+	log_trace(log, "Se quizo truncar el archivo %s al tamaño %u",
+			path,tablaDeArchivos[file].tamanioArchivo);
 
+	sincronizarMemoria();
+	return 0;
+}
 int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 	mensaje_CLIENTE_SERVIDOR * mensaje;
 	int devolucion = 1;
@@ -580,6 +604,8 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 			mensaje->tamano = 0;
 			break;
 		case RENOMBRAR:
+			mensaje->path[mensaje->path_payload]='\0';
+			mensaje->buffer[mensaje->tamano]='\0';
 			devolucion = renombrar(mensaje->path, mensaje->buffer);
 			if (devolucion == -1)
 				mensaje->protolo = ERROR;
@@ -613,6 +639,13 @@ int atenderPeticiones(int socket) { // es necesario la ruta de montaje?
 				mensaje->tipoArchivo = 2;
 				devolucion16 = 1;
 			}
+			break;
+		case TRUNCAR:
+
+			if (truncar(mensaje->path, mensaje->tamano) == -4) {
+				mensaje->protolo = ERRORESPACIO;
+			}
+
 			break;
 		default:
 			if (devolucion == -1)
@@ -703,7 +736,7 @@ void mostrarTablaDeArchivos() {
 	log_trace(log, "Imprimiendo tabla de archivos");
 	for (i = 0; i < 2048; i++) {
 		if (archivoDirectorio(i)) {
-			if (strcmp(tablaDeArchivos[i].nombreArchivo,"metadata")==0) {
+			if (strcmp(tablaDeArchivos[i].nombreArchivo, "metadata") == 0) {
 				memcpy(tablaDeArchivos[i].nombreArchivo, "metadata.txt",
 						strlen("metadata.txt"));
 			}
