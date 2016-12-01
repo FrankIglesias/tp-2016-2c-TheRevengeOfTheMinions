@@ -534,7 +534,7 @@ void atenderDeadLock(void) {
 		pthread_mutex_lock(&sem_config);
 		int aux = configuracion.tiempoDeChequeoDeDeadLock;
 		pthread_mutex_unlock(&sem_config);
-		usleep(aux);
+		usleep(aux*100);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 		detectarDeadLock();
 		if (list_size(listaDeEntrenadoresBloqueados) > 0)
