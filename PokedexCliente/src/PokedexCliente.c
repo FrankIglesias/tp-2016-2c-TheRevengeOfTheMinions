@@ -22,22 +22,6 @@ int socketParaServidor;
 #define FUSE_USE_VERSION    26
 
 
-/*
- * Esta es una estructura auxiliar utilizada para almacenar parametros
- * que nosotros le pasemos por linea de comando a la funcion principal
- * de FUSE
- */
-struct t_runtime_options {
-	char* welcome_msg;
-} runtime_options;
-
-/*
- * Esta Macro sirve para definir nuestros propios parametros que queremos que
- * FUSE interprete. Esta va a ser utilizada mas abajo para completar el campos
- * welcome_msg de la variable runtime_options
- */
-#define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
-
 static int obtenerAtributo(const char *path, struct stat *stbuf) {
 	log_trace(log,"Se quiere saber los atributos del path %s",path);
 
@@ -426,25 +410,6 @@ static struct fuse_operations operacionesFuse = { .getattr = obtenerAtributo,
 				borrarDirectorio, .rename = renombrarArchivo,.truncate = remote_truncate
 		};
 
-/** keys for FUSE_OPT_ options */
-enum {
-	KEY_VERSION, KEY_HELP,
-};
-
-/*
- * Esta estructura es utilizada para decirle a la biblioteca de FUSE que
- * parametro puede recibir y donde tiene que guardar el valor de estos
- */
-static struct fuse_opt fuse_options[] = {
-// Este es un parametro definido por nosotros
-		CUSTOM_FUSE_OPT_KEY("--welcome-msg %s", welcome_msg, 0),
-
-		// Estos son parametros por defecto que ya tiene FUSE
-		FUSE_OPT_KEY("-V", KEY_VERSION),
-		FUSE_OPT_KEY("--version", KEY_VERSION),
-		FUSE_OPT_KEY("-h", KEY_HELP),
-		FUSE_OPT_KEY("--help", KEY_HELP),
-		FUSE_OPT_END, };
 
 // Dentro de los argumentos que recibe nuestro programa obligatoriamente
 // debe estar el path al directorio donde vamos a montar nuestro FS
@@ -459,20 +424,6 @@ int main(int argc, char *argv[]) {
 
 	// Limpio la estructura que va a contener los parametros
 	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
-
-	// Esta funcion de FUSE lee los parametros recibidos y los intepreta
-	if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1) {
-		/** error parsing options */
-		perror("Invalid arguments!");
-		return EXIT_FAILURE;
-	}
-
-	// Si se paso el parametro --welcome-msg
-	// el campo welcome_msg deberia tener el
-	// valor pasado
-	if (runtime_options.welcome_msg != NULL) {
-		printf("%s\n", runtime_options.welcome_msg);
-	}
 
 	// Esta es la funcion principal de FUSE, es la que se encarga
 	// de realizar el montaje, comuniscarse con el kernel, delegar todo
