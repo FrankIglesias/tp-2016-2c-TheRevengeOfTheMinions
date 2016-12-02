@@ -422,9 +422,6 @@ int main(int argc, char *argv[]) {
 	//Creo el socket cliente
 	socketParaServidor = crearSocketCliente(argv[argc-2], atoi(argv[argc-1]));
 
-	// Limpio la estructura que va a contener los parametros
-	memset(&runtime_options, 0, sizeof(struct t_runtime_options));
-
 	// Esta es la funcion principal de FUSE, es la que se encarga
 	// de realizar el montaje, comuniscarse con el kernel, delegar todo
 	// en varios threads
