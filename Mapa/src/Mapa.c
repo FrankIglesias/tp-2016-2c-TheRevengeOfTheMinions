@@ -292,7 +292,7 @@ void detectarDeadLock() {
 
 			}
 			if (unEntrenador->accionARealizar != ATRAPAR) {
-				pokemonAAtraparPorEntrenador[i][j] = 0; // FALTA CHEQUEAR POR QUE NO LO TOMA
+				pokemonAAtraparPorEntrenador[i][j] = 0;
 			} else {
 				if (strcmp(charToString(unEntrenador->proximoPokemon),
 						letras[j]) == 0)
@@ -328,52 +328,7 @@ void detectarDeadLock() {
 		list_sort(unaLista, tieneMayorNivel);
 		return;
 	}
-	t_pokemon* obtenerPokemonMasFuerte(entrenadorPokemon* unEntrenador) {
-		int mayorNivel;
-		int nivel1;
-		int nivel2;
-		pokemon* valorE;
-		pokemon* valorE2;
-		t_list* lista1;
-		t_list* lista2;
-		if (dictionary_has_key(unEntrenador->pokemonesAtrapados, letras[0])) {
-			lista1 = (t_list*) dictionary_get(unEntrenador->pokemonesAtrapados,
-					letras[0]);
-			ordenarListaSegunNivelDePokemon(lista1);
-			valorE = (pokemon*) list_get(lista1, 0);
-			nivel1 = valorE->nivel;
-		} else
-			nivel1 = -1;
-		char* letraMayorNivel;
-		mayorNivel = nivel1;
-		for (i = 1; i < cantDePokenests; i++) {
-			if (dictionary_has_key(unEntrenador->pokemonesAtrapados,
-					letras[i])) {
-				lista2 = (t_list*) dictionary_get(
-						unEntrenador->pokemonesAtrapados, letras[i]);
-				ordenarListaSegunNivelDePokemon(lista2);
-				valorE2 = list_get(lista2, 0);
-				nivel2 = valorE2->nivel;
-			} else
-				nivel2 = -1;
-			if (mayorNivel > nivel2) {
-				letraMayorNivel = letras[i - 1];
-				mayorNivel = nivel1;
-			} else {
-				letraMayorNivel = letras[i];
-				mayorNivel = nivel2;
-			}
-		}
-		pokenest * nuevaPokenest;
-		pthread_mutex_lock(&sem_config);
-		nuevaPokenest = (pokenest*) dictionary_get(
-				configuracion.diccionarioDePokeparadas, letraMayorNivel);
-		pthread_mutex_unlock(&sem_config);
-		t_pkmn_factory* fabricaPokemon = malloc(sizeof(t_pkmn_factory));
-		fabricaPokemon = create_pkmn_factory();
-		return (create_pokemon(fabricaPokemon, nuevaPokenest->nombrePokemon,
-				mayorNivel));
-	}
+
 	bool unEntrenadorTienePokemon(entrenadorPokemon* unEntrenador,
 			t_pokemon* unPokemon) {
 		char * nombre = unPokemon->species;
@@ -444,12 +399,10 @@ void detectarDeadLock() {
 		return (contador == cantDePokenests);
 	}
 
-	int k;
+	int k,w,o;
 	int noPudoAnalizar = 0;
 	int pudoAnalizar = 0;
 	int noDeseaAtraparPokemones = 0;
-	int w;
-	int o;
 	int fuisteVos = 0;
 	int total = 0;
 	int filaDeNecesidad[cantDePokenests];
