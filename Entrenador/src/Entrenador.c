@@ -21,10 +21,6 @@ typedef struct objetivo_t {
 	t_list* pokemones;
 } objetivo;
 
-typedef struct estructura_lista_dicc {
-	char* nombreDelFichero;
-	int nivel;
-} pokemon;
 
 posicionMapa posicionDeLaPokeNest;
 posicionMapa posicionActual;
@@ -132,6 +128,80 @@ void reintentar() {
 	jugar();
 
 }
+
+
+void recorrerDirDeBill(char *ruta) {
+	DIR *dip;
+	struct dirent *dit;
+	if ((dip = opendir(ruta)) == NULL) {
+		perror("opendir");
+	}
+	while ((dit = readdir(dip)) != NULL) {
+
+		if (!(strcmp(dit->d_name, "..") == 0 || strcmp(dit->d_name, ".") == 0)) {
+			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
+			strcpy(aux, ruta);
+			strcat(aux, dit->d_name);
+			if (aux[strlen(aux) - 4] != '.') {
+				strcat(aux, "/");
+				recorrerDirDeBill(aux);
+			} else {
+				cargarPokemonesDelDirDeBill();
+			}
+			aux = malloc(2);
+			free(aux);
+		}
+
+	}
+	if (closedir(dip) == -1) {
+		perror("closedir");
+	}
+}
+
+void cargarPokemonesDelDirDeBill(char * ruta) {
+	char **rutaParseada = string_split(ruta, "/");
+	int i = 0;
+	while (rutaParseada[i + 1]) {
+		i++;
+	}
+	if (string_ends_with(rutaParseada[i], ".dat")) {
+		t_config * config = config_create(ruta);
+		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
+		nuevoPokemon->nivel = config_get_int_value(config, "Nivel");
+		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[i]);
+		list_add(listaDePokemonesAtrapados, nuevoPokemon);
+		config_destroy(config);
+	}
+
+}
+
+pokemon* buscarPokemonMasGroso() {
+	bool tieneMayorNivel(void* data1, void* data2) {
+		pokemon* pokemon1 = data1;
+		pokemon* pokemon2 = data2;
+		return (pokemon1->nivel > pokemon2->nivel);
+	}
+	list_sort(listaDePokemonesAtrapados, tieneMayorNivel);
+	return (pokemon*) list_get(listaDePokemonesAtrapados, 0);
+}
+
+
+void * devolverPokemonMasCrack() {
+
+	char* rutaDeLosPokemones = malloc(256);
+	sprintf(rutaDeLosPokemones,
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
+			config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
+
+	cargarPokemonesDelDirDeBill(rutaDeLosPokemones);
+	free(rutaDeLosPokemones);
+
+	pokemon* pokemonADevolver = buscarPokemonMasGroso();
+
+	return (void*) pokemonADevolver;
+}
+
 
 void borrarArchivosDeUnDirectorio(char* ruta) {
 
@@ -372,8 +442,7 @@ void jugar(void) {
 
 				while (mensajeARecibir->protocolo == MASFUERTE) {
 					cantDeDeadlocks++;
-					pokemon* pokemonAMandar = malloc(sizeof(pokemon));
-					pokemonAMandar = devolverPokemonMasGroso();
+					pokemon* pokemonAMandar = (pokemon *) devolverPokemonMasCrack();
 
 					mensajeAEnviar.protocolo = POKEMON;
 					mensajeAEnviar.pokemon.nivel = pokemonAMandar->nivel;
@@ -420,77 +489,10 @@ void jugar(void) {
 }
 
 void sumarTiempoBloqueado() {
-	tiempoBloqueado += tiempoFinalBloqueado - tiempoInicialBloqueado;
+	tiempoTotalBloqueado += tiempoFinalBloqueado - tiempoInicialBloqueado;
 }
 
-void recorrerDirDeBill(char *ruta) {
-	DIR *dip;
-	struct dirent *dit;
-	if ((dip = opendir(ruta)) == NULL) {
-		perror("opendir");
-	}
-	while ((dit = readdir(dip)) != NULL) {
 
-		if (!(strcmp(dit->d_name, "..") == 0 || strcmp(dit->d_name, ".") == 0)) {
-			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
-			strcpy(aux, ruta);
-			strcat(aux, dit->d_name);
-			if (aux[strlen(aux) - 4] != '.') {
-				strcat(aux, "/");
-				recorrerDirectorios(aux);
-			} else {
-				cargarPokemonesDelDirDeBill();
-			}
-			aux = malloc(2);
-			free(aux);
-		}
-
-	}
-	if (closedir(dip) == -1) {
-		perror("closedir");
-	}
-}
-
-void cargarPokemonesDelDirDeBill(char * ruta) {
-	char **rutaParseada = string_split(ruta, "/");
-	int i = 0;
-	while (rutaParseada[i + 1]) {
-		i++;
-	}
-	if (string_ends_with(rutaParseada[i], ".dat")) {
-		t_config * config = config_create(ruta);
-		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
-		nuevoPokemon->nivel = config_get_int_value(config, "Nivel");
-		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[i]);
-		list_add(listaDePokemonesAtrapados, nuevoPokemon);
-		config_destroy(config);
-	}
-
-}
-
-pokemon* buscarPokemonMasGroso() {
-	bool tieneMayorNivel(void* data1, void* data2) {
-		pokemon* pokemon1 = data1;
-		pokemon* pokemon2 = data2;
-		return (pokemon1->nivel > pokemon2->nivel);
-	}
-	list_sort(listaDePokemonesAtrapados, tieneMayorNivel);
-	return (pokemon*) list_get(listaDePokemonesAtrapados, 0);
-}
-
-pokemon* devolverPokemonMasGroso() {
-
-	char* rutaDeLosPokemones = malloc(256);
-	sprintf(rutaDeLosPokemones,
-			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
-			config.nombreDelEntrenador);
-	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
-
-	cargarPokemonesDelDirDeBill(rutaDeLosPokemones);
-	free(rutaDeLosPokemones);
-
-	return buscarPokemonMasGroso();
-}
 
 int main(int argc, char * argv[]) {
 	iniciarDatos(argv[1]);
@@ -498,7 +500,6 @@ int main(int argc, char * argv[]) {
 	signal(SIGUSR1, subirVida);
 	signal(SIGTERM, restarVidaPorSignal);
 	signal(SIGINT, restarVidaPorSignal);
-	crearHiloTiempoBloqueado();
 	tiempoInicial = time(NULL);
 	jugar();
 	return 0;
