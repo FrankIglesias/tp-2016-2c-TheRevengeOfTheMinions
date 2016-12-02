@@ -200,7 +200,7 @@ void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	recorrerDirectorios(
 			string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/",
+					"/home/utnso/montaje/Mapas/%s/PokeNests/",
 					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
 			funcionArchivosPokenest);
 }
@@ -233,7 +233,7 @@ void cargarConfiguracion(void) {
 	t_config * config;
 	char * rutaDeConfigs =
 			string_from_format(
-					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+					"/home/utnso/montaje/Mapas/%s/metadata.txt",
 					configuracion.nombreDelMapa);
 	log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
