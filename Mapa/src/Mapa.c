@@ -388,7 +388,7 @@ void detectarDeadLock() {
 			entrenadorPokemon* unEntrenador, entrenadorPokemon* otroEntrenador) {
 
 		mensaje_MAPA_ENTRENADOR mensaje;
-		mensaje->protocolo = MASFUERTE;
+		mensaje.protocolo = MASFUERTE;
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void*) &mensaje);
 		t_pkmn_factory* fabricaPokemon = create_pkmn_factory();
 		sem_wait(&pokemon_semaphore);

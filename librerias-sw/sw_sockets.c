@@ -117,8 +117,8 @@ void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
 	int pasaje = sizeof(char) + sizeof(instruccion_t);
-	if (header->payload > sizeof(char) + sizeof(instruccion_t)) {
-		int tamanioNombre = header->payload - sizeof(char)
+	if (header.payload > sizeof(char) + sizeof(instruccion_t)) {
+		int tamanioNombre = header.payload - sizeof(char)
 				- sizeof(instruccion_t) - sizeof(int);
 		mensaje->pokemon.nombreDelFichero = malloc(tamanioNombre);
 		memcpy(mensaje->pokemon.nombreDelFichero, buffer + pasaje,
