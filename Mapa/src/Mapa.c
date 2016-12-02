@@ -35,10 +35,7 @@ typedef struct pokenest_t {
 	t_list * listaDePokemones;
 	posicionMapa posicion;
 } pokenest;
-typedef struct estructura_lista_dicc { // EL ENTRENADOR TIENE UN DICCIONARIO CON CLAVE LA INICIAL DEL POKEMON Y VALOR UNA LISTA
-	char* nombreDelFichero;             // QUE CONTIENE ESTE TIPO DE ESTRUCTURA
-	int nivel;
-} pokemon;
+
 typedef struct entrenadorPokemon_t {
 	char simbolo;
 	int socket;
@@ -69,6 +66,7 @@ pthread_mutex_t sem_config;
 pthread_mutex_t sem_listaDeEntrenadores;
 
 sem_t bloqueados_semaphore;
+sem_t pokemon_semaphore;
 
 t_list * listaDeReady;
 t_list * listaDeEntrenadoresBloqueados;
@@ -89,6 +87,7 @@ char **letras;
 char *punteritoAChar;
 int *pokemonesDisponibles = NULL;
 
+pokemon pokemonAPelear;
 void recorrerDirectorios(char *ruta, void (*funcionCarpeta(char * ruta)),
 		void (*funcionArchivo(char *ruta))) {
 	DIR *dip;
@@ -200,7 +199,8 @@ void funcionDirectoriosPokenest(char * ruta) {
 void cargarPokeNests(void) {
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	recorrerDirectorios(
-			string_from_format("/home/utnso/montaje/Mapas/%s/PokeNests/",
+			string_from_format(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/PokeNests/",
 					configuracion.nombreDelMapa), funcionDirectoriosPokenest,
 			funcionArchivosPokenest);
 }
@@ -231,9 +231,10 @@ void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
 }
 void cargarConfiguracion(void) {
 	t_config * config;
-	char * rutaDeConfigs = string_from_format(
-			"/home/utnso/montaje/Mapas/%s/metadata.txt",
-			configuracion.nombreDelMapa);
+	char * rutaDeConfigs =
+			string_from_format(
+					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
+					configuracion.nombreDelMapa);
 	//log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
 	configuracion.tiempoDeChequeoDeDeadLock = config_get_int_value(config,
@@ -262,6 +263,8 @@ void detectarDeadLock() {
 	entrenadorPokemon* entrenadorPerdedor;
 	entrenadorPokemon* segundoEntrenador;
 	t_pokemon* pokemonGanador;
+	pokemon pokemonAPelear1;
+	pokemon pokemonAPelear2;
 //	pthread_mutex_lock(&sem_listaDeEntrenadores);
 	int cantEntrenadores = list_size(listaDeEntrenadores);
 //	pthread_mutex_unlock(&sem_listaDeEntrenadores);
@@ -281,7 +284,8 @@ void detectarDeadLock() {
 					letras[j])) {
 				valor = (t_list*) dictionary_get(
 						unEntrenador->pokemonesAtrapados, letras[j]);
-				log_trace(log, "EL TAMANIO DE LA LISTA ES %d", list_size(valor));
+				log_trace(log, "EL TAMANIO DE LA LISTA ES %d",
+						list_size(valor));
 				pokemonesPorEntrenador[i][j] = list_size(valor);
 			} else {
 				pokemonesPorEntrenador[i][j] = 0;
@@ -383,17 +387,22 @@ void detectarDeadLock() {
 	entrenadorPokemon* lucharEntreDosEntrenadoresYObtenerPerdedor(
 			entrenadorPokemon* unEntrenador, entrenadorPokemon* otroEntrenador) {
 
-		t_pokemon* pokemonGanador;
-		t_pokemon* pokemonAPelear1;
-		pokemonAPelear1 = (t_pokemon*) obtenerPokemonMasFuerte(unEntrenador);
-		t_pokemon* pokemonAPelear2;
-		pokemonAPelear2 = (t_pokemon*) obtenerPokemonMasFuerte(otroEntrenador);
-		pokemonGanador = (t_pokemon*) pkmn_battle(pokemonAPelear1,
-				pokemonAPelear2);
-		if (unEntrenadorTienePokemon(unEntrenador, pokemonGanador))
+		mensaje_MAPA_ENTRENADOR mensaje;
+		mensaje->protocolo = MASFUERTE;
+		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void*) &mensaje);
+		t_pkmn_factory* fabricaPokemon = create_pkmn_factory();
+		sem_wait(&pokemon_semaphore);
+		t_pokemon* pokemon1 = create_pokemon(fabricaPokemon,
+				pokemonAPelear.nombreDelFichero, pokemonAPelear.nivel);
+		enviarMensaje(MAPA_ENTRENADOR, otroEntrenador->socket,
+				(void*) &mensaje);
+		sem_wait(&pokemon_semaphore);
+		t_pokemon* pokemon2 = create_pokemon(fabricaPokemon,
+				pokemonAPelear.nombreDelFichero, pokemonAPelear.nivel);
+		pokemonGanador = (t_pokemon*) pkmn_battle(pokemon1, pokemon2);
+		if (pokemon1 == pokemonGanador)
 			return unEntrenador;
-		else
-			return otroEntrenador;
+		return otroEntrenador;
 
 	}
 
@@ -534,7 +543,7 @@ void atenderDeadLock(void) {
 		pthread_mutex_lock(&sem_config);
 		int aux = configuracion.tiempoDeChequeoDeDeadLock;
 		pthread_mutex_unlock(&sem_config);
-		usleep(aux*100);
+		usleep(aux * 100);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 		detectarDeadLock();
 		if (list_size(listaDeEntrenadoresBloqueados) > 0)
@@ -653,8 +662,8 @@ void realizarAccion(entrenadorPokemon * unEntrenador) {
 		}
 		list_remove_by_condition(listaDeReady, tieneElMismoSocket);
 		quantum = 0;
-
 		break;
+
 	}
 	pthread_mutex_lock(&sem_mapas);
 	MoverPersonaje(items, unEntrenador->simbolo,
@@ -758,6 +767,15 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		entrenadorPokemon * entrenador = (entrenadorPokemon *) data;
 		return entrenador->socket == socket;
 	}
+	if (mensaje->protocolo == POKEMON) {
+
+		pokemonAPelear.nombreDelFichero = malloc(
+				strlen(mensaje->pokemon.nombreDelFichero) + 1);
+		strcpy(pokemonAPelear.nombreDelFichero,
+				mensaje->pokemon.nombreDelFichero);
+		pokemonAPelear.nivel = mensaje->pokemon.nivel;
+		sem_post(&pokemon_semaphore);
+	}
 	unEntrenador = (entrenadorPokemon *) list_find(listaDeEntrenadores,
 			obtenerSegunSocket);
 	if (unEntrenador == NULL) {
@@ -769,6 +787,7 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		if (mensaje->protocolo == PROXIMAPOKENEST) {
 			unEntrenador->proximoPokemon = mensaje->simbolo;
 		}
+
 		unEntrenador->accionARealizar = mensaje->protocolo;
 
 		if (unEntrenador->simbolo == ID) {
@@ -901,10 +920,12 @@ void iniciarMapa() {
 			&configuracion.posicionMaxima.posiciony);
 }
 void iniciarDatos() {
-	log = log_create("Log", "Mapa", 0, 0);
+	log = log_create(configuracion.nombreDelMapa, configuracion.nombreDelMapa,
+			0, 0);
 	listaDeEntrenadores = list_create();
 	sem_init(&bloqueados_semaphore, 0, 0);
 	sem_init(&semaphore_listos, 0, 0);
+	sem_init(&pokemon_semaphore, 0, 0);
 	listaDeEntrenadoresBloqueados = list_create();
 	configuracion.diccionarioDePokeparadas = dictionary_create();
 	pthread_mutex_init(&sem_listaDeEntrenadores, NULL);

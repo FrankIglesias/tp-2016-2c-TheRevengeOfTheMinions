@@ -116,6 +116,16 @@ void *deserializarMensaje_CLIENTE_SERVIDOR_bidireccional(char * buffer,
 void *deserializarMensaje_ENTRENADOR_MAPA(char * buffer, header header) {
 	mensaje_ENTRENADOR_MAPA * mensaje = malloc(sizeof(mensaje_ENTRENADOR_MAPA));
 	memcpy(mensaje, buffer, sizeof(char) + sizeof(instruccion_t));
+	int pasaje = sizeof(char) + sizeof(instruccion_t);
+	if (header->payload > sizeof(char) + sizeof(instruccion_t)) {
+		int tamanioNombre = header->payload - sizeof(char)
+				- sizeof(instruccion_t) - sizeof(int);
+		mensaje->pokemon.nombreDelFichero = malloc(tamanioNombre);
+		memcpy(mensaje->pokemon.nombreDelFichero, buffer + pasaje,
+				tamanioNombre);
+		pasaje += tamanioNombre;
+		memcpy(&mensaje->pokemon.nivel, buffer + pasaje, 4);
+	}
 	free(buffer);
 	return mensaje;
 }
@@ -184,11 +194,25 @@ char * serializar_CLIENTE_SERVIDOR_bidireccionl(void * data,
 }
 char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
 	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;
-	char *buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1);
-	nuevoHeader->payload = sizeof(instruccion_t) + 1;
+	char *buffer;
+	if (mensajeAEnviar->protocolo == POKEMON) {
+		buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1+stlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4);
+		nuevoHeader->payload = sizeof(instruccion_t) + 1+stlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4;
+
+	} else {
+		buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1);
+		nuevoHeader->payload = sizeof(instruccion_t) + 1;
+	}
 	memcpy(buffer, nuevoHeader, sizeof(header));
 	memcpy(buffer + sizeof(header), mensajeAEnviar,
 			sizeof(instruccion_t) + sizeof(char));
+	int pasaje = sizeof(header)+ sizeof(instruccion_t) + sizeof(char);
+	if(mensajeAEnviar->protocolo ==POKEMON){
+		memcpy(buffer +pasaje,mensajeAEnviar->pokemon.nombreDelFichero,strlen(mensajeAEnviar->pokemon.nombreDelFichero)+1);
+		pasaje +=strlen(mensajeAEnviar->pokemon.nombreDelFichero)+1;
+		memcpy(buffer +pasaje,&mensajeAEnviar->pokemon.nivel,4);
+
+	}
 	return buffer;
 }
 char * serializar_MAPA_ENTRENADOR(void * data, header * nuevoHeader) {

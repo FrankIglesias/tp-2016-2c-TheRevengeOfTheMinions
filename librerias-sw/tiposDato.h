@@ -10,6 +10,11 @@
 #include <netdb.h>
 #include <unistd.h>
 
+
+typedef struct estructura_lista_dicc { // EL ENTRENADOR TIENE UN DICCIONARIO CON CLAVE LA INICIAL DEL POKEMON Y VALOR UNA LISTA
+	char* nombreDelFichero;             // QUE CONTIENE ESTE TIPO DE ESTRUCTURA
+	int nivel;
+} pokemon;
 typedef enum {
 	OK,
 	ATRAPAR,
@@ -22,6 +27,7 @@ typedef enum {
 	MOVE_RIGHT,
 	HANDSHAKE,
 	POSICION,
+	MASFUERTE,
 	GUARDAR,
 } instruccion_t;
 typedef enum {
@@ -44,6 +50,7 @@ typedef struct posicionMapa_t {
 typedef struct mensaje_ENTRENADOR_MAPA_t {
 	instruccion_t protocolo;
 	char simbolo; // TANTO ENTRENADOR COMO POKENEST
+	pokemon pokemon;
 } mensaje_ENTRENADOR_MAPA;
 typedef struct mensaje_MAPA_ENTRENADOR_t {
 	instruccion_t protocolo;
