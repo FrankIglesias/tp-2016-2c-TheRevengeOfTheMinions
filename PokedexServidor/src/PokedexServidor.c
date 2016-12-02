@@ -277,8 +277,7 @@ int deltaBuffer(int file, int tamanioNuevo, int offset) {
 }
 
 int escribirArchivo(char * path, char * buffer, int offset, int tamanio) {
-	log_info(log, "Escribiendo en: %s ,contenido:%s offset:%d", path, buffer,
-			offset);
+	log_trace(log, "Escribiendo en: %s  offset:%d", path, offset);
 	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
 	pthread_mutex_unlock(&sem_tablaDeArchivos);
