@@ -6,6 +6,7 @@
 #include <collections/list.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <dirent.h>
 
 struct config_t {
 	char * nombreDelEntrenador;
@@ -20,12 +21,24 @@ typedef struct objetivo_t {
 	t_list* pokemones;
 } objetivo;
 
+typedef struct estructura_lista_dicc {
+	char* nombreDelFichero;
+	int nivel;
+} pokemon;
+
 posicionMapa posicionDeLaPokeNest;
 posicionMapa posicionActual;
 t_log * log;
 
+t_list* listaDePokemonesAtrapados;
+
 int socketCliente;
 int pokemonesAtrapados;
+int tiempoTotalJuego;
+int tiempoTotalBloqueado;
+int tiempoInicial, tiempoFinal;
+int cantDeDeadlocks;
+int tiempoInicialBloqueado, tiempoFinalBloqueado;
 
 bool movimientoVertical = true;
 instruccion_t moverPosicion(void) {
@@ -76,12 +89,10 @@ void restarVida(char* motivo) {
 	free(rutaDeLosPokemones);
 
 	char* rutaDeLasMedallas = malloc(256);
-		sprintf(rutaDeLasMedallas,
-				"/home/utnso/montaje/Entrenadores/%s/Medallas",
-				config.nombreDelEntrenador);
-		borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
+	sprintf(rutaDeLasMedallas, "/home/utnso/montaje/Entrenadores/%s/Medallas",
+			config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
-
 
 	if (config.vidas < 1) {
 		log_trace(log, "Desea reintentar?\n");
@@ -92,8 +103,9 @@ void restarVida(char* motivo) {
 		scanf("%d", &opc);
 
 		if (opc) {
-
 			reintentar();
+		} else if (!opc) {
+			finDeJuego();
 		}
 	} else if (config.vidas >= 1) {
 		jugar();
@@ -214,11 +226,11 @@ void levantarHojaDeViaje() {
 
 void iniciarDatos(char * nombreEntrenador) {
 	log = log_create("Log", nombreEntrenador, 1, 0);
-	configuracion =
-			config_create(
-					string_from_format(
-							"/home/utnso/montaje/Entrenadores/%s/metadata.txt",
-							nombreEntrenador));
+	listaDePokemonesAtrapados = list_create();
+	configuracion = config_create(
+			string_from_format(
+					"/home/utnso/montaje/Entrenadores/%s/metadata.txt",
+					nombreEntrenador));
 }
 
 void actualizarPosicion(instruccion_t protocolo) {
@@ -241,23 +253,36 @@ void actualizarPosicion(instruccion_t protocolo) {
 	}
 }
 void finDeJuego(void) {
+
+	tiempoFinal = time(NULL);
+	tiempoTotalJuego = tiempoFinal - tiempoInicial;
+
 	log_trace(log, "Juego finalizado");
 
 	char* rutaDeLosPokemones = malloc(256);
 	sprintf(rutaDeLosPokemones,
-				"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
-				config.nombreDelEntrenador);
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
+			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
 	free(rutaDeLosPokemones);
 
 	char* rutaDeLasMedallas = malloc(256);
-	sprintf(rutaDeLasMedallas,
-			"/home/utnso/montaje/Entrenadores/%s/Medallas",
+	sprintf(rutaDeLasMedallas, "/home/utnso/montaje/Entrenadores/%s/Medallas",
 			config.nombreDelEntrenador);
 	borrarArchivosDeUnDirectorio(rutaDeLasMedallas);
 	free(rutaDeLasMedallas);
+
+	imprimirEstadisticas();
 	exit(1);
 }
+
+void imprimirEstadisticas() {
+	log_trace("Tiempo Total De Juego: %d", tiempoTotalJuego);
+	log_trace("Participe en %d deadlocks", cantDeDeadlocks);
+	log_trace("Tiempo Total Bloqueado: %d", tiempoTotalBloqueado);
+
+}
+
 char * obtenerNombreDelPokemonRecibido(char * archivo) {
 	return string_substring(archivo, 0, strlen(archivo) - 7);
 }
@@ -272,20 +297,16 @@ void jugar(void) {
 
 	for (i = 0; i < cantidadDeObjetivos; i++) {
 		objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
-		char * rutaDelMetadataDelMapa =
-				string_from_format(
-						"/home/utnso/montaje/Mapas/%s/metadata.txt",
-						unObjetivo->nombreDelMapa);
+		char * rutaDelMetadataDelMapa = string_from_format(
+				"/home/utnso/montaje/Mapas/%s/metadata.txt",
+				unObjetivo->nombreDelMapa);
 		t_config * configAux = config_create(rutaDelMetadataDelMapa);
-
-
 
 		char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
 		int puertoMapa = config_get_int_value(configAux, "Puerto");
 		config_destroy(configAux);
 		log_trace(log, " Se va a conectar al PUERTO:  %d y al IP: %s",
 				puertoMapa, ipMapa);
-
 
 		socketCliente = crearSocketCliente(ipMapa, puertoMapa);
 		free(ipMapa);
@@ -325,12 +346,18 @@ void jugar(void) {
 						mostrarProtocolo(mensajeAEnviar.protocolo));
 				enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 						(void *) &mensajeAEnviar);
+				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
+					tiempoInicialBloqueado = time(NULL);
+					pokemonNoAtrapado = false;
+				}
 				if ((mensajeARecibir =
 						(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
 								socketCliente)) == NULL) {
 					finDeJuego();
 				}
 				if (mensajeARecibir->protocolo == POKEMON) {
+					tiempoFinalBloqueado = time(NULL);
+					sumarTiempoBloqueado();
 					nombreMapa = unObjetivo->nombreDelMapa;
 					char * comando =
 							string_from_format(
@@ -342,8 +369,22 @@ void jugar(void) {
 									config.nombreDelEntrenador);
 					system(comando);
 				}
-				if (mensajeAEnviar.protocolo == ATRAPAR) { // o mensajeARecibir->protocolo==POKEMON
-					pokemonNoAtrapado = false;
+
+				while (mensajeARecibir->protocolo == MASFUERTE) {
+					pokemon* pokemonAMandar = malloc(sizeof(pokemon));
+					pokemonAMandar = devolverPokemonMasGroso();
+
+					mensajeAEnviar.protocolo = POKEMON;
+					mensajeAEnviar.pokemon.nivel = pokemonAMandar->nivel;
+					mensajeAEnviar.pokemon.nombreDelFichero = malloc(
+							strlen(pokemonAMandar->nombreDelFichero));
+					strcpy(mensajeAEnviar.pokemon.nombreDelFichero,
+							pokemonAMandar->nombreDelFichero);
+
+					enviarMensaje(ENTRENADOR_MAPA, socketCliente,
+							(void *) &mensajeAEnviar);
+					mensajeARecibir = (mensaje_MAPA_ENTRENADOR * )recibir(
+							)
 				}
 				if (mensajeARecibir->protocolo == OK) {
 					actualizarPosicion(mensajeAEnviar.protocolo);
@@ -360,21 +401,89 @@ void jugar(void) {
 			}
 		}
 
-
 		char * comando2 =
-		string_from_format(
-		"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s.jpg\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
-		nombreMapa,
-		nombreMapa,
-		config.nombreDelEntrenador);
+				string_from_format(
+						"cp \"/home/utnso/montaje/Mapas/%s/medalla-%s.jpg\" \"/home/utnso/montaje/Entrenadores/%s/Medallas\"",
+						nombreMapa, nombreMapa, config.nombreDelEntrenador);
 
 		system(comando2);
 		free(nombreMapa);
 
 	}
-
-
 	finDeJuego();
+}
+
+void sumarTiempoBloqueado() {
+	tiempoBloqueado += tiempoFinalBloqueado - tiempoInicialBloqueado;
+}
+
+void recorrerDirDeBill(char *ruta) {
+	DIR *dip;
+	struct dirent *dit;
+	if ((dip = opendir(ruta)) == NULL) {
+		perror("opendir");
+	}
+	while ((dit = readdir(dip)) != NULL) {
+
+		if (!(strcmp(dit->d_name, "..") == 0 || strcmp(dit->d_name, ".") == 0)) {
+			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
+			strcpy(aux, ruta);
+			strcat(aux, dit->d_name);
+			if (aux[strlen(aux) - 4] != '.') {
+				strcat(aux, "/");
+				recorrerDirectorios(aux);
+			} else {
+				cargarPokemonesDelDirDeBill();
+			}
+			aux = malloc(2);
+			free(aux);
+		}
+
+	}
+	if (closedir(dip) == -1) {
+		perror("closedir");
+	}
+}
+
+void cargarPokemonesDelDirDeBill(char * ruta) {
+	char **rutaParseada = string_split(ruta, "/");
+	int i = 0;
+	while (rutaParseada[i + 1]) {
+		i++;
+	}
+	if (string_ends_with(rutaParseada[i], ".dat")) {
+		t_config * config = config_create(ruta);
+		pokemon * nuevoPokemon = malloc(sizeof(pokemon));
+		nuevoPokemon->nivel = config_get_int_value(config, "Nivel");
+		nuevoPokemon->nombreDelFichero = string_duplicate(rutaParseada[i]);
+		list_add(listaDePokemonesAtrapados, nuevoPokemon);
+		config_destroy(config);
+	}
+
+}
+
+pokemon* buscarPokemonMasGroso() {
+	bool tieneMayorNivel(void* data1, void* data2) {
+		pokemon* pokemon1 = data1;
+		pokemon* pokemon2 = data2;
+		return (pokemon1->nivel > pokemon2->nivel);
+	}
+	list_sort(listaDePokemonesAtrapados, tieneMayorNivel);
+	return (pokemon*) list_get(listaDePokemonesAtrapados, 0);
+}
+
+pokemon* devolverPokemonMasGroso() {
+
+	char* rutaDeLosPokemones = malloc(256);
+	sprintf(rutaDeLosPokemones,
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
+			config.nombreDelEntrenador);
+	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
+
+	cargarPokemonesDelDirDeBill(rutaDeLosPokemones);
+	free(rutaDeLosPokemones);
+
+	return buscarPokemonMasGroso();
 }
 
 int main(int argc, char * argv[]) {
@@ -383,6 +492,8 @@ int main(int argc, char * argv[]) {
 	signal(SIGUSR1, subirVida);
 	signal(SIGTERM, restarVidaPorSignal);
 	signal(SIGINT, restarVidaPorSignal);
+	crearHiloTiempoBloqueado();
+	tiempoInicial = time(NULL);
 	jugar();
 	return 0;
 }
