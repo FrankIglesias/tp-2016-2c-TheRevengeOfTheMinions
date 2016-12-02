@@ -10,5 +10,5 @@ OSADADIR=$1
 
 echo "Usando $OSADADIR..."
 
-echo "MiAbuelitaPlanchaResortes" > 01234567890123456789.dat
+echo "MiAbuelitaPlanchaResortes" > $OSADADIR/01234567890123456789.dat
 
