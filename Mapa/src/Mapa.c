@@ -223,7 +223,7 @@ void cargarMatrizDisponibles() {
 }
 void imprimirMatrizDisponibles(int disponibles[cantDePokenests]) {
 	int j;
-	//log_trace(log, "MATRIZ DE DISPONIBLES");
+	log_trace(log, "MATRIZ DE DISPONIBLES");
 	for (j = 0; j < cantDePokenests; j++) {
 		printf("%d \t", disponibles[j]);
 	}
@@ -235,28 +235,28 @@ void cargarConfiguracion(void) {
 			string_from_format(
 					"/home/utnso/git/tp-2016-2c-TheRevengeOfTheMinions/Mapas/%s/metadata.txt",
 					configuracion.nombreDelMapa);
-	//log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
+	log_trace(log, "Nombre del mapa: %s", configuracion.nombreDelMapa);
 	config = config_create(rutaDeConfigs);
 	configuracion.tiempoDeChequeoDeDeadLock = config_get_int_value(config,
 			"TiempoChequeoDeadlock");
-	//log_trace(log, "Tiempo de checkeo de Deadlock: %d",
-//			configuracion.tiempoDeChequeoDeDeadLock);
+	log_trace(log, "Tiempo de checkeo de Deadlock: %d",
+			configuracion.tiempoDeChequeoDeDeadLock);
 	configuracion.batalla = config_get_int_value(config, "Batalla");
-//	if (configuracion.batalla)
-	//log_trace(log, "Algoritmo  de batalla habilitado");
-//	else
-	//log_trace(log, "Algoritmo  de batalla deshabilitado");
+if (configuracion.batalla)
+	log_trace(log, "Algoritmo  de batalla habilitado");
+	else
+	log_trace(log, "Algoritmo  de batalla deshabilitado");
 	configuracion.algoritmo = strdup(
 			config_get_string_value(config, "algoritmo"));
-	//log_trace(log, "Algoritmo: %s", configuracion.algoritmo);
+	log_trace(log, "Algoritmo: %s", configuracion.algoritmo);
 	configuracion.quantum = config_get_int_value(config, "quantum");
-	//log_trace(log, "Quantum: %d", configuracion.quantum);
+	log_trace(log, "Quantum: %d", configuracion.quantum);
 
 	configuracion.retardo = config_get_int_value(config, "retardo");
-	//log_trace(log, "Retardo de planificacion %d", configuracion.retardo);
+	log_trace(log, "Retardo de planificacion %d", configuracion.retardo);
 
 	configuracion.puerto = strdup(config_get_string_value(config, "Puerto"));
-	//log_trace(log, "Puerto: %s", configuracion.puerto);
+	log_trace(log, "Puerto: %s", configuracion.puerto);
 
 }
 void detectarDeadLock() {
@@ -427,9 +427,9 @@ void detectarDeadLock() {
 						entrenadorPerdedor, segundoEntrenador);
 			}
 		}
-		//log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c. MORIRA",
-		//entrenadorPerdedor->simbolo
-		//);
+		log_trace(log, "EL ENTRENADOR QUE PERDIO LAS BATALLAS FUE %c. MORIRA",
+	entrenadorPerdedor->simbolo
+		);
 		return entrenadorPerdedor;
 
 	}
@@ -598,12 +598,12 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void *) &mensaje);
 
 	} else {
-		//log_trace(log,
-//		"EL SISTEMA NO TIENE EL RECURSO PEDIDO POR EL ENTRENADOR %c", unEntrenador->simbolo
-		//	);
-		//log_trace(log, "SE AGREGA AL ENTRENADOR %c A LA LISTA DE BLOQUEADOS",
-		//	unEntrenador->simbolo
-		//	);
+		log_trace(log,
+		"EL SISTEMA NO TIENE EL RECURSO PEDIDO POR EL ENTRENADOR %c", unEntrenador->simbolo
+			);
+		log_trace(log, "SE AGREGA AL ENTRENADOR %c A LA LISTA DE BLOQUEADOS",
+			unEntrenador->simbolo
+			);
 		pthread_mutex_lock(&sem_listaDeEntrenadoresBloqueados);
 		int flag = 0;
 		void buscarEntrenador(entrenadorPokemon * entrenador) {
@@ -626,9 +626,9 @@ void abastecerAEntrenadoresBloqueados() {
 void realizarAccion(entrenadorPokemon * unEntrenador) {
 	mensaje_MAPA_ENTRENADOR mensaje;
 	pokenest* pokenestASolicitar;
-//log_trace(log, "La accion a realizar es: %s",
-//	mostrarProtocolo(unEntrenador->accionARealizar)
-//	);
+log_trace(log, "La accion a realizar es: %s",
+	mostrarProtocolo(unEntrenador->accionARealizar)
+	);
 	switch (unEntrenador->accionARealizar) {
 	case MOVE_DOWN:
 		unEntrenador->posicion.posiciony--;
@@ -721,9 +721,9 @@ void replanificar() {
 	if (entrenador == NULL)
 		ID = NULL;
 	else {
-		//log_trace(log,
-		//	"Se obtuvo de la lista de entrenadores el entrenador: %c", entrenador->simbolo
-		//	);
+		log_trace(log,
+			"Se obtuvo de la lista de entrenadores el entrenador: %c", entrenador->simbolo
+			);
 		ID = entrenador->simbolo;
 	}
 }
@@ -736,7 +736,7 @@ void planificador() {
 		usleep(aux * 1000);
 		sem_wait(&semaphore_listos);
 		pthread_mutex_lock(&sem_listaDeReady);
-		//log_trace(log, "Se ha activado el planificador");
+		log_trace(log, "Se ha activado el planificador");
 
 		entrenadorPokemon * entrenador;
 		if (ID == NULL) {
@@ -750,11 +750,11 @@ void planificador() {
 
 			entrenador = (entrenadorPokemon *) list_find(listaDeReady,
 					tieneMismoId);
-			//log_trace(log, "Entrenador a atender: %c", entrenador->simbolo);
+			log_trace(log, "Entrenador a atender: %c", entrenador->simbolo);
 			realizarAccion(entrenador);
 			if (quantum <= 0) {
 				entrenador->tiempo = time(NULL);
-				//log_trace(log, "Fin de quantum");
+				log_trace(log, "Fin de quantum");
 
 				replanificar();
 				if (ID != NULL)
@@ -785,9 +785,9 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 	if (unEntrenador == NULL) {
 		nuevoEntrenador(socket, mensaje);
 	} else {
-		//log_trace(log, "Mensaje %s recibido de entrenador %c",
-		//mostrarProtocolo(mensaje->protocolo), unEntrenador->simbolo
-		//);
+		log_trace(log, "Mensaje %s recibido de entrenador %c",
+		mostrarProtocolo(mensaje->protocolo), unEntrenador->simbolo
+		);
 		if (mensaje->protocolo == PROXIMAPOKENEST) {
 			unEntrenador->proximoPokemon = mensaje->simbolo;
 		}
@@ -795,18 +795,18 @@ void atenderClienteEntrenadores(int socket, mensaje_ENTRENADOR_MAPA* mensaje) {
 		unEntrenador->accionARealizar = mensaje->protocolo;
 
 		if (unEntrenador->simbolo == ID) {
-			//log_trace(log,
-			//		"El entrenador %c esta siendo actualmente planificado", unEntrenador->simbolo
-			//		);
+			log_trace(log,
+					"El entrenador %c esta siendo actualmente planificado", unEntrenador->simbolo
+					);
 			sem_post(&semaphore_listos);
 		} else {
 			unEntrenador->tiempo = time(NULL);
 			pthread_mutex_lock(&sem_listaDeReady);
 			list_add(listaDeReady, unEntrenador);
 			pthread_mutex_unlock(&sem_listaDeReady);
-			//log_trace(log, "Entrenador  %c agregado a la lista de ready",
-			//	unEntrenador->simbolo
-			//	);
+			log_trace(log, "Entrenador  %c agregado a la lista de ready",
+				unEntrenador->simbolo
+				);
 			if (ID == NULL) {
 				sem_post(&semaphore_listos);
 			}
@@ -837,9 +837,9 @@ void librerarPokemonesAtrapadosAlMorirOTerminarMapa(int socket) {
 		}
 	}
 
-//log_trace(log, "LOS POKEMONES DEL ENTRENADOR %c FUERON LIBERADOS",
-//entrenador->simbolo
-//);
+log_trace(log, "LOS POKEMONES DEL ENTRENADOR %c FUERON LIBERADOS",
+entrenador->simbolo
+);
 //log_trace(log, "LOS RECURSOS DISPONIBLES DEL SISTEMA QUEDARON");
 	cargarMatrizDisponibles();
 
@@ -879,7 +879,7 @@ int recibirMensajesEntrenadores(int socket) {
 	mensaje_ENTRENADOR_MAPA * mensaje;
 	if ((mensaje = (mensaje_ENTRENADOR_MAPA *) recibirMensaje(socket)) == NULL) {
 		librerarPokemonesAtrapadosAlMorirOTerminarMapa(socket);
-		//log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
+		log_trace(log, "SE LE ENTREGO A LOS ENTRENADORES EL POKEMON PEDIDO");
 		//log_trace(log, "LOS POKEMONES DISPONIBLES QUEDARON");
 		cargarMatrizDisponibles();
 		removerEntrenadoresPorSocket(socket);
@@ -911,9 +911,9 @@ void nuevoEntrenador(int socket, mensaje_ENTRENADOR_MAPA * mensajeRecibido) {
 	pthread_mutex_lock(&sem_listaDeEntrenadores);
 	list_add(listaDeEntrenadores, entrenador);
 	pthread_mutex_unlock(&sem_listaDeEntrenadores);
-//log_trace(log, "Entrenador %c agregado a la lista de entrenadores",
-//entrenador->simbolo
-//);
+log_trace(log, "Entrenador %c agregado a la lista de entrenadores",
+entrenador->simbolo
+);
 }
 void actualizarMapa() {
 	nivel_gui_dibujar(items, configuracion.nombreDelMapa);
