@@ -1,0 +1,241 @@
+[TRACE] 00:50:58:909 Verde/(4286:4286): Nombre de la nueva pokenest Nidorino
+[TRACE] 00:50:58:930 Verde/(4286:4286): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 00:50:58:937 Verde/(4286:4286): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 00:50:58:938 Verde/(4286:4286): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 00:50:58:949 Verde/(4286:4286): Nombre de la nueva pokenest Golduck
+[TRACE] 00:50:58:950 Verde/(4286:4286): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 00:50:58:950 Verde/(4286:4286): Nombre de la nueva pokenest Zumba
+[TRACE] 00:50:58:976 Verde/(4286:4286): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 00:50:58:977 Verde/(4286:4286): Nombre de la nueva pokenest Raichu
+[TRACE] 00:50:58:978 Verde/(4286:4286): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 00:50:58:979 Verde/(4286:4286): Nombre de la nueva pokenest Pikachu
+[TRACE] 00:50:58:989 Verde/(4286:4286): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 00:50:58:998 Verde/(4286:4286): Nombre de la nueva pokenest Charmander
+[TRACE] 00:50:58:999 Verde/(4286:4286): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 00:50:58:999 Verde/(4286:4286): Se crea hilo para Entrenadores
+[TRACE] 00:50:58:0 Verde/(4286:4286): Se crea hilo de Deadlock
+[TRACE] 00:50:58:1 Verde/(4286:4286): Se crea hilo planificador
+[TRACE] 01:02:58:843 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:02:58:844 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:03:846 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:03:847 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:08:850 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:08:850 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:13:852 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:13:852 Verde/(4286:4288): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:03:13:852 Verde/(4286:4288): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:03:13:853 Verde/(4286:4288): ENTRENADOR $
+[TRACE] 01:03:13:853 Verde/(4286:4288): ENTRENADOR %
+[TRACE] 01:05:59:141 Verde/(4710:4710): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:05:59:145 Verde/(4710:4710): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:05:59:148 Verde/(4710:4710): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:05:59:151 Verde/(4710:4710): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:05:59:155 Verde/(4710:4710): Nombre de la nueva pokenest Golduck
+[TRACE] 01:05:59:157 Verde/(4710:4710): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:05:59:162 Verde/(4710:4710): Nombre de la nueva pokenest Zumba
+[TRACE] 01:05:59:167 Verde/(4710:4710): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:05:59:170 Verde/(4710:4710): Nombre de la nueva pokenest Raichu
+[TRACE] 01:05:59:176 Verde/(4710:4710): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:05:59:178 Verde/(4710:4710): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:05:59:180 Verde/(4710:4710): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:05:59:183 Verde/(4710:4710): Nombre de la nueva pokenest Charmander
+[TRACE] 01:05:59:186 Verde/(4710:4710): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:05:59:186 Verde/(4710:4710): Se crea hilo para Entrenadores
+[TRACE] 01:05:59:271 Verde/(4710:4710): Se crea hilo de Deadlock
+[TRACE] 01:05:59:283 Verde/(4710:4710): Se crea hilo planificador
+[TRACE] 01:07:45:432 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:07:45:432 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:07:50:435 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:07:50:435 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:07:55:438 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:07:55:447 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:08:00:448 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:08:00:452 Verde/(4710:4712): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:08:00:452 Verde/(4710:4712): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:08:00:452 Verde/(4710:4712): ENTRENADOR $
+[TRACE] 01:08:00:452 Verde/(4710:4712): ENTRENADOR %
+[TRACE] 01:12:51:489 Verde/(4855:4855): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:12:51:490 Verde/(4855:4855): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:12:51:490 Verde/(4855:4855): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:12:51:490 Verde/(4855:4855): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:12:51:490 Verde/(4855:4855): Nombre de la nueva pokenest Golduck
+[TRACE] 01:12:51:499 Verde/(4855:4855): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:12:51:500 Verde/(4855:4855): Nombre de la nueva pokenest Zumba
+[TRACE] 01:12:51:500 Verde/(4855:4855): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:12:51:501 Verde/(4855:4855): Nombre de la nueva pokenest Raichu
+[TRACE] 01:12:51:502 Verde/(4855:4855): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:12:51:517 Verde/(4855:4855): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:12:51:523 Verde/(4855:4855): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:12:51:524 Verde/(4855:4855): Nombre de la nueva pokenest Charmander
+[TRACE] 01:12:51:525 Verde/(4855:4855): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:12:51:525 Verde/(4855:4855): Se crea hilo para Entrenadores
+[TRACE] 01:12:51:526 Verde/(4855:4855): Se crea hilo de Deadlock
+[TRACE] 01:12:51:544 Verde/(4855:4855): Se crea hilo planificador
+[TRACE] 01:13:25:791 Verde/(4889:4889): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:13:25:791 Verde/(4889:4889): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:13:25:791 Verde/(4889:4889): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:13:25:791 Verde/(4889:4889): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:13:25:791 Verde/(4889:4889): Nombre de la nueva pokenest Golduck
+[TRACE] 01:13:25:792 Verde/(4889:4889): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:13:25:792 Verde/(4889:4889): Nombre de la nueva pokenest Zumba
+[TRACE] 01:13:25:792 Verde/(4889:4889): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:13:25:792 Verde/(4889:4889): Nombre de la nueva pokenest Raichu
+[TRACE] 01:13:25:792 Verde/(4889:4889): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:13:25:792 Verde/(4889:4889): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:13:25:793 Verde/(4889:4889): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:13:25:793 Verde/(4889:4889): Nombre de la nueva pokenest Charmander
+[TRACE] 01:13:25:793 Verde/(4889:4889): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:13:25:793 Verde/(4889:4889): Se crea hilo para Entrenadores
+[TRACE] 01:13:25:793 Verde/(4889:4889): Se crea hilo de Deadlock
+[TRACE] 01:13:25:794 Verde/(4889:4889): Se crea hilo planificador
+[TRACE] 01:14:24:338 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:24:340 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:29:341 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:29:342 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:34:343 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:34:344 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:39:345 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:39:346 Verde/(4889:4891): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:14:39:346 Verde/(4889:4891): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:14:39:346 Verde/(4889:4891): ENTRENADOR $
+[TRACE] 01:14:39:346 Verde/(4889:4891): ENTRENADOR %
+[TRACE] 01:15:40:939 Verde/(4923:4923): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:15:40:939 Verde/(4923:4923): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:15:40:940 Verde/(4923:4923): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:15:40:940 Verde/(4923:4923): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:15:40:940 Verde/(4923:4923): Nombre de la nueva pokenest Golduck
+[TRACE] 01:15:40:940 Verde/(4923:4923): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:15:40:940 Verde/(4923:4923): Nombre de la nueva pokenest Zumba
+[TRACE] 01:15:40:941 Verde/(4923:4923): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:15:40:941 Verde/(4923:4923): Nombre de la nueva pokenest Raichu
+[TRACE] 01:15:40:941 Verde/(4923:4923): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:15:40:941 Verde/(4923:4923): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:15:40:941 Verde/(4923:4923): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:15:40:941 Verde/(4923:4923): Nombre de la nueva pokenest Charmander
+[TRACE] 01:15:40:942 Verde/(4923:4923): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:15:40:942 Verde/(4923:4923): Se crea hilo para Entrenadores
+[TRACE] 01:15:40:942 Verde/(4923:4923): Se crea hilo de Deadlock
+[TRACE] 01:15:40:942 Verde/(4923:4923): Se crea hilo planificador
+[TRACE] 01:16:43:743 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:43:744 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:48:748 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:48:749 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:53:750 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:53:750 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:58:752 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:58:752 Verde/(4923:4925): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:16:58:752 Verde/(4923:4925): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:16:58:752 Verde/(4923:4925): ENTRENADOR $
+[TRACE] 01:16:58:752 Verde/(4923:4925): ENTRENADOR %
+[TRACE] 01:17:44:233 Verde/(4980:4980): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:17:44:234 Verde/(4980:4980): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:17:44:238 Verde/(4980:4980): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:17:44:239 Verde/(4980:4980): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:17:44:239 Verde/(4980:4980): Nombre de la nueva pokenest Golduck
+[TRACE] 01:17:44:239 Verde/(4980:4980): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:17:44:240 Verde/(4980:4980): Nombre de la nueva pokenest Zumba
+[TRACE] 01:17:44:248 Verde/(4980:4980): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:17:44:249 Verde/(4980:4980): Nombre de la nueva pokenest Raichu
+[TRACE] 01:17:44:249 Verde/(4980:4980): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:17:44:249 Verde/(4980:4980): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:17:44:249 Verde/(4980:4980): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:17:44:249 Verde/(4980:4980): Nombre de la nueva pokenest Charmander
+[TRACE] 01:17:44:250 Verde/(4980:4980): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:17:44:250 Verde/(4980:4980): Se crea hilo para Entrenadores
+[TRACE] 01:17:44:255 Verde/(4980:4980): Se crea hilo de Deadlock
+[TRACE] 01:17:44:284 Verde/(4980:4980): Se crea hilo planificador
+[TRACE] 01:22:03:183 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:03:183 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:08:186 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:08:186 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:13:188 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:13:188 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:18:190 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:18:190 Verde/(4980:4985): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:22:18:191 Verde/(4980:4985): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:22:18:191 Verde/(4980:4985): ENTRENADOR $
+[TRACE] 01:22:18:191 Verde/(4980:4985): ENTRENADOR %
+[TRACE] 01:24:01:240 Verde/(5332:5332): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:24:01:241 Verde/(5332:5332): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:24:01:241 Verde/(5332:5332): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:24:01:241 Verde/(5332:5332): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:24:01:241 Verde/(5332:5332): Nombre de la nueva pokenest Golduck
+[TRACE] 01:24:01:242 Verde/(5332:5332): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:24:01:242 Verde/(5332:5332): Nombre de la nueva pokenest Zumba
+[TRACE] 01:24:01:242 Verde/(5332:5332): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:24:01:255 Verde/(5332:5332): Nombre de la nueva pokenest Raichu
+[TRACE] 01:24:01:255 Verde/(5332:5332): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:24:01:256 Verde/(5332:5332): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:24:01:256 Verde/(5332:5332): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:24:01:256 Verde/(5332:5332): Nombre de la nueva pokenest Charmander
+[TRACE] 01:24:01:256 Verde/(5332:5332): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:24:01:256 Verde/(5332:5332): Se crea hilo para Entrenadores
+[TRACE] 01:24:01:257 Verde/(5332:5332): Se crea hilo de Deadlock
+[TRACE] 01:24:01:257 Verde/(5332:5332): Se crea hilo planificador
+[TRACE] 01:25:38:256 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:38:257 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:43:260 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:43:260 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:48:262 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:48:263 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:53:263 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:53:264 Verde/(5332:5334): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:25:53:264 Verde/(5332:5334): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:25:53:264 Verde/(5332:5334): ENTRENADOR $
+[TRACE] 01:25:53:264 Verde/(5332:5334): ENTRENADOR %
+[TRACE] 01:30:17:424 Verde/(5481:5481): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:30:17:483 Verde/(5481:5481): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:30:17:497 Verde/(5481:5481): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:30:17:504 Verde/(5481:5481): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:30:17:505 Verde/(5481:5481): Nombre de la nueva pokenest Golduck
+[TRACE] 01:30:17:505 Verde/(5481:5481): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:30:17:505 Verde/(5481:5481): Nombre de la nueva pokenest Zumba
+[TRACE] 01:30:17:506 Verde/(5481:5481): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:30:17:506 Verde/(5481:5481): Nombre de la nueva pokenest Raichu
+[TRACE] 01:30:17:510 Verde/(5481:5481): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:30:17:511 Verde/(5481:5481): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:30:17:511 Verde/(5481:5481): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:30:17:511 Verde/(5481:5481): Nombre de la nueva pokenest Charmander
+[TRACE] 01:30:17:511 Verde/(5481:5481): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:30:17:512 Verde/(5481:5481): Se crea hilo para Entrenadores
+[TRACE] 01:30:17:513 Verde/(5481:5481): Se crea hilo de Deadlock
+[TRACE] 01:30:17:513 Verde/(5481:5481): Se crea hilo planificador
+[TRACE] 01:32:12:727 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:12:727 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:17:728 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:17:728 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:22:732 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:22:733 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:27:746 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:27:752 Verde/(5481:5483): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:32:27:752 Verde/(5481:5483): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:32:27:752 Verde/(5481:5483): ENTRENADOR $
+[TRACE] 01:32:27:752 Verde/(5481:5483): ENTRENADOR %
+[TRACE] 01:34:25:660 Verde/(5635:5635): Nombre de la nueva pokenest Nidorino
+[TRACE] 01:34:25:661 Verde/(5635:5635): Pokemon nombre Nidorino001.dat, nivel: 33
+[TRACE] 01:34:25:662 Verde/(5635:5635): Nombre de la nueva pokenest Bulbasaur
+[TRACE] 01:34:25:662 Verde/(5635:5635): Pokemon nombre Bulbasaur001.dat, nivel: 7
+[TRACE] 01:34:25:662 Verde/(5635:5635): Nombre de la nueva pokenest Golduck
+[TRACE] 01:34:25:668 Verde/(5635:5635): Pokemon nombre Golduck001.dat, nivel: 20
+[TRACE] 01:34:25:668 Verde/(5635:5635): Nombre de la nueva pokenest Zumba
+[TRACE] 01:34:25:668 Verde/(5635:5635): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 01:34:25:668 Verde/(5635:5635): Nombre de la nueva pokenest Raichu
+[TRACE] 01:34:25:669 Verde/(5635:5635): Pokemon nombre Raichu001.dat, nivel: 7
+[TRACE] 01:34:25:669 Verde/(5635:5635): Nombre de la nueva pokenest Pikachu
+[TRACE] 01:34:25:669 Verde/(5635:5635): Pokemon nombre Pikachu001.dat, nivel: 33
+[TRACE] 01:34:25:669 Verde/(5635:5635): Nombre de la nueva pokenest Charmander
+[TRACE] 01:34:25:669 Verde/(5635:5635): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 01:34:25:669 Verde/(5635:5635): Se crea hilo para Entrenadores
+[TRACE] 01:34:25:669 Verde/(5635:5635): Se crea hilo de Deadlock
+[TRACE] 01:34:25:670 Verde/(5635:5635): Se crea hilo planificador
+[TRACE] 01:35:56:81 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:35:56:89 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:01:91 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:01:91 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:06:92 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:06:93 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:11:95 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:11:96 Verde/(5635:5637): EL TAMANIO DE LA LISTA ES 1
+[TRACE] 01:36:11:96 Verde/(5635:5637): SE DETECTO DEADLOCK, LOS ENTRENADORES INVOLUCRADOS EN EL INTERBLOQUEO SON
+[TRACE] 01:36:11:97 Verde/(5635:5637): ENTRENADOR $
+[TRACE] 01:36:11:97 Verde/(5635:5637): ENTRENADOR %

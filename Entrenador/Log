@@ -1,0 +1,394 @@
+[TRACE] 01:06:28:705 Blue/(4746:4746): InicializarConfiguracion
+[TRACE] 01:06:28:706 Blue/(4746:4746): verificarConfiguracion
+[TRACE] 01:06:28:707 Blue/(4746:4746): Nombre Entrenador: Blue
+[TRACE] 01:06:28:708 Blue/(4746:4746): Simbolo: ê
+[TRACE] 01:06:28:709 Blue/(4746:4746): Vidas : 1
+[TRACE] 01:06:28:709 Blue/(4746:4746): Reintentos: 0
+[TRACE] 01:06:28:710 Blue/(4746:4746): Se cargaron todas las propiedades
+[TRACE] 01:06:28:710 Blue/(4746:4746):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:06:28:717 Blue/(4746:4746): MAPA: Verde POKEMON: G
+[TRACE] 01:06:28:722 Blue/(4746:4746): La posicion del pokemon a atrapar es: 30 || 10
+[TRACE] 01:06:28:723 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:29:325 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:29:937 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:30:551 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:31:179 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:31:826 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:32:434 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:33:43 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:33:670 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:34:284 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:34:893 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:35:539 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:36:145 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:36:749 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:37:358 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:37:963 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:38:566 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:39:170 Blue/(4746:4746): Se va a mover hacia MOVE_UP
+[TRACE] 01:06:39:781 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:40:423 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:41:45 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:41:655 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:42:257 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:42:863 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:43:465 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:44:69 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:44:673 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:45:275 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:45:880 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:46:492 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:47:94 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:47:695 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:48:299 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:48:938 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:49:543 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:50:156 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:50:763 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:51:369 Blue/(4746:4746): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:06:51:977 Blue/(4746:4746): Se va a mover hacia ATRAPAR
+[TRACE] 01:06:52:662 Blue/(4746:4746): MAPA: Verde POKEMON: R
+[TRACE] 01:07:01:726 Blue/(4746:4746): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:07:01:734 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:20:715 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:20:719 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:28:903 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:28:906 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:28:907 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:28:907 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:28:907 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:28:908 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:29:510 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:30:126 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:30:737 Blue/(4746:4746): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:07:31:340 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:31:946 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:32:554 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:33:157 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:33:762 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:34:364 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:34:972 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:35:575 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:36:183 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:36:797 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:37:403 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:37:4 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:38:609 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:39:222 Blue/(4746:4746): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:07:39:829 Blue/(4746:4746): Se va a mover hacia ATRAPAR
+[TRACE] 01:21:08:725 Blue/(5272:5272): InicializarConfiguracion
+[TRACE] 01:21:08:725 Blue/(5272:5272): verificarConfiguracion
+[TRACE] 01:21:08:726 Blue/(5272:5272): Nombre Entrenador: Blue
+[TRACE] 01:21:08:726 Blue/(5272:5272): Simbolo: ê
+[TRACE] 01:21:08:726 Blue/(5272:5272): Vidas : 1
+[TRACE] 01:21:08:727 Blue/(5272:5272): Reintentos: 0
+[TRACE] 01:21:08:729 Blue/(5272:5272): Se cargaron todas las propiedades
+[TRACE] 01:21:08:729 Blue/(5272:5272):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:21:08:735 Blue/(5272:5272): MAPA: Verde POKEMON: G
+[TRACE] 01:21:08:737 Blue/(5272:5272): La posicion del pokemon a atrapar es: 30 || 10
+[TRACE] 01:21:08:738 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:09:342 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:09:948 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:10:552 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:11:162 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:11:804 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:12:407 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:13:15 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:13:635 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:14:266 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:14:879 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:15:485 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:16:93 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:16:699 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:17:302 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:17:913 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:18:525 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:19:127 Blue/(5272:5272): Se va a mover hacia MOVE_UP
+[TRACE] 01:21:19:728 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:20:329 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:20:935 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:21:547 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:22:153 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:22:793 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:23:437 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:24:80 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:24:685 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:25:300 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:25:912 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:26:518 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:27:125 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:27:736 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:28:341 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:28:968 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:29:597 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:30:200 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:30:805 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:31:419 Blue/(5272:5272): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:21:32:30 Blue/(5272:5272): Se va a mover hacia ATRAPAR
+[TRACE] 01:21:32:901 Blue/(5272:5272): MAPA: Verde POKEMON: R
+[TRACE] 01:21:41:789 Blue/(5272:5272): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:21:41:790 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:42:396 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:43:8 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:43:619 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:44:224 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:44:827 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:45:428 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:46:35 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:46:644 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:47:258 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:47:855 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:48:457 Blue/(5272:5272): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:21:49:68 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:49:678 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:50:284 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:50:902 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:51:513 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:52:122 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:52:723 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:53:325 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:53:931 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:54:541 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:55:148 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:55:754 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:56:363 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:56:971 Blue/(5272:5272): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:21:57:578 Blue/(5272:5272): Se va a mover hacia ATRAPAR
+[TRACE] 01:24:43:664 Blue/(5389:5389): InicializarConfiguracion
+[TRACE] 01:24:43:666 Blue/(5389:5389): verificarConfiguracion
+[TRACE] 01:24:43:667 Blue/(5389:5389): Nombre Entrenador: Blue
+[TRACE] 01:24:43:668 Blue/(5389:5389): Simbolo: ê
+[TRACE] 01:24:43:669 Blue/(5389:5389): Vidas : 1
+[TRACE] 01:24:43:669 Blue/(5389:5389): Reintentos: 0
+[TRACE] 01:24:43:671 Blue/(5389:5389): Se cargaron todas las propiedades
+[TRACE] 01:24:43:678 Blue/(5389:5389):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:24:43:691 Blue/(5389:5389): MAPA: Verde POKEMON: G
+[TRACE] 01:24:43:692 Blue/(5389:5389): La posicion del pokemon a atrapar es: 30 || 10
+[TRACE] 01:24:43:693 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:44:399 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:45:22 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:45:661 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:46:288 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:46:971 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:47:605 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:48:214 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:48:815 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:49:500 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:50:164 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:50:792 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:51:401 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:52:7 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:52:620 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:53:226 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:53:838 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:54:452 Blue/(5389:5389): Se va a mover hacia MOVE_UP
+[TRACE] 01:24:55:61 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:55:666 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:56:268 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:56:870 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:57:475 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:58:87 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:58:695 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:59:298 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:24:59:905 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:00:513 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:01:119 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:01:720 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:02:321 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:02:923 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:03:525 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:04:126 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:04:727 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:05:332 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:05:940 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:06:541 Blue/(5389:5389): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:25:07:145 Blue/(5389:5389): Se va a mover hacia ATRAPAR
+[TRACE] 01:25:07:798 Blue/(5389:5389): MAPA: Verde POKEMON: R
+[TRACE] 01:25:16:906 Blue/(5389:5389): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:25:16:906 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:17:510 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:18:116 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:18:720 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:19:324 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:19:927 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:20:529 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:21:130 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:21:733 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:22:341 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:22:946 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:23:547 Blue/(5389:5389): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:25:24:150 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:24:761 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:25:364 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:25:971 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:26:577 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:27:184 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:27:789 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:28:402 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:29:20 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:29:624 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:30:234 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:30:845 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:31:447 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:32:49 Blue/(5389:5389): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:25:32:651 Blue/(5389:5389): Se va a mover hacia ATRAPAR
+[TRACE] 01:31:18:340 Blue/(5586:5586): InicializarConfiguracion
+[TRACE] 01:31:18:345 Blue/(5586:5586): verificarConfiguracion
+[TRACE] 01:31:18:345 Blue/(5586:5586): Nombre Entrenador: Blue
+[TRACE] 01:31:18:345 Blue/(5586:5586): Simbolo: ê
+[TRACE] 01:31:18:346 Blue/(5586:5586): Vidas : 1
+[TRACE] 01:31:18:346 Blue/(5586:5586): Reintentos: 0
+[TRACE] 01:31:18:349 Blue/(5586:5586): Se cargaron todas las propiedades
+[TRACE] 01:31:18:349 Blue/(5586:5586):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:31:18:354 Blue/(5586:5586): MAPA: Verde POKEMON: G
+[TRACE] 01:31:18:358 Blue/(5586:5586): La posicion del pokemon a atrapar es: 30 || 10
+[TRACE] 01:31:18:359 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:18:959 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:19:563 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:20:164 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:20:772 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:21:396 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:22:13 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:22:650 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:23:273 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:23:898 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:24:504 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:25:104 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:25:709 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:26:319 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:26:928 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:27:533 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:28:140 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:28:767 Blue/(5586:5586): Se va a mover hacia MOVE_UP
+[TRACE] 01:31:29:368 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:29:972 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:30:582 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:31:186 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:31:789 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:32:400 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:33:5 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:33:617 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:34:226 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:34:828 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:35:433 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:36:39 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:36:640 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:37:242 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:37:848 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:38:453 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:39:112 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:39:738 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:40:364 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:41:22 Blue/(5586:5586): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:31:41:626 Blue/(5586:5586): Se va a mover hacia ATRAPAR
+[TRACE] 01:31:42:404 Blue/(5586:5586): MAPA: Verde POKEMON: R
+[TRACE] 01:31:51:361 Blue/(5586:5586): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:31:51:368 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:51:968 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:52:574 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:53:186 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:53:794 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:54:401 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:55:7 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:55:611 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:56:213 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:56:815 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:57:422 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:58:25 Blue/(5586:5586): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:31:58:627 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:59:229 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:31:59:831 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:00:442 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:01:56 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:01:661 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:02:276 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:02:879 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:03:483 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:04:92 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:04:698 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:05:299 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:05:902 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:06:505 Blue/(5586:5586): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:32:07:110 Blue/(5586:5586): Se va a mover hacia ATRAPAR
+[TRACE] 01:35:01:88 Blue/(5688:5688): InicializarConfiguracion
+[TRACE] 01:35:01:89 Blue/(5688:5688): verificarConfiguracion
+[TRACE] 01:35:01:90 Blue/(5688:5688): Nombre Entrenador: Blue
+[TRACE] 01:35:01:90 Blue/(5688:5688): Simbolo: ê
+[TRACE] 01:35:01:90 Blue/(5688:5688): Vidas : 1
+[TRACE] 01:35:01:91 Blue/(5688:5688): Reintentos: 0
+[TRACE] 01:35:01:92 Blue/(5688:5688): Se cargaron todas las propiedades
+[TRACE] 01:35:01:93 Blue/(5688:5688):  Se va a conectar al PUERTO:  9044 y al IP: 127.0.0.1
+[TRACE] 01:35:01:96 Blue/(5688:5688): MAPA: Verde POKEMON: G
+[TRACE] 01:35:01:100 Blue/(5688:5688): La posicion del pokemon a atrapar es: 30 || 10
+[TRACE] 01:35:01:104 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:01:700 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:02:331 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:02:21 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:03:794 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:04:538 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:05:177 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:05:941 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:06:585 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:07:194 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:07:800 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:08:427 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:09:43 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:09:700 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:10:306 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:10:917 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:11:527 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:12:131 Blue/(5688:5688): Se va a mover hacia MOVE_UP
+[TRACE] 01:35:12:735 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:13:345 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:13:957 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:14:565 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:15:173 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:15:783 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:16:387 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:16:998 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:17:601 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:18:204 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:18:812 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:19:416 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:20:24 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:20:627 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:21:236 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:21:846 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:22:458 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:23:105 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:23:706 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:24:308 Blue/(5688:5688): Se va a mover hacia MOVE_RIGHT
+[TRACE] 01:35:24:913 Blue/(5688:5688): Se va a mover hacia ATRAPAR
+[TRACE] 01:35:25:659 Blue/(5688:5688): MAPA: Verde POKEMON: R
+[TRACE] 01:35:34:704 Blue/(5688:5688): La posicion del pokemon a atrapar es: 10 || 4
+[TRACE] 01:35:34:704 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:35:304 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:35:906 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:36:509 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:37:116 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:37:717 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:38:320 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:38:926 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:39:532 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:40:145 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:40:751 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:41:357 Blue/(5688:5688): Se va a mover hacia MOVE_DOWN
+[TRACE] 01:35:41:964 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:42:569 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:43:180 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:43:785 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:44:386 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:44:988 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:45:593 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:46:228 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:46:831 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:47:433 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:48:34 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:48:635 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:49:240 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:49:855 Blue/(5688:5688): Se va a mover hacia MOVE_LEFT
+[TRACE] 01:35:50:465 Blue/(5688:5688): Se va a mover hacia ATRAPAR
+[TRACE] 01:37:02:214 Blue/(5688:5688): Juego finalizado
+[TRACE] 01:37:02:463 Blue/(5688:5688): Tiempo Total De Juego: 121
+[TRACE] 01:37:02:464 Blue/(5688:5688): Participe en 1 deadlocks
+[TRACE] 01:37:02:464 Blue/(5688:5688): Tiempo Total Bloqueado: 1

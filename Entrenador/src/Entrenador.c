@@ -142,12 +142,7 @@ void recorrerDirDeBill(char *ruta) {
 			char * aux = malloc(strlen(ruta) + 2 + strlen(dit->d_name));
 			strcpy(aux, ruta);
 			strcat(aux, dit->d_name);
-			if (aux[strlen(aux) - 4] != '.') {
-				strcat(aux, "/");
-				recorrerDirDeBill(aux);
-			} else {
-				cargarPokemonesDelDirDeBill();
-			}
+			cargarPokemonesDelDirDeBill(aux);
 			aux = malloc(2);
 			free(aux);
 		}
@@ -190,11 +185,10 @@ void * devolverPokemonMasCrack() {
 
 	char* rutaDeLosPokemones = malloc(256);
 	sprintf(rutaDeLosPokemones,
-			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill",
+			"/home/utnso/montaje/Entrenadores/%s/Dir\ de\ Bill/",
 			config.nombreDelEntrenador);
-	borrarArchivosDeUnDirectorio(rutaDeLosPokemones);
 
-	cargarPokemonesDelDirDeBill(rutaDeLosPokemones);
+	recorrerDirDeBill(rutaDeLosPokemones);
 	free(rutaDeLosPokemones);
 
 	pokemon* pokemonADevolver = buscarPokemonMasGroso();
@@ -347,9 +341,9 @@ void finDeJuego(void) {
 }
 
 void imprimirEstadisticas() {
-	log_trace("Tiempo Total De Juego: %d", tiempoTotalJuego);
-	log_trace("Participe en %d deadlocks", cantDeDeadlocks);
-	log_trace("Tiempo Total Bloqueado: %d", tiempoTotalBloqueado);
+	log_trace(log, "Tiempo Total De Juego: %d", tiempoTotalJuego);
+	log_trace(log, "Participe en %d deadlocks", cantDeDeadlocks);
+	log_trace(log, "Tiempo Total Bloqueado: %d", tiempoTotalBloqueado);
 
 }
 
@@ -447,7 +441,7 @@ void jugar(void) {
 					mensajeAEnviar.protocolo = POKEMON;
 					mensajeAEnviar.pokemon.nivel = pokemonAMandar->nivel;
 					mensajeAEnviar.pokemon.nombreDelFichero = malloc(
-							strlen(pokemonAMandar->nombreDelFichero));
+							strlen(pokemonAMandar->nombreDelFichero) + 1);
 					strcpy(mensajeAEnviar.pokemon.nombreDelFichero,
 							pokemonAMandar->nombreDelFichero);
 

@@ -1,0 +1,7 @@
+[TRACE] 00:24:04:798 Azul/(3386:3386): Nombre de la nueva pokenest Zumba
+[TRACE] 00:24:04:799 Azul/(3386:3386): Pokemon nombre Zumba001.dat, nivel: 10
+[TRACE] 00:24:04:799 Azul/(3386:3386): Nombre de la nueva pokenest Charmander
+[TRACE] 00:24:04:862 Azul/(3386:3386): Pokemon nombre Charmander001.dat, nivel: 10
+[TRACE] 00:24:04:862 Azul/(3386:3386): Se crea hilo para Entrenadores
+[TRACE] 00:24:04:863 Azul/(3386:3386): Se crea hilo de Deadlock
+[TRACE] 00:24:04:863 Azul/(3386:3386): Se crea hilo planificador

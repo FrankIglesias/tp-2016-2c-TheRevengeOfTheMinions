@@ -1,4 +1,4 @@
-nombre=Brock
+nombre=Brook
 simbolo=%
 hojaDeViaje=[Verde,Gris]
 obj[Verde]=[R]

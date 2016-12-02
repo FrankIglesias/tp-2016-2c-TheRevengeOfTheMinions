@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -llibrerias-sw
+LIBS := -llibrerias-sw -lpthread -lncurses
 
