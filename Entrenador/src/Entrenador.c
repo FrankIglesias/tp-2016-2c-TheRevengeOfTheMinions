@@ -440,7 +440,7 @@ void jugar(void) {
 
 					mensajeAEnviar.protocolo = POKEMON;
 					mensajeAEnviar.pokemon.nivel = pokemonAMandar->nivel;
-					char* nombrePokemon = string_substring(pokemonAMandar->nombreDelFichero, 0, strlen(pokemonAMandar->nombreDelFichero) - 4);
+					char* nombrePokemon = string_substring(pokemonAMandar->nombreDelFichero, 0, strlen(pokemonAMandar->nombreDelFichero) - 7);
 					mensajeAEnviar.pokemon.nombreDelFichero = malloc(
 							strlen(pokemonAMandar->nombreDelFichero) + 1);
 					strcpy(mensajeAEnviar.pokemon.nombreDelFichero,
