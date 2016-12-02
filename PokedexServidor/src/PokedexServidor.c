@@ -599,13 +599,19 @@ int getAttr(char *path) {
 	return file;
 }
 int truncar(char * path, int tamanio) {
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
-	if (file == -1)
-		return -1;
-	if (tablaDeArchivos[file].bloqueInicial == -1)
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
+
+	if (tablaDeArchivos[file].bloqueInicial == -1) {
+		pthread_mutex_lock(&sem_bitarray);
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
+		pthread_mutex_unlock(&sem_bitarray);
+	}
+
 	if (tablaDeArchivos[file].bloqueInicial == -1)
 		return -4;
+
 	int puntero = tamanio / BLOCK_SIZE;
 	if (tamanio % BLOCK_SIZE != 0)
 		puntero++;
@@ -616,7 +622,19 @@ int truncar(char * path, int tamanio) {
 			return -4;
 		bloqueActual = tablaDeAsignaciones[bloqueActual];
 	}
+
+	if (tamanio < tablaDeArchivos[file].tamanioArchivo) {
+		while (bloqueActual != -1) {
+			pthread_mutex_lock(&sem_bitarray);
+			bitarray_clean_bit(bitmap, bloqueActual);
+			pthread_mutex_unlock(&sem_bitarray);
+			tablaDeAsignaciones[bloqueActual] = -1;
+			bloqueActual = tablaDeAsignaciones[bloqueActual];
+		}
+	}
+
 	tablaDeArchivos[file].tamanioArchivo = tamanio;
+
 	log_trace(log, "Se quizo truncar el archivo %s al tamaño %u", path,
 			tablaDeArchivos[file].tamanioArchivo);
 
@@ -873,16 +891,22 @@ void mapearMemoria(char * nombreBin) {
 	log_trace(log, "Memoria mapeada");
 }
 void sincronizarMemoria() {
-	pthread_mutex_lock(&sem_memory);
 	memcpy(data, &fileHeader, BLOCK_SIZE);
 	int puntero = BLOCK_SIZE;
+	pthread_mutex_lock(&sem_bitarray);
 	memcpy(data + BLOCK_SIZE, bitmap->bitarray,
 			fileHeader.bitmap_blocks * BLOCK_SIZE);
+	pthread_mutex_unlock(&sem_bitarray);
 	puntero += fileHeader.bitmap_blocks * BLOCK_SIZE;
+	pthread_mutex_lock(&sem_tablaDeArchivos);
 	memcpy(data + puntero, tablaDeArchivos, 1024 * BLOCK_SIZE);
+	pthread_mutex_unlock(&sem_tablaDeArchivos);
 	puntero = fileHeader.inicioTablaAsignaciones * BLOCK_SIZE;
+	pthread_mutex_lock(&sem_bitarray);
 	memcpy(data + puntero, tablaDeAsignaciones, tamTAsignacion());
+	pthread_mutex_unlock(&sem_bitarray);
 	puntero = (fileHeader.fs_blocks - fileHeader.data_blocks) * BLOCK_SIZE;
+	pthread_mutex_lock(&sem_memory);
 	memcpy(data + puntero, bloquesDeDatos, fileHeader.data_blocks * BLOCK_SIZE);
 	pthread_mutex_unlock(&sem_memory);
 }
@@ -895,10 +919,8 @@ int main(int argc, void *argv[]) {
 	log = log_create("log", "Osada", 1, 0);
 	mapearMemoria(argv[2]);
 	levantarOsada();
-//	sincronizarMemoria();
 	imprimirArbolDeDirectorios();
 	mostrarTablaDeArchivos();
-//	mostrarTablaDeAsignacion();
 	pthread_mutex_init(&sem_bitarray, NULL);
 	pthread_mutex_init(&sem_memory, NULL);
 	pthread_mutex_init(&sem_tablaDeArchivos, NULL);
