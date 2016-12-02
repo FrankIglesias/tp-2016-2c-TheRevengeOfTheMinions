@@ -444,7 +444,7 @@ void jugar(void) {
 					mensajeAEnviar.pokemon.nombreDelFichero = malloc(
 							strlen(pokemonAMandar->nombreDelFichero) + 1);
 					strcpy(mensajeAEnviar.pokemon.nombreDelFichero,
-							pokemonAMandar->nombreDelFichero);
+							nombrePokemon);
 
 					enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 							(void *) &mensajeAEnviar);
