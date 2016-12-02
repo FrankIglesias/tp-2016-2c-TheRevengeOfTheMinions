@@ -196,8 +196,8 @@ char * serializar_ENTRENADOR_MAPA(void * data, header * nuevoHeader) {
 	mensaje_ENTRENADOR_MAPA * mensajeAEnviar = (mensaje_ENTRENADOR_MAPA *) data;
 	char *buffer;
 	if (mensajeAEnviar->protocolo == POKEMON) {
-		buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1+stlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4);
-		nuevoHeader->payload = sizeof(instruccion_t) + 1+stlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4;
+		buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1+strlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4);
+		nuevoHeader->payload = sizeof(instruccion_t) + 1+strlen(mensajeAEnviar->pokemon.nombreDelFichero)+1+4;
 
 	} else {
 		buffer = malloc(sizeof(header) + sizeof(instruccion_t) + 1);
