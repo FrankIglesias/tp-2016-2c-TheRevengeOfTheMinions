@@ -371,6 +371,7 @@ void jugar(void) {
 				}
 
 				while (mensajeARecibir->protocolo == MASFUERTE) {
+					cantDeDeadlocks++;
 					pokemon* pokemonAMandar = malloc(sizeof(pokemon));
 					pokemonAMandar = devolverPokemonMasGroso();
 
@@ -383,9 +384,14 @@ void jugar(void) {
 
 					enviarMensaje(ENTRENADOR_MAPA, socketCliente,
 							(void *) &mensajeAEnviar);
-					mensajeARecibir = (mensaje_MAPA_ENTRENADOR * )recibir(
-							)
+
+					if ((mensajeARecibir =
+							(mensaje_MAPA_ENTRENADOR *) recibirMensaje(
+									socketCliente)) == NULL) {
+						finDeJuego();
+					}
 				}
+
 				if (mensajeARecibir->protocolo == OK) {
 					actualizarPosicion(mensajeAEnviar.protocolo);
 				}
