@@ -548,6 +548,10 @@ void atenderDeadLock(void) {
 		detectarDeadLock();
 		if (list_size(listaDeEntrenadoresBloqueados) > 0)
 			sem_post(&bloqueados_semaphore);
+		if(list_size(listaDeEntrenadoresBloqueados) ==0){
+			sem_init(&bloqueados_semaphore,0,0);
+
+		}
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
 	}
 }
@@ -611,7 +615,7 @@ void abastecerEntrenador(entrenadorPokemon* unEntrenador) {
 		if (!flag)
 			list_add(listaDeEntrenadoresBloqueados, unEntrenador);
 		pthread_mutex_unlock(&sem_listaDeEntrenadoresBloqueados);
-		if (list_size(listaDeEntrenadoresBloqueados) > 1)
+		if (list_size(listaDeEntrenadoresBloqueados) > 0)
 			sem_post(&bloqueados_semaphore);
 	}
 
