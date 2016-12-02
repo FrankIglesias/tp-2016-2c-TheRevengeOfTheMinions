@@ -8278,3 +8278,197 @@ D�g����V#5�g�#l~�a�y�(����!�W87\^ji��m�Dϓ5�����4a���"��y���+���:
 [DEBUG] 00:55:36:249 Osada/(2314:2314): getAttr: /dir1/dir2/pkmnLogo.2700.txt
 [TRACE] 00:55:36:283 Osada/(2314:2314): Borrar archivo  /dir1/dir2/pkmnLogo.2700.txt
 [TRACE] 00:55:36:284 Osada/(2314:2314): Se ah borrado el archivo: 
+[TRACE] 15:22:48:494 Osada/(2849:2849): Tamaño del disco: 10240 Kb
+[TRACE] 15:22:48:494 Osada/(2849:2849): Memoria mapeada
+[TRACE] 15:22:48:494 Osada/(2849:2849): Levantando OSADA
+[TRACE] 15:22:48:494 Osada/(2849:2849): Levantando Header
+[TRACE] 15:22:48:494 Osada/(2849:2849): Identificador: OsadaFS
+[TRACE] 15:22:48:494 Osada/(2849:2849): Version: 1
+[TRACE] 15:22:48:494 Osada/(2849:2849): Fs_blocks: 163840
+[TRACE] 15:22:48:494 Osada/(2849:2849): Bitmap_blocks: 320
+[TRACE] 15:22:48:494 Osada/(2849:2849): Tabla_de_archivos: 1024
+[TRACE] 15:22:48:494 Osada/(2849:2849): Inicio de tabla de asignaciones: 1345
+[TRACE] 15:22:48:494 Osada/(2849:2849): Bloques de datos: 152339
+[TRACE] 15:22:48:495 Osada/(2849:2849): Cantidad de bloques ocupados 12158
+[TRACE] 15:22:48:500 Osada/(2849:2849): Mostrando arbol de directorio
+[DEBUG] 15:22:48:500 Osada/(2849:2849): mydir - DIRECTORIO
+[DEBUG] 15:22:48:500 Osada/(2849:2849): - dir2 -- DIRECTORIO
+[DEBUG] 15:22:48:500 Osada/(2849:2849): -- dir3 -- DIRECTORIO
+[DEBUG] 15:22:48:500 Osada/(2849:2849): --- file-1000.txt -- ARCHIVO
+[TRACE] 15:22:48:500 Osada/(2849:2849): Imprimiendo tabla de archivos
+[TRACE] 15:22:48:500 Osada/(2849:2849): 0|NOMBRE: mydir|TIPO: DIRECTORIO|BLOQUE PADRE: 65535|BLOQUE INICIAL: -1
+[TRACE] 15:22:48:500 Osada/(2849:2849): 1|NOMBRE: dir2|TIPO: DIRECTORIO|BLOQUE PADRE: 0|BLOQUE INICIAL: -1
+[TRACE] 15:22:48:500 Osada/(2849:2849): 2|NOMBRE: dir3|TIPO: DIRECTORIO|BLOQUE PADRE: 1|BLOQUE INICIAL: -1
+[TRACE] 15:22:48:500 Osada/(2849:2849): 3|NOMBRE: file-1000.txt|TIPO: ARCHIVO|BLOQUE PADRE: 2|BLOQUE INICIAL: 11496
+[DEBUG] 15:23:20:507 Osada/(2849:2895): getAttr: /.Trash
+[DEBUG] 15:23:20:507 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:20:507 Osada/(2849:2895): getAttr: /.xdg-volume-info
+[DEBUG] 15:23:20:507 Osada/(2849:2895): getAttr: /autorun.inf
+[DEBUG] 15:23:20:507 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:507 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:20:507 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:507 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:507 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:508 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:509 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:510 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:20:510 Osada/(2849:2895): getAttr: /autorun.inf
+[DEBUG] 15:23:25:273 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:25:274 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:25:274 Osada/(2849:2895): getAttr: /.directory
+[DEBUG] 15:23:26:408 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:26:409 Osada/(2849:2895): readAttr: /mydir
+[DEBUG] 15:23:26:409 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:26:410 Osada/(2849:2895): getAttr: /mydir/.directory
+[DEBUG] 15:23:26:415 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:26:415 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:26:953 Osada/(2849:2895): readAttr: /mydir/dir2
+[DEBUG] 15:23:26:953 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:26:953 Osada/(2849:2895): getAttr: /mydir/dir2/.directory
+[DEBUG] 15:23:26:956 Osada/(2849:2895): readAttr: /mydir
+[DEBUG] 15:23:26:956 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:27:456 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:27:457 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:27:458 Osada/(2849:2895): readAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:27:458 Osada/(2849:2895): getAttr: /mydir/dir2/dir3/file-1000.txt
+[DEBUG] 15:23:27:458 Osada/(2849:2895): getAttr: /mydir/dir2/dir3/.directory
+[DEBUG] 15:23:27:459 Osada/(2849:2895): readAttr: /mydir/dir2
+[DEBUG] 15:23:27:460 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:28:385 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[INFO] 15:23:28:458 Osada/(2849:2895): Se va a leer el archivo: /mydir/dir2/dir3/file-1000.txt Tamaño: 1000
+[TRACE] 15:23:28:459 Osada/(2849:2895): Lectura: 
+[DEBUG] 15:23:28:459 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:28:460 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:28:460 Osada/(2849:2895): getAttr: /mydir/dir2/dir3/file-1000.txt
+[DEBUG] 15:23:29:426 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:31:276 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:31:276 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:31:276 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:31:276 Osada/(2849:2895): getAttr: /mydir/dir2/dir3/file-1000.txt
+[DEBUG] 15:23:31:277 Osada/(2849:2895): getAttr: /.Trash
+[DEBUG] 15:23:31:277 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:31:277 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:31:277 Osada/(2849:2895): creando directorio
+[DEBUG] 15:23:31:299 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:31:300 Osada/(2849:2895): borrando directorio: /.Trash-1000
+[TRACE] 15:23:31:911 Osada/(2849:2895): Borrar archivo  /mydir/dir2/dir3/file-1000.txt
+[TRACE] 15:23:31:911 Osada/(2849:2895): Se ha borrado el archivo: 
+[DEBUG] 15:23:31:915 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:32:312 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:32:338 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:32:338 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:32:339 Osada/(2849:2895): getAttr: /mydir/dir2/.directory
+[DEBUG] 15:23:32:344 Osada/(2849:2895): readAttr: /mydir
+[DEBUG] 15:23:32:970 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:32:970 Osada/(2849:2895): getAttr: /mydir/dir2/dir3/.directory
+[DEBUG] 15:23:32:971 Osada/(2849:2895): readAttr: /mydir/dir2
+[DEBUG] 15:23:33:490 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:33:490 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:33:491 Osada/(2849:2895): getAttr: /mydir/dir2/.directory
+[DEBUG] 15:23:33:495 Osada/(2849:2895): readAttr: /mydir
+[DEBUG] 15:23:34:387 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:34:387 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:34:387 Osada/(2849:2895): getAttr: /.Trash
+[DEBUG] 15:23:34:387 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:34:387 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:34:387 Osada/(2849:2895): creando directorio
+[DEBUG] 15:23:34:390 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:34:390 Osada/(2849:2895): borrando directorio: /.Trash-1000
+[DEBUG] 15:23:34:867 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:34:868 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:34:868 Osada/(2849:2895): readAttr: /mydir/dir2/dir3
+[DEBUG] 15:23:34:868 Osada/(2849:2895): getAttr: /mydir/dir2/dir3
+[INFO] 15:23:34:872 Osada/(2849:2895): borrando directorio: /mydir/dir2/dir3
+[DEBUG] 15:23:34:876 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:35:162 Osada/(2849:2895): getAttr: /mydir/.directory
+[DEBUG] 15:23:35:166 Osada/(2849:2895): readAttr: /
+[DEBUG] 15:23:35:401 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:36:106 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:36:107 Osada/(2849:2895): getAttr: /mydir/dir2
+[DEBUG] 15:23:36:107 Osada/(2849:2895): getAttr: /.Trash
+[DEBUG] 15:23:36:107 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:36:107 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:36:107 Osada/(2849:2895): creando directorio
+[DEBUG] 15:23:36:127 Osada/(2849:2895): getAttr: /.Trash-1000
+[INFO] 15:23:36:128 Osada/(2849:2895): borrando directorio: /.Trash-1000
+[DEBUG] 15:23:36:555 Osada/(2849:2895): readAttr: /mydir/dir2
+[DEBUG] 15:23:36:556 Osada/(2849:2895): getAttr: /mydir/dir2
+[INFO] 15:23:36:559 Osada/(2849:2895): borrando directorio: /mydir/dir2
+[DEBUG] 15:23:36:563 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:36:794 Osada/(2849:2895): getAttr: /.directory
+[DEBUG] 15:23:37:139 Osada/(2849:2895): getAttr: /.Trash-1000
+[DEBUG] 15:23:40:610 Osada/(2849:2895): getAttr: /mydir
+[DEBUG] 15:23:40:610 Osada/(2849:2895): getAttr: /puto
+[DEBUG] 15:23:40:611 Osada/(2849:2895): getAttr: /puto
+[INFO] 15:23:40:611 Osada/(2849:2895): Renombrando: /mydir por /puto
+[DEBUG] 15:23:41:627 Osada/(2849:2895): getAttr: /puto
+[DEBUG] 15:23:46:498 Osada/(2849:2895): getAttr: /puto
+[DEBUG] 15:23:46:498 Osada/(2849:2895): getAttr: /juanmaputo
+[DEBUG] 15:23:46:498 Osada/(2849:2895): getAttr: /juanmaputo
+[INFO] 15:23:46:498 Osada/(2849:2895): Renombrando: /puto por /juanmaputo
+[DEBUG] 15:23:47:516 Osada/(2849:2895): getAttr: /juanmaputo
+[DEBUG] 15:23:54:501 Osada/(2849:2895): getAttr: /mierdecita
+[TRACE] 15:23:54:501 Osada/(2849:2895): se ha creado un archivo en el bloque: 4294967295, padre: 65535
+[DEBUG] 15:23:54:504 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:23:55:517 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:23:56:322 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 0
+[TRACE] 15:23:56:322 Osada/(2849:2895): Lectura: 
+[DEBUG] 15:23:56:378 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:23:56:379 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 0
+[TRACE] 15:23:56:379 Osada/(2849:2895): Lectura: 
+[DEBUG] 15:23:56:381 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:23:57:42 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:24:06:867 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:24:08:321 Osada/(2849:2895): getAttr: /mierdecita
+[TRACE] 15:24:08:322 Osada/(2849:2895): Se quizo truncar el archivo /mierdecita al tamaño 0
+[DEBUG] 15:24:08:324 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:24:08:324 Osada/(2849:2895): Escribiendo en: /mierdecita ,contenido:asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu offset:0
+[DEBUG] 15:24:08:330 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:24:09:344 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:24:09:345 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 2596
+[TRACE] 15:24:09:345 Osada/(2849:2895): Lectura: asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+[DEBUG] 15:24:09:410 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:24:09:410 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 2596
+[TRACE] 15:24:09:410 Osada/(2849:2895): Lectura: asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+[DEBUG] 15:24:09:468 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:24:09:468 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 2596
+[TRACE] 15:24:09:468 Osada/(2849:2895): Lectura: asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+[DEBUG] 15:24:09:472 Osada/(2849:2895): getAttr: /mierdecita
+[DEBUG] 15:24:10:438 Osada/(2849:2895): getAttr: /mierdecita
+[INFO] 15:24:10:439 Osada/(2849:2895): Se va a leer el archivo: /mierdecita Tamaño: 2596
+[TRACE] 15:24:10:439 Osada/(2849:2895): Lectura: asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
+asdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiuasdfghjklñdfuigbsduhfauihfuiasdhfiu
