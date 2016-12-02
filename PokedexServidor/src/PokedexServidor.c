@@ -599,19 +599,13 @@ int getAttr(char *path) {
 	return file;
 }
 int truncar(char * path, int tamanio) {
-	pthread_mutex_lock(&sem_tablaDeArchivos);
 	int file = verificarSiExiste(path, ARCHIVO);
-	pthread_mutex_unlock(&sem_tablaDeArchivos);
-
-	if (tablaDeArchivos[file].bloqueInicial == -1) {
-		pthread_mutex_lock(&sem_bitarray);
+	if (file == -1)
+		return -1;
+	if (tablaDeArchivos[file].bloqueInicial == -1)
 		tablaDeArchivos[file].bloqueInicial = buscarBloqueLibre();
-		pthread_mutex_unlock(&sem_bitarray);
-	}
-
 	if (tablaDeArchivos[file].bloqueInicial == -1)
 		return -4;
-
 	int puntero = tamanio / BLOCK_SIZE;
 	if (tamanio % BLOCK_SIZE != 0)
 		puntero++;
@@ -622,24 +616,12 @@ int truncar(char * path, int tamanio) {
 			return -4;
 		bloqueActual = tablaDeAsignaciones[bloqueActual];
 	}
-
-	if (tamanio < tablaDeArchivos[file].tamanioArchivo) {
-		while (bloqueActual != -1) {
-			pthread_mutex_lock(&sem_bitarray);
-			bitarray_clean_bit(bitmap, bloqueActual);
-			pthread_mutex_unlock(&sem_bitarray);
-			tablaDeAsignaciones[bloqueActual] = -1;
-			bloqueActual = tablaDeAsignaciones[bloqueActual];
-		}
-	}
-
 	tablaDeArchivos[file].tamanioArchivo = tamanio;
-
 	log_trace(log, "Se quizo truncar el archivo %s al tamaño %u", path,
 			tablaDeArchivos[file].tamanioArchivo);
-
 	sincronizarMemoria();
 	return 0;
+
 }
 
 int atenderPeticiones(int * aux) {
