@@ -516,8 +516,9 @@ int renombrar(char * path, char * path2) {
 						strlen(ruta[i]));
 				tablaDeArchivos[file].nombreArchivo[strlen(ruta[i])] = '\0';
 				tablaDeArchivos[file].bloquePadre = padre;
-				sincronizarMemoria();
 				pthread_mutex_unlock(&sem_tablaDeArchivos);
+				sincronizarMemoria();
+
 				return 1;
 			} else {
 				log_error(log, "Ya existe un archivo con el mismo nombre");
