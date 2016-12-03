@@ -112,20 +112,7 @@ void restarVida(char* motivo) {
 
 void restarVidaPorSignal(void) {
 
-	objetivo * unObjetivo = list_get(config.hojaDeViaje, i);
-
-	char * rutaDelMetadataDelMapa = string_from_format(
-					"/home/utnso/montaje/Mapas/%s/metadata.txt",
-					unObjetivo->nombreDelMapa);
-			t_config * configAux = config_create(rutaDelMetadataDelMapa);
-
-	mensaje_ENTRENADOR_MAPA mensajeAEnviar;
-	char * ipMapa = strdup(config_get_string_value(configAux, "IP"));
-			int puertoMapa = config_get_int_value(configAux, "Puerto");
-			config_destroy(configAux);
-
-			socketCliente = crearSocketCliente(ipMapa, puertoMapa);
-			free(ipMapa);
+	
 			mensajeAEnviar.protocolo = MORIR;
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente, (void *) &mensajeAEnviar);
 	restarVida("Muerte por Signal");
