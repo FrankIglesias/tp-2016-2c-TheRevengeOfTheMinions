@@ -112,7 +112,7 @@ void restarVida(char* motivo) {
 
 void restarVidaPorSignal(void) {
 
-	
+			mensaje_ENTRENADOR_MAPA mensajeAEnviar;
 			mensajeAEnviar.protocolo = MORIR;
 			enviarMensaje(ENTRENADOR_MAPA, socketCliente, (void *) &mensajeAEnviar);
 	restarVida("Muerte por Signal");
