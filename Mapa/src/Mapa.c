@@ -350,24 +350,35 @@ void detectarDeadLock() {
 		}
 		socketAcomparar = unEntrenador->socket;
 		if(list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
+		{
+			socketAcomparar = otroEntrenador->socket;
+			if(!list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
+			return otroEntrenador;
 			return NULL;
+		}
 		mensaje_MAPA_ENTRENADOR mensaje;
 		mensaje.protocolo = MASFUERTE;
 		enviarMensaje(MAPA_ENTRENADOR, unEntrenador->socket, (void*) &mensaje);
 		t_pkmn_factory* fabricaPokemon = create_pkmn_factory();
 		sem_wait(&pokemon_semaphore);
+		socketAcomparar = unEntrenador->socket;
 		if(list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
-			return NULL;
+		{
+					socketAcomparar = otroEntrenador->socket;
+					if(!list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
+					return otroEntrenador;
+					return NULL;
+				}
 		t_pokemon* pokemon1 = create_pokemon(fabricaPokemon,
 				pokemonAPelear.nombreDelFichero, pokemonAPelear.nivel);
 		socketAcomparar = otroEntrenador->socket;
 		if(list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
-			return NULL;
+			return unEntrenador;
 		enviarMensaje(MAPA_ENTRENADOR, otroEntrenador->socket,
 				(void*) &mensaje);
 		sem_wait(&pokemon_semaphore);
 		if(list_any_satisfy(listaDeEntrenadoresMuertos, tieneElMismoSocket))
-			return NULL;
+			return unEntrenador;
 		t_pokemon* pokemon2 = create_pokemon(fabricaPokemon,
 				pokemonAPelear.nombreDelFichero, pokemonAPelear.nivel);
 		pokemonGanador = (t_pokemon*) pkmn_battle(pokemon1, pokemon2);
