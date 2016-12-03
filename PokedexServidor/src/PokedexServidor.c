@@ -744,6 +744,7 @@ int atenderPeticiones(int * aux) {
 		if (devolucion == -1)
 			mensaje->protolo = ERROR;
 		enviarMensaje(CLIENTE_SERVIDOR, socket, (void *) mensaje);
+		free(mensaje);
 	}
 }
 void levantarHeader() {
