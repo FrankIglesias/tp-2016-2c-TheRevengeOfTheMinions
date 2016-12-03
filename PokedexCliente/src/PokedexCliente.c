@@ -50,10 +50,10 @@ static int obtenerAtributo(const char *path, struct stat *stbuf) {
 
 	//Segun el tipo de archivo que sea el path, lleno la estructura stbuf
 	if(respuesta->tipoArchivo==2){//Si es un directorio
-		stbuf->st_mode = S_IFDIR | 0755;
+		stbuf->st_mode = S_IFDIR | 0777;
 		stbuf->st_nlink = 2;
 	}else if (respuesta->tipoArchivo==1){//Si es un archivo (tambien lleno su tamaño)
-		stbuf->st_mode = S_IFREG | 0444;
+		stbuf->st_mode = S_IFREG | 0666;
 		stbuf->st_nlink = 1;
 		stbuf->st_size =respuesta->tamano;
 	}else{
